@@ -13,8 +13,8 @@ import matplotlib.pyplot as plt
 import requests
 
 params = {}
-params['accessCode'] = "dedcf3c6ed1c464eApi"#
-params['secretCode'] = "99da489db0e166ad"#
+params['accessCode'] = 
+params['secretCode'] = 
 base = 'http://www.wikiart.org/en/'
 tail = '?json=2'
 
