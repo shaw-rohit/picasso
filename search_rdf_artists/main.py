@@ -1,16 +1,21 @@
 from SPARQLWrapper import SPARQLWrapper, JSON
 import pandas as pd
+import json
 
 # You will need to install pandas and sparqlWrapper
+from geopy.geocoders import Nominatim
+geolocator = Nominatim(user_agent="specify_your_app_name_here")
+
 
 # opens csv file and adds 2 fields which will be added by dbpedia
 df = pd.read_csv("sample.csv")
-# df = df.head(50)
-df["dbp_name"] = "N/A"
-df["dbp_birthplace"] = "N/A"
+df = df.head(50)
+df["dbp_name"]        = "N/A"
+df["dbp_birthplace"]  = "N/A"
+df["dbp_lat"]         = "N\A"
+df["dbp_long"]        = "N\A"
 
 for index, row in df.iterrows():
-
   # Remove weird signs in name
   new = row['artist_full_name'].replace("'", "")
   new = new.replace("-", r"\'")
@@ -68,8 +73,13 @@ for index, row in df.iterrows():
   # Add the new name and birthplace for the query
   for result in results["results"]["bindings"]:
     print ("Name: "  + result["label"]["value"] + "  birthplace: " + result["birthPlaceLabel"]["value"])
+    location = geolocator.geocode(result["birthPlaceLabel"]["value"])
+    print(location.address)
+    print((location.latitude, location.longitude))
     df["dbp_name"] = result["label"]["value"]
     df["dbp_birthplace"] = result["birthPlaceLabel"]["value"]
+    df["dbp_lat"] = location.latitude
+    df["dbp_long"] = location.longitude
 
 # Remove all N/A tags for keeping only the records which had a valid sparql result
 df = df[df['dbp_name'] != 'N/A']
