@@ -142,4 +142,7 @@ function update_visuals(century, data, show){
 		}
 
 	});
+
+	// show new legend
+	
 };
