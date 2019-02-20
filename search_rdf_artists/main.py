@@ -75,17 +75,22 @@ for index, row in df.iterrows():
   # Add the new name and birthplace for the query
   for result in results["results"]["bindings"]:
     print ("Name: "  + result["label"]["value"] + "  birthplace: " + result["birthPlaceLabel"]["value"])
+    df.loc[df.index[index], 'dbp_name'] = result["label"]["value"]
+    df.loc[df.index[index], 'dbp_birthplace'] = result["birthPlaceLabel"]["value"]
     location = geolocator.geocode(result["birthPlaceLabel"]["value"])
     if(location):
       print(location.address)
       print((location.latitude, location.longitude))
-      df["dbp_name"] = result["label"]["value"]
-      df["dbp_birthplace"] = result["birthPlaceLabel"]["value"]
-      df["dbp_lat"] = location.latitude
-      df["dbp_long"] = location.longitude
+      df.loc[df.index[index], 'dbp_lat'] = location.latitude
+      df.loc[df.index[index], 'dbp_long'] = location.longitude
+      # row["dbp_name"] += result["label"]["value"]
+      # row["dbp_birthplace"] += result["birthPlaceLabel"]["value"]
+      # row["dbp_lat"] += location.latitude
+      # row["dbp_long"] += location.longitude
 
 # Remove all N/A tags for keeping only the records which had a valid sparql result
 df = df[df['dbp_name'] != 'N/A']
+del df["Unnamed: 0"]
 df.to_csv("output.csv")
 
 
