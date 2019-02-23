@@ -1,0 +1,1780 @@
+,artist,city,country
+0,vilmos-aba-novak,{'Budapest'},{'HU'}
+1,reza-abbasi,{'Mashhad'},{'IR'}
+2,louise-abbema,{'?tampes'},{'FR'}
+3,edwin-austin-abbey,{'Philadelphia'},{'US'}
+4,douglas-abdell,"{'Boston', 'March'}","{'IT', 'LB', 'GB', 'US'}"
+5,zainul-abedin,set(),"{'BD', 'IN', 'GB'}"
+6,marina-abramovic,{'Belgrade'},{'RS'}
+7,carla-accardi,{'Trapani'},{'IT'}
+8,vito-acconci,{'York'},{'US'}
+9,norman-ackroyd,"{'Leeds', 'March'}",{'GB'}
+10,nutzi-acontz,set(),{'RO'}
+11,valerio-adami,{'Bologna'},{'IT'}
+12,ansel-adams,{'San'},{'ML'}
+13,bas-jan-ader,{'Winschoten'},{'NL'}
+14,etel-adnan,{'Beirut'},{'LB'}
+15,gosta-adrian-nilsson,set(),{'SE'}
+16,jef-aerosol,{'Nantes'},{'FR'}
+17,afewerk-tekle,set(),{'ET'}
+18,nadir-afonso,set(),{'PT'}
+19,afro,"{'Udine', 'March'}","{'IT', 'GB'}"
+20,yaacov-agam,{'Palestine'},{'US'}
+21,eileen-agar,set(),{'AR'}
+22,aydin-aghdashloo,{'Rasht'},{'IR'}
+23,charuvi-agrawal,{'Delhi'},{'IN'}
+24,ivan-aivazovsky,set(),{'RU'}
+25,roberto-aizenberg,{'Federal'},{'AR'}
+26,abdul-qader-al-raes,{'Dubai'},{'AE'}
+27,grace-albee,"{'Cranston', 'Arnold'}",{'US'}
+28,anni-albers,{'Berlin'},{'DE'}
+29,josef-albers,"{'Bottrop', 'March'}","{'GB', 'DE'}"
+30,mariotto-albertinelli,{'Florence'},{'US'}
+31,olga-albizu,{'Ponce'},{'PR'}
+32,ivan-albright,{'Harvey'},{'US'}
+33,lita-albuquerque,{'Paris'},"{'FR', 'TN', 'US'}"
+34,alexander-bazhbeuk-melikyan,{'Tbilisi'},"{'GE', 'RU'}"
+35,alphonse-allais,{'Paris'},{'US'}
+36,christian-wilhelm-allers,{'Hamburg'},{'DE'}
+37,jose-de-almada-negreiros,{'Jos'},{'NG'}
+38,sir-lawrence-alma-tadema,set(),{'NL'}
+39,helena-almeida,{'Lisbon'},{'PT'}
+40,carlos-alonso,{'Mendoza'},{'AR'}
+41,ioannis-altamouras,{'Naples'},"{'IT', 'US'}"
+42,albrecht-altdorfer,"{'Regensburg', 'Altdorf'}",{'DE'}
+43,nathan-altman,set(),"{'RU', 'UA'}"
+44,john-altoon,set(),{'AM'}
+45,carsten-nicolai,{'Chemnitz'},{'DE'}
+46,theodor-aman,{'March'},"{'RO', 'GB'}"
+47,tarsila-do-amaral,{'Capivari'},{'BR'}
+48,pedro-americo,set(),{'BR'}
+49,cuno-amiet,{'March'},{'GB'}
+50,el-anatsui,"{'Kumasi', 'University'}","{'GH', 'US'}"
+51,anna-ancher,set(),{'DK'}
+52,edna-andrade,"{'Virginia', 'Portsmouth'}","{'ZA', 'US'}"
+53,carl-andre,{'Quincy'},{'US'}
+54,ion-andreescu,{'Bucharest'},{'RO'}
+55,benny-andrews,{'Plainview'},"{'GE', 'US'}"
+56,charles-angrand,set(),{'FR'}
+57,sofonisba-anguissola,{'Cremona'},{'IT'}
+58,albert-anker,set(),{'CH'}
+59,thomas-pollock-anshutz,{'Newport'},{'US'}
+60,richard-anuszkiewicz,{'Erie'},{'US'}
+61,karel-appel,{'Amsterdam'},"{'NL', 'US'}"
+62,billy-apple,{'Auckland'},{'NZ'}
+63,anne-appleby,{'Harrisburg'},{'US'}
+64,diana-arbus,"{'March', 'York'}","{'GB', 'US'}"
+65,james-archer,{'Edinburgh'},{'GB'}
+66,olexandr-archipenko,"{'Kiev', 'Eugene'}","{'RU', 'UA', 'US'}"
+67,sofia-areal,{'Lisbon'},{'PT'}
+68,avigdor-arikha,set(),{'RO'}
+69,howard-arkley,"{'Melbourne', 'Victoria'}","{'AU', 'US'}"
+70,arman,{'Nice'},{'FR'}
+71,rolf-amstrong,"{'Bay', 'Michigan'}","{'PH', 'US'}"
+72,jean-arp,{'Strasbourg'},"{'FR', 'DE'}"
+73,eduardo-arroyo,{'Madrid'},{'ES'}
+74,richard-artschwager,{'Washington'},{'US'}
+75,julian-ashton,{'Surrey'},"{'US', 'CA'}"
+76,jean-michel-atlan,"{'Constantine', 'Paris'}","{'DZ', 'FR', 'US'}"
+77,atsuko-tanaka,set(),{'JP'}
+78,bernard-aubertin,{'Roses'},"{'FR', 'ES'}"
+79,john-james-audubon,set(),"{'HT', 'FR'}"
+80,frank-auerbach,"{'Auerbach', 'Charlotte', 'Berlin'}","{'DE', 'US'}"
+81,george-ault,"{'Cleveland', 'London'}","{'GB', 'US'}"
+82,edward-avedisian,{'Lowell'},{'US'}
+83,hendrick-avercamp,"{'David', 'Amsterdam'}","{'PA', 'US'}"
+84,milton-avery,"{'March', 'York'}","{'GB', 'US'}"
+85,evelyne-axell,{'Namur'},{'BE'}
+86,alice-aycock,{'Harrisburg'},{'US'}
+87,gillian-ayres,{'London'},{'GB'}
+88,anton-azbe,set(),"{'SI', 'AT'}"
+89,azim-azimzade,{'Baku'},"{'RU', 'AZ'}"
+90,knud-baade,set(),{'NO'}
+91,corneliu-baba,{'Craiova'},{'RO'}
+92,alice-baber,{'Charleston'},{'US'}
+93,marcello-bacciarelli,{'Rome'},"{'IT', 'US'}"
+94,francis-bacon,"{'Adelaide', 'Dublin'}","{'IE', 'UK', 'AU', 'US'}"
+95,jo-baer,"{'Washington', 'Seattle'}",{'US'}
+96,sattar-bahlulzadeh,{'Baku'},{'AZ'}
+97,enrico-baj,set(),{'IT'}
+98,samuel-bak,{'Vilnius'},"{'PL', 'LT'}"
+99,leon-bakst,set(),{'BY'}
+100,hans-baldung,{'Imperial'},"{'PE', 'DE'}"
+101,peder-balke,set(),{'NO'}
+102,giacomo-balla,{'Turin'},{'IT'}
+103,balthus,{'Paris'},"{'FR', 'US'}"
+104,octav-bancila,set(),{'RO'}
+105,walter-darby-bannard,"{'Exeter', 'University', 'Princeton'}","{'GB', 'US'}"
+106,edward-mitchell-bannister,{'Brunswick'},"{'US', 'CA'}"
+107,noma-bar,set(),{'IL'}
+108,marcel-barbeau,set(),{'CA'}
+109,phyllida-barlow,"{'Darwin', 'London', 'Newcastle'}","{'ZA', 'GB', 'AU'}"
+110,will-barnet,{'Beverly'},{'US'}
+111,hannelore-baron,{'Dillingen'},{'DE'}
+112,fran-ois-barraud,set(),{'CH'}
+113,james-barry,{'Cork'},{'IE'}
+114,robert-barry,"{'March', 'York'}","{'GB', 'US'}"
+115,jennifer-bartlett,{'March'},{'GB'}
+116,marie-bashkirtseff,set(),{'RU'}
+117,jean-michel-basquiat,"{'Brooklyn', 'York'}",{'US'}
+118,jacopo-bassano,{'Venice'},{'US'}
+119,jules-bastien-lepage,set(),{'FR'}
+120,david-bates,"{'Worcester', 'Cambridge'}","{'ZA', 'US'}"
+121,walter-battiss,{'Somerset'},{'US'}
+122,john-bauer,{'J?nk?ping'},{'SE'}
+123,rudolf-bauer,set(),"{'DE', 'PL'}"
+124,willi-baumeister,{'Stuttgart'},{'DE'}
+125,iain-baxter,"{'Calgary', 'Middlesbrough'}","{'GB', 'CA'}"
+126,frederic-bazille,{'Montpellier'},{'FR'}
+127,william-baziotes,{'Pittsburgh'},{'US'}
+128,mary-beale,"{'March', 'Suffolk'}","{'GB', 'US'}"
+129,romare-bearden,"{'Charlotte', 'Carolina'}","{'PR', 'US'}"
+130,aubrey-beardsley,{'Brighton'},{'US'}
+131,max-beckmann,{'Leipzig'},{'DE'}
+132,osias-beert,{'Kortrijk'},{'BE'}
+133,hossein-behzad,set(),{'IR'}
+134,xu-beihong,set(),{'CN'}
+135,zdislav-beksinski,{'Sanok'},{'PL'}
+136,lorenzo-belenguer,{'Valencia'},"{'VE', 'ES'}"
+137,charles-bell,"{'Oklahoma', 'Tulsa'}",{'US'}
+138,larry-bell,{'Chicago'},{'US'}
+139,vanessa-bell,{'London'},{'GB'}
+140,giovanni-bellini,{'Venice'},"{'IT', 'US'}"
+141,hans-bellmer,"{'Katowice', 'March'}","{'PL', 'GB', 'DE'}"
+142,bernardo-bellotto,{'Venice'},{'US'}
+143,george-bellows,{'Columbus'},{'US'}
+144,ben,{'Naples'},{'US'}
+145,karl-benjamin,{'Chicago'},{'US'}
+146,albert-benua,"{'Petersburg', 'March'}","{'GB', 'US'}"
+147,marie-guillemine-benoist,{'Paris'},"{'FR', 'US'}"
+148,jean-benoit,{'Montr?al'},{'CA'}
+149,frank-w-benson,"{'Salem', 'March'}","{'GB', 'US'}"
+150,thomas-hart-benton,{'Missouri'},{'US'}
+151,jean-beraud,{'Petersburg'},{'US'}
+152,henryk-berlewi,{'Warsaw'},{'PL'}
+153,bartolome-bermejo,{'C?rdoba'},{'MX'}
+154,emile-bernard,{'Lille'},{'FR'}
+155,horia-bernea,{'Bucharest'},{'RO'}
+156,antonio-berni,{'Rosario'},{'AR'}
+157,gian-lorenzo-bernini,"{'Naples', 'Florence'}","{'IT', 'US'}"
+158,joseph-beuys,{'Krefeld'},{'DE'}
+159,jyoti-bhatt,{'March'},{'GB'}
+160,ashley-bickerton,set(),{'BB'}
+161,albert-bierstadt,{'Solingen'},{'DE'}
+162,max-bill,{'Winterthur'},{'CH'}
+163,kateryna-bilokur,"{'Poltava', 'Kiev'}","{'RU', 'UA'}"
+164,george-caleb-bingham,"{'March', 'Augusta', 'Union', 'Missouri', 'Virginia'}","{'ZA', 'GB', 'US'}"
+165,cesare-biseo,"{'Rome', 'Brescia'}","{'IT', 'US'}"
+166,james-bishop,{'Missouri'},{'US'}
+167,dorrit-black,"{'Adelaide', 'Howard'}","{'AU', 'US'}"
+168,charles-blackman,{'Sydney'},"{'AU', 'CA'}"
+169,mary-blair,"{'McAlester', 'Oklahoma'}",{'US'}
+170,peter-blake,"{'Dartford', 'Kent'}","{'GB', 'US'}"
+171,antoine-blanchard,{'Paris'},"{'FR', 'US'}"
+172,carl-bloch,{'Copenhagen'},{'DK'}
+173,norman-bluhm,{'March'},{'GB'}
+174,rochelle-blumenfeld,{'Pittsburgh'},{'US'}
+175,anna-katarina-boberg,{'Stockholm'},{'SE'}
+176,umberto-boccioni,set(),{'IT'}
+177,mel-bochner,{'Pittsburgh'},{'US'}
+178,arnold-bocklin,{'Basel'},{'CH'}
+179,karl-bodmer,set(),{'CH'}
+180,alighiero-boetti,{'Turin'},{'IT'}
+181,bram-bogart,{'Delft'},{'NL'}
+182,nikolay-bogdanov-belsky,{'Smolensk'},{'RU'}
+183,alexander-boghossian,set(),{'ET'}
+184,alexey-bogolyubov,{'March'},{'GB'}
+185,oleksandr-bogomazov,{'March'},"{'GB', 'UA', 'RU'}"
+186,ferdinand-bol,{'Dordrecht'},{'NL'}
+187,giovanni-boldini,"{'Florence', 'Ferrara'}","{'IT', 'US'}"
+188,bill-bollinger,"{'Brooklyn', 'York'}",{'US'}
+189,ilya-bolotowsky,{'Petersburg'},"{'RU', 'US'}"
+190,christian-boltanski,{'Paris'},"{'FR', 'US'}"
+191,david-bomberg,{'Birmingham'},{'US'}
+192,agostino-bonalumi,{'Vimercate'},{'IT'}
+193,dora-boneva,"{'Sofia', 'Gabrovo'}",{'BG'}
+194,rosa-bonheur,"{'Bordeaux', 'March'}","{'GB', 'FR'}"
+195,richard-parkes-bonington,"{'Nottingham', 'Arnold'}","{'GB', 'US'}"
+196,pierre-bonnard,{'Roses'},"{'FR', 'ES'}"
+197,leon-bonnat,"{'Madrid', 'Bayonne'}","{'ES', 'US'}"
+198,lee-bontecou,{'Providence'},{'US'}
+199,columbano-bordalo-pinheiro,{'Almada'},{'PT'}
+200,victor-borisov-musatov,{'Saratov'},{'RU'}
+201,vladimir-borovikovsky,{'Myrhorod'},{'UA'}
+202,hieronymus-bosch,set(),{'NL'}
+203,nandalal-bose,"{'Kharagpur', 'Munger'}","{'GB', 'IN'}"
+204,fernando-botero,{'Medell?n'},{'CO'}
+205,jan-dirksz-both,{'Utrecht'},{'NL'}
+206,sandro-botticelli,{'Florence'},"{'IT', 'US'}"
+207,francesco-botticini,{'Florence'},{'US'}
+208,pauline-boty,"{'London', 'March'}",{'GB'}
+209,francois-boucher,{'Paris'},"{'FR', 'US'}"
+210,alice-boughton,"{'Brooklyn', 'York'}",{'US'}
+211,william-adolphe-bouguereau,set(),{'FR'}
+212,gustave-boulanger,{'Paris'},"{'FR', 'US'}"
+213,sebastien-bourdon,{'Montpellier'},{'FR'}
+214,louise-bourgeois,{'Paris'},"{'FR', 'US'}"
+215,dirk-bouts,"{'Haarlem', 'Leuven'}","{'NL', 'BE'}"
+216,george-bouzianis,{'Athens'},"{'GR', 'US'}"
+217,frank-bowling,set(),{'GY'}
+218,stanley-boxer,{'York'},{'US'}
+219,paul-brach,"{'Brooklyn', 'York'}",{'US'}
+220,john-brack,{'Melbourne'},"{'AU', 'US'}"
+221,robert-brackman,set(),{'UA'}
+222,marie-bracquemond,{'Brest'},{'FR'}
+223,leonaert-bramer,{'Delft'},{'NL'}
+224,constantin-brancusi,set(),{'RO'}
+225,georges-braque,{'Argenteuil'},{'FR'}
+226,brassai,set(),{'RO'}
+227,john-bratby,{'London'},{'GB'}
+228,maurice-braun,{'York'},"{'HU', 'US'}"
+229,victor-brauner,{'Vienna'},"{'RO', 'US'}"
+230,claudio-bravo,"{'Valparaiso', 'Valpara?so'}","{'CL', 'US'}"
+231,manuel-alvarez-bravo,set(),{'MX'}
+232,victor-brecheret,set(),{'IT'}
+233,arno-breker,{'Arnold'},"{'DE', 'US'}"
+234,jules-breton,set(),{'FR'}
+235,anne-brigman,{'Honolulu'},{'US'}
+236,serge-brignoni,{'Bern'},{'CH'}
+237,paul-bril,{'Breda'},{'NL'}
+238,romero-britto,{'Recife'},{'BR'}
+239,gandy-brodie,"{'Brooklyn', 'York'}",{'US'}
+240,fyodor-bronnikov,"{'Perm', 'Shadrinsk'}",{'RU'}
+241,agnolo-bronzino,{'Florence'},{'US'}
+242,marcel-broodthaers,{'Brussels'},{'BE'}
+243,adriaen-brouwer,{'Oudenaarde'},{'BE'}
+244,benjamin-brown,"{'Marion', 'Mary'}","{'TM', 'US'}"
+245,ford-madox-brown,{'Calais'},{'FR'}
+246,joan-brown,{'San'},{'ML'}
+247,theophilus-brown,{'Moline'},{'US'}
+248,patrick-henry-bruce,"{'Virginia', 'Campbell'}","{'ZA', 'US'}"
+249,pieter-bruegel-the-elder,{'Breda'},{'NL'}
+250,filippo-brunelleschi,{'Florence'},"{'IT', 'US'}"
+251,karl-bryullov,{'Petersburg'},{'US'}
+252,carl-buchheister,{'Hanover'},"{'DE', 'US'}"
+253,erich-buchholz,{'Bydgoszcz'},"{'DE', 'PL'}"
+254,bernard-buffet,"{'Narbonne', 'Paris'}","{'FR', 'US'}"
+255,rupert-bunny,"{'Melbourne', 'Victoria'}","{'AU', 'US'}"
+256,laurel-burch,{'San'},{'ML'}
+257,daniel-buren,{'Boulogne-Billancourt'},{'FR'}
+258,david-burliuk,"{'Sumy', 'Lebedyn'}","{'RU', 'UA'}"
+259,edward-burne-jones,{'Birmingham'},{'US'}
+260,alberto-burri,{'March'},"{'IT', 'GB'}"
+261,jack-bush,"{'Toronto', 'Ontario'}","{'US', 'CA'}"
+262,mildred-anne-butler,{'Kilkenny'},"{'IE', 'GE'}"
+263,reg-butler,{'Union'},{'US'}
+264,james-lee-byars,"{'Detroit', 'Michigan'}",{'US'}
+265,alexandre-cabanel,{'Montpellier'},{'FR'}
+266,lilla-cabot-perry,{'Boston'},{'US'}
+267,miguel-cabrera,"{'Oaxaca', 'Antequera'}","{'ES', 'MX'}"
+268,marcelle-cahn,"{'Strasbourg', 'March'}","{'FR', 'GB'}"
+269,gustave-caillebotte,{'Paris'},"{'FR', 'US'}"
+270,ibrahim-calli,{'Denizli'},{'TR'}
+271,jorge-gonzalez-camarena,"{'Guadalajara', 'Arandas', 'March'}","{'GB', 'MX'}"
+272,julia-margaret-cameron,set(),"{'GB', 'IN'}"
+273,luis-camnitzer,{'Montevideo'},"{'UY', 'DE'}"
+274,james-campbell-noble,"{'Campbell', 'Edinburgh'}","{'GB', 'US'}"
+275,jose-campeche,{'San'},{'ML'}
+276,heinrich-campendonk,set(),"{'NL', 'DE'}"
+277,robert-campin,{'Valenciennes'},{'FR'}
+278,canaletto,{'Venice'},{'US'}
+279,niccolo-cannicci,{'Florence'},{'US'}
+280,alonzo-cano,{'Granada'},{'NI'}
+281,antonio-canova,{'Venice'},{'US'}
+282,mircea-cantor,set(),{'RO'}
+283,marie-gabrielle-capet-0,{'Lyon'},{'FR'}
+284,benedetta,{'Rome'},"{'IT', 'US'}"
+285,leonetto-cappiello,{'Livorno'},{'IT'}
+286,caravaggio,"{'Fermo', 'Bergamo'}","{'IT', 'ES'}"
+287,agustin-cardenas,{'Matanzas'},{'CU'}
+288,arthur-beecher-carles,{'Philadelphia'},{'US'}
+289,emil-carlsen,{'Copenhagen'},{'DK'}
+290,franklin-carmichael,"{'Ontario', 'Orillia'}","{'US', 'CA'}"
+291,antonio-carneiro,set(),{'PT'}
+292,anthony-caro,"{'March', 'Malden'}","{'GB', 'US'}"
+293,carolus-duran,{'Lille'},{'FR'}
+294,nicolas-carone,{'York'},{'US'}
+295,vittore-carpaccio,{'Venice'},"{'IT', 'US'}"
+296,emily-carr,"{'Columbia', 'Victoria', 'Vancouver'}","{'CA', 'UK', 'GB', 'US'}"
+297,carlo-carra,{'Alessandria'},{'IT'}
+298,agostino-carracci,{'Bologna'},{'IT'}
+299,annibale-carracci,{'Bologna'},{'IT'}
+300,juan-carreno-de-miranda,"{'Avil?s', 'March'}","{'GB', 'ES'}"
+301,rosalba-carriera,{'Venice'},{'US'}
+302,eugene-carriere,set(),{'FR'}
+303,lilia-carrillo,set(),{'MX'}
+304,leonora-carrington,"{'Chorley', 'Clayton', 'Green'}","{'GB', 'US'}"
+305,lewis-carroll,"{'Cheshire', 'Warrington', 'Runcorn'}","{'GB', 'US'}"
+306,henri-cartier-bresson,set(),{'FR'}
+307,enrico-caruso,{'Naples'},"{'IT', 'US'}"
+308,felice-casorati,{'Novara'},{'IT'}
+309,cassandre,{'Kharkiv'},{'UA'}
+310,mary-cassatt,{'Pittsburgh'},"{'FR', 'US'}"
+311,bruno-cassinari,{'Piacenza'},{'IT'}
+312,juan-carlos-castagnino,set(),{'AR'}
+313,amilcar-de-castro,{'Minas'},"{'UY', 'BR'}"
+314,george-catlin,{'Wilkes-Barre'},{'US'}
+315,patrick-caulfield,{'Acton'},{'US'}
+316,giorgio-cavallon,{'March'},"{'IT', 'GB'}"
+317,enrique-martinez-celaya,set(),{'CU'}
+318,benvenuto-cellini,{'Florence'},"{'IT', 'US'}"
+319,vija-celmins,{'Riga'},{'LV'}
+320,mario-cesariny,"{'Mercedes', 'Lisbon'}","{'PT', 'UY', 'IT', 'FR'}"
+321,paul-cezanne,set(),{'FR'}
+322,paul-emile-chabas,{'Nantes'},{'FR'}
+323,roberto-chabet,"{'Manila', 'March'}","{'PH', 'GB'}"
+324,marc-chagall,{'Vitebsk'},"{'BY', 'RU'}"
+325,edgar-chahine,{'Vienna'},"{'AT', 'US'}"
+326,yannoulis-chalepas,set(),{'GR'}
+327,john-chamberlain,{'Rochester'},{'US'}
+328,alexandre-jacques-chantron,{'Nantes'},{'FR'}
+329,jean-baptiste-simeon-chardin,{'Paris'},{'US'}
+330,james-charles,{'Warrington'},{'GB'}
+331,theodore-chasseriau,{'Lim?n'},"{' Do', 'CR', 'ES'}"
+332,jozef-chelmonski,set(),"{'RU', 'PL'}"
+333,yifei-chen,{'Ningbo'},{'CN'}
+334,jules-cheret,{'Paris'},"{'FR', 'US'}"
+335,sandro-chia,{'Florence'},"{'IT', 'US'}"
+336,judy-chicago,{'Chicago'},{'US'}
+337,billy-childish,"{'Kent', 'Chatham'}","{'GB', 'US'}"
+338,eduardo-chillida,{'San'},{'ML'}
+339,dan-christensen,"{'Easthampton', 'York'}",{'US'}
+340,petrus-christus,{'Breda'},{'NL'}
+341,luke-chueh,"{'Philadelphia', 'March'}","{'GB', 'US'}"
+342,frederic-edwin-church,{'Hartford'},{'US'}
+343,winston-churchill,{'Woodstock'},{'US'}
+344,cima-da-conegliano,{'Conegliano'},{'IT'}
+345,cimabue,"{'Florence', 'Pisa'}","{'IT', 'US'}"
+346,alexandru-ciucurencu,{'Tulcea'},{'RO'}
+347,mikalojus-ciurlionis,set(),"{'RU', 'LT'}"
+348,pieter-claesz,set(),{'BE'}
+349,lygia-clark,"{'Horizonte', 'Minas'}","{'UY', 'BR'}"
+350,harry-clarke,"{'Dublin', 'March'}","{'IE', 'GB', 'US'}"
+351,francesco-clemente,"{'Naples', 'March'}","{'IT', 'GB', 'US'}"
+352,chuck-close,"{'Monroe', 'Washington'}",{'US'}
+353,giulio-clovio,set(),"{'HR', 'IT'}"
+354,teddy-cobena,set(),{'EC'}
+355,alvin-langdon-coburn,{'Boston'},{'US'}
+356,jean-cocteau,"{'Maisons-Laffitte', 'Paris'}","{'FR', 'US'}"
+357,sue-coe,{'Tamworth'},{'GB'}
+358,christo-coetzee,{'March'},{'GB'}
+359,thomas-cole,{'Bolton'},{'GB'}
+360,william-collins,{'London'},{'GB'}
+361,gisela-colon,{'Vancouver'},"{'US', 'DE', 'CA'}"
+362,alex-colville,"{'Toronto', 'Ontario'}","{'US', 'CA'}"
+363,mario-comensoli,{'Lugano'},{'CH'}
+364,charles-conder,{'Mary'},{'TM'}
+365,william-congdon,{'Providence'},{'US'}
+366,john-constable,{'Suffolk'},{'US'}
+367,john-singleton-copley,"{'Boston', 'Bay', 'Mary'}","{'PH', 'GB', 'TM', 'US'}"
+368,fern-coppedge,{'Decatur'},{'US'}
+369,edward-corbett,{'Chicago'},{'US'}
+370,le-corbusier,set(),"{'FR', 'CH'}"
+371,cornbread,{'Philadelphia'},{'US'}
+372,corneille,{'Li?ge'},"{'NL', 'BE'}"
+373,joseph-cornell,{'York'},{'US'}
+374,camille-corot,{'Paris'},{'US'}
+375,correggio,{'Correggio'},{'IT'}
+376,hermann-david-salomon-corrodi,"{'Rome', 'Frascati'}","{'IT', 'US'}"
+377,mary-corse,{'Berkeley'},{'US'}
+378,edouard-cortes,set(),{'FR'}
+379,grace-cossington-smith,{'Bay'},"{'PH', 'AU'}"
+380,robert-cottingham,"{'Brooklyn', 'York'}",{'US'}
+381,gustave-courbet,set(),{'FR'}
+382,thomas-couture,{'Senlis'},{'FR'}
+383,lucas-cranach-the-elder,{'Kronach'},{'DE'}
+384,walter-crane,{'Liverpool'},{'GB'}
+385,martin-creed,{'Wakefield'},{'US'}
+386,giuseppe-maria-crespi,"{'March', 'Bologna'}","{'IT', 'GB'}"
+387,carlo-crivelli,{'Venice'},"{'IT', 'US'}"
+388,john-crome,{'Norwich'},{'US'}
+389,henri-edmond-cross,{'Douai'},{'FR'}
+390,carlos-cruz-diez,{'Caracas'},{'VE'}
+391,tivadar-kosztka-csontvary,set(),"{'AT', 'SK', 'HU'}"
+392,enzo-cucchi,"{'Alba', 'Ancona'}",{'IT'}
+393,charles-courtney-curran,{'Hartford'},{'US'}
+394,currier-and-ives,{'March'},{'GB'}
+395,john-currin,"{'Colorado', 'Oklahoma', 'Boulder'}","{'BR', 'US'}"
+396,aelbert-cuyp,{'Dordrecht'},{'NL'}
+397,ant-nio-de-carvalho-da-silva-porto,{'Porto'},{'PT'}
+398,leonardo-da-vinci,{'Florence'},"{'IT', 'US'}"
+399,leon-dabo,{'Paris'},"{'FR', 'US'}"
+400,dadamaino,set(),{'IT'}
+401,richard-dadd,"{'Kent', 'Chatham'}","{'GB', 'US'}"
+402,dado,{'Cetinje'},{'ME'}
+403,yosef-joseph-yaakov-dadoune,{'Nice'},{'FR'}
+404,pino-daeni,{'Bari'},{'IT'}
+405,johan-christian-dahl,{'Bergen'},{'NO'}
+406,helen-dahm,{'Kreuzlingen'},{'CH'}
+407,chang-dai-chien,{'Neijiang'},{'CN'}
+408,salvador-dali,{'Figueres'},{'ES'}
+409,pierre-emmanuel-damoye,{'Paris'},{'US'}
+410,ken-danby,"{'March', 'Ontario'}","{'GB', 'US'}"
+411,danielson-gambogi-elin,{'Pori'},{'FI'}
+412,guan-daosheng,{'Huzhou'},{'CN'}
+413,nassos-daphnis,set(),{'GR'}
+414,hanne-darboven,{'Munich'},{'DE'}
+415,allan-d-arcangelo,"{'Buffalo', 'York'}",{'US'}
+416,jacques-daret,{'Tournai'},{'BE'}
+417,henry-darger,{'Chicago'},{'US'}
+418,iran-darroudi,{'Mashhad'},{'IR'}
+419,jahar-dasgupta,{'Jamshedpur'},"{'GB', 'IN'}"
+420,charles-francois-daubigny,"{'Paris', 'Edmond'}","{'FR', 'US'}"
+421,honore-daumier,{'Marseille'},{'FR'}
+422,ian-davenport,{'London'},{'GB'}
+423,david-cox,{'Birmingham'},{'US'}
+424,gerard-david,{'Utrecht'},{'NL'}
+425,jacques-louis-david,{'Paris'},"{'FR', 'US'}"
+426,gene-davis,{'Washington'},{'US'}
+427,henry-william-banks-davis,{'London'},{'GB'}
+428,stuart-davis,{'Philadelphia'},{'US'}
+429,georgina-de-albuquerque,{'Taubat?'},{'BR'}
+430,giorgio-de-chirico,set(),{'GR'}
+431,raoul-de-keyser,{'Deinze'},{'BE'}
+432,elaine-de-kooning,"{'Brooklyn', 'March', 'York'}","{'GB', 'US'}"
+433,willem-de-kooning,{'Rotterdam'},"{'NL', 'US'}"
+434,walter-de-maria,{'Albany'},{'US'}
+435,adolph-de-meyer,"{'Dresden', 'Paris'}","{'DE', 'US'}"
+436,robert-de-niro-sr,"{'Campobasso', 'Syracuse', 'Martin', 'York'}","{'IT', 'SK', 'US'}"
+437,giuseppe-de-nittis,{'Barletta'},{'IT'}
+438,josefa-de-obidos,set(),{'ES'}
+439,andres-de-santa-maria,{'Bogot?'},{'CO'}
+440,andre-dunoyer-de-segonzac,{'Paris'},{'US'}
+441,angelo-de-sousa,"{'Porto', 'Maputo'}","{'PT', 'MZ'}"
+442,maarten-de-vos,{'Anna'},{'RU'}
+443,richard-deacon,"{'Bangor', 'Plymouth'}",{'US'}
+444,edouard-debat-ponsan,{'Toulouse'},{'FR'}
+445,joseph-decamp,{'Cincinnati'},{'US'}
+446,jay-defeo,"{'Hanover', 'March'}","{'GB', 'US'}"
+447,edgar-degas,{'Paris'},"{'FR', 'US'}"
+448,andrea-del-verrochio,{'Florence'},"{'IT', 'US'}"
+449,eugene-delacroix,set(),{'FR'}
+450,tony-delap,{'Oakland'},{'US'}
+451,paul-delaroche,{'Paris'},{'US'}
+452,robert-delaunay,"{'Paris', 'George'}","{'ZA', 'FR', 'US'}"
+453,sonia-delaunay,{'Yekaterinburg'},{'RU'}
+454,piero-della-francesca,{'Florence'},{'US'}
+455,paul-delvaux,{'Li?ge'},{'BE'}
+456,robert-demachy,{'Paris'},{'US'}
+457,charles-demuth,{'Lancaster'},{'US'}
+458,maurice-denis,{'Granville'},{'AU'}
+459,andre-derain,"{'Paris', 'Chatou'}","{'FR', 'US'}"
+460,thomas-dewing,"{'Boston', 'Durant'}",{'US'}
+461,aleksandr-deyneka,"{'Imperial', 'Kursk'}","{'PE', 'RU'}"
+462,daniel-dezeuze,{'Al?s'},{'FR'}
+463,emiliano-di-cavalcanti,set(),{'BR'}
+464,piero-di-cosimo,{'Florence'},{'US'}
+465,mark-di-suvero,{'Shanghai'},{'CN'}
+466,narcisse-virgilio-diaz,{'Bordeaux'},"{'FR', 'ES'}"
+467,edwin-dickinson,{'York'},{'US'}
+468,frank-dicksee,{'London'},{'GB'}
+469,thomas-francis-dicksee,{'London'},{'GB'}
+470,richard-diebenkorn,"{'Portland', 'Oregon'}",{'US'}
+471,burgoyne-diller,"{'Mary', 'York'}","{'TM', 'US'}"
+472,stefan-dimitrescu,set(),{'RO'}
+473,vladimir-dimitrov,{'Kyustendil'},{'BG'}
+474,jim-dine,{'Cincinnati'},{'US'}
+475,abidin-dino,{'March'},{'GB'}
+476,mark-dion,{'Bedford'},{'US'}
+477,karl-edvard-diriks,{'Oslo'},{'NO'}
+478,otto-dix,{'Gera'},{'DE'}
+479,maynard-dixon,"{'Virginia', 'Fresno'}","{'ZA', 'US'}"
+480,william-dobson,{'London'},{'GB'}
+481,theo-van-doesburg,{'Utrecht'},{'NL'}
+482,peter-doig,{'Edinburgh'},{'GB'}
+483,robert-doisneau,{'Gentilly'},{'FR'}
+484,cesar-domela,{'Amsterdam'},"{'NL', 'US'}"
+485,donatello,{'Florence'},"{'IT', 'US'}"
+486,dondi,"{'Brooklyn', 'York'}",{'US'}
+487,antonio-donghi,"{'Rome', 'March'}","{'IT', 'GB', 'US'}"
+488,piero-dorazio,{'Rome'},{'US'}
+489,gustave-dore,{'Strasbourg'},{'FR'}
+490,dosso-dossi,"{'Dosso', 'San'}","{'ML', 'NE'}"
+491,gerardo-dottori,{'Perugia'},{'IT'}
+492,gerrit-dou,{'Leiden'},{'NL'}
+493,aaron-douglas,"{'Elizabeth', 'Kansas', 'Douglas', 'Topeka'}",{'US'}
+494,arthur-dove,{'York'},{'US'}
+495,thomas-downing,"{'Virginia', 'Suffolk'}","{'ZA', 'US'}"
+496,herbert-james-draper,{'London'},{'GB'}
+497,peter-dreher,{'Mannheim'},{'DE'}
+498,rosalyn-drexler,{'York'},{'US'}
+499,paul-du-toit,{'Johannesburg'},{'ZA'}
+500,pierre-dubreuil,{'Lille'},"{'FR', 'BE'}"
+501,jean-dubuffet,set(),{'FR'}
+502,duccio,{'Siena'},{'IT'}
+503,marcel-duchamp,set(),{'FR'}
+504,joseph-ducreux,{'Nancy'},{'FR'}
+505,raoul-dufy,set(),{'FR'}
+506,edmund-dulac,{'Toulouse'},{'FR'}
+507,natalia-dumitresco,{'Bucharest'},{'RO'}
+508,john-duncan,{'Dundee'},{'ZA'}
+509,jean-dupas,{'Bordeaux'},{'FR'}
+510,jules-dupre,{'Nantes'},{'FR'}
+511,asher-brown-durand,"{'Maplewood', 'Jefferson'}","{'JE', 'US'}"
+512,albrecht-durer,{'Roman'},{'RO'}
+513,jimmie-durham,"{'Washington', 'Hempstead', 'Texas', 'Houston'}",{'US'}
+514,dusan-dzamonja,{'Strumica'},{'MK'}
+515,friedel-dzubas,{'Berlin'},{'DE'}
+516,thomas-eakins,{'Philadelphia'},{'US'}
+517,eyvind-earle,"{'Manhattan', 'Hollywood', 'York'}",{'US'}
+518,christoffer-wilhelm-eckersberg,set(),{'DK'}
+519,otto-eckmann,{'Hamburg'},{'DE'}
+520,edelfelt-albert,{'Porvoo'},{'FI'}
+521,william-eggleston,{'Memphis'},{'US'}
+522,keisai-eisen,{'Ikeda'},{'JP'}
+523,hakuin-ekaku,{'Fuji'},{'JP'}
+524,el-greco,{'Venice'},{'US'}
+525,el-lissitzky,set(),{'RU'}
+526,olafur-eliasson,{'Copenhagen'},{'DK'}
+527,mario-eloy,{'Lisbon'},{'PT'}
+528,mir-emad-hassani,{'Qazvin'},{'IR'}
+529,tracey-emin,"{'Surrey', 'London', 'Margate'}","{'ZA', 'UK', 'GB', 'CA'}"
+530,james-ensor,{'Brussels'},"{'UK', 'DE', 'BE'}"
+531,jacob-epstein,{'York'},"{'GB', 'US'}"
+532,adalbert-erdeli,set(),"{'UA', 'HU'}"
+533,jimmy-ernst,set(),{'DE'}
+534,max-ernst,set(),{'DE'}
+535,erte,{'Petersburg'},"{'RU', 'US'}"
+536,elliott-erwitt,{'Paris'},"{'IT', 'FR', 'US'}"
+537,m-c-escher,{'Leeuwarden'},{'NL'}
+538,marisol-escobar,{'Paris'},"{'FR', 'US'}"
+539,maurice-esteve,set(),{'FR'}
+540,bracha-l-ettinger,"{'March', 'Palestine'}","{'US', 'GB', 'IL'}"
+541,frank-eugene,"{'Eugene', 'York'}",{'US'}
+542,richard-eurich,"{'March', 'Bradford'}",{'GB'}
+543,fred-eversley,{'Brooklyn'},{'US'}
+544,julius-evola,{'Rome'},"{'IT', 'US'}"
+545,ivan-eyre,set(),{'CA'}
+546,gentile-da-fabriano,{'Fabriano'},{'IT'}
+547,carel-fabritius,set(),{'NL'}
+548,giandomenico-facchina,{'Pordenone'},{'IT'}
+549,oyvind-fahlstrom,set(),{'BR'}
+550,luis-ricardo-falero,{'Granada'},"{'NI', 'ES'}"
+551,robert-falk,{'Moscow'},{'US'}
+552,wojciech-fangor,{'Warsaw'},{'PL'}
+553,joseph-farquharson,{'Edinburgh'},{'GB'}
+554,mahmoud-farshchian,{'Isfahan'},{'IR'}
+555,giovanni-fattori,{'Livorno'},{'IT'}
+556,jean-fautrier,{'Paris'},"{'FR', 'US'}"
+557,thomas-fearnley,{'Halden'},{'NO'}
+558,mary-fedden,{'Bristol'},{'US'}
+559,paul-feeley,{'Iowa'},{'US'}
+560,lyonel-feininger,{'York'},{'US'}
+561,lorser-feitelson,"{'Savannah', 'York'}","{'GE', 'US'}"
+562,lin-fengmian,set(),{'CN'}
+563,karoly-ferenczy,{'Vienna'},"{'AT', 'US'}"
+564,john-duncan-fergusson,"{'March', 'Edinburgh'}",{'GB'}
+565,leon-ferrari,{'San'},"{'AR', 'ML', 'IT'}"
+566,jose-ferraz-de-almeida-junior,{'Itu'},"{'BR', 'NG'}"
+567,john-ferren,"{'Oregon', 'Pendleton'}",{'US'}
+568,domenico-fiasella,"{'Sarzana', 'Genoa'}",{'IT'}
+569,pedro-figari,{'Montevideo'},{'UY'}
+570,luke-fildes,{'Liverpool'},"{'IE', 'GB'}"
+571,emil-filla,"{'Brno', 'Prague'}",{'CZ'}
+572,robert-filliou,set(),{'FR'}
+573,pavel-filonov,{'Moscow'},"{'RU', 'US'}"
+574,perle-fine,{'Boston'},{'US'}
+575,leonor-fini,set(),{'AR'}
+576,eric-fischl,"{'March', 'York', 'Phoenix'}","{'GB', 'US'}"
+577,janet-fish,{'Boston'},{'US'}
+578,harrison-fisher,"{'Brooklyn', 'York'}",{'US'}
+579,audrey-flack,{'York'},{'US'}
+580,dan-flavin,{'York'},"{'IE', 'JM', 'US'}"
+581,konstantin-dmitriyevich-flavitsky,{'Moscow'},{'US'}
+582,adolf-fleischmann,"{'Esslingen', 'March'}","{'GB', 'DE'}"
+583,thalia-flora-karavia,set(),"{'MK', 'GR'}"
+584,franco-fontana,{'Modena'},{'IT'}
+585,lavinia-fontana,"{'Bologna', 'Fontana'}","{'IT', 'US'}"
+586,lucio-fontana,{'Rosario'},{'AR'}
+587,tsuguharu-foujita,{'Tokyo'},{'JP'}
+588,jean-fouquet,{'Tours'},{'FR'}
+589,fra-angelico,{'Florence'},{'US'}
+590,fra-bartolomeo,{'Prato'},{'IT'}
+591,jean-honore-fragonard,{'Grasse'},{'FR'}
+592,esteban-frances,{'Girona'},{'ES'}
+593,sam-francis,{'San'},{'ML'}
+594,jane-frank,"{'Baltimore', 'Maryland'}",{'US'}
+595,helen-frankenthaler,"{'Manhattan', 'York'}",{'US'}
+596,roger-de-la-fresnaye,set(),{'FR'}
+597,lucian-freud,{'Berlin'},{'DE'}
+598,otto-freundlich,set(),{'DE'}
+599,caspar-david-friedrich,{'Greifswald'},"{'DE', 'SE'}"
+600,frederick-carl-frieseke,"{'Owosso', 'Michigan'}",{'US'}
+601,brian-froud,{'Winchester'},{'US'}
+602,fujishima-takeji,set(),{'JP'}
+603,henry-fuseli,set(),{'CH'}
+604,futura-2000,{'York'},{'US'}
+605,ethel-leontine-gabain,{'March'},"{'GB', 'FR'}"
+606,naum-gabo,{'Bryansk'},{'RU'}
+607,thomas-gainsborough,"{'Gainsborough', 'Sudbury', 'Suffolk'}","{'GB', 'US'}"
+608,emile-galle,{'Nancy'},{'FR'}
+609,akseli-gallen-kallela,{'Pori'},{'FI'}
+610,charles-garabedian,"{'Detroit', 'Michigan'}","{'AM', 'US'}"
+611,paul-gauguin,"{'Clovis', 'Paris'}","{'FR', 'US'}"
+612,paul-gavarni,{'Paris'},{'US'}
+613,nikolai-ge,{'Voronezh'},"{'RU', 'FR'}"
+614,eduard-von-gebhardt,set(),{'EE'}
+615,ilka-gedo,{'Budapest'},{'HU'}
+616,gego,{'Hamburg'},{'DE'}
+617,rupprecht-geiger,{'Munich'},{'DE'}
+618,ivan-generalic,{'Koprivnica'},{'HR'}
+619,artemisia-gentileschi,{'Ottaviano'},{'IT'}
+620,isa-genzken,set(),{'DE'}
+621,theodore-gericault,{'Rouen'},{'FR'}
+622,jean-leon-gerome,{'Vesoul'},{'FR'}
+623,gunther-gerzso,set(),{'MX'}
+624,gevorg-bashindzhagian,set(),{'RU'}
+625,adrian-ghenie,set(),{'RO'}
+626,ghiberti,{'Florence'},"{'IT', 'US'}"
+627,domenico-ghirlandaio,{'Florence'},"{'IT', 'US'}"
+628,alberto-giacometti,set(),"{'IT', 'CH'}"
+629,giambologna,{'Douai'},{'FR'}
+630,vincent-giarrano,"{'Buffalo', 'York', 'Vincent'}",{'US'}
+631,charles-gibbons,set(),{'CA'}
+632,aleksander-gierymski,{'Paris'},"{'FR', 'US'}"
+633,h-r-giger,{'Chur'},"{'SZ', 'CH'}"
+634,eric-gill,"{'Preston', 'Brighton', 'Hamilton'}","{'GB', 'US'}"
+635,sam-gilliam,{'Tupelo'},{'US'}
+636,liam-gillick,{'Aylesbury'},{'GB'}
+637,luca-giordano,{'Naples'},{'US'}
+638,giorgione,{'Venice'},"{'IT', 'US'}"
+639,giotto,{'Florence'},"{'IT', 'US'}"
+640,anne-louis-girodet,{'Montargis'},{'FR'}
+641,alberto-gironella,set(),{'MX'}
+642,thomas-girtin,{'London'},{'GB'}
+643,william-james-glackens,"{'Philadelphia', 'March'}","{'GB', 'US'}"
+644,albert-gleizes,{'Paris'},{'US'}
+645,charles-gleyre,{'Lausanne'},{'CH'}
+646,domenico-gnoli,{'Rome'},"{'IT', 'US'}"
+647,robert-gober,"{'Tyler', 'Rome', 'Wallingford'}",{'US'}
+648,john-william-godward,"{'Wilton', 'Grove'}","{'GB', 'US'}"
+649,chaim-goldberg,set(),{'PL'}
+650,natalia-goncharova,{'Tula'},{'RU'}
+651,eva-gonzales,{'Paris'},"{'FR', 'US'}"
+652,julio-gonzalez,{'Barcelona'},{'VE'}
+653,dominique-gonzalez-foerster,{'Strasbourg'},{'FR'}
+654,felix-gonzalez-torres,{'Gu?imaro'},{'CU'}
+655,joe-goode,{'Oklahoma'},{'US'}
+656,robert-goodnough,"{'Cortland', 'York'}",{'US'}
+657,betty-goodwin,{'March'},"{'RO', 'GB', 'CA'}"
+658,apollinariy-goravskiy,{'Minsk'},{'BY'}
+659,konstantin-ivanovich-gorbatov,{'Samara'},{'RU'}
+660,ron-gorchov,{'Chicago'},{'US'}
+661,arshile-gorky,{'Van'},{'TR'}
+662,antony-gormley,{'London'},{'GB'}
+663,dumitru-gorzo,{'March'},"{'RO', 'GB'}"
+664,adolph-gottlieb,"{'March', 'York'}","{'GB', 'US'}"
+665,maurycy-gottlieb,{'Drohobych'},"{'UA', 'AT', 'PL'}"
+666,karl-otto-gotz,{'Aachen'},{'DE'}
+667,francisco-goya,"{'Goya', 'Salvador', 'March'}","{'AR', 'BR', 'GB', 'ES'}"
+668,benozzo-gozzoli,{'Florence'},{'US'}
+669,camille-graeser,{'Carouge'},{'CH'}
+670,gerhard-von-graevenitz,{'Schilde'},{'BE'}
+671,grandma-moses,{'York'},{'US'}
+672,speedy-graphito,{'Paris'},{'US'}
+673,eug-ne-grasset,{'Lausanne'},{'CH'}
+674,enrique-grau,{'Cartagena'},"{'CO', 'PA', 'ES'}"
+675,gotthard-graubner,set(),{'DE'}
+676,morris-graves,{'Oregon'},{'US'}
+677,nancy-graves,{'Pittsfield'},{'US'}
+678,balcomb-greene,"{'York', 'Millville'}",{'US'}
+679,giorgio-griffa,"{'Turin', 'March'}","{'IT', 'GB'}"
+680,nicolae-grigorescu,set(),{'RO'}
+681,boris-grigoriev,{'Rybinsk'},{'RU'}
+682,juan-gris,"{'Madrid', 'March'}","{'FR', 'GB', 'ES'}"
+683,red-grooms,{'Nashville'},{'US'}
+684,george-grosz,{'Berlin'},{'DE'}
+685,francis-gruber,{'Nancy'},{'FR'}
+686,eduard-von-grutzner,set(),{'PL'}
+687,wang-guangyi,{'Harbin'},{'CN'}
+688,guanxiu,{'Lanxi'},{'CN'}
+689,wu-guanzhong,set(),{'CN'}
+690,francesco-guardi,{'Venice'},{'US'}
+691,luigi-guardigli,{'Ravenna'},{'IT'}
+692,oswaldo-guayasamin,{'Quito'},{'EC'}
+693,hans-gude,{'March'},"{'NO', 'GB', 'SE'}"
+694,guercino,{'Cento'},{'IT'}
+695,pierre-narcisse-guerin,"{'Paris', 'March'}","{'GB', 'FR', 'US'}"
+696,jose-guerrero,{'Granada'},{'NI'}
+697,armand-guillaumin,{'Paris'},"{'FR', 'US'}"
+698,paul-guiragossian,{'Jerusalem'},{'IL'}
+699,lajos-gulacsy,{'Budapest'},{'HU'}
+700,andreas-gursky,{'Leipzig'},{'DE'}
+701,philip-guston,set(),{'CA'}
+702,renato-guttuso,"{'Rome', 'Palermo', 'Bagheria'}","{'IT', 'US'}"
+703,constantin-guys,{'Vlissingen'},{'NL'}
+704,wade-guyton,{'Hammond'},{'US'}
+705,hans-haacke,set(),{'DE'}
+706,nikos-hadjikyriakos-ghikas,{'Athens'},{'US'}
+707,michael-hafftka,{'Manhattan'},{'US'}
+708,marcia-hafif,{'Pomona'},{'US'}
+709,etienne-hajdu,{'Turda'},"{'RO', 'HU'}"
+710,maki-haku,{'Ibaraki'},{'JP'}
+711,peter-halley,{'York'},{'US'}
+712,frans-hals,{'Mechelen'},"{'NL', 'BE', 'ES'}"
+713,philippe-halsman,"{'Riga', 'York'}","{'RU', 'LV', 'US'}"
+714,richard-hambleton,"{'Columbia', 'Vancouver'}","{'CA', 'GB', 'US'}"
+715,sheikh-hamdullah,{'Amasya'},{'TR'}
+716,javad-hamidi,set(),{'IR'}
+717,ann-hamilton,{'Lima'},{'US'}
+718,richard-hamilton,{'London'},{'GB'}
+719,william-hamilton,"{'London', 'Chelsea'}","{'IT', 'GB', 'US'}"
+720,vilhelm-hammershoi,{'Copenhagen'},{'DK'}
+721,frederick-hammersley,{'Salt'},{'ES'}
+722,harmony-hammond,{'Chicago'},{'US'}
+723,david-hammons,{'Springfield'},{'US'}
+724,hannibal-alkhas,set(),{'IR'}
+725,david-hare,{'March'},{'GB'}
+726,keith-haring,{'Reading'},{'US'}
+727,william-michael-harnett,{'Cork'},{'IE'}
+728,haroutiun-galentz,{'March'},"{'GB', 'TR'}"
+729,lady-frieda-harris,{'London'},{'GB'}
+730,lawren-harris,"{'Ontario', 'Brantford'}","{'US', 'CA'}"
+731,william-hart,"{'Paisley', 'Albany', 'March', 'York'}","{'GB', 'US'}"
+732,marsden-hartley,"{'Columbus', 'Lewiston'}",{'US'}
+733,hans-hartung,{'Leipzig'},{'DE'}
+734,childe-hassam,"{'Boston', 'Olney', 'Dorchester'}","{'GB', 'US'}"
+735,francesco-hayez,{'Venice'},{'US'}
+736,jeanne-hebuterne,"{'Roman', 'Meaux'}","{'RO', 'FR'}"
+737,erich-heckel,{'D?beln'},{'DE'}
+738,jacoba-van-heemskerck,set(),{'NL'}
+739,hubertine-heijermans,{'Amsterdam'},{'US'}
+740,michael-heizer,{'Berkeley'},{'US'}
+741,al-held,"{'Brooklyn', 'York'}",{'US'}
+742,jesus-helguera,{'Chihuahua'},{'MX'}
+743,john-henderson,"{'University', 'Glasgow'}","{'GB', 'US'}"
+744,robert-henri,{'Cincinnati'},{'US'}
+745,george-henry,"{'Irvine', 'Glasgow'}","{'GB', 'US'}"
+746,josef-herman,{'Warsaw'},"{'RU', 'PL'}"
+747,patrick-heron,{'Leeds'},{'GB'}
+748,saturnino-herran,{'Aguascalientes'},{'MX'}
+749,carmen-herrera,"{'Havana', 'York'}","{'CU', 'US'}"
+750,hermann-ottomar-herzog,{'Bremen'},{'DE'}
+751,eva-hesse,{'Hamburg'},{'DE'}
+752,hans-heysen,{'Hamburg'},{'DE'}
+753,edward-hicks,{'Attleboro'},{'US'}
+754,sheila-hicks,{'Hastings'},{'US'}
+755,hildegard-of-bingen,"{'Palatine', 'Roman'}","{'RO', 'US'}"
+756,thomas-hill,{'Birmingham'},{'US'}
+757,nicholas-hilliard,{'Exeter'},{'GB'}
+758,lewis-hine,{'Oshkosh'},{'US'}
+759,charles-hinman,"{'Syracuse', 'York'}",{'US'}
+760,unichi-hiratsuka,set(),{'JP'}
+761,hiroshige,{'Tokyo'},{'JP'}
+762,thomas-hirschhorn,{'Bern'},{'CH'}
+763,damien-hirst,{'Bristol'},{'US'}
+764,hannah-hoch,{'Gotha'},{'DE'}
+765,david-hockney,{'Bradford'},{'GB'}
+766,howard-hodgkin,{'London'},{'GB'}
+767,ferdinand-hodler,"{'March', 'Bern'}","{'GB', 'CH'}"
+768,hans-hofmann,{'March'},"{'GB', 'DE'}"
+769,william-hogarth,{'London'},{'GB'}
+770,katsushika-hokusai,{'Tokyo'},{'JP'}
+771,hans-holbein-the-younger,"{'Basel', 'Roman', 'Augsburg'}","{'RO', 'DE', 'CH'}"
+772,clarence-holbrook-carter,{'Portsmouth'},{'US'}
+773,carsten-holler,{'Brussels'},{'BE'}
+774,nancy-holt,{'Worcester'},{'ZA'}
+775,winslow-homer,{'Boston'},{'US'}
+776,melchior-d-hondecoeter,"{'Utrecht', 'Amsterdam'}","{'NL', 'US'}"
+777,chen-hongshou,{'Zhuji'},{'CN'}
+778,pieter-de-hooch,{'Rotterdam'},{'US'}
+779,edward-hopper,"{'Hudson', 'York'}",{'US'}
+780,john-hoppner,{'London'},"{'GB', 'DE'}"
+781,rebecca-horn,"{'Michelstadt', 'March'}","{'GB', 'DE'}"
+782,roni-horn,{'York'},{'US'}
+783,marc-horowitz,{'Columbus'},{'US'}
+784,jean-jansem,"{'March', 'Bursa'}","{'GB', 'TR'}"
+785,hovsep-pushman,{'Asia'},{'PH'}
+786,ray-howlett,{'Lincoln'},{'US'}
+787,john-hoyland,{'Sheffield'},{'GB'}
+788,li-huasheng,{'Yibin'},{'CN'}
+789,douglas-huebler,{'Michigan'},{'US'}
+790,arthur-hughes,{'London'},{'GB'}
+791,jean-hugo,"{'Paris', 'Lunel'}","{'FR', 'US'}"
+792,victor-hugo,{'Besan?on'},{'FR'}
+793,gary-hume,{'Kent'},{'US'}
+794,friedensreich-hundertwasser,{'Vienna'},"{'AT', 'US'}"
+795,william-holman-hunt,{'London'},{'GB'}
+796,m-f-husain,{'Pandharpur'},"{'GB', 'IN'}"
+797,pierre-huyghe,{'Paris'},"{'FR', 'US'}"
+798,chul-hyun-ahn,{'Busan'},{'KR'}
+799,il-sodoma,{'Vercelli'},{'IT'}
+800,john-stuart-ingle,{'Evansville'},{'US'}
+801,jean-auguste-dominique-ingres,{'Montauban'},{'FR'}
+802,callum-innes,{'Edinburgh'},{'GB'}
+803,george-inness,"{'York', 'Newburgh'}",{'US'}
+804,eduard-isabekyan,set(),{'RU'}
+805,iosif-iser,{'Bucharest'},{'RO'}
+806,isidore-isou,{'Bucharest'},{'RO'}
+807,ito-shinsui,"{'Fukagawa', 'Tokyo'}",{'JP'}
+808,johannes-itten,{'Linden'},"{'US', 'CH'}"
+809,alexander-ivanov,{'Petersburg'},{'US'}
+810,alfredo-jaar,{'Santiago'},"{'PH', 'CL'}"
+811,richard-jack,"{'Sunderland', 'Durham'}","{'GB', 'US'}"
+812,a-y-jackson,set(),{'CA'}
+813,antonio-jacobsen,{'Copenhagen'},{'DK'}
+814,paul-jacoulet,{'Paris'},"{'JP', 'US'}"
+815,alexandre-jacovleff,{'Petersburg'},"{'RU', 'US'}"
+816,marcel-janco,{'Bucharest'},{'RO'}
+817,louis-janmot,{'Lyon'},{'FR'}
+818,tess-jaray,{'Vienna'},"{'AT', 'US'}"
+819,valerie-jaudon,"{'University', 'Memphis', 'Greenville'}",{'US'}
+820,jean-baptiste-greuze,set(),{'FR'}
+821,paul-jenkins,"{'Kansas', 'Missouri'}",{'US'}
+822,alfred-jensen,set(),{'GT'}
+823,gwen-john,{'Augusta'},{'US'}
+824,jasper-johns,{'Augusta'},"{'GE', 'US'}"
+825,david-johnson,{'York'},{'US'}
+826,eastman-johnson,"{'Johnson', 'Chandler', 'Mary'}","{'TM', 'US'}"
+827,william-h-johnson,"{'Florence', 'Carolina', 'March'}","{'GB', 'PR', 'US'}"
+828,frank-johnston,"{'Toronto', 'Ontario'}","{'US', 'CA'}"
+829,allen-jones,{'Southampton'},"{'UK', 'GB'}"
+830,owen-jones,{'London'},{'GB'}
+831,jonone,{'York'},"{' Do', 'US'}"
+832,asger-jorn,{'March'},"{'DK', 'GB'}"
+833,josignacio,{'Havana'},{'CU'}
+834,paja-jovanovic,set(),"{'RS', 'AT'}"
+835,donald-judd,"{'Springs', 'Missouri'}","{'ZA', 'US'}"
+836,ilya-kabakov,"{'Union', 'Dnipropetrovsk'}","{'UA', 'US'}"
+837,kiyokata-kaburagi,"{'Kanda', 'Tokyo'}",{'JP'}
+838,frida-kahlo,"{'Coyoac?n', 'Oaxaca'}","{'ES', 'MX'}"
+839,wolf-kahn,{'Stuttgart'},{'DE'}
+840,willem-kalf,{'Rotterdam'},{'US'}
+841,kamal-ol-molk,set(),{'IR'}
+842,wassily-kandinsky,{'Moscow'},"{'RU', 'US'}"
+843,paul-kane,{'Cork'},{'IE'}
+844,nabil-kanso,{'Beirut'},{'LB'}
+845,anish-kapoor,"{'Mumbai', 'March'}","{'GB', 'IN'}"
+846,allan-kaprow,set(),{'JE'}
+847,gertrude-kasebier,{'Iowa'},{'US'}
+848,lajos-kassak,set(),{'SK'}
+849,alex-katz,"{'Brooklyn', 'York'}",{'US'}
+850,angelica-kauffman,{'Chur'},{'CH'}
+851,craig-kauffman,{'March'},{'GB'}
+852,on-kawara,{'Kariya'},{'JP'}
+853,louay-kayyali,{'Aleppo'},{'SY'}
+854,ellsworth-kelly,"{'York', 'Newburgh'}",{'US'}
+855,john-frederick-kensett,"{'Cheshire', 'March'}","{'GB', 'US'}"
+856,andre-kertesz,{'Budapest'},{'HU'}
+857,fernand-khnopff,set(),{'BE'}
+858,valentin-khrushch,{'Odessa'},{'US'}
+859,alexander-khvostenko-khvostov,{'Belgorod'},{'RU'}
+860,abbas-kiarostami,set(),{'IR'}
+861,anselm-kiefer,"{'Donaueschingen', 'March'}","{'GB', 'DE'}"
+862,michel-kikoine,{'Rechytsa'},"{'BY', 'RU'}"
+863,oliver-kilbourn,{'Mary'},{'TM'}
+864,phillip-king,{'Tunis'},"{'FR', 'TN'}"
+865,thomas-kinkade,{'Sacramento'},{'US'}
+866,lyman-kipp,{'York'},{'US'}
+867,martin-kippenberger,{'Dortmund'},{'DE'}
+868,orest-kiprensky,"{'Petersburg', 'March'}","{'RU', 'GB', 'US'}"
+869,ernst-ludwig-kirchner,{'Aschaffenburg'},{'DE'}
+870,raphael-kirchner,{'Vienna'},"{'AT', 'US'}"
+871,moise-kisling,{'Krak?w'},{'PL'}
+872,theodor-severin-kittelsen,set(),{'NO'}
+873,abdul-mati-klarwein,{'Hamburg'},{'DE'}
+874,paul-klee,set(),"{'SZ', 'DE', 'CH'}"
+875,yves-klein,{'Nice'},{'FR'}
+876,gustav-klimt,{'Vienna'},"{'AT', 'US'}"
+877,franz-kline,{'Wilkes-Barre'},{'US'}
+878,max-klinger,"{'Leipzig', 'Karlsruhe'}",{'DE'}
+879,daniel-ridgway-knight,{'Chambersburg'},{'US'}
+880,laura-knight,"{'Charlotte', 'Johnson'}",{'US'}
+881,winifred-knights,{'London'},{'GB'}
+882,imi-knoebel,{'Dessau'},{'DE'}
+883,alison-knowles,{'York'},{'US'}
+884,nikolaus-knupfer,{'Leipzig'},{'DE'}
+885,christen-kobke,{'Copenhagen'},{'DK'}
+886,katarzyna-kobro,{'Moscow'},"{'RU', 'US'}"
+887,yervand-kochar,"{'Tbilisi', 'Shushi'}","{'GE', 'RU', 'AZ'}"
+888,oskar-kokoschka,{'March'},{'GB'}
+889,johann-koler,"{'March', 'Livonia'}","{'RU', 'GB', 'US'}"
+890,kathe-kollwitz,{'Kaliningrad'},{'RU'}
+891,pyotr-konchalovsky,set(),"{'RU', 'UA'}"
+892,jeff-koons,{'York'},{'US'}
+893,wanda-koop,"{'Columbia', 'Vancouver'}","{'GB', 'US'}"
+894,aladar-korosfoi-kriesch,{'Budapest'},{'HU'}
+895,konstantin-korovin,"{'Vladimir', 'Moscow'}","{'RU', 'US'}"
+896,gyula-kosice,set(),{'HU'}
+897,joseph-kosuth,{'Toledo'},{'US'}
+898,jannis-kounellis,"{'Piraeus', 'March'}","{'GR', 'GB'}"
+899,joyce-kozloff,{'Somerville'},"{'JE', 'US'}"
+900,ivan-kramskoy,"{'Ostrogozhsk', 'Voronezh'}",{'RU'}
+901,lee-krasner,"{'Brooklyn', 'York'}",{'US'}
+902,john-lewis-krimmel,set(),{'DE'}
+903,lubo-kristek-in-landsberg,{'Brno'},{'CZ'}
+904,leon-kroll,{'York'},{'US'}
+905,peder-severin-kroyer,{'Stavanger'},{'NO'}
+906,barbara-kruger,{'Newark'},"{'JE', 'US'}"
+907,alfred-freddy-krupa,{'Karlovac'},{'HR'}
+908,nicholas-krushenick,{'York'},{'US'}
+909,fedir-krychevsky,{'Lebedyn'},"{'RU', 'UA'}"
+910,vasyl-hryhorovych-krychevsky,{'Lebedyn'},"{'RU', 'UA'}"
+911,arkhip-kuindzhi,"{'Taganrog', 'Mariupol'}","{'RU', 'UA'}"
+912,yasuo-kuniyoshi,set(),{'JP'}
+913,moshe-kupferman,set(),{'PL'}
+914,frantisek-kupka,set(),{'CZ'}
+915,aki-kuroda,{'Kyoto'},{'JP'}
+916,yayoi-kusama,"{'Matsumoto', 'March'}","{'JP', 'GB'}"
+917,vladimir-kush,{'Moscow'},"{'RU', 'US'}"
+918,nikolai-dmitriyevich-kuznetsov,{'Kherson'},"{'RU', 'UA'}"
+919,henry-herbert-la-thangue,"{'Frederick', 'Surrey', 'London'}","{'US', 'GB', 'CA'}"
+920,georges-de-la-tour,"{'Metz', 'Roman'}","{'RO', 'FR'}"
+921,maurice-quentin-de-la-tour,"{'Saint-Quentin', 'Laon'}",{'FR'}
+922,wolfgang-laib,"{'March', 'Metzingen'}","{'GB', 'DE'}"
+923,vajda-lajos,{'Zalaegerszeg'},{'HU'}
+924,maxime-lalanne,{'Bordeaux'},{'FR'}
+925,georges-lallemand,{'Nancy'},{'FR'}
+926,wifredo-lam,set(),{'CU'}
+927,giulia-lama,{'Venice'},"{'IT', 'US'}"
+928,george-lambert,{'Kent'},{'US'}
+929,george-washington-lambert,"{'Petersburg', 'London', 'George', 'Baltimore', 'Washington', 'Maryland'}","{'ZA', 'RU', 'GB', 'US'}"
+930,vilho-lampi,{'Oulu'},{'FI'}
+931,evgeniy-evgenevich,"{'Pavlovsk', 'Petersburg'}","{'RU', 'US'}"
+932,ronnie-landfield,{'York'},{'US'}
+933,edwin-henry-landseer,"{'London', 'March'}",{'GB'}
+934,jerome-martin-langlois,{'Paris'},{'US'}
+935,andre-lanskoy,"{'March', 'Moscow'}","{'GB', 'US'}"
+936,mikhail-larionov,"{'Tiraspol', 'Kherson'}","{'MD', 'UA', 'RU'}"
+937,marcus-larson,set(),{'SE'}
+938,carl-larsson,{'Stockholm'},{'SE'}
+939,philip-de-laszlo,{'Budapest'},{'HU'}
+940,dorothy-lathrop,"{'Albany', 'York'}",{'US'}
+941,sydney-laurence,"{'Brooklyn', 'York'}",{'US'}
+942,marie-laurencin,{'Paris'},"{'FR', 'US'}"
+943,jean-paul-laurens,"{'March', 'Bida'}","{'GB', 'FR', 'NG'}"
+944,john-lavery,"{'Belfast', 'March'}","{'IE', 'GB'}"
+945,jacob-lawrence,set(),{'JE'}
+946,thomas-lawrence,"{'Bristol', 'Bear'}",{'US'}
+947,bice-lazzari,{'Venice'},"{'IT', 'US'}"
+948,pietro-lazzari,{'Rome'},"{'IT', 'US'}"
+949,charles-le-brun,{'Paris'},{'US'}
+950,henri-le-fauconnier,set(),{'FR'}
+951,le-nain-brothers,{'Laon'},{'FR'}
+952,julio-le-parc,{'Mendoza'},{'AR'}
+953,eustache-le-sueur,{'Paris'},{'US'}
+954,mikhail-lebedev,{'Tartu'},{'EE'}
+955,john-leech,{'London'},{'GB'}
+956,jules-joseph-lefebvre,{'March'},"{'GB', 'FR'}"
+957,silvestro-lega,{'Forl?'},{'IT'}
+958,fernand-leger,{'Argentan'},{'FR'}
+959,frederic-leighton,"{'Augusta', 'Scarborough'}","{'TT', 'US'}"
+960,william-leighton-leitch,{'Glasgow'},{'GB'}
+961,polychronis-lembesis,set(),{'GR'}
+962,georges-lemmen,set(),{'BE'}
+963,tamara-de-lempicka,{'Warsaw'},{'PL'}
+964,aristarkh-lentulov,{'Penza'},{'RU'}
+965,emanuel-gottlieb-leutze,set(),{'DE'}
+966,sherrie-levine,{'Hazleton'},{'US'}
+967,isaac-levitan,{'August?w'},"{'RU', 'PL', 'LT'}"
+968,dmitry-levitzky,{'Kiev'},{'UA'}
+969,norman-lewis,{'York'},{'US'}
+970,wyndham-lewis,{'Amherst'},"{'US', 'CA'}"
+971,sol-lewitt,{'Hartford'},"{'RU', 'US'}"
+972,frank-xavier-leyendecker,set(),{'DE'}
+973,j-c-leyendecker,{'March'},"{'GB', 'DE'}"
+974,judith-leyster,{'Haarlem'},{'NL'}
+975,andr-lhote,{'Bordeaux'},{'FR'}
+976,li-chevalier,"{'Beijing', 'March'}","{'CN', 'GB'}"
+977,li-tang,set(),{'CN'}
+978,alexander-liberman,{'Kiev'},"{'RU', 'UA'}"
+979,roy-lichtenstein,"{'Manhattan', 'York'}",{'US'}
+980,jan-lievens,{'Leiden'},{'NL'}
+981,antonio-ligabue,set(),{'CH'}
+982,maya-lin,{'Athens'},{'US'}
+983,richard-lindner,{'Hamburg'},{'DE'}
+984,jacques-lipchitz,{'Druskininkai'},{'LT'}
+985,filippo-lippi,{'Florence'},{'US'}
+986,pat-lipsky,{'York'},{'US'}
+987,aldo-locatelli,set(),{'IT'}
+988,verena-loewensberg,set(),{'CH'}
+989,william-logsdail,{'Lincoln'},{'US'}
+990,gustave-loiseau,"{'Pontoise', 'Paris'}","{'FR', 'US'}"
+991,richard-long,{'Bristol'},{'US'}
+992,barbara-longhi,{'Ravenna'},{'IT'}
+993,pietro-longhi,{'Venice'},{'US'}
+994,christian-august-lorentzen,{'S?nderborg'},{'DK'}
+995,ambrogio-lorenzetti,{'Siena'},{'IT'}
+996,pietro-lorenzetti,{'Siena'},{'IT'}
+997,claude-lorrain,{'Roman'},"{'RO', 'IT'}"
+998,lorenzo-lotto,"{'Jesi', 'Venice'}","{'IT', 'US'}"
+999,morris-louis,"{'Baltimore', 'Maryland'}",{'US'}
+1000,seraphine-louis,set(),{'FR'}
+1001,louisa-matthiasdottir,{'Reykjav?k'},{'IS'}
+1002,arthur-lowe,{'Nottingham'},{'GB'}
+1003,l-s-lowry,{'Stretford'},{'GB'}
+1004,manuel-rodriguez-lozano,set(),{'MX'}
+1005,maximilien-luce,"{'Paris', 'March'}","{'FR', 'GB', 'US'}"
+1006,george-luks,"{'Williamsport', 'Central'}",{'US'}
+1007,viktor-lyapkalo,set(),{'RU'}
+1008,david-lynch,"{'Montana', 'Missoula'}","{'BG', 'US'}"
+1009,ma-yuan,{'Hangzhou'},{'CN'}
+1010,dora-maar,{'Paris'},"{'FR', 'US'}"
+1011,frances-macdonald-macnair,{'Wolverhampton'},{'GB'}
+1012,j-e-h-macdonald,{'Durham'},{'US'}
+1013,heinz-mack,{'March'},"{'GB', 'DE'}"
+1014,august-macke,{'Meschede'},{'DE'}
+1015,charles-rennie-mackintosh,"{'Glasgow', 'London'}",{'GB'}
+1016,margaret-macdonald,{'Tipton'},{'GB'}
+1017,luis-de-madrazo-y-kuntz,{'Madrid'},{'ES'}
+1018,nicolaes-maes,{'Dordrecht'},{'NL'}
+1019,alberto-magnelli,{'Florence'},"{'IT', 'US'}"
+1020,rene-magritte,{'Lessines'},{'BE'}
+1021,vivian-maier,{'York'},"{'AT', 'FR', 'US'}"
+1022,benoit-maire,{'Pessac'},{'FR'}
+1023,konstantin-makovsky,{'Moscow'},"{'RU', 'US'}"
+1024,jacek-malczewski,{'Radom'},{'PL'}
+1025,tomas-maldonado,set(),{'AR'}
+1026,kazimir-malevich,{'Kiev'},"{'RU', 'UA'}"
+1027,anita-malfatti,set(),{'BR'}
+1028,jose-malhoa,{'Caldas'},"{'PT', 'CO'}"
+1029,filipp-malyavin,"{'Orenburg', 'Samara'}",{'RU'}
+1030,antonio-mancini,{'Rome'},{'US'}
+1031,edouard-manet,{'Paris'},"{'FR', 'US'}"
+1032,inigo-manglano-ovalle,{'Madrid'},{'ES'}
+1033,robert-mangold,"{'Tonawanda', 'York'}",{'US'}
+1034,andrea-mantegna,set(),{'IT'}
+1035,piero-manzoni,{'Cremona'},{'IT'}
+1036,giacomo-manzu,{'Bergamo'},{'IT'}
+1037,franz-marc,{'Munich'},{'DE'}
+1038,conrad-marca-relli,"{'Boston', 'York'}",{'US'}
+1039,brice-marden,{'York'},{'US'}
+1040,marevna-marie-vorobieff,"{'Kazan', 'Cheboksary'}","{'RU', 'TR'}"
+1041,carlo-maria-mariani,{'Rome'},"{'IT', 'US'}"
+1042,marcel-marien,set(),{'BE'}
+1043,john-marin,{'Rutherford'},"{'JE', 'US'}"
+1044,marino-marini,{'Pistoia'},{'IT'}
+1045,albert-marquet,"{'Bordeaux', 'March'}","{'FR', 'GB'}"
+1046,kerry-james-marshal,{'Birmingham'},{'US'}
+1047,agnes-martin,{'March'},"{'GB', 'CA'}"
+1048,john-martin,{'Martin'},{'SK'}
+1049,xavier-martinez,{'Guadalajara'},"{'ES', 'MX'}"
+1050,simone-martini,{'Siena'},{'IT'}
+1051,aldemir-martins,set(),{'BR'}
+1052,maruja-mallo,{'Viveiro'},{'ES'}
+1053,masaccio,"{'Florence', 'San'}","{'ML', 'US'}"
+1054,ilya-mashkov,{'Volgograd'},{'RU'}
+1055,andre-masson,"{'Lille', 'Brussels'}","{'FR', 'BE'}"
+1056,hassan-massoudy,{'Paris'},"{'FR', 'IQ', 'US'}"
+1057,jan-matejko,{'Krak?w'},{'PL'}
+1058,georges-mathieu,set(),{'FR'}
+1059,henri-matisse,set(),{'FR'}
+1060,quentin-matsys,{'Leuven'},{'BE'}
+1061,roberto-matta,{'Santiago'},"{'PH', 'CL'}"
+1062,maxime-maufra,{'Nantes'},{'FR'}
+1063,anton-mauve,{'Zaandam'},{'NL'}
+1064,m-h-maxy,set(),{'RO'}
+1065,allan-mccollum,{'York'},{'US'}
+1066,frederick-mccubbin,"{'Melbourne', 'Victoria'}","{'UK', 'AU', 'US'}"
+1067,barbara-mcgivern,"{'Toronto', 'Ontario'}","{'US', 'CA'}"
+1068,laszlo-mednyanszky,{'Anna'},"{'AT', 'RU', 'SK', 'HU'}"
+1069,jozef-mehoffer,"{'Paris', 'Vienna', 'Krak?w', 'Ropczyce'}","{'PL', 'US'}"
+1070,julie-mehretu,set(),"{'ET', 'US'}"
+1071,howard-mehring,{'Washington'},{'US'}
+1072,cildo-meireles,set(),{'BR'}
+1073,ernest-meissonier,{'Lyon'},{'FR'}
+1074,max-meldrum,"{'David', 'Edinburgh'}","{'GB', 'PA'}"
+1075,hans-memling,{'Mainz'},{'DE'}
+1076,anton-raphael-mengs,{'March'},"{'CZ', 'GB', 'DE'}"
+1077,maria-sibylla-merian,"{'Imperial', 'Roman'}","{'PE', 'RO'}"
+1078,carlos-merida,set(),{'GT'}
+1079,charles-meryon,{'Paris'},"{'UK', 'FR', 'US'}"
+1080,antonello-da-messina,{'Messina'},"{'ZA', 'IT'}"
+1081,mestre-ata-de,"{'Mariana', 'Minas'}","{'UY', 'BR'}"
+1082,willard-metcalf,{'Lowell'},{'US'}
+1083,gabriel-metsu,{'Leiden'},{'NL'}
+1084,gustav-metzger,{'Weimar'},{'DE'}
+1085,jean-metzinger,{'Nantes'},{'FR'}
+1086,adam-van-der-meulen,{'Brussels'},{'BE'}
+1087,piotr-michalowski,{'Krak?w'},{'PL'}
+1088,michelangelo,"{'Arezzo', 'Florence', 'March'}","{'IT', 'GB', 'US'}"
+1089,arturo-michelena,{'Valencia'},{'VE'}
+1090,gr-goire-michonze,set(),"{'MD', 'RU'}"
+1091,frans-van-mieris-the-elder,{'Leiden'},{'NL'}
+1092,beatriz-milhazes,set(),{'BR'}
+1093,john-everett-millais,{'Southampton'},{'GB'}
+1094,d-jeffrey-mims,{'Carolina'},{'PR'}
+1095,jean-miotte,{'Paris'},"{'FR', 'US'}"
+1096,joan-miro,{'Barcelona'},"{'VE', 'ES'}"
+1097,boyukagha-mirzazade,{'Baku'},{'AZ'}
+1098,miss-tic,{'Paris'},{'US'}
+1099,joan-mitchell,"{'Mitchell', 'Marion', 'Chicago'}",{'US'}
+1100,paula-modersohn-becker,{'Dresden'},{'DE'}
+1101,amedeo-modigliani,{'Livorno'},{'IT'}
+1102,bahman-mohasses,"{'Rasht', 'March'}","{'IR', 'GB'}"
+1103,laszlo-moholy-nagy,set(),{'HU'}
+1104,louise-moillon,{'Paris'},{'US'}
+1105,guido-molinari,{'Naples'},"{'IT', 'US'}"
+1106,piet-mondrian,"{'Amersfoort', 'March'}","{'NL', 'GB'}"
+1107,claude-monet,{'Paris'},"{'FR', 'US'}"
+1108,robert-montenegro,{'Guadalajara'},{'MX'}
+1109,adolphe-joseph-thomas-monticelli,{'Marseille'},{'FR'}
+1110,jeremy-moon,"{'Altrincham', 'Cheshire'}","{'GB', 'US'}"
+1111,albert-joseph-moore,{'York'},{'US'}
+1112,henry-moore,{'Castleford'},{'GB'}
+1113,henry-moore-ra,"{'Moore', 'March', 'York'}","{'GB', 'US'}"
+1114,thomas-moran,"{'Hudson', 'Mary', 'Bolton', 'York'}","{'TM', 'GB', 'US'}"
+1115,giorgio-morandi,{'Bologna'},{'IT'}
+1116,gustave-moreau,{'Paris'},"{'FR', 'US'}"
+1117,johannes-moreelse,"{'Utrecht', 'Zundert', 'Holland'}","{'NL', 'US'}"
+1118,francois-morellet,{'Cholet'},{'FR'}
+1119,frederick-morgan,{'London'},{'GB'}
+1120,david-morier,set(),{'CH'}
+1121,berthe-morisot,{'Bourges'},{'FR'}
+1122,george-morland,{'London'},{'GB'}
+1123,malcolm-morley,{'London'},{'GB'}
+1124,robert-morris,"{'Kansas', 'Missouri'}",{'US'}
+1125,sarah-morris,"{'Kent', 'York', 'Sevenoaks'}","{'GB', 'US'}"
+1126,william-morris,"{'Essex', 'March'}","{'GB', 'US'}"
+1127,norval-morrisseau,"{'Bay', 'March', 'Ontario'}","{'PH', 'US', 'GB', 'CA'}"
+1128,koloman-moser,"{'Vienna', 'March'}","{'GB', 'US'}"
+1129,olivier-mosset,{'Bern'},{'CH'}
+1130,robert-motherwell,"{'Motherwell', 'Washington', 'Aberdeen'}","{'GB', 'US'}"
+1131,sun-mu,set(),{'KR'}
+1132,alphonse-mucha,{'York'},"{'CZ', 'AT', 'US'}"
+1133,otto-myul,set(),{'AT'}
+1134,stephen-mueller,"{'Virginia', 'Norfolk'}","{'ZA', 'US'}"
+1135,bruno-munari,set(),{'IT'}
+1136,edvard-munch,set(),"{'NO', 'SE'}"
+1137,vik-muniz,set(),{'BR'}
+1138,mihaly-munkacsy,set(),"{'UA', 'HU'}"
+1139,gabriele-munter,{'Berlin'},{'DE'}
+1140,takashi-murakami,{'Tokyo'},{'JP'}
+1141,oleksandr-murashko,{'Kiev'},{'UA'}
+1142,bartolome-esteban-murillo,set(),{'ES'}
+1143,wangechi-mutu,{'Nairobi'},{'KE'}
+1144,grigoriy-myasoyedov,{'Tula'},{'RU'}
+1145,carlos-nadal,"{'Barcelona', 'Paris'}","{'VE', 'US'}"
+1146,nakagawa-soen,"{'Keelung', 'March'}","{'GB', 'TW'}"
+1147,doreen-reid-nakamarra,{'Warburton'},"{'PK', 'AU'}"
+1148,kazuo-nakamura,"{'Columbia', 'Vancouver'}","{'GB', 'US'}"
+1149,reuben-nakian,{'York'},{'US'}
+1150,akkitham-narayanan,set(),"{'GB', 'IN'}"
+1151,jean-marc-nattier,"{'Paris', 'March'}","{'GB', 'FR', 'US'}"
+1152,bruce-nauman,{'Wayne'},{'US'}
+1153,alice-neel,{'York'},{'US'}
+1154,edgar-negret,{'Popay?n'},{'CO'}
+1155,aurelie-nemours,{'Paris'},"{'FR', 'US'}"
+1156,odd-nerdrum,{'Helsingborg'},"{'NO', 'DE', 'SE'}"
+1157,manuel-neri,{'Sanger'},"{'MX', 'US'}"
+1158,mikhail-nesterov,{'Ufa'},{'RU'}
+1159,louise-nevelson,{'Poltava'},"{'RU', 'UA'}"
+1160,c-r-w-nevinson,{'London'},{'GB'}
+1161,barnett-newman,{'York'},"{'PL', 'US'}"
+1162,winifred-nicholson,{'Oxford'},{'US'}
+1163,robert-nickle,"{'Saginaw', 'Michigan'}",{'US'}
+1164,kay-nielsen,"{'Copenhagen', 'March'}","{'DK', 'GB'}"
+1165,mario-nigro,"{'Livorno', 'Pistoia'}",{'IT'}
+1166,ivan-nikitin,{'Moscow'},{'US'}
+1167,nikos-nikolaou,set(),{'GR'}
+1168,ike-no-taiga,{'Kyoto'},{'JP'}
+1169,noguchi-isamu,set(),"{'JP', 'US'}"
+1170,sidney-nolan,"{'Melbourne', 'Victoria'}","{'AU', 'US'}"
+1171,kenneth-noland,"{'Asheville', 'Carolina'}","{'PR', 'US'}"
+1172,emil-nolde,set(),{'DE'}
+1173,marianne-north,{'Hastings'},{'US'}
+1174,guity-novin,set(),{'IR'}
+1175,andrzej-nowacki,set(),{'PL'}
+1176,jerzy-nowosielski,{'Krak?w'},{'PL'}
+1177,requena-nozal,{'Zaragoza'},{'ES'}
+1178,jim-nutt,{'Pittsfield'},{'US'}
+1179,alejandro-obregon,{'Barcelona'},"{'VE', 'ES'}"
+1180,albert-oehlen,{'Krefeld'},{'DE'}
+1181,richard-oelze,{'Magdeburg'},{'DE'}
+1182,chris-ofili,{'Manchester'},{'US'}
+1183,helio-oiticica,{'Santos'},{'BR'}
+1184,kenzo-okada,{'Yokohama'},{'JP'}
+1185,taro-okamoto,{'Kawasaki'},{'JP'}
+1186,claes-oldenburg,{'Stockholm'},{'SE'}
+1187,jules-olitski,{'March'},"{'GB', 'UA'}"
+1188,nathan-oliveira,{'Oakland'},"{'PT', 'US'}"
+1189,francisco-oller,{'Bayam?n'},"{'ES', 'PR'}"
+1190,mihai-olos,set(),{'RO'}
+1191,olowe-of-ise,{'Ise'},{'JP'}
+1192,albert-julius-olsson,"{'Islington', 'London'}","{'UK', 'GB', 'SE'}"
+1193,koshiro-onchi,{'Tokyo'},{'JP'}
+1194,robert-julian-onderdonk,"{'Texas', 'San'}","{'ML', 'US'}"
+1195,roman-opalka,set(),{'FR'}
+1196,julian-opie,"{'Oxford', 'London'}","{'GB', 'US'}"
+1197,dennis-oppenheim,{'Washington'},{'US'}
+1198,meret-oppenheim,{'Berlin'},{'DE'}
+1199,orazio-gentileschi,{'Pisa'},{'IT'}
+1200,volodymyr-orlovsky,{'Kiev'},{'UA'}
+1201,alexander-orlowski,{'Warsaw'},{'PL'}
+1202,jose-clemente-orozco,{'Flores'},"{'GT', 'MX'}"
+1203,carlos-orozco-romero,{'Guadalajara'},{'MX'}
+1204,william-orpen,{'Dublin'},"{'IE', 'US'}"
+1205,adriaen-van-ostade,{'Haarlem'},{'NL'}
+1206,isaac-van-ostade,{'Haarlem'},{'NL'}
+1207,jorge-oteiza,set(),{'ES'}
+1208,jean-baptiste-oudry,{'Paris'},{'US'}
+1209,wolfgang-paalen,{'Vienna'},"{'AT', 'US'}"
+1210,joseph-pace,set(),{'IT'}
+1211,nam-june-paik,{'Seoul'},{'KR'}
+1212,abraham-palatnik,{'Natal'},{'BR'}
+1213,theodor-pallady,"{'Dresden', 'University'}","{'DE', 'US'}"
+1214,samuel-palmer,"{'Surrey', 'Kent', 'London', 'Newington'}","{'CA', 'GB', 'US'}"
+1215,giovanni-paolo-panini,"{'Roman', 'Parma', 'Piacenza'}","{'RO', 'IT', 'US'}"
+1216,giulio-paolini,{'Genoa'},{'IT'}
+1217,eduardo-paolozzi,"{'March', 'Edinburgh'}",{'GB'}
+1218,lygia-pape,set(),{'BR'}
+1219,sergei-parajanov,{'Tbilisi'},"{'GE', 'AM', 'UA'}"
+1220,mimi-parent,{'Montr?al'},{'CA'}
+1221,luis-paret-y-alcazar,"{'Madrid', 'San'}","{'ML', 'ES'}"
+1222,david-park,"{'Boston', 'Mary', 'March'}","{'TM', 'GB', 'US'}"
+1223,cornelia-parker,{'Cheshire'},{'US'}
+1224,parmigianino,{'Parma'},{'US'}
+1225,graydon-parrish,"{'Texas', 'Phoenix'}",{'US'}
+1226,maxfield-parrish,"{'Elizabeth', 'Philadelphia'}",{'US'}
+1227,alfred-parsons,"{'Frome', 'London', 'Somerset'}","{'GB', 'US'}"
+1228,betty-parsons,{'York'},{'US'}
+1229,konstantinos-parthenis,{'Alexandria'},{'US'}
+1230,jules-pascin,{'Vidin'},{'BG'}
+1231,helen-pashgian,{'Pasadena'},{'US'}
+1232,victor-pasmore,{'Surrey'},{'CA'}
+1233,patrick-pietropoli,{'Paris'},"{'FR', 'US'}"
+1234,charles-willson-peale,"{'Chester', 'Centreville', 'Queenstown', 'Maryland'}","{'ZA', 'GB', 'US'}"
+1235,charles-sprague-pearce,{'Boston'},{'US'}
+1236,philip-pearlstein,{'Pittsburgh'},{'US'}
+1237,max-pechstein,{'Zwickau'},{'DE'}
+1238,paul-peel,"{'London', 'Ontario'}","{'GB', 'US'}"
+1239,agnes-lawrence-pelton,{'Stuttgart'},{'DE'}
+1240,george-pemba,{'Elizabeth'},{'US'}
+1241,giuseppe-penone,set(),{'IT'}
+1242,samuel-peploe,{'Edinburgh'},{'GB'}
+1243,vasily-perov,set(),{'RU'}
+1244,pietro-perugino,set(),{'IT'}
+1245,kuzma-petrov-vodkin,{'Saratov'},{'RU'}
+1246,john-pettie,"{'March', 'Edinburgh'}",{'GB'}
+1247,pettoruti,set(),"{'AR', 'IT'}"
+1248,kathleen-petyarre,set(),{'AU'}
+1249,peter-phillips,{'Birmingham'},{'US'}
+1250,gianni-piacentino,set(),{'IT'}
+1251,francis-picabia,{'Paris'},"{'FR', 'CU', 'US'}"
+1252,pablo-picasso,"{'M?laga', 'Genoa'}","{'IT', 'ES'}"
+1253,arthur-pinajian,"{'Hoboken', 'Union', 'March'}","{'JE', 'GB', 'US'}"
+1254,stanley-pinker,{'Windhoek'},{'NA'}
+1255,albert-pinkham-ryder,"{'Bedford', 'March'}","{'GB', 'US'}"
+1256,giuseppe-pinot-gallizio,{'Alba'},{'IT'}
+1257,pinturicchio,{'Perugia'},{'IT'}
+1258,horace-pippin,"{'Chester', 'Goshen', 'York'}",{'US'}
+1259,giovanni-battista-piranesi,"{'Treviso', 'Venice'}","{'IT', 'US'}"
+1260,niko-pirosmani,set(),"{'GE', 'RU'}"
+1261,pisanello,{'Pisa'},{'IT'}
+1262,camille-pissarro,{'Charlotte'},{'US'}
+1263,vasily-polenov,{'Petersburg'},{'US'}
+1264,serge-poliakoff,{'Moscow'},{'US'}
+1265,sigmar-polke,set(),"{'PL', 'DE'}"
+1266,jackson-pollock,{'Wyoming'},{'US'}
+1267,gio-pomodoro,{'Pesaro'},{'IT'}
+1268,joan-ponc,{'Barcelona'},"{'VE', 'ES'}"
+1269,fernando-garcia-ponce,"{'M?rida', 'Ponce', 'Pilar', 'Garc?a'}","{'VE', 'PY', 'PR', 'MX'}"
+1270,jacopo-pontormo,{'Empoli'},{'IT'}
+1271,larry-poons,{'Tokyo'},{'JP'}
+1272,lyubov-popova,{'Moscow'},{'US'}
+1273,bertalan-por,{'Budapest'},{'HU'}
+1274,candido-portinari,set(),{'BR'}
+1275,rene-portocarrero,{'Havana'},{'CU'}
+1276,vieira-portuense,{'Porto'},{'PT'}
+1277,jose-guadalupe-posada,{'Aguascalientes'},{'MX'}
+1278,charlotte-posenenske,{'Wiesbaden'},{'DE'}
+1279,henrique-pousao,{'Vi?osa'},"{'PT', 'BR'}"
+1280,richard-pousette-dart,{'York'},{'US'}
+1281,nicolas-poussin,set(),{'FR'}
+1282,edward-poynter,{'Paris'},{'US'}
+1283,jorge-prado,"{'Havana', 'Chicago'}","{'CU', 'US'}"
+1284,karl-prantl,set(),{'AT'}
+1285,mario-prassinos,set(),{'TR'}
+1286,lidy-prati,{'Resistencia'},{'AR'}
+1287,mary-pratt,"{'Fredericton', 'March', 'Brunswick'}","{'US', 'GB', 'CA'}"
+1288,mattia-preti,set(),{'IT'}
+1289,maria-primachenko,{'Kiev'},"{'RU', 'UA'}"
+1290,richard-prince,set(),{'PA'}
+1291,patrick-procktor,"{'Dublin', 'London'}","{'GB', 'US'}"
+1292,jan-provoost,{'Mons'},{'BE'}
+1293,pierre-paul-prud-hon,set(),{'FR'}
+1294,vilhelms-purvitis,{'March'},"{'RU', 'GB', 'LV'}"
+1295,pierre-puvis-de-chavannes,{'Lyon'},{'FR'}
+1296,howard-pyle,"{'Wilmington', 'Delaware', 'March'}","{'GB', 'US'}"
+1297,qi-baishi,{'Xiangtan'},{'CN'}
+1298,robert-qualters,"{'March', 'McKeesport'}","{'GB', 'US'}"
+1299,carmelo-arden-quin,"{'March', 'Rivera'}","{'UY', 'GB'}"
+1300,lee-quinones,"{'Manhattan', 'Ponce'}","{'US', 'PR'}"
+1301,benito-quinquela-martin,{'March'},{'GB'}
+1302,arthur-rackham,{'Kent'},{'US'}
+1303,henry-raeburn,"{'March', 'Stockbridge', 'Edinburgh'}","{'GB', 'US'}"
+1304,jesus-rafael-soto,set(),{'VE'}
+1305,albert-rafols-casamada,"{'Barcelona', 'Gr?cia'}","{'VE', 'ES'}"
+1306,arnulf-rainer,{'Baden'},"{'AT', 'CH'}"
+1307,mel-ramos,{'Sacramento'},{'US'}
+1308,allan-ramsay,"{'Midlothian', 'Edinburgh'}","{'GB', 'US'}"
+1309,raphael,{'March'},"{'IT', 'GB'}"
+1310,antonietta-raphael,{'Kaunas'},{'LT'}
+1311,sonya-rapoport,{'Boston'},{'US'}
+1312,jerg-ratgeb,{'Roman'},"{'RO', 'DE'}"
+1313,neo-rauch,{'Leipzig'},{'DE'}
+1314,robert-rauschenberg,{'Texas'},{'US'}
+1315,roger-raveel,{'Deinze'},{'BE'}
+1316,eric-ravilious,"{'Acton', 'Essex', 'London'}","{'GB', 'US'}"
+1317,man-ray,"{'Brooklyn', 'Philadelphia', 'York'}",{'US'}
+1318,omar-rayo,{'Roldanillo'},{'CO'}
+1319,s-h-raza,"{'Damoh', 'Central'}","{'GB', 'IN', 'US'}"
+1320,odilon-redon,{'Bordeaux'},{'FR'}
+1321,paul-reed,{'Washington'},{'US'}
+1322,paula-rego,set(),{'PT'}
+1323,robert-lewis-reid,"{'Boston', 'Stockbridge'}",{'US'}
+1324,ad-reinhardt,"{'Riverside', 'Buffalo', 'York'}",{'US'}
+1325,rembrandt,{'Leiden'},{'NL'}
+1326,frederic-remington,"{'Canton', 'York'}",{'US'}
+1327,guido-reni,{'Bologna'},{'IT'}
+1328,pierre-auguste-renoir,{'Limoges'},{'FR'}
+1329,ilya-repin,{'Kharkiv'},"{'RU', 'UA'}"
+1330,milton-resnick,set(),{'RU'}
+1331,paul-revere,"{'Boston', 'Bay'}","{'PH', 'GB', 'US'}"
+1332,armando-reveron,{'Caracas'},{'VE'}
+1333,pablo-rey,{'Barcelona'},"{'VE', 'ES'}"
+1334,jason-rhoades,{'Newcastle'},{'ZA'}
+1335,georges-ribemont-dessaignes,{'Montpellier'},{'FR'}
+1336,theodule-ribot,"{'Paris', 'Saint-Nicolas'}","{'BE', 'US'}"
+1337,gerhard-richter,"{'Dresden', 'Bogatynia', 'Weimar'}","{'PL', 'DE'}"
+1338,hans-richter,{'Berlin'},"{'DE', 'CH'}"
+1339,george-rickey,{'Bend'},{'US'}
+1340,martin-rico,"{'Madrid', 'P?rez', 'San'}","{'AR', 'ML', 'ES'}"
+1341,hyacinthe-rigaud,{'Perpignan'},{'FR'}
+1342,bridget-riley,"{'Norwood', 'London'}","{'GB', 'US'}"
+1343,john-riley,{'London'},{'GB'}
+1344,jean-paul-riopelle,set(),{'CA'}
+1345,arturo-rivera,set(),{'MX'}
+1346,diego-rivera,"{'Guanajuato', 'Pilar', 'Rivera'}","{'PY', 'UY', 'MX'}"
+1347,larry-rivers,{'York'},"{'UA', 'US'}"
+1348,briton-riviere,{'London'},{'GB'}
+1349,hubert-robert,{'Paris'},{'US'}
+1350,david-roberts,"{'Stockbridge', 'Edinburgh'}","{'GB', 'US'}"
+1351,tom-roberts,"{'March', 'Dorchester'}",{'GB'}
+1352,dorothea-rockburne,set(),{'CA'}
+1353,norman-rockwell,{'York'},{'US'}
+1354,alexander-rodchenko,{'Petersburg'},{'US'}
+1355,lennart-rodhe,{'Stockholm'},{'SE'}
+1356,auguste-rodin,{'Paris'},"{'FR', 'US'}"
+1357,nicholas-roerich,{'Petersburg'},"{'RU', 'US'}"
+1358,giulio-romano,{'Rome'},{'US'}
+1359,julio-romero-de-torres,{'C?rdoba'},"{'ES', 'MX'}"
+1360,felicien-rops,{'Namur'},{'BE'}
+1361,salvator-rosa,{'Naples'},{'US'}
+1362,ottone-rosai,{'Florence'},{'US'}
+1363,constantin-daniel-rosenthal,set(),{'AT'}
+1364,dante-gabriel-rossetti,{'London'},{'GB'}
+1365,medardo-rosso,"{'Rosso', 'Turin'}","{'MR', 'IT'}"
+1366,theodore-roszak,set(),"{'DE', 'PL'}"
+1367,dieter-roth,{'Hannover'},{'DE'}
+1368,susan-rothenberg,"{'Buffalo', 'York'}",{'US'}
+1369,mark-rothko,"{'Vitebsk', 'Daugavpils'}","{'BY', 'RU', 'LV'}"
+1370,georges-rouault,{'Paris'},{'US'}
+1371,henri-rousseau,"{'Mayenne', 'Laval'}",{'FR'}
+1372,theodore-rousseau,{'Paris'},"{'FR', 'US'}"
+1373,olga-rozanova,"{'Melenki', 'Vladimir'}",{'RU'}
+1374,peter-paul-rubens,"{'Roman', 'Siegen'}","{'RO', 'DE'}"
+1375,andrei-rublev,{'Moscow'},"{'RU', 'US'}"
+1376,carl-rungius,set(),"{'DE', 'CA'}"
+1377,allen-ruppersberg,{'Cleveland'},{'US'}
+1378,edward-ruscha,"{'Omaha', 'Oklahoma'}",{'US'}
+1379,santiago-rusinol,"{'Barcelona', 'Manlleu'}","{'VE', 'ES'}"
+1380,charles-m-russell,"{'March', 'Missouri'}","{'GB', 'US'}"
+1381,john-russell,"{'Surrey', 'Guildford'}","{'GB', 'CA'}"
+1382,john-peter-russell,"{'Charlotte', 'Elizabeth', 'London', 'Sydney'}","{'US', 'GB', 'AU', 'CA'}"
+1383,morgan-russell,{'York'},{'US'}
+1384,luigi-russolo,{'Portogruaro'},{'IT'}
+1385,vasiliy-ryabchenko,{'Odessa'},{'US'}
+1386,andrei-ryabushkin,{'Tambov'},{'RU'}
+1387,anne-ryan,{'Hoboken'},"{'JE', 'US'}"
+1388,mark-ryden,"{'Medford', 'Oregon'}",{'US'}
+1389,robert-ryman,{'Nashville'},{'US'}
+1390,theo-van-rysselberghe,set(),{'BE'}
+1391,ali-akbar-sadeghi,set(),{'IR'}
+1392,vasily-sadovnikov,{'Petersburg'},{'US'}
+1393,kay-sage,"{'Albany', 'York'}",{'US'}
+1394,mahmoud-saiid,{'Alexandria'},"{'TR', 'EG', 'US'}"
+1395,niki-de-sainte-phalle,set(),{'FR'}
+1396,ibrahim-salahi,{'Omdurman'},{'SD'}
+1397,tahir-salahov,"{'Union', 'Baku'}","{'AZ', 'US'}"
+1398,raden-saleh,{'Semarang'},"{'ID', 'NL'}"
+1399,david-salle,"{'Norman', 'Oklahoma'}",{'US'}
+1400,sallinen-tyko,{'March'},{'GB'}
+1401,mykola-samokysh,{'Nizhyn'},{'UA'}
+1402,fred-sandback,{'York'},{'US'}
+1403,frederick-sandys,{'Norwich'},{'US'}
+1404,guilherme-de-santa-rita,{'Lisbon'},{'PT'}
+1405,sanyu,{'Nanchong'},{'CN'}
+1406,gianni-sarcone,"{'March', 'Vevey'}","{'GB', 'CH'}"
+1407,john-singer-sargent,"{'Florence', 'Paris', 'London'}","{'GB', 'US'}"
+1408,martiros-sarian,set(),{'RU'}
+1409,juliao-sarmento,{'Lisbon'},{'PT'}
+1410,george-saru,set(),{'RO'}
+1411,wilhelm-sasnal,{'Tarn?w'},{'PL'}
+1412,satoshi-nakamoto,set(),{'JP'}
+1413,sarunas-sauka3,{'Vilnius'},{'LT'}
+1414,arsen-savadov,"{'Kiev', 'Vladimir', 'Baku'}","{'RU', 'AZ', 'UA'}"
+1415,jenny-saville,{'Cambridge'},{'US'}
+1416,aleksey-savrasov,{'Moscow'},"{'RU', 'US'}"
+1417,fikret-mualla-saygi,{'Paris'},{'US'}
+1418,emilio-scanavino,{'Genoa'},{'IT'}
+1419,louis-schanker,{'York'},{'US'}
+1420,miriam-schapiro,"{'Toronto', 'Ontario'}","{'US', 'CA'}"
+1421,kenny-scharf,"{'Manhattan', 'Hollywood', 'York'}",{'US'}
+1422,boris-schatz,set(),"{'RU', 'LT'}"
+1423,ary-scheffer,"{'Dordrecht', 'Kassel'}","{'NL', 'DE'}"
+1424,mira-schendel,set(),{'CH'}
+1425,tony-scherman,"{'Toronto', 'Ontario'}","{'US', 'CA'}"
+1426,egon-schiele,set(),{'AT'}
+1427,helene-schjerfbeck,{'Helsinki'},{'FI'}
+1428,oskar-schlemmer,{'Stuttgart'},{'DE'}
+1429,karl-schmidt-rottluff,{'Chemnitz'},{'DE'}
+1430,julian-schnabel,{'York'},{'US'}
+1431,heinrich-schonfeld,{'March'},{'GB'}
+1432,friedrich-schroder-sonnenstern,{'Kaliningrad'},{'RU'}
+1433,bruno-schulz,{'Drohobych'},"{'AT', 'UA', 'PL'}"
+1434,emil-schumacher,{'Hagen'},{'DE'}
+1435,dana-schutz,"{'Michigan', 'Livonia'}",{'US'}
+1436,carlos-schwabe,"{'Geneva', 'Altona'}","{'US', 'SZ', 'DE', 'CH'}"
+1437,samuel-schwarz,{'Zutphen'},{'NL'}
+1438,kurt-schwitters,{'Hanover'},"{'DE', 'US'}"
+1439,tim-scott,{'London'},{'GB'}
+1440,william-scott,{'Greenock'},"{'IE', 'GB'}"
+1441,sean-scully,"{'Dublin', 'London'}","{'IE', 'GB', 'US'}"
+1442,franz-sedlacek,{'Linz'},"{'AT', 'DE'}"
+1443,seen,{'York'},{'US'}
+1444,george-segal,{'York'},{'US'}
+1445,lasar-segall,{'Vilnius'},{'LT'}
+1446,giovanni-segantini,set(),{'AT'}
+1447,hercules-seghers,"{'Haarlem', 'Amsterdam'}","{'NL', 'US'}"
+1448,nobuo-sekine,"{'Saitama', 'Tokyo'}",{'JP'}
+1449,gerard-sekoto,"{'Middelburg', 'Botshabelo'}",{'ZA'}
+1450,paritosh-sen,{'Dhaka'},{'BD'}
+1451,maurice-sendak,"{'Brooklyn', 'York'}",{'US'}
+1452,sohrab-sepehri,set(),{'IR'}
+1453,domingos-sequeira,"{'Lisbon', 'March', 'Bel?m'}","{'PT', 'BR', 'GB'}"
+1454,zinaida-serebriakova,set(),"{'RU', 'UA'}"
+1455,valentin-serov,"{'Petersburg', 'Serov'}","{'RU', 'US'}"
+1456,richard-serra,{'San'},{'ML'}
+1457,paul-serusier,{'Paris'},"{'FR', 'US'}"
+1458,victor-servranckx,{'Brussels'},{'BE'}
+1459,georges-seurat,{'Paris'},"{'FR', 'US'}"
+1460,gino-severini,set(),{'IT'}
+1461,ben-shahn,{'Kaunas'},"{'RU', 'LT'}"
+1462,morton-shamberg,{'Philadelphia'},{'US'}
+1463,nelson-shanks,"{'Rochester', 'York'}",{'US'}
+1464,byam-shaw,set(),"{'GB', 'IN'}"
+1465,silvestr-shchedrin,{'Petersburg'},{'US'}
+1466,charles-sheeler,{'Philadelphia'},{'US'}
+1467,amrita-sher-gil,"{'Budapest', 'March'}","{'GB', 'HU'}"
+1468,cindy-sherman,{'Huntington'},"{'JE', 'US'}"
+1469,aaron-shikler,"{'Brooklyn', 'March', 'York'}","{'GB', 'US'}"
+1470,alexander-shilov,{'Moscow'},{'US'}
+1471,toko-shinoda,"{'Dalian', 'March'}","{'CN', 'GB'}"
+1472,ivan-shishkin,"{'Kazan', 'Yelabuga'}","{'RU', 'TR'}"
+1473,uemura-shoen,{'Kyoto'},{'JP'}
+1474,natori-shunsen,{'Tokyo'},{'JP'}
+1475,hishida-shunso,{'Iida'},{'JP'}
+1476,walter-sickert,{'Munich'},"{'GB', 'DE'}"
+1477,henryk-siemiradzki,{'Belgorod'},{'RU'}
+1478,paul-signac,{'Paris'},"{'FR', 'US'}"
+1479,hugo-simberg,{'Hamina'},"{'RU', 'FI'}"
+1480,turi-simeti,{'Alcamo'},{'IT'}
+1481,edward-e-simmons,{'Concord'},{'US'}
+1482,john-simpson,"{'London', 'Lawrence'}","{'GB', 'US'}"
+1483,william-simpson,{'Glasgow'},{'GB'}
+1484,david-alfaro-siqueiros,"{'Irapuato', 'Guanajuato', 'Chihuahua', 'Camargo'}","{'ES', 'MX'}"
+1485,sir-william-russell-flint,{'Edinburgh'},{'GB'}
+1486,mario-sironi,{'Sassari'},{'IT'}
+1487,aaron-siskind,{'York'},{'US'}
+1488,alfred-sisley,{'Paris'},"{'GB', 'FR', 'US'}"
+1489,vasan-sitthiket,set(),{'TH'}
+1490,max-slevogt,{'Landshut'},{'DE'}
+1491,john-french-sloan,{'Dixon'},"{'IE', 'US'}"
+1492,sm-sultan,"{'Jessore', 'Narail'}","{'BD', 'IN', 'GB'}"
+1493,jeffrey-smart,{'Adelaide'},{'AU'}
+1494,david-smith,"{'Decatur', 'March'}","{'GB', 'US'}"
+1495,hassel-smith,{'Michigan'},{'US'}
+1496,kiki-smith,set(),{'DE'}
+1497,richard-smith,{'Letchworth'},{'GB'}
+1498,tony-smith,{'Orange'},"{'JE', 'US'}"
+1499,robert-smithson,"{'Passaic', 'Rutherford'}","{'JE', 'US'}"
+1500,joan-snyder,{'Highland'},"{'JE', 'US'}"
+1501,jose-gutierrez-solana,{'Madrid'},"{'ES', 'MX'}"
+1502,xul-solar,{'San'},"{'AR', 'ML'}"
+1503,francesco-solimena,{'Avellino'},{'IT'}
+1504,fyodor-solntsev,{'Yaroslavl'},{'RU'}
+1505,frederick-sommer,{'Angri'},"{'BR', 'IT'}"
+1506,keith-sonnier,{'Mamou'},{'GN'}
+1507,joaqu-n-sorolla,{'Valencia'},"{'VE', 'ES'}"
+1508,chaim-soutine,{'Minsk'},"{'BY', 'RU'}"
+1509,amadeo-de-souza-cardoso,set(),{'PT'}
+1510,austin-osman-spare,"{'Smithfield', 'Police', 'London'}","{'GB', 'PL', 'US'}"
+1511,john-roddam-spencer-stanhope,{'Florence'},"{'IE', 'IT', 'US'}"
+1512,stanley-spencer,{'Anna'},{'RU'}
+1513,leon-spilliaert,set(),{'BE'}
+1514,carl-spitzweg,{'Munich'},{'DE'}
+1515,daniel-spoerri,set(),{'RO'}
+1516,theodoros-stamos,{'York'},{'US'}
+1517,julian-stanczak,set(),{'PL'}
+1518,stay-high-149,"{'Virginia', 'York', 'Emporia'}","{'ZA', 'US'}"
+1519,jan-steen,"{'Leiden', 'Holland'}","{'NL', 'US'}"
+1520,philip-wilson-steer,"{'Cheshire', 'Birkenhead', 'Harrison'}","{'GB', 'US'}"
+1521,saul-steinberg,set(),{'RO'}
+1522,pat-steir,{'Newark'},"{'JE', 'US'}"
+1523,frank-stella,{'Malden'},"{'IT', 'US'}"
+1524,jacques-stella,{'Lyon'},{'FR'}
+1525,joseph-stella,set(),{'IT'}
+1526,irma-stern,{'Schweizer-Reneke'},{'ZA'}
+1527,hedda-sterne,{'Bucharest'},{'RO'}
+1528,florine-stettheimer,"{'Rochester', 'York'}",{'US'}
+1529,john-steuart-curry,{'Kansas'},{'US'}
+1530,alfred-stevens,{'Brussels'},{'BE'}
+1531,julius-leblanc-stewart,{'Philadelphia'},{'US'}
+1532,alfred-stieglitz,{'Hoboken'},"{'JE', 'DE', 'US'}"
+1533,clyfford-still,"{'Spokane', 'Washington'}","{'CA', 'US'}"
+1534,jessica-stockholder,"{'Washington', 'Seattle'}",{'US'}
+1535,myron-stout,"{'Denton', 'Texas'}",{'US'}
+1536,arthur-streeton,"{'Johnson', 'Victoria', 'Mary', 'Geelong'}","{'TM', 'AU', 'US'}"
+1537,marjorie-strider,{'Oklahoma'},{'US'}
+1538,bernardo-strozzi,{'Genoa'},{'IT'}
+1539,gilbert-stuart,set(),{'GB'}
+1540,george-stubbs,"{'Liverpool', 'Mary'}","{'GB', 'TM'}"
+1541,kishio-suga,set(),{'JP'}
+1542,alberto-sughi,{'Cesena'},{'IT'}
+1543,do-ho-suh,{'Seoul'},{'KR'}
+1544,se-ok-suh,{'Daegu'},{'KR'}
+1545,agim-sulaj,set(),{'AL'}
+1546,thomas-sully,{'Chester'},{'US'}
+1547,donald-sultan,"{'Asheville', 'Carolina'}","{'PR', 'US'}"
+1548,haddon-sundbloom,"{'Michigan', 'Muskegon'}",{'US'}
+1549,vasily-surikov,"{'Krasnoyarsk', 'Yeniseysk'}",{'RU'}
+1550,leopold-survage,"{'Lappeenranta', 'Moscow'}","{'RU', 'FI', 'US'}"
+1551,jagdish-swaminathan,{'Shimla'},{'IN'}
+1552,fernando-de-szyszlo,{'Lima'},"{'PE', 'PL', 'US'}"
+1553,philip-taaffe,"{'Elizabeth', 'Cooper', 'Union', 'York'}","{'JE', 'US'}"
+1554,tadanori-yokoo,{'Nishiwaki'},{'JP'}
+1555,sophie-taeuber-arp,set(),{'CH'}
+1556,abanindranath-tagore,set(),"{'GB', 'IN'}"
+1557,hiroyuki-tajima,"{'University', 'Tokyo'}","{'JP', 'US'}"
+1558,pierre-tal-coat,set(),{'FR'}
+1559,rufino-tamayo,{'Oaxaca'},{'MX'}
+1560,yves-tanguy,{'Paris'},"{'FR', 'US'}"
+1561,henry-ossawa-tanner,{'Pittsburgh'},{'US'}
+1562,dorothea-tanning,{'Galesburg'},{'US'}
+1563,mark-tansey,{'San'},{'ML'}
+1564,antoni-tapies,{'Barcelona'},{'VE'}
+1565,agostino-tassi,"{'Rome', 'Perugia'}","{'IT', 'US'}"
+1566,vladimir-tatlin,"{'Kharkiv', 'Moscow'}","{'UA', 'US'}"
+1567,lenore-tawney,"{'Chicago', 'Lorain'}","{'IE', 'DE', 'US'}"
+1568,chu-teh-chun,set(),{'CN'}
+1569,david-teniers-the-younger,{'David'},{'PA'}
+1570,gerard-terborch,{'Zwolle'},{'NL'}
+1571,panos-terlemezian,{'Van'},"{'AM', 'TR'}"
+1572,panayiotis-tetsis,set(),{'GR'}
+1573,tetsuya-ishida,{'Yaizu'},{'JP'}
+1574,frits-thaulow,set(),{'NO'}
+1575,abbott-handerson-thayer,{'Boston'},{'US'}
+1576,ion-theodorescu-sion,set(),{'RO'}
+1577,wayne-thiebaud,{'Mesa'},{'US'}
+1578,elizabeth-thompson,{'Lausanne'},{'CH'}
+1579,tom-thomson,"{'Claremont', 'Ontario'}","{'CA', 'US'}"
+1580,giovanni-battista-tiepolo,"{'Venice', 'March'}","{'GB', 'US'}"
+1581,giovanni-domenico-tiepolo,{'Venice'},{'US'}
+1582,louis-comfort-tiffany,{'York'},{'US'}
+1583,lajos-tihanyi,{'Budapest'},{'HU'}
+1584,wolfgang-tillmans,{'Remscheid'},{'DE'}
+1585,walasse-ting,{'Shanghai'},{'CN'}
+1586,jean-tinguely,{'Fribourg'},{'CH'}
+1587,tintoretto,{'Venice'},"{'IT', 'US'}"
+1588,rirkrit-tiravanija,set(),{'AR'}
+1589,james-tissot,{'Nantes'},{'FR'}
+1590,titian,"{'Belluno', 'Venice'}","{'IT', 'US'}"
+1591,mark-tobey,{'Centerville'},{'US'}
+1592,francisco-toledo,{'Oaxaca'},{'MX'}
+1593,tomioka-tessai,"{'Tomioka', 'Kyoto'}",{'JP'}
+1594,bradley-walker-tomlin,{'Syracuse'},{'US'}
+1595,nicolae-tonitza,{'B?rlad'},{'RO'}
+1596,george-tooker,"{'Brooklyn', 'York'}",{'US'}
+1597,jan-toorop,set(),{'NL'}
+1598,janos-tornyai,set(),{'HU'}
+1599,joaquin-torres-garcia,{'Montevideo'},{'UY'}
+1600,auguste-toulmouche,{'Nantes'},{'FR'}
+1601,henri-de-toulouse-lautrec,{'Albi'},{'FR'}
+1602,sesshu-toyo,set(),{'JP'}
+1603,mario-tozzi,set(),{'IT'}
+1604,bill-traylor,{'Benton'},{'US'}
+1605,rosemarie-trockel,{'Schwerte'},{'DE'}
+1606,vasily-tropinin,{'March'},"{'RU', 'GB'}"
+1607,constant-troyon,"{'Paris', 'S?vres'}","{'FR', 'US'}"
+1608,wilhelm-trubner,{'Heidelberg'},{'ZA'}
+1609,anne-truitt,"{'Baltimore', 'March', 'Maryland'}","{'GB', 'US'}"
+1610,john-trumbull,{'Trumbull'},"{'GB', 'LB', 'US'}"
+1611,wen-ying-tsai,"{'University', 'Michigan', 'Xiamen'}","{'CN', 'US'}"
+1612,yiannis-tsaroychis,{'Piraeus'},{'GR'}
+1613,albert-tucker,{'Melbourne'},"{'AU', 'US'}"
+1614,ion-tuculescu,{'Craiova'},{'RO'}
+1615,charles-tunnicliffe,"{'Macclesfield', 'Sutton', 'Langley'}","{'GB', 'CA'}"
+1616,william-turnbull,{'Dundee'},{'ZA'}
+1617,william-turner,{'London'},{'GB'}
+1618,glennray-tutor,{'Missouri'},{'US'}
+1619,richard-tuttle,"{'Roselle', 'Rahway'}","{'JE', 'US'}"
+1620,leon-arthur-tutundjian,"{'Amasya', 'Sivas'}",{'TR'}
+1621,luc-tuymans,{'Mortsel'},{'BE'}
+1622,john-henry-twachtman,{'Cincinnati'},{'US'}
+1623,twins-seven-seven,set(),{'NG'}
+1624,cy-twombly,"{'Virginia', 'Lexington'}","{'ZA', 'US'}"
+1625,jack-tworkov,set(),"{'RU', 'PL'}"
+1626,paolo-uccello,set(),{'IT'}
+1627,kamal-ud-din-behzad,set(),{'AF'}
+1628,joseph-urbania,set(),{'SI'}
+1629,lesser-ury,{'Berlin'},{'DE'}
+1630,maurice-utrillo,{'Paris'},"{'FR', 'US'}"
+1631,armand-vaillancourt,set(),{'CA'}
+1632,suzanne-valadon,set(),{'FR'}
+1633,de-wain-valentine,{'Colorado'},{'BR'}
+1634,nina-tokhtaman-valetova,"{'Union', 'Ufa'}","{'RU', 'US'}"
+1635,anne-vallayer-coster,{'Paris'},"{'FR', 'US'}"
+1636,leo-valledor,{'San'},{'ML'}
+1637,georges-valmier,{'Angoul?me'},{'FR'}
+1638,willem-van-aelst,{'Delft'},{'NL'}
+1639,dirck-van-baburen,{'Utrecht'},{'NL'}
+1640,rogier-van-der-weyden,{'Tournai'},{'BE'}
+1641,kees-van-dongen,"{'Delfshaven', 'Rotterdam'}","{'NL', 'US'}"
+1642,anthony-van-dyck,{'March'},"{'NL', 'GB', 'BE', 'ES'}"
+1643,jan-van-eyck,"{'Li?ge', 'Maaseik'}",{'BE'}
+1644,willem-van-genk,{'Voorburg'},{'NL'}
+1645,vincent-van-gogh,"{'Zundert', 'March'}","{'NL', 'GB'}"
+1646,maerten-van-heemskerck,"{'Alkmaar', 'Haarlem', 'Heemskerk', 'Holland'}","{'NL', 'US'}"
+1647,samuel-dirksz-van-hoogstraten,{'Dordrecht'},{'NL'}
+1648,louis-van-lint,{'Brussels'},{'BE'}
+1649,michiel-van-musscher,{'Rotterdam'},{'US'}
+1650,jacob-van-ruisdael,{'Haarlem'},{'NL'}
+1651,juriaen-van-streeck,{'Amsterdam'},"{'NL', 'US'}"
+1652,jacob-van-strij,{'Dordrecht'},{'NL'}
+1653,otto-van-veen,{'Leiden'},{'NL'}
+1654,gregorio-vardanega,{'March'},"{'IT', 'GB'}"
+1655,vardges-sureniants,"{'Akhaltsikhe', 'March'}","{'GE', 'RU', 'GB'}"
+1656,remedios-varo,set(),{'ES'}
+1657,vartan-mahokian,{'Trabzon'},"{'AM', 'TR'}"
+1658,victor-vasarely,"{'P?cs', 'University', 'Budapest'}","{'SK', 'HU', 'US'}"
+1659,giorgio-vasari,"{'Arezzo', 'Florence'}","{'IT', 'US'}"
+1660,fyodor-vasilyev,{'Gatchina'},{'RU'}
+1661,viktor-vasnetsov,set(),{'RU'}
+1662,john-vassos,set(),"{'RO', 'GR', 'TR'}"
+1663,marc-vaux,{'Swindon'},{'GB'}
+1664,palma-vecchio,"{'Venice', 'Bergamo'}","{'IT', 'US'}"
+1665,diego-velazquez,set(),{'ES'}
+1666,adriaen-van-de-velde,{'Amsterdam'},{'US'}
+1667,esaias-van-de-velde,{'Amsterdam'},{'US'}
+1668,domenico-veneziano,{'Venice'},{'US'}
+1669,adriaen-van-de-venne,{'Delft'},{'NL'}
+1670,vasily-vereshchagin,{'Cherepovets'},{'RU'}
+1671,johannes-vermeer,{'Delft'},{'NL'}
+1672,nicolae-vermont,set(),{'RO'}
+1673,claude-joseph-vernet,{'Avignon'},{'FR'}
+1674,horace-vernet,{'Paris'},"{'FR', 'US'}"
+1675,paolo-veronese,{'Verona'},{'IT'}
+1676,luigi-veronesi,set(),{'IT'}
+1677,andrea-del-verrocchio,{'Florence'},"{'IT', 'US'}"
+1678,jehan-georges-vibert,{'Paris'},{'US'}
+1679,esteban-vicente,set(),{'ES'}
+1680,maria-helena-vieira-da-silva,{'Lisbon'},{'PT'}
+1681,oswaldo-vigas,{'Valencia'},{'VE'}
+1682,louise-elisabeth-vigee-le-brun,{'Paris'},"{'FR', 'US'}"
+1683,jacques-villegl,"{'Quimper', 'March'}","{'FR', 'GB'}"
+1684,marie-denise-villers,{'Paris'},{'US'}
+1685,henry-villierme,{'San'},{'ML'}
+1686,eliseu-visconti,set(),{'IT'}
+1687,maurice-de-vlaminck,{'Paris'},{'US'}
+1688,ruth-vollmer,{'Munich'},{'DE'}
+1689,alfredo-volpi,{'Lucca'},"{'BR', 'IT'}"
+1690,elsa-von-freytag-loringhoven,set(),{'DE'}
+1691,eugene-von-guerard,{'Vienna'},"{'AT', 'AU', 'US'}"
+1692,alexej-von-jawlensky,"{'Tver', 'Torzhok', 'March'}","{'RU', 'GB'}"
+1693,marianne-von-werefkin,{'Tula'},{'RU'}
+1694,friedrich-vordemberge-gildewart,{'Hanover'},"{'DE', 'US'}"
+1695,cornelis-de-vos,set(),{'NL'}
+1696,hendrick-cornelisz-vroom,{'Haarlem'},{'NL'}
+1697,mikhail-vrubel,"{'Anna', 'March', 'Omsk'}","{'RU', 'GB'}"
+1698,edouard-vuillard,set(),{'FR'}
+1699,edward-wadsworth,{'Cleckheaton'},{'GB'}
+1700,ferdinand-georg-waldm-ller,{'Vienna'},{'US'}
+1701,alfred-wallis,{'Devonport'},{'AU'}
+1702,james-ward,{'London'},{'GB'}
+1703,lynd-ward,{'Chicago'},{'US'}
+1704,andy-warhol,{'Pittsburgh'},{'US'}
+1705,john-william-waterhouse,"{'Rome', 'London', 'Everett'}","{'UK', 'GB', 'US'}"
+1706,homer-watson,{'Ontario'},"{'US', 'CA'}"
+1707,antoine-watteau,{'Valenciennes'},"{'NL', 'FR', 'ES'}"
+1708,george-frederick-watts,"{'London', 'George'}","{'ZA', 'GB'}"
+1709,edwin-lord-weeks,{'Boston'},{'US'}
+1710,lawrence-weiner,{'York'},{'US'}
+1711,julian-alden-weir,{'York'},{'US'}
+1712,ai-weiwei,{'Beijing'},{'CN'}
+1713,neil-welliver,{'Millville'},{'US'}
+1714,james-lesesne-wells,{'Atlanta'},"{'GE', 'US'}"
+1715,pieter-wenning,{'Elizabeth'},"{'NL', 'US'}"
+1716,tom-wesselmann,{'Cincinnati'},{'US'}
+1717,benjamin-west,{'Springfield'},{'US'}
+1718,edward-weston,"{'Highland', 'March', 'Chicago'}","{'GB', 'US'}"
+1719,james-mcneill-whistler,"{'Lowell', 'Anna', 'Washington', 'George'}","{'ZA', 'RU', 'US'}"
+1720,charles-wilbert-white,{'Chicago'},{'US'}
+1721,clarence-white,"{'Newark', 'Carlisle'}",{'US'}
+1722,brett-whiteley,"{'London', 'Sydney'}","{'GB', 'CA'}"
+1723,rachel-whiteread,"{'Essex', 'London'}","{'GB', 'US'}"
+1724,ludwig-wilding,set(),{'DE'}
+1725,ulfert-wilke,set(),{'DE'}
+1726,fred-williams,"{'Richmond', 'Victoria'}","{'ZA', 'AU', 'US'}"
+1727,kit-williams,{'Kent'},{'US'}
+1728,robert-williams,{'March'},{'GB'}
+1729,william-williams,{'Bristol'},{'US'}
+1730,carel-willink,"{'March', 'Amsterdam'}","{'NL', 'GB', 'US'}"
+1731,may-wilson,"{'Baltimore', 'Maryland'}",{'US'}
+1732,franz-xaver-winterhalter,{'Baden'},"{'DE', 'CH'}"
+1733,stanislaw-ignacy-witkiewicz,set(),{'UA'}
+1734,dan-witz,{'Chicago'},{'US'}
+1735,adolf-wolfli,{'Bern'},{'CH'}
+1736,wols,{'Berlin'},{'DE'}
+1737,paul-wonner,{'Tucson'},{'US'}
+1738,christopher-wood,{'Liverpool'},{'GB'}
+1739,grant-wood,{'Iowa'},{'US'}
+1740,francesca-woodman,"{'Denver', 'George', 'Colorado'}","{'ZA', 'BR', 'US'}"
+1741,alma-woodsey-thomas,{'Columbus'},"{'GE', 'US'}"
+1742,zao-wou-ki,"{'Beijing', 'Zhenjiang'}",{'CN'}
+1743,joseph-wright,{'Derby'},{'US'}
+1744,joachim-wtewael,{'Utrecht'},{'NL'}
+1745,jamie-wyeth,"{'Wilmington', 'Delaware'}",{'US'}
+1746,n-c-wyeth,{'Needham'},{'US'}
+1747,stanislaw-wyspianski,set(),{'UA'}
+1748,zhang-xiaogang,set(),{'CN'}
+1749,tetyana-yablonska,{'Smolensk'},{'RU'}
+1750,yamamoto-gempo,set(),{'JP'}
+1751,kanae-yamamoto,{'Okazaki'},{'JP'}
+1752,kansuke-yamamoto,{'March'},"{'JP', 'GB'}"
+1753,taro-yamamoto,{'Hollywood'},{'US'}
+1754,mykola-yaroshenko,{'Poltava'},"{'RU', 'UA'}"
+1755,fred-yates,{'Urmston'},{'GB'}
+1756,manoucher-yektai,set(),{'IR'}
+1757,jacek-yerka,set(),{'PL'}
+1758,vasyl-yermylov,"{'Kharkiv', 'March'}","{'RU', 'GB', 'UA'}"
+1759,lan-ying,{'Hangzhou'},{'CN'}
+1760,hiroshi-yoshida,{'Kurume'},{'JP'}
+1761,jiro-yoshihara,set(),{'JP'}
+1762,tsukioka-yoshitoshi,set(),{'JP'}
+1763,jack-youngerman,"{'March', 'Missouri'}","{'GB', 'US'}"
+1764,li-yuan-chia,set(),{'CN'}
+1765,adja-yunkers,"{'Riga', 'Livonia'}","{'RU', 'LV', 'US'}"
+1766,konstantin-yuon,{'Moscow'},"{'RU', 'US'}"
+1767,ossip-zadkine,set(),"{'BY', 'RU'}"
+1768,robert-zakanitch,"{'Elizabeth', 'Rahway'}","{'JE', 'US'}"
+1769,federico-zandomeneghi,{'Venice'},{'US'}
+1770,vela-zanetti,{'Burgos'},"{'PH', 'ES'}"
+1771,hossein-zenderoudi,{'March'},"{'IR', 'GB'}"
+1772,tszen-fanchzhi,"{'Beijing', 'Wuhan'}",{'CN'}
+1773,zenkei-shibayama,set(),{'JP'}
+1774,shen-zhou,{'Xiangcheng'},{'CN'}
+1775,guan-zilan,{'Shanghai'},{'CN'}
+1776,anders-zorn,{'Mora'},"{'NO', 'CM', 'SE'}"
+1777,larry-zox,"{'York', 'Iowa'}",{'US'}
+1778,francisco-de-zurbaran,{'Badajoz'},{'ES'}

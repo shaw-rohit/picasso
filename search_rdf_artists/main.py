@@ -93,7 +93,6 @@ df = df[df['dbp_name'] != 'N/A']
 del df["Unnamed: 0"]
 df.to_csv("output.csv")
 
-
 # Works via wikipedia, but is very slow
 
 #       # sparql = SPARQLWrapper("https://query.wikidata.org/sparql")
