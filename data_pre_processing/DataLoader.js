@@ -8,36 +8,56 @@ var svgContainer = d3.select("body").append("svg")
 										.attr("height", height)
 										.attr("width", width);
 
-  // Simple
-var sample = [0, 0.005, 0.01, 0.015, 0.02, 0.025];
+// Create map
+var projection = d3.geoMercator()//.translate([width/2, height/2]).scale(2200).center([0,40]);
+var path = d3.geoPath().projection(projection);
+
+var g = svgContainer.append("g");
+
+var url = "http://enjalot.github.io/wwsd/data/world/world-110m.geojson";
+var data_url = "http://enjalot.github.io/wwsd/data/world/ne_50m_populated_places_simple.geojson";
+
+Promise.all([d3.json(url), d3.json(data_url)]).then(function(data) {
+      var world = data[0];
+      var places = data[1];
+      
+      svgContainer.append("path")
+        .attr("d", path(world))
+        .attr("fill", "lightgray")
+        .attr("stroke", "white");
+    });
+
+
+// set centuries
 var centuries = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21]
-  // Range
-  var sliderRange = d3
-    .sliderBottom()
-    .min(d3.min(centuries))
-    .max(d3.max(centuries))
-    .width(600)
-    .tickFormat(d3.format(',d'))
-    .ticks(centuries.length)
-    .default([0, 1])
-    .fill('#2196f3');
 
-  var gRange = d3
-    .select('div#slider-range')
-    .append('svg')
-    .attr('width', 1000)
-    .attr('height', 100)
-    .append('g')
-    .attr('transform', 'translate(30,30)');
+// Range
+var sliderRange = d3
+.sliderBottom()
+.min(d3.min(centuries))
+.max(d3.max(centuries))
+.width(600)
+.tickFormat(d3.format(',d'))
+.ticks(centuries.length)
+.default([0, 1])
+.fill('#2196f3');
 
-  gRange.call(sliderRange);
+var gRange = d3
+.select('div#slider-range')
+.append('svg')
+.attr('width', 1000)
+.attr('height', 100)
+.append('g')
+.attr('transform', 'translate(30,30)');
 
-  d3.select('p#value-range').text(
-    sliderRange
-      .value()
-      .map(d3.format(',d'))
-      .join('-')
-  );
+gRange.call(sliderRange);
+
+d3.select('p#value-range').text(
+sliderRange
+  .value()
+  .map(d3.format(',d'))
+  .join('-')
+);
 
 
 var color = {'school': {}, 'style': {}, 'media':{}}
@@ -122,9 +142,10 @@ function update_visuals(century, data, show){
 	// and 0-750 for latitude
 	//dbp_lat, dbp_long
 
-	svgContainer.selectAll("circle")
-	.remove();
+	// TODO REMOVE THE PINS CORRECTLY
+	svgContainer.selectAll("circle").remove();
 
+	var filtered_data = []
 	// load style part of data
 	data.forEach(function(d){
 		// works except for the fact that 1700 will be 17th century
@@ -133,14 +154,29 @@ function update_visuals(century, data, show){
 
 			// convert lng and lat to coordinates
 			if (d["dbp_long"] != "N\\A"){
-				svgContainer.append("circle")
-					.attr("cx", (Math.abs(d["dbp_long"])+10)*5)
-					.attr("cy", (Math.abs(d["dbp_lat"])+10)*5)
-					.attr("r",3)
-					.attr("fill", color[show][d[show]])					
+				//svgContainer.append("circle")
+				//	.attr("cx", (Math.abs(d["dbp_long"])+10)*5)
+				//	.attr("cy", (Math.abs(d["dbp_lat"])+10)*5)
+				//	.attr("r",3)
+
+				// add datapoint to filtered_data
+				filtered_data.push(d)
 			}
 		}
+	});
 
+			
+	// insert filtered data into world map
+    svgContainer.selectAll(".pin")
+      .data(filtered_data)
+      .enter().append("circle", ".pin")
+      .attr("r", 3)
+      .attr("fill", function(d) {return color[show][d[show]];})	
+      .attr("transform", function(d) {
+        return "translate(" + projection([
+          d["dbp_long"],
+          d["dbp_lat"]
+        ]) + ")";
 	});
 
 	// show new legend
