@@ -2,6 +2,9 @@
 var width = 1500;
 var height = 750;
 
+legendRectSize = 18;
+legendSpacing = 4;
+
 var century = 0;
 
 var svgContainer = d3.select("body").append("svg")
@@ -88,22 +91,31 @@ d3.csv("output.csv")
 		var all_styles = Array.from(all_styles_set)
 		var all_schools = Array.from(all_schools_set)
 		var all_media = Array.from(all_media_set)
+        
+        var styles_colors = [];
+        var schools_colors = [];
+        var media_colors = [];
 
 		for (var i = 0; i < all_styles.length; i++){
 			color['style'][all_styles[i]] = d3.interpolateWarm(i/all_styles.length)
+            styles_colors.push(d3.interpolateWarm(i/all_styles.length))
 		}
 
 		for (var i = 0; i < all_schools.length; i++){
 			color['school'][all_schools[i]] = d3.interpolateViridis(i/all_schools.length)
+            schools_colors.push(d3.interpolateViridis(i/all_schools.length))
 		}
 
 		for (var i = 0; i < all_media.length; i++){
 			color['media'][all_media[i]] = d3.interpolateViridis(i/all_media.length)
+            media_colors.push(d3.interpolateViridis(i/all_media.length))
 		}
 
 		// initialize things to show
 		var show = 'style'
 		var century = [0,1]
+		
+		show_legend(all_styles, styles_colors)
 
 		sliderRange
 			.on('onchange', val => {
@@ -117,20 +129,55 @@ d3.csv("output.csv")
 		.on("click", function(d){
 			show = 'style'
 			update_visuals(century,data,show)
+            show_legend(all_styles, styles_colors)
 		});
 
 		d3.select("#school")
 		.on("click", function(d){
 			show = 'school'
 			update_visuals(century,data,show)
+            show_legend(all_schools, schools_colors)
 		});
 
 		d3.select("#media")
 		.on("click", function(d){
 			show = 'media'
 			update_visuals(century,data,show)
+            show_legend(all_media, media_colors)
 		});
 });
+    
+function show_legend(data_set, colors){
+    
+    //TODO make sure to empty legend when pressing button and fill with new data
+    //TODO maybe change legend with slider?
+    var colorScale = d3.scaleOrdinal()
+        .domain(data_set)
+        .range(colors);
+        
+    var legend = svgContainer.selectAll('.legend')
+        .data(colorScale.domain())
+        .enter()
+        .append('g')
+        .attr('transform', function(d, i) {                     // NEW
+            var height = legendRectSize/2;          // NEW
+            //var offset =  height * colorScale.domain().length / 2;     // NEW
+            var horz = 55 * legendRectSize;                       // NEW
+            var vert = i*3 * height;                       // NEW
+            return 'translate(' + horz + ',' + vert + ')';        // NEW
+        });
+        
+    legend.append('rect')                                     // NEW
+        .attr('width', legendRectSize)                          // NEW
+        .attr('height', legendRectSize)                         // NEW
+        .style('fill', colorScale)                                   // NEW
+        .style('stroke', colorScale);
+        
+    legend.append('text')                                     // NEW
+        .attr('x', legendRectSize + legendSpacing)              // NEW
+        .attr('y', legendRectSize - legendSpacing)              // NEW
+        .text(function(d) { return d; }); 
+};
 
 function update_visuals(century, data, show){
 
