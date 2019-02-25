@@ -151,31 +151,35 @@ function show_legend(data_set, colors){
     
     //TODO make sure to empty legend when pressing button and fill with new data
     //TODO maybe change legend with slider?
+    
+    // Create color scale with data and corresponding colors
     var colorScale = d3.scaleOrdinal()
         .domain(data_set)
         .range(colors);
-        
+    
+    // Initialize legend
     var legend = svgContainer.selectAll('.legend')
         .data(colorScale.domain())
         .enter()
         .append('g')
-        .attr('transform', function(d, i) {                     // NEW
-            var height = legendRectSize/2;          // NEW
-            //var offset =  height * colorScale.domain().length / 2;     // NEW
-            var horz = 55 * legendRectSize;                       // NEW
-            var vert = i*3 * height;                       // NEW
-            return 'translate(' + horz + ',' + vert + ')';        // NEW
+        .attr('transform', function(d, i) {                     
+            var height = legendRectSize/2;
+            var horz = 55 * legendRectSize;               
+            var vert = i*3 * height;                      
+            return 'translate(' + horz + ',' + vert + ')';
         });
-        
-    legend.append('rect')                                     // NEW
-        .attr('width', legendRectSize)                          // NEW
-        .attr('height', legendRectSize)                         // NEW
-        .style('fill', colorScale)                                   // NEW
+    
+    // Fill legend bars
+    legend.append('rect')                                 
+        .attr('width', legendRectSize)                    
+        .attr('height', legendRectSize)                   
+        .style('fill', colorScale)                       
         .style('stroke', colorScale);
-        
-    legend.append('text')                                     // NEW
-        .attr('x', legendRectSize + legendSpacing)              // NEW
-        .attr('y', legendRectSize - legendSpacing)              // NEW
+    
+    // Add text to legend
+    legend.append('text')                                
+        .attr('x', legendRectSize + legendSpacing)       
+        .attr('y', legendRectSize - legendSpacing)       
         .text(function(d) { return d; }); 
 };
 
