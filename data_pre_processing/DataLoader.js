@@ -13,22 +13,27 @@ var svgContainer = d3.select("body").append("svg")
 
 // Create map
 var projection = d3.geoMercator()//.translate([width/2, height/2]).scale(2200).center([0,40]);
+var zoom = d3.zoom()
+.scaleExtent([1, 8])
+.on("zoom", zoomed);
 var path = d3.geoPath().projection(projection);
 
-var g = svgContainer.append("g");
+var g = svgContainer.append("g"); //For map
+var gPins = svgContainer.append("g"); //For pins on map (new abstract layer)
 
 var url = "http://enjalot.github.io/wwsd/data/world/world-110m.geojson";
 var data_url = "http://enjalot.github.io/wwsd/data/world/ne_50m_populated_places_simple.geojson";
 
+svgContainer.call(zoom)
 Promise.all([d3.json(url), d3.json(data_url)]).then(function(data) {
-      var world = data[0];
-      var places = data[1];
-      
-      svgContainer.append("path")
-        .attr("d", path(world))
-        .attr("fill", "lightgray")
-        .attr("stroke", "white");
-    });
+	var world = data[0];
+	var places = data[1];
+
+	g.append("path")
+	.attr("d", path(world))
+	.attr("fill", "lightgray")
+	.attr("stroke", "white");
+});
 
 
 // set centuries
@@ -145,9 +150,17 @@ d3.csv("output.csv")
 			update_visuals(century,data,show)
             legend = update_legend(all_media, media_colors, legend)
 		});
+
+		
 });
 
 
+// Function what happens when zooming
+// TODO: Create transitions for smooth zooming
+function zoomed() {
+	g.attr("transform", d3.event.transform)
+    gPins.attr("transform", d3.event.transform)
+}
 
 function show_legend(data_set, colors){
     
@@ -189,14 +202,9 @@ function show_legend(data_set, colors){
 
 
 function update_legend(data_set, colors, legend){
-
-	// Remove old legend
-	legend.remove()
-	 
-	// Create new legend
-	legend = show_legend(data_set, colors)
-	
-	 return legend
+	legend.remove() // Remove old legend
+	legend = show_legend(data_set, colors)// Create new legend
+	return legend
 }
 
 
@@ -236,7 +244,7 @@ function update_visuals(century, data, show){
 
 			
 	// insert filtered data into world map
-    svgContainer.selectAll(".pin")
+    gPins.selectAll(".pin")
       .data(filtered_data)
       .enter().append("circle", ".pin")
       .attr("r", 3)
@@ -247,7 +255,5 @@ function update_visuals(century, data, show){
           d["dbp_lat"]
         ]) + ")";
 	});
-
-	// show new legend
-	
 };
+
