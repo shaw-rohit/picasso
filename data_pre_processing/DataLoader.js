@@ -115,7 +115,7 @@ d3.csv("output.csv")
 		var show = 'style'
 		var century = [0,1]
 		
-		show_legend(all_styles, styles_colors)
+		var legend = show_legend(all_styles, styles_colors)
 
 		sliderRange
 			.on('onchange', val => {
@@ -129,24 +129,26 @@ d3.csv("output.csv")
 		.on("click", function(d){
 			show = 'style'
 			update_visuals(century,data,show)
-            show_legend(all_styles, styles_colors)
+            legend = update_legend(all_styles, styles_colors, legend)
 		});
 
 		d3.select("#school")
 		.on("click", function(d){
 			show = 'school'
 			update_visuals(century,data,show)
-            show_legend(all_schools, schools_colors)
+            legend = update_legend(all_schools, schools_colors, legend)
 		});
 
 		d3.select("#media")
 		.on("click", function(d){
 			show = 'media'
 			update_visuals(century,data,show)
-            show_legend(all_media, media_colors)
+            legend = update_legend(all_media, media_colors, legend)
 		});
 });
-    
+
+
+
 function show_legend(data_set, colors){
     
     //TODO make sure to empty legend when pressing button and fill with new data
@@ -180,8 +182,24 @@ function show_legend(data_set, colors){
     legend.append('text')                                
         .attr('x', legendRectSize + legendSpacing)       
         .attr('y', legendRectSize - legendSpacing)       
-        .text(function(d) { return d; }); 
+		.text(function(d) { return d; }); 
+		
+		return legend
 };
+
+
+function update_legend(data_set, colors, legend){
+
+	// Remove old legend
+	legend.remove()
+	 
+	// Create new legend
+	legend = show_legend(data_set, colors)
+	
+	 return legend
+}
+
+
 
 function update_visuals(century, data, show){
 
