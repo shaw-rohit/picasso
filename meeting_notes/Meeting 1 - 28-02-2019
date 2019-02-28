@@ -1,0 +1,9 @@
+- grade dependent on visualization itself
+- First version is good
+- If it doesn't work -> fail
+- Splash screen
+- turn on /off Layers with control panel for solving cluttering
+	- Choose what user wants to see
+	- Opacity, animation speed, line thickness
+	- sentiment analysis can be interesting, per continent color 
+- Read nested block model again
