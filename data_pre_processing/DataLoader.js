@@ -190,6 +190,16 @@ function show_legend(data_set, colors){
         .attr('height', legendRectSize)                   
         .style('fill', colorScale)                       
         .style('stroke', colorScale);
+
+    legend.append("foreignObject")
+        .attr("width", 40*legendRectSize)
+        .attr("height", 40*legendRectSize)
+        .attr('transform', 'translate(-9,-9)')
+        .append("xhtml:body")
+        .html("<form><input type=checkbox id=check /></form>")
+        .on("click", function(d, i){
+            console.log(svg.select("#check").node().checked);
+        });
     
     // Add text to legend
     legend.append('text')                                
