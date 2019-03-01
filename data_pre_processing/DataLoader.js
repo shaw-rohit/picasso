@@ -268,16 +268,23 @@ function update_visuals(century, data, show){
 	});
 };
 
-function draw_migration_flow(dataset, oldest){
+function draw_migration_flow(migration_data, oldest){
+    /*
+     * INPUT:
+     * migration_data -- all other artworks with same show and subcategory as oldest
+     * oldest -- oldest artwork with specified show and subcategory
+    */
     
+    // Remove existing arrows
     gArrows.selectAll("path").remove()
     
+    // Create new arrows
     svgContainer.append("path")
-        .data(dataset)
+        .data(migration_data)
         .attr("class", "path")
         .attr("d", path);
         
-    var arrows = gArrows.selectAll('path.datamaps-arc').data(dataset)
+    var arrows = gArrows.selectAll('path.datamaps-arc').data(migration_data)
     
     arrows.enter()
         .append('path')
@@ -330,6 +337,17 @@ function draw_migration_flow(dataset, oldest){
 };
 
 function retrieve_migration(dataset, show, sub){
+    
+    /*
+     * INPUT: 
+     * dataset -- complete dataset
+     * show -- either style, school or media
+     * sub -- which category of show to choose for migration data
+     * 
+     * OUTPUT: 
+     * oldest -- oldest artwork for specified show and sub
+     * all_others -- all other artworks for the specified show and sub
+    */
     
     // Store oldest artwork
     var oldest = {}
