@@ -20,6 +20,7 @@ var path = d3.geoPath().projection(projection);
 
 var g = svgContainer.append("g"); //For map
 var gPins = svgContainer.append("g"); //For pins on map (new abstract layer)
+var gArrows = svgContainer.append("g"); // For arrows of migration
 
 var url = "http://enjalot.github.io/wwsd/data/world/world-110m.geojson";
 var data_url = "http://enjalot.github.io/wwsd/data/world/ne_50m_populated_places_simple.geojson";
@@ -265,5 +266,92 @@ function update_visuals(century, data, show){
           d["dbp_lat"]
         ]) + ")";
 	});
+};
+
+function draw_migration_flow(dataset, oldest){
+    
+    gArrows.selectAll("path").remove()
+    
+    svgContainer.append("path")
+        .data(dataset)
+        .attr("class", "path")
+        .attr("d", path);
+        
+    var arrows = gArrows.selectAll('path.datamaps-arc').data(dataset)
+    
+    arrows.enter()
+        .append('path')
+        .attr('class','arc')
+        .attr('d', function(d) {
+            
+            var origin = projection([oldest.dbp_long, oldest.dbp_lat])
+            var dest = projection([d.dbp_long, d.dbp_lat])
+            
+            
+            var mid = [ (origin[0] + dest[0]) / 2, (origin[1] + dest[1]) / 2];
+            
+            //define handle points for Bezier curves. Higher values for curveoffset will generate more pronounced curves.
+            var curveoffset = 20,
+                midcurve = [mid[0]+curveoffset, mid[1]-curveoffset]
+    
+            // the scalar variable is used to scale the curve's derivative into a unit vector 
+            scalar = Math.sqrt(Math.pow(dest[0],2) - 2*dest[0]*midcurve[0]+Math.pow(midcurve[0],2)+Math.pow(dest[1],2)-2*dest[1]*midcurve[1]+Math.pow(midcurve[1],2));
+        
+            // define the arrowpoint: the destination, minus a scaled tangent vector, minus an orthogonal vector scaled to the datum.trade variable
+            arrowpoint = [ 
+                dest[0] - ( 0.5*(dest[0]-midcurve[0]) - (dest[1]-midcurve[1]) ) / scalar , 
+                dest[1] - ( 0.5*(dest[1]-midcurve[1]) - (-dest[0]+midcurve[0]) ) / scalar
+                //dest[1] - ( 0.5*datum.trade*(dest[1]-midcurve[1]) - datum.trade*(-dest[0]+midcurve[0]) ) / scalar
+            ];
+
+            // move cursor to origin
+            return "M" + origin[0] + ',' + origin[1] 
+            // smooth curve to offset midpoint
+                + "S" + midcurve[0] + "," + midcurve[1]
+            //smooth curve to destination	
+                + "," + dest[0] + "," + dest[1]
+            //straight line to arrowhead point
+                + "L" + arrowpoint[0] + "," + arrowpoint[1] 
+            // straight line towards original curve along scaled orthogonal vector (creates notched arrow head)
+                + "l" + (0.3*(-dest[1]+midcurve[1])/scalar) + "," + (0.3*(dest[0]-midcurve[0])/scalar)
+                //+ "l" + (0.3*datum.trade*(-dest[1]+midcurve[1])/scalar) + "," + (0.3*datum.trade*(dest[0]-midcurve[0])/scalar)
+                // smooth curve to midpoint	
+                + "S" + (midcurve[0]) + "," + (midcurve[1]) 
+                //smooth curve to origin	
+                + "," + origin[0] + "," + origin[1]
+            
+        })
+    //arrows.attr("fill", String(color[show][oldest[show]]))
+    arrows.exit()
+        .transition()
+        .style('opacity', 0)
+        .remove();
+    
+};
+
+function retrieve_migration(dataset, show, sub){
+    
+    // Store oldest artwork
+    var oldest = {}
+    minimal = 3000
+    
+    // Retrieve oldest artwork 
+    dataset.forEach(function(d){
+        if (d[show] == sub && d.date < minimal){
+            minimal = d.date
+            oldest = d
+        }
+    })
+    
+    // Retrieve all other artworks with similar style, school or media
+    all_others = []
+    dataset.forEach(function(d){
+            if (d[show] == sub && d.artwork_name != oldest.artwork_name){
+                all_others.push(d)
+            }
+        });
+    
+    return [oldest, all_others]
+    
 };
 
