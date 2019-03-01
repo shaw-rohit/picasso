@@ -7,6 +7,7 @@ legendSpacing = 4;
 
 var century = 0;
 
+var show_migration = true;
 var svgContainer = d3.select("body").append("svg")
 										.attr("height", height)
 										.attr("width", width);
@@ -121,35 +122,37 @@ d3.csv("output.csv")
 		var show = 'style'
 		var century = [0,1]
 		
-		var legend = show_legend(all_styles, styles_colors)
+		var legend = show_legend(all_styles, styles_colors, data, show, show_migration, century)
 
 		sliderRange
 			.on('onchange', val => {
 	      d3.select('p#value-range').text(val.map(d3.format(',d')).join('-'));
 	      century = val
 	      update_visuals(century, data, show)
+          legend = update_legend(all_styles, styles_colors, legend, data, show, show_migration, century)
 	    });
-
+        
+        
 		// on button press, only show button id and try to filter by year
 		d3.select("#style")
 		.on("click", function(d){
 			show = 'style'
 			update_visuals(century,data,show)
-            legend = update_legend(all_styles, styles_colors, legend)
+            legend = update_legend(all_styles, styles_colors, legend, data, show, show_migration, century)
 		});
 
 		d3.select("#school")
 		.on("click", function(d){
 			show = 'school'
 			update_visuals(century,data,show)
-            legend = update_legend(all_schools, schools_colors, legend)
+            legend = update_legend(all_schools, schools_colors, legend, data, show, show_migration, century)
 		});
 
 		d3.select("#media")
 		.on("click", function(d){
 			show = 'media'
 			update_visuals(century,data,show)
-            legend = update_legend(all_media, media_colors, legend)
+            legend = update_legend(all_media, media_colors, legend, data, show, show_migration, century)
 		});
 
 		
@@ -161,9 +164,10 @@ d3.csv("output.csv")
 function zoomed() {
 	g.attr("transform", d3.event.transform)
     gPins.attr("transform", d3.event.transform)
+    gArrows.attr("transform", d3.event.transform)
 }
 
-function show_legend(data_set, colors){
+function show_legend(data_set, colors, all_data, show, show_migration, century){
     
     //TODO make sure to empty legend when pressing button and fill with new data
     //TODO maybe change legend with slider?
@@ -199,7 +203,13 @@ function show_legend(data_set, colors){
         .append("xhtml:body")
         .html("<form><input type=checkbox id=check /></form>")
         .on("click", function(d, i){
-            console.log(svg.select("#check").node().checked);
+            console.log(svgContainer.select("#check").node().checked);
+            if (svgContainer.select("#check").node().checked == true && show_migration == true){
+                    var migration = retrieve_migration(all_data, show, d)
+                    if (migration[0].date >= century[0]*100 && migration[0].date <= century[1]*100){
+                        draw_migration_flow(migration[1], migration[0])
+                    }
+            } else {gArrows.selectAll("path").remove()}
         });
     
     // Add text to legend
@@ -212,9 +222,9 @@ function show_legend(data_set, colors){
 };
 
 
-function update_legend(data_set, colors, legend){
+function update_legend(data_set, colors, legend, all_data, show, show_migration, century){
 	legend.remove() // Remove old legend
-	legend = show_legend(data_set, colors)// Create new legend
+	legend = show_legend(data_set, colors, all_data, show, show_migration, century)// Create new legend
 	return legend
 }
 
