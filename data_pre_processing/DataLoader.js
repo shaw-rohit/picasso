@@ -240,38 +240,45 @@ function update_visuals(year, data, show){
 	// TODO REMOVE THE PINS CORRECTLY
 	svgContainer.selectAll("circle").remove();
 
-	var filtered_data = []
-	// load style part of data
-	data.forEach(function(d){
-		// works except for the fact that 1700 will be 17th century
-		// use year and slider to determine which datapoints have to be plotted
-		if (d['date'] == year){
-			// convert lng and lat to coordinates
-			if (d["long"] != "N\\A"){
-				//svgContainer.append("circle")
-				//	.attr("cx", (Math.abs(d["dbp_long"])+10)*5)
-				//	.attr("cy", (Math.abs(d["dbp_lat"])+10)*5)
-				//	.attr("r",3)
+	// find all events in last 5 years and adjust opacity
+	for(i=0;i<=10;i++){
+		var filtered_data = []
+		var opacity = 1.0-Math.tanh(i*0.1)
 
-				// add datapoint to filtered_data
-				filtered_data.push(d)
-			}
-		}
-	});
-
+		// load style part of data
+		data.forEach(function(d){
 			
-	// insert filtered data into world map
-    gPins.selectAll(".pin")
-      .data(filtered_data)
-      .enter().append("circle", ".pin")
-      .attr("r", 3)
-      .attr("fill", function(d) {return color[show][d[show]];})	
-      .attr("transform", function(d) {
-        return "translate(" + projection([
-          d["long"],
-          d["lat"]
-        ]) + ")";
-	});
+			// works except for the fact that 1700 will be 17th century
+			// use year and slider to determine which datapoints have to be plotted
+			if (d['date'] == year-i){
+				// convert lng and lat to coordinates
+				if (d["long"] != "N\\A"){
+					//svgContainer.append("circle")
+					//	.attr("cx", (Math.abs(d["dbp_long"])+10)*5)
+					//	.attr("cy", (Math.abs(d["dbp_lat"])+10)*5)
+					//	.attr("r",3)
+
+					// add datapoint to filtered_data
+					filtered_data.push(d)
+				}
+			}
+		});
+
+				
+		// insert filtered data into world map
+	    gPins.selectAll(".pin")
+	      .data(filtered_data)
+	      .enter().append("circle", ".pin")
+	      .attr("r", 3)
+	      .attr("fill", function(d) {return color[show][d[show]];})	
+	      .style("opacity", opacity)
+	      .attr("transform", function(d) {
+	        return "translate(" + projection([
+	          d["long"],
+	          d["lat"]
+	        ]) + ")";
+		});
+	  }
 };
 
 function draw_migration_flow(migration_data, oldest){
