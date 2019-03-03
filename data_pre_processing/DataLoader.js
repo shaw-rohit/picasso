@@ -70,7 +70,7 @@ sliderRange
 
 var color = {'school': {}, 'style': {}, 'media':{}}
 
-d3.csv("output.csv")
+d3.csv("omni_locations.csv")
 	.then(function(data){
 
 		let all_schools_set = new Set()
@@ -240,7 +240,7 @@ function update_visuals(century, data, show){
 		if ((Math.ceil((d['date']+1) /100)) < high_century && (Math.ceil((d['date']+1) /100)) > low_century){
 
 			// convert lng and lat to coordinates
-			if (d["dbp_long"] != "N\\A"){
+			if (d["long"] != "N\\A"){
 				//svgContainer.append("circle")
 				//	.attr("cx", (Math.abs(d["dbp_long"])+10)*5)
 				//	.attr("cy", (Math.abs(d["dbp_lat"])+10)*5)
@@ -261,8 +261,8 @@ function update_visuals(century, data, show){
       .attr("fill", function(d) {return color[show][d[show]];})	
       .attr("transform", function(d) {
         return "translate(" + projection([
-          d["dbp_long"],
-          d["dbp_lat"]
+          d["long"],
+          d["lat"]
         ]) + ")";
 	});
 };
