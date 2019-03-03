@@ -8,6 +8,10 @@ legendSpacing = 4;
 
 var century = 0;
 
+// years and locations are binned to prevent clutter
+var YEAR_STEP = 3
+var LONGLAT_STEP = 0.1
+
 var show_migration = true;
 var svgContainer = d3.select("body").append("svg")
 										.attr("height", height)
@@ -41,7 +45,7 @@ Promise.all([d3.json(url), d3.json(data_url)]).then(function(data) {
 
 // set centuries
 var centuries = d3.range(0, 22, 1);
-var years = d3.range(100, 2019, 1);
+var years = d3.range(100, 2025, 1);
 
 
 // filter slider
@@ -65,6 +69,21 @@ var gFill = d3
 
 gFill.call(sliderFill);
 d3.select('p#value-fill').text(d3.format('d')(sliderFill.value()));
+
+
+// long lat binner with bin size is 2
+// TODO: let bin size depend on zoom level
+var lat_binner = d3.scaleQuantize()
+	.domain([-90,90])
+	.range(d3.range(-90, 90, LONGLAT_STEP));
+var long_binner = d3.scaleQuantize()
+	.domain([-180,180])
+	.range(d3.range(-180, 180, LONGLAT_STEP));
+
+// year binner with bin size is 5 years
+var year_binner = d3.scaleQuantize()
+	.domain([100,2025])
+	.range(d3.range(100, 2025, YEAR_STEP));
 
 
 var color = {'school': {}, 'style': {}, 'media':{}}
@@ -240,17 +259,17 @@ function update_visuals(year, data, show){
 	// TODO REMOVE THE PINS CORRECTLY
 	svgContainer.selectAll("circle").remove();
 
-	// find all events in last 5 years and adjust opacity
-	for(i=0;i<=10;i++){
+	// find all events in last 5 steps and adjust opacity
+	for(i=0;i<=5;i++){
 		var filtered_data = []
-		var opacity = 1.0-Math.tanh(i*0.1)
+		var opacity = 1.0-Math.tanh(i*0.2)
 
 		// load style part of data
 		data.forEach(function(d){
 			
 			// works except for the fact that 1700 will be 17th century
 			// use year and slider to determine which datapoints have to be plotted
-			if (d['date'] == year-i){
+			if (year_binner(d['date']) == year_binner(year)-i*YEAR_STEP){
 				// convert lng and lat to coordinates
 				if (d["long"] != "N\\A"){
 					//svgContainer.append("circle")
@@ -263,6 +282,20 @@ function update_visuals(year, data, show){
 				}
 			}
 		});
+
+        // make clusters based on class, long and lat
+        // each cluster has the omni_ids, size, mean lat and long
+        var clustered_data  = d3.nest()
+          .key(function(d) { return d[show]; })
+          .key(function(d) { return long_binner(d['long']); })
+          .key(function(d) { return lat_binner(d['lat']); })
+          .rollup(function(v) { return {
+            id: d3.map(v, function(d) { return d.omni_id; }).keys(), 
+            count: v.length,
+            mean_lat: d3.mean(v, function(d) { return d.lat; }),
+            mean_long: d3.mean(v, function(d) { return d.long; })
+            };}) 
+          .map(filtered_data);
 
 				
 		// insert filtered data into world map
