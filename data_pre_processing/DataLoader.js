@@ -1,4 +1,5 @@
 
+
 var width = 1500;
 var height = 750;
 
@@ -39,35 +40,31 @@ Promise.all([d3.json(url), d3.json(data_url)]).then(function(data) {
 
 
 // set centuries
-var centuries = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21]
+var centuries = d3.range(0, 22, 1);
+var years = d3.range(100, 2019, 1);
 
-// Range
-var sliderRange = d3
+
+// filter slider
+var sliderFill = d3
 .sliderBottom()
-.min(d3.min(centuries))
-.max(d3.max(centuries))
-.width(600)
-.tickFormat(d3.format(',d'))
+.min(d3.min(years))
+.max(d3.max(years))
+.width(900)
+.tickFormat(d3.format('d'))
 .ticks(centuries.length)
-.default([0, 1])
-.fill('#2196f3');
+.default(0.015)
+.fill('#2196f3')
 
-var gRange = d3
-.select('div#slider-range')
+var gFill = d3
+.select('div#slider-fill')
 .append('svg')
 .attr('width', 1000)
 .attr('height', 100)
 .append('g')
 .attr('transform', 'translate(30,30)');
 
-gRange.call(sliderRange);
-
-d3.select('p#value-range').text(
-sliderRange
-  .value()
-  .map(d3.format(',d'))
-  .join('-')
-);
+gFill.call(sliderFill);
+d3.select('p#value-fill').text(d3.format('d')(sliderFill.value()));
 
 
 var color = {'school': {}, 'style': {}, 'media':{}}
@@ -120,38 +117,39 @@ d3.csv("omni_locations.csv")
 
 		// initialize things to show
 		var show = 'style'
-		var century = [0,1]
+		var year = 100
 		
+		// var legend = show_legend(all_styles, styles_colors)
+
+		sliderFill
+			.on('onchange', val => {
+			d3.select('p#value-fill').text(d3.format('d')(val));
+			year = val
+			update_visuals(year, data, show)
+	    });
+
 		var legend = show_legend(all_styles, styles_colors, data, show, show_migration, century)
 
-		sliderRange
-			.on('onchange', val => {
-	      d3.select('p#value-range').text(val.map(d3.format(',d')).join('-'));
-	      century = val
-	      update_visuals(century, data, show)
-          legend = update_legend(all_styles, styles_colors, legend, data, show, show_migration, century)
-	    });
-        
         
 		// on button press, only show button id and try to filter by year
 		d3.select("#style")
 		.on("click", function(d){
 			show = 'style'
-			update_visuals(century,data,show)
+			update_visuals(year,data,show)
             legend = update_legend(all_styles, styles_colors, legend, data, show, show_migration, century)
 		});
 
 		d3.select("#school")
 		.on("click", function(d){
 			show = 'school'
-			update_visuals(century,data,show)
+			update_visuals(year,data,show)
             legend = update_legend(all_schools, schools_colors, legend, data, show, show_migration, century)
 		});
 
 		d3.select("#media")
 		.on("click", function(d){
 			show = 'media'
-			update_visuals(century,data,show)
+			update_visuals(year,data,show)
             legend = update_legend(all_media, media_colors, legend, data, show, show_migration, century)
 		});
 
@@ -230,11 +228,10 @@ function update_legend(data_set, colors, legend, all_data, show, show_migration,
 
 
 
-function update_visuals(century, data, show){
+function update_visuals(year, data, show){
 
 	// extract the centuries to show
-	var high_century = Math.round(Math.max.apply(null, century))
-	var low_century = Math.round(Math.min.apply(null, century))
+	var year = Math.round(year)
 
 	// convert coordinates, take max and set that to 0-1500 for longitude
 	// and 0-750 for latitude
@@ -248,8 +245,7 @@ function update_visuals(century, data, show){
 	data.forEach(function(d){
 		// works except for the fact that 1700 will be 17th century
 		// use year and slider to determine which datapoints have to be plotted
-		if ((Math.ceil((d['date']+1) /100)) < high_century && (Math.ceil((d['date']+1) /100)) > low_century){
-
+		if (d['date'] == year){
 			// convert lng and lat to coordinates
 			if (d["long"] != "N\\A"){
 				//svgContainer.append("circle")
@@ -382,4 +378,3 @@ function retrieve_migration(dataset, show, sub){
     return [oldest, all_others]
     
 };
-

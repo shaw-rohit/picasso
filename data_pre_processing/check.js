@@ -40,7 +40,7 @@ var centuries = d3.range(0, 22, 1);
 var years = d3.range(100, 2019, 1);
 
 
-
+// time slider
 var sliderFill = d3
 .sliderBottom()
 .min(d3.min(years))
@@ -51,7 +51,6 @@ var sliderFill = d3
 .default(0.015)
 .fill('#2196f3')
 
-
 var gFill = d3
 .select('div#slider-fill')
 .append('svg')
@@ -61,15 +60,7 @@ var gFill = d3
 .attr('transform', 'translate(30,30)');
 
 gFill.call(sliderFill);
-
 d3.select('p#value-fill').text(d3.format('d')(sliderFill.value()));
-
-// d3.select('p#value-range').text(
-// sliderRange
-//   .value()
-//   .map(d3.format(',d'))
-//   .join('-')
-// );
 
 
 var color = {'school': {}, 'style': {}, 'media':{}}
@@ -100,6 +91,8 @@ d3.csv("omni_locations.csv")
 		var all_styles = Array.from(all_styles_set)
 		var all_schools = Array.from(all_schools_set)
 		var all_media = Array.from(all_media_set)
+
+
         
         var styles_colors = [];
         var schools_colors = [];
