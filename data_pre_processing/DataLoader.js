@@ -94,17 +94,6 @@ var year_binner = d3.scaleQuantize()
 
 var color = {'school': {}, 'style': {}, 'media':{}}
 
-// var myTimer;
-// d3.select("#start").on("click", function() {
-//  clearInterval (myTimer);
-// 	myTimer = setInterval (function() {
-//     	var b= d3.select("#rangeSlider");
-//       var t = (+b.property("value") + 1) % (+b.property("max") + 1);
-//       if (t == 0) { t = +b.property("min"); }
-//       b.property("value", t);
-//       update (t);
-//     }, 1000);
-// });
 
 function pauseResumeButton(button){
     if (button.text() == "Pause") {
