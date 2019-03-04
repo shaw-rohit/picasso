@@ -337,8 +337,8 @@ function draw_migration_flow(migration_data, oldest){
         .attr('class','arc')
         .attr('d', function(d) {
             
-            var origin = projection([oldest.dbp_long, oldest.dbp_lat])
-            var dest = projection([d.dbp_long, d.dbp_lat])
+            var origin = projection([oldest.long, oldest.lat])
+            var dest = projection([d.long, d.lat])
             
             
             var mid = [ (origin[0] + dest[0]) / 2, (origin[1] + dest[1]) / 2];
