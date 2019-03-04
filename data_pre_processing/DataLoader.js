@@ -52,6 +52,8 @@ var years = d3.range(100, 2025, 1);
 
 var moving = false;
 var playButton = d3.select("#play-button");
+var playAuto = true;
+var button;
 
 // filter slider
 var sliderFill = d3
@@ -92,17 +94,32 @@ var year_binner = d3.scaleQuantize()
 
 var color = {'school': {}, 'style': {}, 'media':{}}
 
-// var myTimer;
-// d3.select("#start").on("click", function() {
-//  clearInterval (myTimer);
-// 	myTimer = setInterval (function() {
-//     	var b= d3.select("#rangeSlider");
-//       var t = (+b.property("value") + 1) % (+b.property("max") + 1);
-//       if (t == 0) { t = +b.property("min"); }
-//       b.property("value", t);
-//       update (t);
-//     }, 1000);
-// });
+
+function pauseResumeButton(button){
+    if (button.text() == "Pause") {
+        moving = false;
+        clearInterval(timer);
+        // timer = 0;
+        button.text("Play");
+    } 
+    else {
+        timer = setInterval (function() {
+            //     var b= d3.select(sliderFill);
+            //   var t = (+b.property(sliderFill.value()) + 100) % (+b.property(sliderFill.max()) + 1);
+            //   if (t == 0) { t = +b.property(sliderFill.min()); }
+            //   b.property(sliderFill.value(), t);
+            console.log(sliderFill.value())
+            sliderFill.value(sliderFill.value() + 1) 
+            
+            //   update_visuals (t, data, show);
+        }, 500);
+        
+    moving = true;
+    button.text("Pause");
+    }
+
+    return moving;
+}
 
 d3.csv("omni_locations.csv")
 	.then(function(data){
@@ -111,33 +128,28 @@ d3.csv("omni_locations.csv")
 		var show = 'style'
         var year = 100
 
-        // Play button will add one year per half a second
-        playButton
+        if (!playAuto){
+            // Play button will add one year per half a second
+            playButton
             .on("click", function() {
-            var button = d3.select(this);
-            if (button.text() == "Pause") {
-                moving = false;
-                clearInterval(timer);
-                // timer = 0;
-                button.text("Play");
-            } 
-            else {
-                timer = setInterval (function() {
-                    //     var b= d3.select(sliderFill);
-                    //   var t = (+b.property(sliderFill.value()) + 100) % (+b.property(sliderFill.max()) + 1);
-                    //   if (t == 0) { t = +b.property(sliderFill.min()); }
-                    //   b.property(sliderFill.value(), t);
-                    console.log(sliderFill.value())
-                    sliderFill.value(sliderFill.value() + 1) 
-                    
-                    //   update_visuals (t, data, show);
-                }, 500);
-                
-            moving = true;
-            button.text("Pause");
+                button = d3.select(this);
+                pauseResumeButton(button);
+            })
+        }
+
+        // Run auto button
+        else{
+            moving = pauseResumeButton(playButton);
+
+            if(moving){
+                playButton
+                .on("click", function() {
+                button = d3.select(this);
+                pauseResumeButton(button);
+            })
             }
-            console.log("Slider moving: " + moving);
-        })
+        }
+        
 
 		let all_schools_set = new Set()
 		let all_styles_set = new Set()
@@ -193,7 +205,7 @@ d3.csv("omni_locations.csv")
 			update_visuals(year, data, show)
 	    });
 
-		var legend = show_legend(all_styles, styles_colors, data, show, show_migration, century)
+		//var legend = show_legend(all_styles, styles_colors, data, show, show_migration, century)
 
         
 		// on button press, only show button id and try to filter by year
