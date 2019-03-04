@@ -302,7 +302,10 @@ function update_visuals(year, data, show){
 	//dbp_lat, dbp_long
 
 	// TODO REMOVE THE PINS CORRECTLY
-
+    svgContainer.selectAll("circle").transition().duration(1000) // Will remove all previous circles when update is initiated
+        .style("opacity", .1)
+        .attr("r", 0)
+        .remove();
 
 	// find all events in last 5 steps and adjust opacity
 	// for(i=0;i<=5;i++){
@@ -369,10 +372,7 @@ function update_visuals(year, data, show){
                 parseInt(d["long"]) + randomLong,
                 parseInt(d["lat"])  + randomLat
             ]) + ")";
-        }).transition().duration(1800) // Will remove all previous circles when update is initiated
-        .style("opacity", .1)
-        .attr("r", 0)
-        .remove();
+        })
 
         
 	//   }
