@@ -27,6 +27,8 @@ var path = d3.geoPath().projection(projection);
 var g = svgContainer.append("g"); //For map
 var gPins = svgContainer.append("g"); //For pins on map (new abstract layer)
 var gArrows = svgContainer.append("g"); // For arrows of migration
+var playButton = d3.select("#vis")
+    .append("g")
 
 var url = "http://enjalot.github.io/wwsd/data/world/world-110m.geojson";
 var data_url = "http://enjalot.github.io/wwsd/data/world/ne_50m_populated_places_simple.geojson";
@@ -47,6 +49,9 @@ Promise.all([d3.json(url), d3.json(data_url)]).then(function(data) {
 var centuries = d3.range(0, 22, 1);
 var years = d3.range(100, 2025, 1);
 
+
+var moving = false;
+var playButton = d3.select("#play-button");
 
 // filter slider
 var sliderFill = d3
@@ -85,11 +90,54 @@ var year_binner = d3.scaleQuantize()
 	.domain([100,2025])
 	.range(d3.range(100, 2025, YEAR_STEP));
 
-
 var color = {'school': {}, 'style': {}, 'media':{}}
+
+// var myTimer;
+// d3.select("#start").on("click", function() {
+//  clearInterval (myTimer);
+// 	myTimer = setInterval (function() {
+//     	var b= d3.select("#rangeSlider");
+//       var t = (+b.property("value") + 1) % (+b.property("max") + 1);
+//       if (t == 0) { t = +b.property("min"); }
+//       b.property("value", t);
+//       update (t);
+//     }, 1000);
+// });
 
 d3.csv("omni_locations.csv")
 	.then(function(data){
+
+        // initialize things to show
+		var show = 'style'
+        var year = 100
+
+        // Play button will add one year per half a second
+        playButton
+            .on("click", function() {
+            var button = d3.select(this);
+            if (button.text() == "Pause") {
+                moving = false;
+                clearInterval(timer);
+                // timer = 0;
+                button.text("Play");
+            } 
+            else {
+                timer = setInterval (function() {
+                    //     var b= d3.select(sliderFill);
+                    //   var t = (+b.property(sliderFill.value()) + 100) % (+b.property(sliderFill.max()) + 1);
+                    //   if (t == 0) { t = +b.property(sliderFill.min()); }
+                    //   b.property(sliderFill.value(), t);
+                    console.log(sliderFill.value())
+                    sliderFill.value(sliderFill.value() + 1) 
+                    
+                    //   update_visuals (t, data, show);
+                }, 500);
+                
+            moving = true;
+            button.text("Pause");
+            }
+            console.log("Slider moving: " + moving);
+        })
 
 		let all_schools_set = new Set()
 		let all_styles_set = new Set()
@@ -134,16 +182,14 @@ d3.csv("omni_locations.csv")
             media_colors.push(d3.interpolateViridis(i/all_media.length))
 		}
 
-		// initialize things to show
-		var show = 'style'
-		var year = 100
 		
 		// var legend = show_legend(all_styles, styles_colors)
 
+        // this will tigger updates, hence, when a change in value has been detected
 		sliderFill
 			.on('onchange', val => {
 			d3.select('p#value-fill').text(d3.format('d')(val));
-			year = val
+            year = val
 			update_visuals(year, data, show)
 	    });
 
@@ -174,7 +220,6 @@ d3.csv("omni_locations.csv")
 
 		
 });
-
 
 // Function what happens when zooming
 // TODO: Create transitions for smooth zooming
@@ -246,41 +291,51 @@ function update_legend(data_set, colors, legend, all_data, show, show_migration,
 }
 
 
-
 function update_visuals(year, data, show){
-
 	// extract the centuries to show
-	var year = Math.round(year)
+	var year = Math.round(year);
+    var filtered_data = [];
+    // var opacity;
 
 	// convert coordinates, take max and set that to 0-1500 for longitude
 	// and 0-750 for latitude
 	//dbp_lat, dbp_long
 
 	// TODO REMOVE THE PINS CORRECTLY
-	svgContainer.selectAll("circle").remove();
+    svgContainer.selectAll("circle").transition().duration(1000) // Will remove all previous circles when update is initiated
+        .style("opacity", .1)
+        .attr("r", 0)
+        .remove();
 
 	// find all events in last 5 steps and adjust opacity
-	for(i=0;i<=5;i++){
-		var filtered_data = []
-		var opacity = 1.0-Math.tanh(i*0.2)
-
+	// for(i=0;i<=5;i++){
+		
+        // opacity = 1.0-Math.tanh(i*2)
+        
 		// load style part of data
 		data.forEach(function(d){
-			
-			// works except for the fact that 1700 will be 17th century
-			// use year and slider to determine which datapoints have to be plotted
-			if (year_binner(d['date']) == year_binner(year)-i*YEAR_STEP){
-				// convert lng and lat to coordinates
-				if (d["long"] != "N\\A"){
-					//svgContainer.append("circle")
-					//	.attr("cx", (Math.abs(d["dbp_long"])+10)*5)
-					//	.attr("cy", (Math.abs(d["dbp_lat"])+10)*5)
-					//	.attr("r",3)
+            
+            if(d["omni_id"] != ""){
+              
 
-					// add datapoint to filtered_data
-					filtered_data.push(d)
-				}
-			}
+                // works except for the fact that 1700 will be 17th century
+                // use year and slider to determine which datapoints have to be plotted
+                if (year_binner(d['date']) == year_binner(year)-YEAR_STEP){
+                    // convert lng and lat to coordinates
+                    if (d["long"] != "N\\A"){
+                        //svgContainer.append("circle")
+                        //	.attr("cx", (Math.abs(d["dbp_long"])+10)*5)
+                        //	.attr("cy", (Math.abs(d["dbp_lat"])+10)*5)
+                        //	.attr("r",3)
+                        
+                        
+                        // add datapoint to filtered_data
+                        filtered_data.push(d)
+                    }
+                }
+            }
+
+			
 		});
 
         // make clusters based on class, long and lat
@@ -297,21 +352,30 @@ function update_visuals(year, data, show){
             };}) 
           .map(filtered_data);
 
-				
+        // For testing if transitions work properly, otherwise the transitions will be overwritten when the circles are not removed yet   
+        var randomLong = Math.random();
+        var randomLat = Math.random();
+           
 		// insert filtered data into world map
 	    gPins.selectAll(".pin")
 	      .data(filtered_data)
 	      .enter().append("circle", ".pin")
-	      .attr("r", 3)
-	      .attr("fill", function(d) {return color[show][d[show]];})	
-	      .style("opacity", opacity)
+	    //   .attr("r", 3)
+          .attr("fill", function(d) {return color[show][d[show]];})	
+          .transition()
+          .attr("r", 3)
+        //   .style("opacity", opacity)
+        .duration(200)
 	      .attr("transform", function(d) {
+            console.log(randomLong + " " + d.lat)
 	        return "translate(" + projection([
-	          d["long"],
-	          d["lat"]
-	        ]) + ")";
-		});
-	  }
+                parseInt(d["long"]) + randomLong,
+                parseInt(d["lat"])  + randomLat
+            ]) + ")";
+        })
+
+        
+	//   }
 };
 
 function draw_migration_flow(migration_data, oldest){
