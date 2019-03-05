@@ -320,9 +320,9 @@ function update_visuals(year, data, show){
         .remove();
 
 	// find all events in last 5 steps and adjust opacity
-	// for(i=0;i<=5;i++){
+	for(i=0;i<=5;i++){
 		
-        // opacity = 1.0-Math.tanh(i*2)
+        opacity = 1.0-Math.tanh(i*2)
         
 		// load style part of data
 		data.forEach(function(d){
@@ -350,19 +350,10 @@ function update_visuals(year, data, show){
 			
 		});
 
-        // make clusters based on class, long and lat
-        // each cluster has the omni_ids, size, mean lat and long
-        var clustered_data  = d3.nest()
-          .key(function(d) { return d[show]; })
-          .key(function(d) { return long_binner(d['long']); })
-          .key(function(d) { return lat_binner(d['lat']); })
-          .rollup(function(v) { return {
-            id: d3.map(v, function(d) { return d.omni_id; }).keys(), 
-            count: v.length,
-            mean_lat: d3.mean(v, function(d) { return d.lat; }),
-            mean_long: d3.mean(v, function(d) { return d.long; })
-            };}) 
-          .map(filtered_data);
+        clustered_data = cluster_data(filtered_data, show);
+
+        window.clustered_data = clustered_data
+        window.filtered_data = filtered_data
 
         // For testing if transitions work properly, otherwise the transitions will be overwritten when the circles are not removed yet   
         var randomLong = Math.random();
@@ -370,13 +361,12 @@ function update_visuals(year, data, show){
            
 		// insert filtered data into world map
 	    gPins.selectAll(".pin")
-	      .data(filtered_data)
+	      .data(clustered_data)
 	      .enter().append("circle", ".pin")
-	    //   .attr("r", 3)
-          .attr("fill", function(d) {return color[show][d[show]];})	
+          .attr("fill", function(d) {return color[show][d['sub']];})	
           .transition()
-          .attr("r", 3)
-        //   .style("opacity", opacity)
+          .attr("r", function(d) {return d['count'];})   
+          .style("opacity", opacity)
         .duration(200)
 	      .attr("transform", function(d) {
             console.log(randomLong + " " + d.lat)
@@ -387,7 +377,51 @@ function update_visuals(year, data, show){
         })
 
         
-	//   }
+	  }
+};
+
+
+function cluster_data(data, show){
+
+    /*
+     * INPUT: 
+     * dataset -- dataset for this time block
+     * show -- either style, school or media
+     * 
+     * OUTPUT: 
+     * clustered_data -- the clustered data
+
+     example of cluster:
+    count: 2
+​​    end_date: 1459
+​​    id: Array [ "27464", "29084" ]
+    mean_lat: 46.7323875
+​​    mean_long: -117.0001651
+​​    start_date: 1459
+​​    style: "early renaissance"
+     * 
+    */
+
+    clustered_data = [];
+
+    var nested_data  = d3.nest()
+      .key(function(d) { return d[show]; }) // cluster on subclass
+      .key(function(d) { return long_binner(d['long']); }) // cluster on cordinates
+      .key(function(d) { return lat_binner(d['lat']); })
+      .rollup(function(v) { 
+        clustered_data.push({
+        id: d3.map(v, function(d) { return d.omni_id; }).keys(), 
+        start_date: d3.min(v, function(d) { return d.date; }), 
+        end_date: d3.max(v, function(d) { return d.date; }), 
+        count: v.length,
+        lat: d3.mean(v, function(d) { return d.lat; }),
+        long: d3.mean(v, function(d) { return d.long; }),
+        sub: d3.map(v, function(d) { return d.style; }).keys()[0], 
+        }) 
+        ;}) 
+      .map(data);
+
+    return clustered_data
 };
 
 function draw_migration_flow(migration_data, oldest){
