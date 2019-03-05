@@ -320,9 +320,9 @@ function update_visuals(year, data, show){
         .remove();
 
 	// find all events in last 5 steps and adjust opacity
-	for(i=0;i<=5;i++){
+	for(i=0;i<=4;i++){
 		
-        opacity = 1.0-Math.tanh(i*2)
+        opacity = 0.8-Math.tanh(i*2)
         
 		// load style part of data
 		data.forEach(function(d){
@@ -356,8 +356,8 @@ function update_visuals(year, data, show){
         window.filtered_data = filtered_data
 
         // For testing if transitions work properly, otherwise the transitions will be overwritten when the circles are not removed yet   
-        var randomLong = Math.random();
-        var randomLat = Math.random();
+        var randomLong = 0;//Math.random();
+        var randomLat = 0;//Math.random();
            
 		// insert filtered data into world map
 	    gPins.selectAll(".pin")
@@ -365,7 +365,7 @@ function update_visuals(year, data, show){
 	      .enter().append("circle", ".pin")
           .attr("fill", function(d) {return color[show][d['sub']];})	
           .transition()
-          .attr("r", function(d) {return d['count'];})   
+          .attr("r", function(d) {return 2*d['id'].length;})   
           .style("opacity", opacity)
         .duration(200)
 	      .attr("transform", function(d) {
@@ -413,7 +413,6 @@ function cluster_data(data, show){
         id: d3.map(v, function(d) { return d.omni_id; }).keys(), 
         start_date: d3.min(v, function(d) { return d.date; }), 
         end_date: d3.max(v, function(d) { return d.date; }), 
-        count: v.length,
         lat: d3.mean(v, function(d) { return d.lat; }),
         long: d3.mean(v, function(d) { return d.long; }),
         sub: d3.map(v, function(d) { return d.style; }).keys()[0], 
