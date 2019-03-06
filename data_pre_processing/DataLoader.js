@@ -190,10 +190,15 @@ d3.csv("omni_locations.csv")
 		
 		// var legend = show_legend(all_styles, styles_colors)
 
-        // this will tigger updates, hence, when a change in value has been detected
+        // this will tigger updates, hence, when a change in value has been detected with transitions
 		sliderFill
 			.on('onchange', val => {
-			d3.select('p#value-fill').text(d3.format('d')(val));
+            d3.select('p#value-fill').transition()
+            .duration(10).style("opacity", 0);
+			d3.select('p#value-fill').text(d3.format('d')(val)).transition()
+            .style("opacity", 1)
+            .transition()
+            .delay(5);
             year = val
 			update_visuals(year, data, show)
 	    });
