@@ -27,7 +27,6 @@ var path = d3.geoPath().projection(projection);
 var g = svgContainer.append("g"); //For map
 var gPins = svgContainer.append("g"); //For pins on map (new abstract layer)
 var gArrows = svgContainer.append("g"); // For arrows of migration
-var playButton = svgContainer.append("g") // Playbutton
 
 var url = "http://enjalot.github.io/wwsd/data/world/world-110m.geojson";
 var data_url = "http://enjalot.github.io/wwsd/data/world/ne_50m_populated_places_simple.geojson";
@@ -52,6 +51,7 @@ var years = d3.range(100, 2025, 1);
 // Variables for play/pause button
 var moving = false;
 var playButton = d3.select("#play-button");
+playButton.attr("margin-left", "200px")
 var playAuto = true;
 
 // filter slider

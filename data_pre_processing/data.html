@@ -12,7 +12,8 @@
         fill: white;
       }
 .play-button-outer {
-
+  float: right;
+  margin-right: 50px;
   width: 5em;
   height: 4.5em;
   background-color: rgba(0, 0, 0, .25);
@@ -21,7 +22,9 @@
 
 .play-button {
   margin: 5 auto;
-  top: 15%;
+  top: 5%;
+  margin-right: 20px;
+  float: right;
   position: relative;  
   width: 0;
   height: 0;
@@ -43,12 +46,26 @@
 }
 
 .pause-button {
-  margin-top: 10px;
-  width: 74px;
-  height: 74px;
+  float:right;
+  margin-right: 50px;
+   width: 2.7em;
+  height: 4.5em;
   border-style: double;
   border-width: 0px 0px 0px 37px;
   border-color: #202020;
+}
+
+hr {
+   margin-top: 10px;
+   margin-bottom: 10px;
+   border: 0;
+   border-top: 1px solid;
+   opacity: .1;
+}
+
+.col-sm-2 {
+  float:right;
+  margin-right: 650px;
 }
 
 
@@ -63,17 +80,27 @@
 <button id = "migration on">Show Migration Flow</button>
 <button id = "migration off">Hide Migration Flow</button>
 
+ <hr />
 
-<div id = "play-button" class="play-button-outer">
-  <div id="play-button" class="play-button"></div>
-</div>
 
-<h2>Fill</h2>
-<div class="row align-items-center">
-    <div class="col-sm-2"><p id="value-fill"></p></div>
-    <div class="col-sm"><div id="slider-fill"></div></div>
+  <div class="row align-items-center">
+   
+    <div class="col-sm">
+
+      <div id = "play-button" class="play-button-outer">
+      <div id="play-button" class="play-button"></div>
+      </div>
+
+      <div id="slider-fill">
+
+        <div class="col-sm-2">
+          <h2>Date</h2>
+          <p id="value-fill"></p></div>
+        </div>
+      </div>
   </div>
 
+  <hr />
 
 <script src='https://d3js.org/d3.v5.min.js'></script>
 <script src="https://unpkg.com/d3-simple-slider"></script>
