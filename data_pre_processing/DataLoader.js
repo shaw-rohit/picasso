@@ -53,7 +53,6 @@ var years = d3.range(100, 2025, 1);
 var moving = false;
 var playButton = d3.select("#play-button");
 var playAuto = true;
-var button;
 
 // filter slider
 var sliderFill = d3
@@ -95,27 +94,23 @@ var year_binner = d3.scaleQuantize()
 var color = {'school': {}, 'style': {}, 'media':{}}
 
 
-function pauseResumeButton(button){
-    if (button.text() == "Pause") {
+function pauseResumeButton(){
+    if (moving) {
         moving = false;
         clearInterval(timer);
-        // timer = 0;
-        button.text("Play");
+        d3.select(".play-button").attr("hidden", null);
+        playButton.attr("class","play-button");
+        playButton.attr("class","play-button-outer");
+        
     } 
     else {
+        d3.select(".play-button").attr("hidden", true);
+        playButton.attr("class", "pause-button");
         timer = setInterval (function() {
-            //     var b= d3.select(sliderFill);
-            //   var t = (+b.property(sliderFill.value()) + 100) % (+b.property(sliderFill.max()) + 1);
-            //   if (t == 0) { t = +b.property(sliderFill.min()); }
-            //   b.property(sliderFill.value(), t);
-            console.log(sliderFill.value())
             sliderFill.value(sliderFill.value() + 1) 
-            
-            //   update_visuals (t, data, show);
         }, 800);
         
     moving = true;
-    button.text("Pause");
     }
 
     return moving;
@@ -132,8 +127,7 @@ d3.csv("omni_locations.csv")
             // Play button will add one year per half a second
             playButton
             .on("click", function() {
-                button = d3.select(this);
-                pauseResumeButton(button);
+                pauseResumeButton();
             })
         }
 
@@ -144,8 +138,7 @@ d3.csv("omni_locations.csv")
             if(moving){
                 playButton
                 .on("click", function() {
-                button = d3.select(this);
-                pauseResumeButton(button);
+                pauseResumeButton();
             })
             }
         }

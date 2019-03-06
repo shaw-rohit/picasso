@@ -11,6 +11,47 @@
         stroke-width: 0.5px;
         fill: white;
       }
+.play-button-outer {
+
+  width: 5em;
+  height: 4.5em;
+  background-color: rgba(0, 0, 0, .25);
+  cursor: pointer;
+}
+
+.play-button {
+  margin: 5 auto;
+  top: 15%;
+  position: relative;  
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 1.75em 0 1.75em 2.5em;
+  border-color: transparent transparent transparent #000;
+  opacity: .75; 
+}
+
+.play-button-outer:hover {
+  background-color: rgba(0, 0, 0, .5);
+}
+
+.play-button-outer:hover .play-button {
+  opacity: 1;
+}
+.play-button:active {
+  background: url(button.png) no-repeat bottom;
+}
+
+.pause-button {
+  margin-top: 10px;
+  width: 74px;
+  height: 74px;
+  border-style: double;
+  border-width: 0px 0px 0px 37px;
+  border-color: #202020;
+}
+
+
 </style>
 
 <body>
@@ -21,10 +62,11 @@
 <button id = "media">Media</button>
 <button id = "migration on">Show Migration Flow</button>
 <button id = "migration off">Hide Migration Flow</button>
-<div id="vis">
-  <button id="play-button">Play</button>
-</div>
 
+
+<div id = "play-button" class="play-button-outer">
+  <div id="play-button" class="play-button"></div>
+</div>
 
 <h2>Fill</h2>
 <div class="row align-items-center">
