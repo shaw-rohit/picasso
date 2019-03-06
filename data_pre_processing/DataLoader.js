@@ -359,7 +359,7 @@ function update_visuals(year, data, show){
         var randomLong = 0;//Math.random();
         var randomLat = 0;//Math.random();
            
-		// insert filtered data into world map
+		// insert clustered data into world map
 	    gPins.selectAll(".pin")
 	      .data(clustered_data)
 	      .enter().append("circle", ".pin")
@@ -392,7 +392,6 @@ function cluster_data(data, show){
      * clustered_data -- the clustered data
 
      example of cluster:
-    count: 2
 ​​    end_date: 1459
 ​​    id: Array [ "27464", "29084" ]
     mean_lat: 46.7323875
