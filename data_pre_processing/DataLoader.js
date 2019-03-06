@@ -108,7 +108,7 @@ function pauseResumeButton(){
         playButton.attr("class", "pause-button");
         timer = setInterval (function() {
             sliderFill.value(sliderFill.value() + 1) 
-        }, 800);
+        }, 1000);
         
     moving = true;
     }
@@ -300,6 +300,11 @@ function update_legend(data_set, colors, legend, all_data, show, show_migration,
 	return legend
 }
 
+// Define the div for the tooltip
+//TODO: remove this and write in html
+var div = d3.select("body").append("div")	
+    .attr("class", "tooltip")				
+    .style("opacity", 0);
 
 function update_visuals(year, data, show){
 	// extract the centuries to show
@@ -356,23 +361,40 @@ function update_visuals(year, data, show){
         // For testing if transitions work properly, otherwise the transitions will be overwritten when the circles are not removed yet   
         var randomLong = 0;//Math.random();
         var randomLat = 0;//Math.random();
-           
+
 		// insert filtered data into world map
-	    gPins.selectAll(".pin")
-	      .data(clustered_data)
-	      .enter().append("circle", ".pin")
+        gPins.selectAll(".pin")
+	        .data(clustered_data)
+            .enter().append("circle", ".pin")
+            .on("mouseover",function(d){     
+                console.log(d)   
+                div.transition()		
+                .duration(200)		
+                .style("opacity", .9);		
+                div.text("There are a total of " + d.id.length + " paintings in the style: " + d.sub )
+                .style("left", (d3.event.pageX) + "px")		
+                .style("top", (d3.event.pageY - 28) + "px")
+            })
+            .on("mouseout", function(d) {		
+                div.transition()		
+                .duration(500)		
+                .style("opacity", 0);	
+            })
+            .on("click", function(d){
+                //TODO: give transition and remove map SVG, go to new screen to show the paintings and its statistics
+            })
+         
           .attr("fill", function(d) {return color[show][d['sub']];})	
           .transition()
           .attr("r", function(d) {return 2*d['id'].length;})   
           .style("opacity", opacity)
-        .duration(400)
+          .duration(400)
 	      .attr("transform", function(d) {
-            console.log(randomLong + " " + d.lat)
 	        return "translate(" + projection([
                 parseInt(d["long"]) + randomLong,
                 parseInt(d["lat"])  + randomLat
             ]) + ")";
-        })
+        });
 
         
 	  }
