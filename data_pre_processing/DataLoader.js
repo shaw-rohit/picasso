@@ -18,7 +18,7 @@ var svgContainer = d3.select("body").append("svg")
 										.attr("width", width);
 
 // Create map
-var projection = d3.geoMercator()//.translate([width/2, height/2]).scale(2200).center([0,40]);
+var projection = d3.geoMercator().translate([width/2, height/2]).scale(200).center([0,40]);
 var zoom = d3.zoom()
 .scaleExtent([1, 8])
 .on("zoom", zoomed);
@@ -27,13 +27,13 @@ var path = d3.geoPath().projection(projection);
 var g = svgContainer.append("g"); //For map
 var gPins = svgContainer.append("g"); //For pins on map (new abstract layer)
 var gArrows = svgContainer.append("g"); // For arrows of migration
-var playButton = d3.select("#vis")
-    .append("g")
+var playButton = svgContainer.append("g") // Playbutton
 
 var url = "http://enjalot.github.io/wwsd/data/world/world-110m.geojson";
 var data_url = "http://enjalot.github.io/wwsd/data/world/ne_50m_populated_places_simple.geojson";
 
-svgContainer.call(zoom)
+svgContainer.call(zoom) //Use zoom
+
 Promise.all([d3.json(url), d3.json(data_url)]).then(function(data) {
 	var world = data[0];
 	var places = data[1];
@@ -49,7 +49,7 @@ Promise.all([d3.json(url), d3.json(data_url)]).then(function(data) {
 var centuries = d3.range(0, 22, 1);
 var years = d3.range(100, 2025, 1);
 
-
+// Variables for play/pause button
 var moving = false;
 var playButton = d3.select("#play-button");
 var playAuto = true;
