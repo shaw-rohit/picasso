@@ -112,7 +112,7 @@ function pauseResumeButton(button){
             sliderFill.value(sliderFill.value() + 1) 
             
             //   update_visuals (t, data, show);
-        }, 500);
+        }, 800);
         
     moving = true;
     button.text("Pause");
@@ -314,7 +314,7 @@ function update_visuals(year, data, show){
 	//dbp_lat, dbp_long
 
 	// TODO REMOVE THE PINS CORRECTLY
-    svgContainer.selectAll("circle").transition().duration(1000) // Will remove all previous circles when update is initiated
+    svgContainer.selectAll("circle").transition().duration(200) // Will remove all previous circles when update is initiated
         .style("opacity", .1)
         .attr("r", 0)
         .remove();
@@ -367,7 +367,7 @@ function update_visuals(year, data, show){
           .transition()
           .attr("r", function(d) {return 2*d['id'].length;})   
           .style("opacity", opacity)
-        .duration(200)
+        .duration(400)
 	      .attr("transform", function(d) {
             console.log(randomLong + " " + d.lat)
 	        return "translate(" + projection([
