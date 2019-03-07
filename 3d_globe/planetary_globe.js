@@ -29,6 +29,10 @@
   planet.draw(canvas);
 
 
+  
+  d3.csv("output.csv").then(function(data){
+      
+})
 
   // Plugin to resize the canvas to fill the window and to
   // automatically center the planet when the window size changes
