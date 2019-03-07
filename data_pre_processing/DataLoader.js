@@ -6,15 +6,15 @@ legendRectSize = 18;
 legendSpacing = 4;
 
 var century = 0;
-
+var zoom_level = 0
 // years and locations are binned to prevent clutter
 var YEAR_STEP = 3
-var LONGLAT_STEP = 0.1
+var LONGLAT_STEP = 0.2
 
 var show_migration = true;
 var svgContainer = d3.select("body").append("svg")
-										.attr("height", height)
-										.attr("width", width);
+                                        .attr("height", height)
+                                        .attr("width", width);
 
 // Create map
 var projection = d3.geoMercator().translate([width/2, height/2]).scale(200).center([0,40]);
@@ -33,17 +33,18 @@ var data_url = "http://enjalot.github.io/wwsd/data/world/ne_50m_populated_places
 svgContainer.call(zoom) //Use zoom
 
 Promise.all([d3.json(url), d3.json(data_url)]).then(function(data) {
-	var world = data[0];
-	var places = data[1];
+    var world = data[0];
+    var places = data[1];
 
-	g.append("path")
-	.attr("d", path(world))
-	.attr("fill", "lightgray")
-	.attr("stroke", "white");
+    g.append("path")
+    .attr("d", path(world))
+    .attr("fill", "lightgray")
+    .attr("stroke", "white");
 });
 
 
-// set centuries
+// hard code centuries and years 
+//TODO: softcode
 var centuries = d3.range(0, 22, 1);
 var years = d3.range(100, 2025, 1);
 
@@ -76,19 +77,19 @@ gFill.call(sliderFill);
 d3.select('p#value-fill').text(d3.format('d')(sliderFill.value()));
 
 
-// long lat binner with bin size is 2
+// long lat binner with bin size LONGLAT_STEP
 // TODO: let bin size depend on zoom level
 var lat_binner = d3.scaleQuantize()
-	.domain([-90,90])
-	.range(d3.range(-90, 90, LONGLAT_STEP));
+    .domain([-90,90])
+    .range(d3.range(-90, 90, LONGLAT_STEP));
 var long_binner = d3.scaleQuantize()
-	.domain([-180,180])
-	.range(d3.range(-180, 180, LONGLAT_STEP));
+    .domain([-180,180])
+    .range(d3.range(-180, 180, LONGLAT_STEP));
 
-// year binner with bin size is 5 years
+// year binner with bin size is YEAR_STEP
 var year_binner = d3.scaleQuantize()
-	.domain([100,2025])
-	.range(d3.range(100, 2025, YEAR_STEP));
+    .domain([100,2025])
+    .range(d3.range(100, 2025, YEAR_STEP));
 
 var color = {'school': {}, 'style': {}, 'media':{}}
 
@@ -116,10 +117,10 @@ function pauseResumeButton(){
 }
 
 d3.csv("omni_locations.csv")
-	.then(function(data){
+    .then(function(data){
 
         // initialize things to show
-		var show = 'style'
+        var show = 'style'
         var year = 100
 
         if (!playAuto){
@@ -129,11 +130,9 @@ d3.csv("omni_locations.csv")
                 pauseResumeButton();
             })
         }
-
         // Run auto button
         else{
             moving = pauseResumeButton(playButton);
-
             if(moving){
                 playButton
                 .on("click", function() {
@@ -142,100 +141,143 @@ d3.csv("omni_locations.csv")
             }
         }
         
+        // of each sub class, collect the first time that it occured
+        var schools_data = [];
+        var styles_data = [];
+        var media_data = [];
+        d3.nest()
+            .key(function(d) { return d['school']; })
+            .rollup(function(v) { 
+                schools_data.push({
+                first: d3.min(v, function(d) { return +d.date; }), 
+                sub: d3.map(v, function(d) { return d.school; }).keys()[0], 
+                }) 
+        }).map(data);
+        d3.nest()
+            .key(function(d) { return d['style']; })
+            .rollup(function(v) { 
+                styles_data.push({
+                first: d3.min(v, function(d) { return +d.date; }), 
+                sub: d3.map(v, function(d) { return d.style; }).keys()[0], 
+                }) 
+        }).map(data);
+        d3.nest()
+            .key(function(d) { return d['media']; })
+            .rollup(function(v) { 
+                media_data.push({
+                first: d3.min(v, function(d) { return +d.date; }), 
+                sub: d3.map(v, function(d) { return d.media; }).keys()[0], 
+                }) 
+        }).map(data);
 
-		let all_schools_set = new Set()
-		let all_styles_set = new Set()
-		let all_media_set = new Set()
 
-		// LOAD DATA 
-		// and show style
-		data.forEach(function(d) {
+        // sort the arrays on date
+        styles_data.sort(function(x, y){
+            return d3.ascending(x.first, y.first);
+        })
+        styles_data.sort(function(x, y){
+            return d3.ascending(x.first, y.first);
+        })
+        styles_data.sort(function(x, y){
+            return d3.ascending(x.first, y.first);
+        })
 
-			d.style = d.style
-			d.date = +d.date
-			d.school = d.school
+        var all_styles = styles_data.map(function(d) { return d.sub })
+        var all_schools = schools_data.map(function(d) { return d.sub })
+        var all_media = media_data.map(function(d) { return d.sub })
 
-			//get all unique items
-			all_schools_set.add(d.school)
-			all_styles_set.add(d.style)
-			all_media_set.add(d["media"])
-
-		});
-
-		// set up colorpallette for every style? 
-		var all_styles = Array.from(all_styles_set)
-		var all_schools = Array.from(all_schools_set)
-		var all_media = Array.from(all_media_set)
-        
         var styles_colors = [];
         var schools_colors = [];
         var media_colors = [];
 
-		for (var i = 0; i < all_styles.length; i++){
-			color['style'][all_styles[i]] = d3.interpolateWarm(i/all_styles.length)
-            styles_colors.push(d3.interpolateWarm(i/all_styles.length))
-		}
+        var offset = 0;
+        for (var i = 0; i < all_styles.length; i++){
+            offset+=20
+            color['style'][all_styles[i]] = d3.interpolateWarm((i+offset)/all_styles.length)
+            styles_colors.push(d3.interpolateWarm((i+offset)/all_styles.length))
+            if(i%6 === 0){offset = 0}
+        }
 
-		for (var i = 0; i < all_schools.length; i++){
-			color['school'][all_schools[i]] = d3.interpolateViridis(i/all_schools.length)
+        for (var i = 0; i < all_schools.length; i++){
+            color['school'][all_schools[i]] = d3.interpolateViridis(i/all_schools.length)
             schools_colors.push(d3.interpolateViridis(i/all_schools.length))
-		}
+        }
 
-		for (var i = 0; i < all_media.length; i++){
-			color['media'][all_media[i]] = d3.interpolateViridis(i/all_media.length)
+        for (var i = 0; i < all_media.length; i++){
+            color['media'][all_media[i]] = d3.interpolateViridis(i/all_media.length)
             media_colors.push(d3.interpolateViridis(i/all_media.length))
-		}
+        }
 
-		
-		// var legend = show_legend(all_styles, styles_colors)
+        for (var i = 0; i < all_styles.length; i++){
+            color['style'][all_styles[i]] = d3.interpolateWarm(i/all_styles.length)
+            styles_colors.push(d3.interpolateWarm(i/all_styles.length))
+        }
+
+        for (var i = 0; i < all_schools.length; i++){
+            color['school'][all_schools[i]] = d3.interpolateViridis(i/all_schools.length)
+            schools_colors.push(d3.interpolateViridis(i/all_schools.length))
+        }
+
+        for (var i = 0; i < all_media.length; i++){
+            color['media'][all_media[i]] = d3.interpolateViridis(i/all_media.length)
+            media_colors.push(d3.interpolateViridis(i/all_media.length))
+        }
+
+        
+        // var legend = show_legend(all_styles, styles_colors)
 
         // this will tigger updates, hence, when a change in value has been detected with transitions
-		sliderFill
-			.on('onchange', val => {
+        sliderFill
+            .on('onchange', val => {
             d3.select('p#value-fill').transition()
             .duration(10).style("opacity", 0);
-			d3.select('p#value-fill').text(d3.format('d')(val)).transition()
+            d3.select('p#value-fill').text(d3.format('d')(val)).transition()
             .style("opacity", 1)
             .transition()
             .delay(5);
             year = val
-			update_visuals(year, data, show)
-	    });
+            update_visuals(year, data, show)
+        });
 
-		//var legend = show_legend(all_styles, styles_colors, data, show, show_migration, century)
+        //var legend = show_legend(all_styles, styles_colors, data, show, show_migration, century)
 
         
-		// on button press, only show button id and try to filter by year
-		d3.select("#style")
-		.on("click", function(d){
-			show = 'style'
-			update_visuals(year,data,show)
+        // on button press, only show button id and try to filter by year
+        d3.select("#style")
+        .on("click", function(d){
+            show = 'style'
+            update_visuals(year,data,show)
             legend = update_legend(all_styles, styles_colors, legend, data, show, show_migration, century)
-		});
+        });
 
-		d3.select("#school")
-		.on("click", function(d){
-			show = 'school'
-			update_visuals(year,data,show)
+        d3.select("#school")
+        .on("click", function(d){
+            show = 'school'
+            update_visuals(year,data,show)
             legend = update_legend(all_schools, schools_colors, legend, data, show, show_migration, century)
-		});
+        });
 
-		d3.select("#media")
-		.on("click", function(d){
-			show = 'media'
-			update_visuals(year,data,show)
+        d3.select("#media")
+        .on("click", function(d){
+            show = 'media'
+            update_visuals(year,data,show)
             legend = update_legend(all_media, media_colors, legend, data, show, show_migration, century)
-		});
+        });
 
-		
+        
 });
 
 // Function what happens when zooming
+// changes bin size of spacil clustering
 // TODO: Create transitions for smooth zooming
 function zoomed() {
-	g.attr("transform", d3.event.transform)
+    zoom = d3.event.transform;
+    zoom_level = zoom["k"];
+    g.attr("transform", d3.event.transform)
     gPins.attr("transform", d3.event.transform)
     gArrows.attr("transform", d3.event.transform)
+    long_binner.range(d3.range(-180, 180, LONGLAT_STEP/zoom_level))
+    lat_binner.range(d3.range(-90, 90, LONGLAT_STEP/zoom_level))
 }
 
 function show_legend(data_set, colors, all_data, show, show_migration, century){
@@ -287,47 +329,47 @@ function show_legend(data_set, colors, all_data, show, show_migration, century){
     legend.append('text')                                
         .attr('x', legendRectSize + legendSpacing)       
         .attr('y', legendRectSize - legendSpacing)       
-		.text(function(d) { return d; }); 
-		
-		return legend
+        .text(function(d) { return d; }); 
+        
+        return legend
 };
 
 
 function update_legend(data_set, colors, legend, all_data, show, show_migration, century){
-	legend.remove() // Remove old legend
-	legend = show_legend(data_set, colors, all_data, show, show_migration, century)// Create new legend
-	return legend
+    legend.remove() // Remove old legend
+    legend = show_legend(data_set, colors, all_data, show, show_migration, century)// Create new legend
+    return legend
 }
 
 // Define the div for the tooltip
 //TODO: remove this and write in html
-var div = d3.select("body").append("div")	
-    .attr("class", "tooltip")				
+var div = d3.select("body").append("div")   
+    .attr("class", "tooltip")               
     .style("opacity", 0);
 
 function update_visuals(year, data, show){
-	// extract the centuries to show
-	var year = Math.round(year);
+    // extract the centuries to show
+    var year = Math.round(year);
     var filtered_data = [];
     // var opacity;
 
-	// convert coordinates, take max and set that to 0-1500 for longitude
-	// and 0-750 for latitude
-	//dbp_lat, dbp_long
+    // convert coordinates, take max and set that to 0-1500 for longitude
+    // and 0-750 for latitude
+    //dbp_lat, dbp_long
 
-	// TODO REMOVE THE PINS CORRECTLY
+    // TODO REMOVE THE PINS CORRECTLY
     svgContainer.selectAll("circle").transition().duration(200) // Will remove all previous circles when update is initiated
         .style("opacity", .1)
         .attr("r", 0)
         .remove();
 
-	// find all events in last 5 steps and adjust opacity
-	for(i=0;i<=4;i++){
-		
+    // find all events in last 5 steps and adjust opacity
+    for(i=0;i<=4;i++){
+        
         opacity = 0.8-Math.tanh(i*2)
         
-		// load style part of data
-		data.forEach(function(d){
+        // load style part of data
+        data.forEach(function(d){
             
             if(d["omni_id"] != ""){
               
@@ -338,9 +380,9 @@ function update_visuals(year, data, show){
                     // convert lng and lat to coordinates
                     if (d["long"] != "N\\A"){
                         //svgContainer.append("circle")
-                        //	.attr("cx", (Math.abs(d["dbp_long"])+10)*5)
-                        //	.attr("cy", (Math.abs(d["dbp_lat"])+10)*5)
-                        //	.attr("r",3)
+                        //  .attr("cx", (Math.abs(d["dbp_long"])+10)*5)
+                        //  .attr("cy", (Math.abs(d["dbp_lat"])+10)*5)
+                        //  .attr("r",3)
                         
                         
                         // add datapoint to filtered_data
@@ -349,8 +391,8 @@ function update_visuals(year, data, show){
                 }
             }
 
-			
-		});
+            
+        });
 
         clustered_data = cluster_data(filtered_data, show);
 
@@ -361,43 +403,49 @@ function update_visuals(year, data, show){
         var randomLong = 0;//Math.random();
         var randomLat = 0;//Math.random();
            
-		// insert filtered data into world map
+        // insert filtered data into world map
         gPins.selectAll(".pin")
-	        .data(clustered_data)
+            .data(clustered_data)
             .enter().append("circle", ".pin")
             .on("mouseover",function(d){     
                 console.log(d)   
-                div.transition()		
-                .duration(200)		
-                .style("opacity", .9);		
+                div.transition()        
+                .duration(200)      
+                .style("opacity", .9);      
                 div.text("There are a total of " + d.id.length + " paintings in the style: " + d.sub )
-                .style("left", (d3.event.pageX) + "px")		
+                .style("left", (d3.event.pageX) + "px")     
                 .style("top", (d3.event.pageY - 28) + "px")
             })
-            .on("mouseout", function(d) {		
-                div.transition()		
-                .duration(500)		
-                .style("opacity", 0);	
+            .on("mouseout", function(d) {       
+                div.transition()        
+                .duration(500)      
+                .style("opacity", 0);   
             })
             .on("click", function(d){
                 clicked();
                 //TODO: give transition and remove map SVG, go to new screen to show the paintings and its statistics
             })
          
-          .attr("fill", function(d) {return color[show][d['sub']];})	
+          .attr("fill", function(d) {return color[show][d['sub']];})    
           .transition()
           .attr("r", function(d) {return 2*d['id'].length;})   
           .style("opacity", opacity)
+<<<<<<< HEAD
           .duration(200)
 	      .attr("transform", function(d) {
 	        return "translate(" + projection([
+=======
+          .duration(400)
+          .attr("transform", function(d) {
+            return "translate(" + projection([
+>>>>>>> refs/remotes/origin/master
                 parseInt(d["long"]) + randomLong,
                 parseInt(d["lat"])  + randomLat
             ]) + ")";
         });
 
         
-	  }
+      }
 };
 
 function clicked(d) {
@@ -423,10 +471,10 @@ function cluster_data(data, show){
 ​​    mean_long: -117.0001651
 ​​    start_date: 1459
 ​​    style: "early renaissance"
-     * 
     */
 
     clustered_data = [];
+
 
     var nested_data  = d3.nest()
       .key(function(d) { return d[show]; }) // cluster on subclass
@@ -439,10 +487,13 @@ function cluster_data(data, show){
         end_date: d3.max(v, function(d) { return d.date; }), 
         lat: d3.mean(v, function(d) { return d.lat; }),
         long: d3.mean(v, function(d) { return d.long; }),
-        sub: d3.map(v, function(d) { return d.style; }).keys()[0], 
+        sub: d3.map(v, function(d) { return d[show]; }).keys()[0], 
         }) 
         ;}) 
       .map(data);
+
+
+    window.clustered_data = clustered_data
 
     return clustered_data
 };
@@ -494,16 +545,16 @@ function draw_migration_flow(migration_data, oldest){
             return "M" + origin[0] + ',' + origin[1] 
             // smooth curve to offset midpoint
                 + "S" + midcurve[0] + "," + midcurve[1]
-            //smooth curve to destination	
+            //smooth curve to destination   
                 + "," + dest[0] + "," + dest[1]
             //straight line to arrowhead point
                 + "L" + arrowpoint[0] + "," + arrowpoint[1] 
             // straight line towards original curve along scaled orthogonal vector (creates notched arrow head)
                 + "l" + (0.3*(-dest[1]+midcurve[1])/scalar) + "," + (0.3*(dest[0]-midcurve[0])/scalar)
                 //+ "l" + (0.3*datum.trade*(-dest[1]+midcurve[1])/scalar) + "," + (0.3*datum.trade*(dest[0]-midcurve[0])/scalar)
-                // smooth curve to midpoint	
+                // smooth curve to midpoint 
                 + "S" + (midcurve[0]) + "," + (midcurve[1]) 
-                //smooth curve to origin	
+                //smooth curve to origin    
                 + "," + origin[0] + "," + origin[1]
             
         })
