@@ -7,10 +7,10 @@ legendRectSize = 18;
 legendSpacing = 4;
 
 var century = 0;
-
+var zoom_level = 0
 // years and locations are binned to prevent clutter
 var YEAR_STEP = 3
-var LONGLAT_STEP = 0.1
+var LONGLAT_STEP = 0.2
 
 var show_migration = true;
 var svgContainer = d3.select("body").append("svg")
@@ -44,7 +44,8 @@ Promise.all([d3.json(url), d3.json(data_url)]).then(function(data) {
 });
 
 
-// set centuries
+// hard code centuries and years 
+//TODO: softcode
 var centuries = d3.range(0, 22, 1);
 var years = d3.range(100, 2025, 1);
 
@@ -77,7 +78,7 @@ gFill.call(sliderFill);
 d3.select('p#value-fill').text(d3.format('d')(sliderFill.value()));
 
 
-// long lat binner with bin size is 2
+// long lat binner with bin size LONGLAT_STEP
 // TODO: let bin size depend on zoom level
 var lat_binner = d3.scaleQuantize()
 	.domain([-90,90])
@@ -86,7 +87,7 @@ var long_binner = d3.scaleQuantize()
 	.domain([-180,180])
 	.range(d3.range(-180, 180, LONGLAT_STEP));
 
-// year binner with bin size is 5 years
+// year binner with bin size is YEAR_STEP
 var year_binner = d3.scaleQuantize()
 	.domain([100,2025])
 	.range(d3.range(100, 2025, YEAR_STEP));
@@ -130,11 +131,9 @@ d3.csv("omni_locations.csv")
                 pauseResumeButton();
             })
         }
-
         // Run auto button
         else{
             moving = pauseResumeButton(playButton);
-
             if(moving){
                 playButton
                 .on("click", function() {
@@ -162,6 +161,8 @@ d3.csv("omni_locations.csv")
 			all_media_set.add(d["media"])
 
 		});
+
+
 
 		// set up colorpallette for every style? 
 		var all_styles = Array.from(all_styles_set)
@@ -232,11 +233,16 @@ d3.csv("omni_locations.csv")
 });
 
 // Function what happens when zooming
+// changes bin size of spacil clustering
 // TODO: Create transitions for smooth zooming
 function zoomed() {
+    zoom = d3.event.transform;
+    zoom_level = zoom["k"];
 	g.attr("transform", d3.event.transform)
     gPins.attr("transform", d3.event.transform)
     gArrows.attr("transform", d3.event.transform)
+    long_binner.range(d3.range(-180, 180, LONGLAT_STEP/zoom_level))
+    lat_binner.range(d3.range(-90, 90, LONGLAT_STEP/zoom_level))
 }
 
 function show_legend(data_set, colors, all_data, show, show_migration, century){
@@ -418,10 +424,10 @@ function cluster_data(data, show){
 ​​    mean_long: -117.0001651
 ​​    start_date: 1459
 ​​    style: "early renaissance"
-     * 
     */
 
     clustered_data = [];
+
 
     var nested_data  = d3.nest()
       .key(function(d) { return d[show]; }) // cluster on subclass
@@ -434,10 +440,13 @@ function cluster_data(data, show){
         end_date: d3.max(v, function(d) { return d.date; }), 
         lat: d3.mean(v, function(d) { return d.lat; }),
         long: d3.mean(v, function(d) { return d.long; }),
-        sub: d3.map(v, function(d) { return d.style; }).keys()[0], 
+        sub: d3.map(v, function(d) { return d[show]; }).keys()[0], 
         }) 
         ;}) 
       .map(data);
+
+
+    window.clustered_data = clustered_data
 
     return clustered_data
 };
