@@ -18,7 +18,7 @@ var svgContainer = d3.select("body").append("svg")
 										.attr("width", width);
 
 // Create map
-var projection = d3.geoMercator()//.translate([width/2, height/2]).scale(2200).center([0,40]);
+var projection = d3.geoMercator().translate([width/2, height/2]).scale(200).center([0,40]);
 var zoom = d3.zoom()
 .scaleExtent([1, 8])
 .on("zoom", zoomed);
@@ -27,13 +27,12 @@ var path = d3.geoPath().projection(projection);
 var g = svgContainer.append("g"); //For map
 var gPins = svgContainer.append("g"); //For pins on map (new abstract layer)
 var gArrows = svgContainer.append("g"); // For arrows of migration
-var playButton = d3.select("#vis")
-    .append("g")
 
 var url = "http://enjalot.github.io/wwsd/data/world/world-110m.geojson";
 var data_url = "http://enjalot.github.io/wwsd/data/world/ne_50m_populated_places_simple.geojson";
 
-svgContainer.call(zoom)
+svgContainer.call(zoom) //Use zoom
+
 Promise.all([d3.json(url), d3.json(data_url)]).then(function(data) {
 	var world = data[0];
 	var places = data[1];
@@ -49,11 +48,11 @@ Promise.all([d3.json(url), d3.json(data_url)]).then(function(data) {
 var centuries = d3.range(0, 22, 1);
 var years = d3.range(100, 2025, 1);
 
-
+// Variables for play/pause button
 var moving = false;
 var playButton = d3.select("#play-button");
+playButton.attr("margin-left", "200px")
 var playAuto = true;
-var button;
 
 // filter slider
 var sliderFill = d3
@@ -95,27 +94,23 @@ var year_binner = d3.scaleQuantize()
 var color = {'school': {}, 'style': {}, 'media':{}}
 
 
-function pauseResumeButton(button){
-    if (button.text() == "Pause") {
+function pauseResumeButton(){
+    if (moving) {
         moving = false;
         clearInterval(timer);
-        // timer = 0;
-        button.text("Play");
+        d3.select(".play-button").attr("hidden", null);
+        playButton.attr("class","play-button");
+        playButton.attr("class","play-button-outer");
+        
     } 
     else {
+        d3.select(".play-button").attr("hidden", true);
+        playButton.attr("class", "pause-button");
         timer = setInterval (function() {
-            //     var b= d3.select(sliderFill);
-            //   var t = (+b.property(sliderFill.value()) + 100) % (+b.property(sliderFill.max()) + 1);
-            //   if (t == 0) { t = +b.property(sliderFill.min()); }
-            //   b.property(sliderFill.value(), t);
-            console.log(sliderFill.value())
             sliderFill.value(sliderFill.value() + 1) 
-            
-            //   update_visuals (t, data, show);
-        }, 800);
+        }, 1000);
         
     moving = true;
-    button.text("Pause");
     }
 
     return moving;
@@ -132,8 +127,7 @@ d3.csv("omni_locations.csv")
             // Play button will add one year per half a second
             playButton
             .on("click", function() {
-                button = d3.select(this);
-                pauseResumeButton(button);
+                pauseResumeButton();
             })
         }
 
@@ -144,8 +138,7 @@ d3.csv("omni_locations.csv")
             if(moving){
                 playButton
                 .on("click", function() {
-                button = d3.select(this);
-                pauseResumeButton(button);
+                pauseResumeButton();
             })
             }
         }
@@ -197,10 +190,15 @@ d3.csv("omni_locations.csv")
 		
 		// var legend = show_legend(all_styles, styles_colors)
 
-        // this will tigger updates, hence, when a change in value has been detected
+        // this will tigger updates, hence, when a change in value has been detected with transitions
 		sliderFill
 			.on('onchange', val => {
-			d3.select('p#value-fill').text(d3.format('d')(val));
+            d3.select('p#value-fill').transition()
+            .duration(10).style("opacity", 0);
+			d3.select('p#value-fill').text(d3.format('d')(val)).transition()
+            .style("opacity", 1)
+            .transition()
+            .delay(5);
             year = val
 			update_visuals(year, data, show)
 	    });
@@ -302,6 +300,11 @@ function update_legend(data_set, colors, legend, all_data, show, show_migration,
 	return legend
 }
 
+// Define the div for the tooltip
+//TODO: remove this and write in html
+var div = d3.select("body").append("div")	
+    .attr("class", "tooltip")				
+    .style("opacity", 0);
 
 function update_visuals(year, data, show){
 	// extract the centuries to show
@@ -359,22 +362,39 @@ function update_visuals(year, data, show){
         var randomLong = 0;//Math.random();
         var randomLat = 0;//Math.random();
            
-		// insert clustered data into world map
-	    gPins.selectAll(".pin")
-	      .data(clustered_data)
-	      .enter().append("circle", ".pin")
+		// insert filtered data into world map
+        gPins.selectAll(".pin")
+	        .data(clustered_data)
+            .enter().append("circle", ".pin")
+            .on("mouseover",function(d){     
+                console.log(d)   
+                div.transition()		
+                .duration(200)		
+                .style("opacity", .9);		
+                div.text("There are a total of " + d.id.length + " paintings in the style: " + d.sub )
+                .style("left", (d3.event.pageX) + "px")		
+                .style("top", (d3.event.pageY - 28) + "px")
+            })
+            .on("mouseout", function(d) {		
+                div.transition()		
+                .duration(500)		
+                .style("opacity", 0);	
+            })
+            .on("click", function(d){
+                //TODO: give transition and remove map SVG, go to new screen to show the paintings and its statistics
+            })
+         
           .attr("fill", function(d) {return color[show][d['sub']];})	
           .transition()
           .attr("r", function(d) {return 2*d['id'].length;})   
           .style("opacity", opacity)
-        .duration(400)
+          .duration(400)
 	      .attr("transform", function(d) {
-            console.log(randomLong + " " + d.lat)
 	        return "translate(" + projection([
                 parseInt(d["long"]) + randomLong,
                 parseInt(d["lat"])  + randomLat
             ]) + ")";
-        })
+        });
 
         
 	  }
