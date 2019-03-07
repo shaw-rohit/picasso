@@ -430,15 +430,9 @@ function update_visuals(year, data, show){
           .transition()
           .attr("r", function(d) {return 2*d['id'].length;})   
           .style("opacity", opacity)
-<<<<<<< HEAD
-          .duration(200)
-	      .attr("transform", function(d) {
-	        return "translate(" + projection([
-=======
           .duration(400)
           .attr("transform", function(d) {
             return "translate(" + projection([
->>>>>>> refs/remotes/origin/master
                 parseInt(d["long"]) + randomLong,
                 parseInt(d["lat"])  + randomLat
             ]) + ")";
