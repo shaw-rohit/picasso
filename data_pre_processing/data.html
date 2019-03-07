@@ -1,22 +1,34 @@
 <html>
 <head>
   <title>DataLoader</title>
+  <link type="text/css" rel="stylesheet" href="planetaryjs.css">
 </head>
 <style>
-.bar-chart {
-    background-color: #C7D9D9;
+
+
+body {
+  background-color: rgb(0, 26, 34);
+  background: url('sky.jpg');
+  color: white;
 }
-      path {
-        stroke: black;
-        stroke-width: 0.5px;
-        fill: white;
-      }
+
+
+path {
+  stroke: black;
+  stroke-width: 0.5px;
+  fill: #cfcfcf;
+}
+
+.water{
+  fill: #2B65EC;
+}
 .play-button-outer {
+  border-radius: 20px;
+  background-color: gray;
   float: right;
   margin-right: 50px;
   width: 5em;
   height: 4.5em;
-  background-color: rgba(0, 0, 0, .25);
   cursor: pointer;
 }
 
@@ -34,9 +46,6 @@
   opacity: .75; 
 }
 
-.play-button-outer:hover {
-  background-color: rgba(0, 0, 0, .5);
-}
 
 .play-button-outer:hover .play-button {
   opacity: 1;
@@ -52,7 +61,7 @@
   height: 4.5em;
   border-style: double;
   border-width: 0px 0px 0px 37px;
-  border-color: #202020;
+  border-color: grey;
 }
 
 hr {
@@ -76,17 +85,21 @@ div.tooltip {
     height: 50px;					
     padding: 2px;				
     font: 12px sans-serif;		
-    background: lightsteelblue;	
+    background: blue;	
     border: 0px;		
     border-radius: 8px;			
     pointer-events: none;			
+    opacity: 70%;
+}
+
+.parameter-value{
+  fill: white;
 }
 
 
 </style>
 
 <body>
-
 <h3 id="bla">Load Data</h3>
 <button id = "style">Style</button>
 <button id = "school">School</button>
@@ -119,9 +132,8 @@ div.tooltip {
 <script src='https://d3js.org/d3.v5.min.js'></script>
 <script src="https://unpkg.com/d3-simple-slider"></script>
 <script src="DataLoader.js"></script>
-<script src="http://d3js.org/topojson.v0.min.js"></script> 
+<script src="http://planetaryjs.com/js/lib/topojson.v1.min.js"></script>
 <script src="https://unpkg.com/topojson-client@3"></script>
-  
 
 
 </body>
