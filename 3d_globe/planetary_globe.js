@@ -1,5 +1,5 @@
 (function() {
-  var canvas = document.getElementById('quakeCanvas');
+  var canvas = document.getElementById('Canvas');
 
   // Create our Planetary.js planet and set some initial values;
   // we use several custom plugins, defined at the bottom of the file
@@ -29,10 +29,6 @@
   planet.draw(canvas);
 
 
-  
-  d3.csv("output.csv").then(function(data){
-      
-})
 
   // Plugin to resize the canvas to fill the window and to
   // automatically center the planet when the window size changes
