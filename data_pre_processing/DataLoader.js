@@ -1,7 +1,6 @@
-
-
 var width = 1500;
 var height = 750;
+var centered;
 
 legendRectSize = 18;
 legendSpacing = 4;
@@ -381,6 +380,7 @@ function update_visuals(year, data, show){
                 .style("opacity", 0);	
             })
             .on("click", function(d){
+                clicked();
                 //TODO: give transition and remove map SVG, go to new screen to show the paintings and its statistics
             })
          
@@ -388,7 +388,7 @@ function update_visuals(year, data, show){
           .transition()
           .attr("r", function(d) {return 2*d['id'].length;})   
           .style("opacity", opacity)
-          .duration(400)
+          .duration(200)
 	      .attr("transform", function(d) {
 	        return "translate(" + projection([
                 parseInt(d["long"]) + randomLong,
@@ -399,6 +399,11 @@ function update_visuals(year, data, show){
         
 	  }
 };
+
+function clicked(d) {
+    zoom.scaleBy(svgContainer.transition().duration(500), 1.1);
+
+  }
 
 
 function cluster_data(data, show){
