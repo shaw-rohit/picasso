@@ -1,5 +1,9 @@
 # picasso
 
+## Resized images set
+
+http://isis-data.science.uva.nl/strezoski/omniart/omniart_official/
+
 ## Meeting 01-03-2019
 - Knowledge in lectures are good addition. Creating visualization aspects such as shapes, colors etc are a good addition 
 - 3D as an extra, but nice addition for ending demo 
