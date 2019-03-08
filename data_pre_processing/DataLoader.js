@@ -213,7 +213,6 @@ d3.csv("omni_locations.csv")
             if(i%5 === 0){offset = 0}
         }
 
-
         
         // var legend = show_legend(all_styles, styles_colors)
 
@@ -419,7 +418,7 @@ function update_visuals(year, data, show){
          
           .attr("fill", function(d) {return color[show][d['sub']];})    
           .transition()
-          .attr("r", function(d) {return 2*d['id'].length;})   
+          .attr("r", function(d) {return 4*Math.log(d['id'].length);})   
           .style("opacity", opacity)
           .duration(400)
           .attr("transform", function(d) {
