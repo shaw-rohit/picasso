@@ -30,6 +30,11 @@ var water = svgContainer.append("path")
 var g = svgContainer.append("g"); //For map
 var gPins = svgContainer.append("g"); //For pins on map (new abstract layer)
 var gArrows = svgContainer.append("g"); // For arrows of migration
+var tooltip = d3.select("body").append("div")   
+    .attr("class", "tooltip")               
+    .style("opacity", 0);
+
+
 
 var url = "http://enjalot.github.io/wwsd/data/world/world-110m.geojson";
 var data_url = "http://enjalot.github.io/wwsd/data/world/ne_50m_populated_places_simple.geojson";
@@ -335,11 +340,6 @@ function update_legend(data_set, colors, legend, all_data, show, show_migration,
     return legend
 }
 
-// Define the div for the tooltip
-//TODO: remove this and write in html
-var div = d3.select("body").append("div")   
-    .attr("class", "tooltip")               
-    .style("opacity", 0);
 
 function update_visuals(year, data, show){
     // extract the centuries to show
@@ -401,17 +401,51 @@ function update_visuals(year, data, show){
         gPins.selectAll(".pin")
             .data(clustered_data)
             .enter().append("circle", ".pin")
-            .on("mouseover",function(d){     
-                console.log(d)   
-                div.transition()        
+            .on("mouseover",function(cluster){  
+                tooltip.transition()        
                 .duration(200)      
-                .style("opacity", .9);      
-                div.text("There are a total of " + d.id.length + " paintings in the style: " + d.sub )
+                .style("opacity", .9).
+                style("left", (d3.event.pageX -50) + "px")     
+                .style("top", (d3.event.pageY - 28) + "px");
+                
+                tooltip.text("There are a total of " + cluster.id.length + " paintings in the style: " + cluster.sub )
                 .style("left", (d3.event.pageX) + "px")     
                 .style("top", (d3.event.pageY - 28) + "px")
+            
+                paintings_list = subset_paintings(cluster, data);
+            
+                // Change text size according to amount of paintings
+                if(paintings_list.length < 2){
+                    tooltip.style("width", "200px");
+                }
+                else if(parseInt.length < 4){
+                    tooltip.style("width", "300px");
+                }
+                else{
+                    tooltip.style("width", "500px");
+                }
+            
+                // Weird bug of not updating the images the first time
+                for(var i = 0; i < 2; i++){
+                    slides = add_paintings(paintings_list, cluster);
+                }
+            
+               
+                slides.attr("opacity", 0) //start invisible
+                .transition().duration(2000) //schedule a transition to last 1000ms
+                .delay(function(d,i){return i*2000;})
+                .attr("opacity", 1); 
+
             })
-            .on("mouseout", function(d) {       
-                div.transition()        
+            .on("mouseout", function(d) {  
+                slides.transition()
+                .duration(500)
+                .delay(function(d,i){return i*2000;})
+                .style("opacity", 0);
+                // slides.attr("class" ,null);
+                // slides.exit();
+                // slides.remove();
+                tooltip.transition()        
                 .duration(500)      
                 .style("opacity", 0);   
             })
@@ -440,6 +474,54 @@ function clicked(d) {
     zoom.scaleBy(svgContainer.transition().duration(500), 1.1);
 
   }
+
+//=========================================== Painting images START
+
+  // Add the paintings src inside image
+  function add_paintings(paintings_list, cluster){
+    var slides = d3.select(".tooltip")
+    .selectAll("img")
+    .data( paintings_list );
+    
+    slides.enter()
+    .append( "img" ) 
+    .attr( "class", "slide" ); 
+
+    slides.attr("src", function(d){ return d.image_url;})
+    .attr("style", "float:left");
+    
+    return slides;
+  }
+
+
+  // Create subset of the paintings (is now 50 percent of total)
+ function subset_paintings(cluster, data){
+    var paintings_id = []; 
+    var subset_amount =  Math.floor(cluster.id.length / 100 * 50) // Take half the ID's
+     
+    // Transfer all paintings to new array
+     for(var i = 0; i < subset_amount; i++){
+         paintings_id.push(cluster.id[i]);
+     }
+
+     paintings_list = retreive_paintings(data, paintings_id);
+    
+    return paintings_list;
+ } 
+
+ // Filtering paintings to get the correct one
+function retreive_paintings(data,paintings_id){
+    var paintings_list = [];
+    paintings_id.forEach(function(id){
+        paintings_list.push(data.filter(function(d){
+            return d.omni_id === id;
+        })[0]);
+    });
+
+    return paintings_list;
+}
+
+//=========================================== Painting images END
 
 
 function cluster_data(data, show){
