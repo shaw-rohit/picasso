@@ -64,11 +64,12 @@ Promise.all([d3.json(url), d3.json(data_url)]).then(function(data) {
 });
 
 
-d3.timer(function() {
+var rotation_timer = d3.timer(function() {
   var dt = Date.now() - time;
   projection.rotate([rotate[0] + velocity[0] * dt, 0]);
   svgContainer.selectAll("path").attr("d", path(world));
   water.attr("d", path)
+
 
   ///////////////// HIER G PINS AANPASSEN //////////////////////
 
@@ -159,6 +160,48 @@ d3.csv("omni_locations.csv")
         // initialize things to show
         var show = 'style'
         var year = 100
+        
+        
+        d3.select("#twomap")
+        .on("click", function(d){
+             rotation_timer.stop()
+             //projection = d3.geoMercator().translate([width/2, height/2]).scale(200).center([0,40])
+             projection = d3.geoNaturalEarth1().scale(250).center([-60,30])
+             path = d3.geoPath().projection(projection);
+             g.selectAll("path")
+                 .transition()
+                 .duration(20)
+                 .ease(d3.easeLinear)
+                 .attr("d", path(world))
+                 .attr("fill", "#06304e")
+                 .attr("stroke", "#001320");
+             water.attr("d", path)
+            
+        });
+        
+        d3.select("#threemap")
+        .on("click", function(d){
+            rotation_timer = d3.timer(function() {
+                var dt = Date.now() - time;
+                projection.rotate([rotate[0] + velocity[0] * dt, 0]);
+                svgContainer.selectAll("path").attr("d", path(world));
+                water.attr("d", path)
+
+
+                ///////////////// HIER G PINS AANPASSEN //////////////////////
+
+            });
+            projection = d3.geoOrthographic().translate([width/2, height/4]).scale(350).center([0,40])
+            path = d3.geoPath().projection(projection);
+            g.selectAll("path")
+                .transition()
+                .duration(20)
+                .ease(d3.easeLinear)
+                .attr("d", path(world))
+                .attr("fill", "#06304e")
+                .attr("stroke", "#001320");
+            
+        });
 
         if (!playAuto){
             // Play button will add one year per half a second
@@ -263,7 +306,7 @@ d3.csv("omni_locations.csv")
             .transition()
             .delay(5);
             year = val
-            update_visuals(year, data, show)
+            update_visuals(year, data, show, projection)
         });
 
         //var legend = show_legend(all_styles, styles_colors, data, show, show_migration, century)
@@ -273,21 +316,21 @@ d3.csv("omni_locations.csv")
         d3.select("#style")
         .on("click", function(d){
             show = 'style'
-            update_visuals(year,data,show)
+            update_visuals(year,data,show, projection)
             legend = update_legend(all_styles, styles_colors, legend, data, show, show_migration, century)
         });
 
         d3.select("#school")
         .on("click", function(d){
             show = 'school'
-            update_visuals(year,data,show)
+            update_visuals(year,data,show, projection)
             legend = update_legend(all_schools, schools_colors, legend, data, show, show_migration, century)
         });
 
         d3.select("#media")
         .on("click", function(d){
             show = 'media'
-            update_visuals(year,data,show)
+            update_visuals(year,data,show, projection)
             legend = update_legend(all_media, media_colors, legend, data, show, show_migration, century)
         });
 
@@ -377,7 +420,7 @@ var div = d3.select("body").append("div")
     .attr("class", "tooltip")               
     .style("opacity", 0);
 
-function update_visuals(year, data, show){
+function update_visuals(year, data, show, projection){
     // extract the centuries to show
     var year = Math.round(year);
     var filtered_data = [];
@@ -626,3 +669,32 @@ function retrieve_migration(dataset, show, sub){
     return [oldest, all_others]
     
 };
+
+function update(switch_to) {
+  g.selectAll("path").interrupt().transition()
+      .duration(1000).ease(d3.easeLinear)
+      .attrTween("d", projectionTween(projection, projection = switch_to))
+}
+
+function projectionTween(projection0, projection1) {
+    
+  return function(d) {
+    var t = 0;
+    var projection = d3.geoProjection(project)
+        .scale(1)
+        .translate([width / 2, height / 2]);
+    var path = d3.geoPath(projection);
+    
+    function project(lambda, phi) {
+      lambda *= 180 / Math.PI, phi *= 180 / Math.PI;
+      var p0 = projection0([lambda, phi]), p1 = projection1([lambda, phi]);
+      return [(1 - t) * p0[0] + t * p1[0], (1 - t) * -p0[1] + t * -p1[1]];
+    }
+    
+    return function(_) {
+      t = _;
+      return path(d);
+    };
+    
+  };
+}
