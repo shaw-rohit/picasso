@@ -10,6 +10,7 @@ var zoom_level = 0
 // years and locations are binned to prevent clutter
 var YEAR_STEP = 3
 var LONGLAT_STEP = 0.2
+var YEARS_PER_SECOND = 1000
 
 var show_migration = true;
 var svgContainer = d3.select("body").append("svg")
@@ -108,7 +109,7 @@ function pauseResumeButton(){
         playButton.attr("class", "pause-button");
         timer = setInterval (function() {
             sliderFill.value(sliderFill.value() + 1) 
-        }, 1000);
+        }, YEARS_PER_SECOND);
         
     moving = true;
     }
@@ -192,35 +193,24 @@ d3.csv("omni_locations.csv")
 
         var offset = 0;
         for (var i = 0; i < all_styles.length; i++){
+            color['style'][all_styles[i]] = d3.interpolateRainbow((i+offset)/all_styles.length)
+            styles_colors.push(d3.interpolateRainbow((i+offset)/all_styles.length))
             offset+=20
-            color['style'][all_styles[i]] = d3.interpolateWarm((i+offset)/all_styles.length)
-            styles_colors.push(d3.interpolateWarm((i+offset)/all_styles.length))
-            if(i%6 === 0){offset = 0}
+            if(i%5 === 0){offset = 0}
         }
-
+        var offset = 0;
         for (var i = 0; i < all_schools.length; i++){
-            color['school'][all_schools[i]] = d3.interpolateViridis(i/all_schools.length)
-            schools_colors.push(d3.interpolateViridis(i/all_schools.length))
+            color['school'][all_schools[i]] = d3.interpolateRainbow((i+offset)/all_schools.length)
+            styles_colors.push(d3.interpolateRainbow((i+offset)/all_schools.length))
+            offset+=20
+            if(i%5 === 0){offset = 0}
         }
-
+        var offset = 0;
         for (var i = 0; i < all_media.length; i++){
-            color['media'][all_media[i]] = d3.interpolateViridis(i/all_media.length)
-            media_colors.push(d3.interpolateViridis(i/all_media.length))
-        }
-
-        for (var i = 0; i < all_styles.length; i++){
-            color['style'][all_styles[i]] = d3.interpolateWarm(i/all_styles.length)
-            styles_colors.push(d3.interpolateWarm(i/all_styles.length))
-        }
-
-        for (var i = 0; i < all_schools.length; i++){
-            color['school'][all_schools[i]] = d3.interpolateViridis(i/all_schools.length)
-            schools_colors.push(d3.interpolateViridis(i/all_schools.length))
-        }
-
-        for (var i = 0; i < all_media.length; i++){
-            color['media'][all_media[i]] = d3.interpolateViridis(i/all_media.length)
-            media_colors.push(d3.interpolateViridis(i/all_media.length))
+            color['media'][all_media[i]] = d3.interpolateRainbow((i+offset)/all_media.length)
+            styles_colors.push(d3.interpolateRainbow((i+offset)/all_media.length))
+            offset+=20
+            if(i%5 === 0){offset = 0}
         }
 
         
@@ -428,7 +418,7 @@ function update_visuals(year, data, show){
          
           .attr("fill", function(d) {return color[show][d['sub']];})    
           .transition()
-          .attr("r", function(d) {return 2*d['id'].length;})   
+          .attr("r", function(d) {return 4*Math.log(d['id'].length);})   
           .style("opacity", opacity)
           .duration(400)
           .attr("transform", function(d) {
