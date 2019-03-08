@@ -3,20 +3,31 @@
   <title>DataLoader</title>
 </head>
 <style>
-.bar-chart {
-    background-color: #C7D9D9;
+
+body {
+  background-color: rgb(0, 26, 34);
+  background: url('sky.jpg');
+  color: white;
 }
-      path {
-        stroke: black;
-        stroke-width: 0.5px;
-        fill: white;
-      }
+
+
+path {
+  stroke: black;
+  stroke-width: 0.5px;
+  fill: #cfcfcf;
+}
+
+.water{
+  fill: #2B65EC;
+  opacity: 0.5;
+}
 .play-button-outer {
+  border-radius: 20px;
+  background-color: gray;
   float: right;
   margin-right: 50px;
   width: 5em;
   height: 4.5em;
-  background-color: rgba(0, 0, 0, .25);
   cursor: pointer;
 }
 
@@ -34,9 +45,6 @@
   opacity: .75; 
 }
 
-.play-button-outer:hover {
-  background-color: rgba(0, 0, 0, .5);
-}
 
 .play-button-outer:hover .play-button {
   opacity: 1;
@@ -52,7 +60,7 @@
   height: 4.5em;
   border-style: double;
   border-width: 0px 0px 0px 37px;
-  border-color: #202020;
+  border-color: grey;
 }
 
 hr {
@@ -76,13 +84,16 @@ div.tooltip {
     height: 50px;					
     padding: 2px;				
     font: 12px sans-serif;		
-    background: lightsteelblue;	
+    background: blue;	
     border: 0px;		
     border-radius: 8px;			
     pointer-events: none;			
+    opacity: 70%;
 }
 
-
+.parameter-value{
+  fill: white;
+}
 </style>
 
 <body>

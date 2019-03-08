@@ -23,7 +23,10 @@ var zoom = d3.zoom()
 .scaleExtent([1, 8])
 .on("zoom", zoomed);
 var path = d3.geoPath().projection(projection);
-
+var water = svgContainer.append("path")
+.datum({type: "Sphere"})
+.attr("class", "water")
+.attr("d", path);
 var g = svgContainer.append("g"); //For map
 var gPins = svgContainer.append("g"); //For pins on map (new abstract layer)
 var gArrows = svgContainer.append("g"); // For arrows of migration
@@ -263,11 +266,12 @@ d3.csv("omni_locations.csv")
 function zoomed() {
     zoom = d3.event.transform;
     zoom_level = zoom["k"];
-    g.attr("transform", d3.event.transform)
-    gPins.attr("transform", d3.event.transform)
-    gArrows.attr("transform", d3.event.transform)
-    long_binner.range(d3.range(-180, 180, LONGLAT_STEP/zoom_level))
-    lat_binner.range(d3.range(-90, 90, LONGLAT_STEP/zoom_level))
+    water.attr("transform", d3.event.transform);
+    g.attr("transform", d3.event.transform);
+    gPins.attr("transform", d3.event.transform);
+    gArrows.attr("transform", d3.event.transform);
+    long_binner.range(d3.range(-180, 180, LONGLAT_STEP/zoom_level));
+    lat_binner.range(d3.range(-90, 90, LONGLAT_STEP/zoom_level));
 }
 
 function show_legend(data_set, colors, all_data, show, show_migration, century){
