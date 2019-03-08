@@ -33,6 +33,9 @@ var gArrows = svgContainer.append("g"); // For arrows of migration
 var tooltip = d3.select("body").append("div")   
     .attr("class", "tooltip")               
     .style("opacity", 0);
+var newWindow =  d3.select("body").append("div")
+    .attr("class", "window")
+    .style("opacity", 0);
 
 
 
@@ -405,7 +408,7 @@ function update_visuals(year, data, show){
                 tooltip.transition()        
                 .duration(200)      
                 .style("opacity", .9).
-                style("left", (d3.event.pageX -50) + "px")     
+                style("left", (d3.event.pageX +20) + "px")     
                 .style("top", (d3.event.pageY - 28) + "px");
                 
                 tooltip.text("There are a total of " + cluster.id.length + " paintings in the style: " + cluster.sub )
@@ -471,8 +474,11 @@ function update_visuals(year, data, show){
 };
 
 function clicked(d) {
-    zoom.scaleBy(svgContainer.transition().duration(500), 1.1);
-
+    newWindow.transition()        
+                .duration(200)      
+                .style("opacity", .9).
+                style("left", (d3.event.pageX / 2) + "px")     
+                .style("top", (d3.event.pageY - 150) + "px");
   }
 
 //=========================================== Painting images START
