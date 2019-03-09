@@ -36,6 +36,10 @@ var tooltip = d3.select("body").append("div")
 var newWindow =  d3.select("body").append("div")
     .attr("class", "window")
     .style("opacity", 0);
+var x = d3.select("div.window").append("div")
+    .attr("class", "x")
+    .style("opacity", 0)
+    .style("pointer-events","visible");
 
 
 
@@ -407,8 +411,8 @@ function update_visuals(year, data, show){
             .on("mouseover",function(cluster){  
                 tooltip.transition()        
                 .duration(200)      
-                .style("opacity", .9).
-                style("left", (d3.event.pageX +20) + "px")     
+                .style("opacity", .9)
+                .style("left", (d3.event.pageX +20) + "px")     
                 .style("top", (d3.event.pageY - 28) + "px");
                 
                 tooltip.text("There are a total of " + cluster.id.length + " paintings in the style: " + cluster.sub )
@@ -430,30 +434,22 @@ function update_visuals(year, data, show){
             
                 // Weird bug of not updating the images the first time
                 for(var i = 0; i < 2; i++){
-                    slides = add_paintings(paintings_list, cluster);
+                    slides = add_paintings(paintings_list, ".tooltip");
                 }
-            
-               
-                slides.attr("opacity", 0) //start invisible
-                .transition().duration(2000) //schedule a transition to last 1000ms
-                .delay(function(d,i){return i*2000;})
-                .attr("opacity", 1); 
 
             })
             .on("mouseout", function(d) {  
-                slides.transition()
-                .duration(500)
-                .delay(function(d,i){return i*2000;})
-                .style("opacity", 0);
-                // slides.attr("class" ,null);
-                // slides.exit();
-                // slides.remove();
+                // slides.transition()
+                // .duration(500)
+                // .delay(function(d,i){return i*2000;})
+                // .style("opacity", 0);
+
                 tooltip.transition()        
                 .duration(500)      
                 .style("opacity", 0);   
             })
-            .on("click", function(d){
-                clicked();
+            .on("click", function(cluster){
+                clicked(cluster, data);
                 //TODO: give transition and remove map SVG, go to new screen to show the paintings and its statistics
             })
          
@@ -473,29 +469,53 @@ function update_visuals(year, data, show){
       }
 };
 
-function clicked(d) {
+function clicked(cluster, data) {
     newWindow.transition()        
-                .duration(200)      
-                .style("opacity", .9).
-                style("left", (d3.event.pageX / 2) + "px")     
-                .style("top", (d3.event.pageY - 150) + "px");
+        .duration(200)      
+        .style("opacity", .9)
+        .style("left", (d3.event.pageX / 2) + "px")     
+        .style("top", (d3.event.pageY - 150) + "px");
+
+    var paintings = retreive_paintings(data, cluster.id);
+    // Weird bug of not updating the images the first time
+    for(var i = 0; i < 2; i++){
+        slides = add_paintings(paintings, ".window")
+    }
+    
+    x.transition()
+        .duration(200)
+        .style("opacity", .9)
+        .style("left", (newWindow.width + 10) + "px")     
+        .style("top", 10 + "px");
+        
+        x.on("click", function(){
+            newWindow
+                .transition().duration(1000)
+                .style("opacity", 0); 
+        });
+    
   }
 
 //=========================================== Painting images START
 
   // Add the paintings src inside image
-  function add_paintings(paintings_list, cluster){
-    var slides = d3.select(".tooltip")
-    .selectAll("img")
-    .data( paintings_list );
+  function add_paintings(paintings_list, div){
+    var slides = d3.select(div)
+        .selectAll("img")
+        .data(paintings_list);
     
     slides.enter()
-    .append( "img" ) 
-    .attr( "class", "slide" ); 
+        .append("img") 
+        .attr("class", "slide"); 
 
     slides.attr("src", function(d){ return d.image_url;})
-    .attr("style", "float:left");
+        .attr("style", "float:left");
     
+    slides.style("opacity", 0) //start invisible
+        .transition().duration(500) //schedule a transition to last 1000ms
+        .delay(function(d,i){return i*500;})
+        .style("opacity", 1); 
+
     return slides;
   }
 
