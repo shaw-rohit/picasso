@@ -40,6 +40,10 @@ var x = d3.select("div.window").append("div")
     .attr("class", "x")
     .style("opacity", 0)
     .style("pointer-events","visible");
+var statistics = d3.select("div.window").append("div")
+    .attr("class", "statistics")
+    .style("opacity", 0)
+    .style("pointer-events","visible");
 
 
 
@@ -475,6 +479,14 @@ function clicked(cluster, data) {
         .style("opacity", .9)
         .style("left", (d3.event.pageX / 2) + "px")     
         .style("top", (d3.event.pageY - 150) + "px");
+
+    statistics.transition()
+        .duration(200)      
+        .style("opacity", .9)
+        .style("left", (newWindow.width + 20) + "px")     
+        .style("top", (newWindow.height - 10) + "px");
+
+    statistics.text("ifjofejoifesjoifesjfesoij")
 
     var paintings = retreive_paintings(data, cluster.id);
     // Weird bug of not updating the images the first time
