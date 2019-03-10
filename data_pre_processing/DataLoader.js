@@ -470,7 +470,7 @@ function clicked(cluster, data) {
         .attr("class", "statistics")
         .style("opacity", 0)
         .style("pointer-events","visible");
-    var slidewindow = d3.select("div.window").append("div")
+    var slidewindow = d3.select("div.window").append("div") // TODO: transform to window
         .attr("class", "slidewindow")
         .style("opacity", 0);
 
@@ -480,17 +480,55 @@ function clicked(cluster, data) {
         .style("left", (d3.event.pageX / 2) + "px")     
         .style("top", (d3.event.pageY - 150) + "px");
 
+    var rightresizer = d3.select("div.window").append("div")
+        .attr("class", "rightresize")
+        .style("pointer-events","visible");
+    var downresizer = d3.select("div.window").append("div")
+        .attr("class", "downresize")
+        .style("pointer-events","visible");
+
+    var windowResizeRight = d3.drag()
+        .on('drag', function(){
+            console.log("right")
+            x = d3.mouse(this.parentNode)[0];
+            y = d3.mouse(this.parentNode)[1];
+
+            x = Math.max(50, x);
+            y = Math.max(50, y);
+            
+            newWindow.style("width", x + "px");
+            newWindow.style("height", y + "px");
+        }); 
+        
+    var windowResizeDown = d3.drag()
+        .on('drag', function(){
+            console.log("down")
+            x = d3.mouse(this.parentNode)[0];
+            y = d3.mouse(this.parentNode)[1];
+
+            x = Math.max(50, x);
+            y = Math.max(50, y);
+            
+            newWindow.style("width", x + "px");
+            newWindow.style("height", y + "px");
+        });    
+    
+    
+    rightresizer.call(windowResizeRight);
+    downresizer.call(windowResizeDown);
+
     statistics.transition()
         .duration(200)      
         .style("opacity", .9)
-        .style("left", (newWindow.width + 20) + "px")     
+        .style("left", (newWindow.width + 20) + "px")
         .style("top", (newWindow.height - 10) + "px");
 
     slidewindow.transition()
         .duration(200)      
         .style("opacity", .9)
-        .style("left", (newWindow.width + 20) + "px")     
+        .style("left", (newWindow.width + 20) + "px")
         .style("top", (newWindow.height - 10) + "px");
+        
 
     statistics.text("ifjofejoifesjoifesjfesoij")
 
@@ -520,7 +558,6 @@ function clicked(cluster, data) {
         slides
             .transition().duration(1000)
             .style("opacity", 0);
-
         });
     
   }
