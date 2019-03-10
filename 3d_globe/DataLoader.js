@@ -6,7 +6,6 @@ legendRectSize = 18;
 legendSpacing = 4;
 
 SLIDER_SPEED = 1000;
-slider_speed = SLIDER_SPEED;
 
 var century = 0;
 
@@ -153,7 +152,7 @@ function pauseResumeButton(){
         playButton.attr("class", "pause-button");
         timer = setInterval (function() {
             sliderFill.value(sliderFill.value() + 1) 
-        }, slider_speed)    
+        }, SLIDER_SPEED)    
     moving = true;
     }
 
@@ -473,22 +472,25 @@ function update_visuals(year, data, show, projection){
             
         });
 
+        window.fil = filtered_data;
         clustered_data = cluster_data(filtered_data, show);
 
-        if (clustered_data.length === 0){ 
-            clearInterval(timer)
-            timer = setInterval (function() {
-            sliderFill.value(sliderFill.value() + 1) 
-            }, slider_speed/10) 
-        } else {
-            clearInterval(timer)
-            timer = setInterval (function() {
-            sliderFill.value(sliderFill.value() + 1) 
-            }, slider_speed) }
+        if(moving){
+            // if nothing happens speed up time
+            if (clustered_data.length === 0){ 
+                clearInterval(timer)
+                timer = setInterval (function() {
+                sliderFill.value(sliderFill.value() + 1) 
+                }, SLIDER_SPEED/10) // go 10 times faster
+            } else {
+            // else go to initial time
+                clearInterval(timer)
+                timer = setInterval (function() {
+                sliderFill.value(sliderFill.value() + 1) 
+                }, SLIDER_SPEED) }
+        }
 
 
-        window.clustered_data = clustered_data
-        window.filtered_data = filtered_data
 
         // For testing if transitions work properly, otherwise the transitions will be overwritten when the circles are not removed yet   
         var randomLong = 0;//Math.random();
