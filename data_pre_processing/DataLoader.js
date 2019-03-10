@@ -20,37 +20,25 @@ var svgContainer = d3.select("body").append("svg")
 // Create map
 var projection = d3.geoMercator().translate([width/2, height/2]).scale(200).center([0,40]);
 var zoom = d3.zoom()
-.scaleExtent([1, 8])
-.on("zoom", zoomed);
+    .scaleExtent([1, 8])
+    .on("zoom", zoomed);
 var path = d3.geoPath().projection(projection);
-var water = svgContainer.append("path")
-.datum({type: "Sphere"})
-.attr("class", "water")
-.attr("d", path);
+var water = svgContainer
+    .append("path")
+    .datum({type: "Sphere"})
+    .attr("class", "water")
+    .attr("d", path);
 var g = svgContainer.append("g"); //For map
 var gPins = svgContainer.append("g"); //For pins on map (new abstract layer)
 var gArrows = svgContainer.append("g"); // For arrows of migration
 var tooltip = d3.select("body").append("div")   
-    .attr("class", "tooltip")               
-    .style("opacity", 0);
-var newWindow =  d3.select("body").append("div")
-    .attr("class", "window")
-    .style("opacity", 0);
-var x = d3.select("div.window").append("div")
-    .attr("class", "x")
-    .style("opacity", 0)
-    .style("pointer-events","visible");
-var statistics = d3.select("div.window").append("div")
-    .attr("class", "statistics")
-    .style("opacity", 0)
-    .style("pointer-events","visible");
-
-
+                    .attr("class", "tooltip")               
+                    .style("opacity", 0);
+svgContainer.call(zoom) //Use zoom
 
 var url = "http://enjalot.github.io/wwsd/data/world/world-110m.geojson";
 var data_url = "http://enjalot.github.io/wwsd/data/world/ne_50m_populated_places_simple.geojson";
 
-svgContainer.call(zoom) //Use zoom
 
 Promise.all([d3.json(url), d3.json(data_url)]).then(function(data) {
     var world = data[0];
@@ -442,19 +430,13 @@ function update_visuals(year, data, show){
                 }
 
             })
-            .on("mouseout", function(d) {  
-                // slides.transition()
-                // .duration(500)
-                // .delay(function(d,i){return i*2000;})
-                // .style("opacity", 0);
-
+            .on("mouseout", function() {  
                 tooltip.transition()        
                 .duration(500)      
-                .style("opacity", 0);   
+                .style("opacity", 0);
             })
             .on("click", function(cluster){
                 clicked(cluster, data);
-                //TODO: give transition and remove map SVG, go to new screen to show the paintings and its statistics
             })
          
           .attr("fill", function(d) {return color[show][d['sub']];})    
@@ -473,7 +455,22 @@ function update_visuals(year, data, show){
       }
 };
 
+// When clicked, new window will open. All divs within this window is defined here
 function clicked(cluster, data) {
+    svgContainer.on('.zoom', null);
+
+    var newWindow =  d3.select("body").append("div")
+    .attr("class", "window")
+    .style("opacity", 0);
+    var x = d3.select("div.window").append("div")
+        .attr("class", "x")
+        .style("opacity", 0)
+        .style("pointer-events","visible");
+    var statistics = d3.select("div.window").append("div")
+        .attr("class", "statistics")
+        .style("opacity", 0)
+        .style("pointer-events","visible");
+
     newWindow.transition()        
         .duration(200)      
         .style("opacity", .9)
@@ -490,9 +487,11 @@ function clicked(cluster, data) {
 
     var paintings = retreive_paintings(data, cluster.id);
     // Weird bug of not updating the images the first time
+
     for(var i = 0; i < 2; i++){
         slides = add_paintings(paintings, ".window")
     }
+    
     
     x.transition()
         .duration(200)
@@ -500,10 +499,19 @@ function clicked(cluster, data) {
         .style("left", (newWindow.width + 10) + "px")     
         .style("top", 10 + "px");
         
-        x.on("click", function(){
-            newWindow
-                .transition().duration(1000)
-                .style("opacity", 0); 
+    x.on("click", function(){
+        zoom = d3.zoom() // Init zoom again
+            .scaleExtent([1, 8])
+            .on("zoom", zoomed);
+        svgContainer.call(zoom);
+        newWindow
+            .transition().duration(1000)
+            .style("opacity", 0).remove(); 
+            
+        slides
+            .transition().duration(1000)
+            .style("opacity", 0);
+
         });
     
   }
@@ -515,7 +523,7 @@ function clicked(cluster, data) {
     var slides = d3.select(div)
         .selectAll("img")
         .data(paintings_list);
-    
+
     slides.enter()
         .append("img") 
         .attr("class", "slide"); 
