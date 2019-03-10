@@ -5,6 +5,8 @@ var centered;
 legendRectSize = 18;
 legendSpacing = 4;
 
+SLIDER_SPEED = 1000;
+
 var century = 0;
 
 // zoom and drag parameters
@@ -12,7 +14,7 @@ var zoom_level = 0
 var sensitivity = 0.25
 var maxElevation = 45
 var time = Date.now()
-    rotate = [10, -10]
+    rotate = [10, -10] 
     velocity = [.003, -.001];
 
 // years and locations are binned to prevent clutter
@@ -31,6 +33,8 @@ var svgContainer = d3.select("body").append("svg")
 
 // Create map
 var projection = d3.geoOrthographic().translate([width/2, height/4]).scale(350).center([0,40]);
+
+
 var zoom = d3.zoom()
 .scaleExtent([1, 8])
 .on("zoom", zoomed);
@@ -66,14 +70,16 @@ Promise.all([d3.json(url), d3.json(data_url)]).then(function(data) {
 
 var rotation_timer = d3.timer(function() {
   var dt = Date.now() - time;
-  projection.rotate([rotate[0] + velocity[0] * dt, 0]);
+  projection.rotate([rotate[0] + velocity[0] * dt, 0]); // yaw and pitch
   svgContainer.selectAll("path").attr("d", path(world));
   water.attr("d", path)
-
 
   ///////////////// HIER G PINS AANPASSEN //////////////////////
 
 });
+
+window.rotation_timer = rotation_timer
+
 
 
 
@@ -146,8 +152,7 @@ function pauseResumeButton(){
         playButton.attr("class", "pause-button");
         timer = setInterval (function() {
             sliderFill.value(sliderFill.value() + 1) 
-        }, 1000);
-        
+        }, SLIDER_SPEED)    
     moving = true;
     }
 
@@ -338,7 +343,7 @@ d3.csv("omni_locations.csv")
 });
 
 // Function what happens when zooming
-// changes bin size of spacil clustering
+// changes bin size of spacial clustering
 // TODO: Create transitions for smooth zooming
 function zoomed() {
     zoom = d3.event.transform;
@@ -467,10 +472,25 @@ function update_visuals(year, data, show, projection){
             
         });
 
+        window.fil = filtered_data;
         clustered_data = cluster_data(filtered_data, show);
 
-        window.clustered_data = clustered_data
-        window.filtered_data = filtered_data
+        if(moving){
+            // if nothing happens speed up time
+            if (clustered_data.length === 0){ 
+                clearInterval(timer)
+                timer = setInterval (function() {
+                sliderFill.value(sliderFill.value() + 1) 
+                }, SLIDER_SPEED/10) // go 10 times faster
+            } else {
+            // else go to initial time
+                clearInterval(timer)
+                timer = setInterval (function() {
+                sliderFill.value(sliderFill.value() + 1) 
+                }, SLIDER_SPEED) }
+        }
+
+
 
         // For testing if transitions work properly, otherwise the transitions will be overwritten when the circles are not removed yet   
         var randomLong = 0;//Math.random();
