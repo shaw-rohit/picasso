@@ -470,6 +470,9 @@ function clicked(cluster, data) {
         .attr("class", "statistics")
         .style("opacity", 0)
         .style("pointer-events","visible");
+    var slidewindow = d3.select("div.window").append("div")
+        .attr("class", "slidewindow")
+        .style("opacity", 0);
 
     newWindow.transition()        
         .duration(200)      
@@ -483,13 +486,19 @@ function clicked(cluster, data) {
         .style("left", (newWindow.width + 20) + "px")     
         .style("top", (newWindow.height - 10) + "px");
 
+    slidewindow.transition()
+        .duration(200)      
+        .style("opacity", .9)
+        .style("left", (newWindow.width + 20) + "px")     
+        .style("top", (newWindow.height - 10) + "px");
+
     statistics.text("ifjofejoifesjoifesjfesoij")
 
     var paintings = retreive_paintings(data, cluster.id);
     // Weird bug of not updating the images the first time
 
     for(var i = 0; i < 2; i++){
-        slides = add_paintings(paintings, ".window")
+        slides = add_paintings(paintings, ".slidewindow")
     }
     
     
@@ -520,6 +529,7 @@ function clicked(cluster, data) {
 
   // Add the paintings src inside image
   function add_paintings(paintings_list, div){
+
     var slides = d3.select(div)
         .selectAll("img")
         .data(paintings_list);
