@@ -466,6 +466,9 @@ function clicked(cluster, data) {
         .attr("class", "x")
         .style("opacity", 0)
         .style("pointer-events","visible");
+    windowgrab = d3.select("div.window").append("div")
+        .attr("class", "windowgrab")
+        .style("pointer-events", "visible");
     var statistics = d3.select("div.window").append("div")
         .attr("class", "statistics")
         .style("opacity", 0)
@@ -487,11 +490,24 @@ function clicked(cluster, data) {
         .attr("class", "downresize")
         .style("pointer-events","visible");
 
+
+    var moveWindow = d3.drag()
+        .on('drag', function(){
+            console.log("grab")
+            x = d3.event.x;
+            y = d3.event.y;
+            
+            newWindow.style("left", x + "px");
+            newWindow.style("top",  y + "px");
+        }); 
+
+         newWindow.call(moveWindow);
+
     var windowResizeRight = d3.drag()
         .on('drag', function(){
             console.log("right")
-            x = d3.mouse(this.parentNode)[0];
-            y = d3.mouse(this.parentNode)[1];
+            x = d3.event.x;
+            y = d3.event.y;
 
             x = Math.max(50, x);
             y = Math.max(50, y);
@@ -503,8 +519,8 @@ function clicked(cluster, data) {
     var windowResizeDown = d3.drag()
         .on('drag', function(){
             console.log("down")
-            x = d3.mouse(this.parentNode)[0];
-            y = d3.mouse(this.parentNode)[1];
+            x = d3.event.x;
+            y = d3.event.y;
 
             x = Math.max(50, x);
             y = Math.max(50, y);
@@ -512,7 +528,6 @@ function clicked(cluster, data) {
             newWindow.style("width", x + "px");
             newWindow.style("height", y + "px");
         });    
-    
     
     rightresizer.call(windowResizeRight);
     downresizer.call(windowResizeDown);
