@@ -36,6 +36,7 @@ var tooltip = d3.select("body").append("div")
                     .style("opacity", 0);
 svgContainer.call(zoom) //Use zoom
 var number_windows = 1; // Initial number of windows
+var number_details_painting = 0;
 
 var url = "http://enjalot.github.io/wwsd/data/world/world-110m.geojson";
 var data_url = "http://enjalot.github.io/wwsd/data/world/ne_50m_populated_places_simple.geojson";
@@ -437,7 +438,7 @@ function update_visuals(year, data, show){
                 .style("opacity", 0);
             })
             .on("click", function(cluster){
-                open_stats_painting(cluster, data, number_windows);
+                open_stats_painting(cluster, data, number_windows, "window");
                 number_windows += 1;
             })
          
@@ -457,25 +458,23 @@ function update_visuals(year, data, show){
       }
 };
 
-// When clicked, new window will open. All divs within this window is defined here
-function open_stats_painting(cluster, data, number_windows) {
-    
+function painting_gallery(number_windows, div){
     var newWindow =  d3.select("body").append("div")
     .attr("class", "window")
-    .attr("id", 'window' + number_windows)
+    .attr("id", div + number_windows)
     .style("opacity", 0);
-    var x = d3.select("#window" + number_windows).append("div")
+    var x = d3.select("#" + div + number_windows).append("div")
         .attr("class", "x")
         .style("opacity", 0)
         .style("pointer-events","visible");
-    windowgrab = d3.select("#window" + number_windows).append("div")
+    windowgrab = d3.select("#" + div + number_windows).append("div")
         .attr("class", "windowgrab")
         .style("pointer-events", "visible");
-    var statistics = d3.select("#window" + number_windows).append("div")
+    var statistics = d3.select("#" + div + number_windows).append("div")
         .attr("class", "statistics")
         .style("opacity", 0)
         .style("pointer-events","visible");
-    var slidewindow = d3.select("#window" + number_windows).append("div") 
+    var slidewindow = d3.select("#" + div + number_windows).append("div") 
         .attr("class", "slidewindow")
         .attr("id", 'slidewindow' + number_windows)
         .style("opacity", 0);
@@ -484,13 +483,13 @@ function open_stats_painting(cluster, data, number_windows) {
         .duration(200)      
         .style("opacity", .9)
         .style("left", (d3.event.pageX / 2) + "px")     
-        .style("top", (d3.event.pageY - 150) + "px");
+        .style("top", (d3.event.pageY - 250) + "px");
 
-    var rightresizer = d3.select("#window" + number_windows).append("div")
+    var rightresizer = d3.select("#" + div + number_windows).append("div")
         .attr("windownumber", number_windows)
         .attr("class", "rightresize")
         .style("pointer-events","visible");
-    var downresizer = d3.select("#window" + number_windows).append("div")
+    var downresizer = d3.select("#" + div + number_windows).append("div")
         .attr("windownumber", number_windows)
         .attr("class", "downresize")
         .style("pointer-events","visible");
@@ -539,15 +538,54 @@ function open_stats_painting(cluster, data, number_windows) {
 
     statistics.transition()
         .duration(200)      
-        .style("opacity", .9)
+        .style("opacity", 1)
         .style("left", (newWindow.width + 20) + "px")
         .style("top", (newWindow.height - 10) + "px");
 
     slidewindow.transition()
         .duration(200)      
-        .style("opacity", .9)
+        .style("opacity", 1)
         .style("left", (newWindow.width + 20) + "px")
         .style("top", (newWindow.height - 10) + "px");
+
+
+
+    x.transition()
+        .duration(200)
+        .style("opacity", 1)
+        .style("left", (newWindow.width + 10) + "px")     
+        .style("top", 10 + "px");
+        
+    x.on("click", function(){
+        console.log(div);
+        if(div == "window"){
+            newWindow
+            .transition().duration(1000)
+            .style("opacity", 0).remove(); 
+            slides
+                .transition().duration(1000)
+                .style("opacity", 0);
+            }
+        else{
+            d3.select("#" + div + number_details_painting)
+                .transition().duration(1000)
+                .style("opacity", 0)
+                .remove();
+            d3.select("div.window")
+                .style("z-index", 1)
+                .transition().duration(1000)
+                .style("opacity", 0.9);
+        }
+        });
+
+    return statistics;
+}
+
+// When clicked, new window will open. All divs within this window is defined here
+function open_stats_painting(cluster, data, number_windows, div) {
+    
+    statistics = painting_gallery(number_windows, div);
+  
         
     // slidewindow.on("mouseover", svgContainer.on('.zoom', null), console.log("isfjlfesijl"))
     // .on("mouseleave", 
@@ -568,28 +606,25 @@ function open_stats_painting(cluster, data, number_windows) {
     }
     
     slides.on("click", function(painting){
+        number_details_painting +=1;
+        d3.select("#" + div + number_windows)
+            .transition().duration(1000)
+            .style("opacity", 0)
+            .style("z-index", -1)
         details_painting(painting);
     });
     
-    x.transition()
-        .duration(200)
-        .style("opacity", .9)
-        .style("left", (newWindow.width + 10) + "px")     
-        .style("top", 10 + "px");
-        
-    x.on("click", function(){
-        newWindow
-            .transition().duration(1000)
-            .style("opacity", 0).remove(); 
-            
-        slides
-            .transition().duration(1000)
-            .style("opacity", 0);
-        });
+   
     
   }
 
-  function details_painting(painting){
+
+  function details_painting(painting, div){
+    
+    statistics = painting_gallery(number_details_painting, "details")
+    statistics.html("This painting was made by " + painting.artist_full_name + " in " + painting.date +  " and was named " + "'" + painting.artwork_name + "'" +
+                    "<br /> The painting was made in " + painting.city + ": " + painting.country +
+                    "<p /> <img src= " + painting.image_url + " width= '500px' height = '500px' ></img> ");
     console.log(painting);
   }
 
