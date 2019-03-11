@@ -35,6 +35,7 @@ var tooltip = d3.select("body").append("div")
                     .attr("class", "tooltip")               
                     .style("opacity", 0);
 svgContainer.call(zoom) //Use zoom
+var number_windows = 1; // Initial number of windows
 
 var url = "http://enjalot.github.io/wwsd/data/world/world-110m.geojson";
 var data_url = "http://enjalot.github.io/wwsd/data/world/ne_50m_populated_places_simple.geojson";
@@ -395,7 +396,7 @@ function update_visuals(year, data, show){
         // For testing if transitions work properly, otherwise the transitions will be overwritten when the circles are not removed yet   
         var randomLong = 0;//Math.random();
         var randomLat = 0;//Math.random();
-           
+    
         // insert filtered data into world map
         gPins.selectAll(".pin")
             .data(clustered_data)
@@ -436,7 +437,8 @@ function update_visuals(year, data, show){
                 .style("opacity", 0);
             })
             .on("click", function(cluster){
-                clicked(cluster, data);
+                clicked(cluster, data, number_windows);
+                number_windows += 1;
             })
          
           .attr("fill", function(d) {return color[show][d['sub']];})    
@@ -456,25 +458,27 @@ function update_visuals(year, data, show){
 };
 
 // When clicked, new window will open. All divs within this window is defined here
-function clicked(cluster, data) {
+function clicked(cluster, data, number_windows) {
     svgContainer.on('.zoom', null);
 
     var newWindow =  d3.select("body").append("div")
     .attr("class", "window")
+    .attr("id", 'window' + number_windows)
     .style("opacity", 0);
-    var x = d3.select("div.window").append("div")
+    var x = d3.select("#window" + number_windows).append("div")
         .attr("class", "x")
         .style("opacity", 0)
         .style("pointer-events","visible");
-    windowgrab = d3.select("div.window").append("div")
+    windowgrab = d3.select("#window" + number_windows).append("div")
         .attr("class", "windowgrab")
         .style("pointer-events", "visible");
-    var statistics = d3.select("div.window").append("div")
+    var statistics = d3.select("#window" + number_windows).append("div")
         .attr("class", "statistics")
         .style("opacity", 0)
         .style("pointer-events","visible");
-    var slidewindow = d3.select("div.window").append("div") // TODO: transform to window
+    var slidewindow = d3.select("#window" + number_windows).append("div") 
         .attr("class", "slidewindow")
+        .attr("id", 'slidewindow' + number_windows)
         .style("opacity", 0);
 
     newWindow.transition()        
@@ -483,10 +487,12 @@ function clicked(cluster, data) {
         .style("left", (d3.event.pageX / 2) + "px")     
         .style("top", (d3.event.pageY - 150) + "px");
 
-    var rightresizer = d3.select("div.window").append("div")
+    var rightresizer = d3.select("#window" + number_windows).append("div")
+        .attr("windownumber", number_windows)
         .attr("class", "rightresize")
         .style("pointer-events","visible");
-    var downresizer = d3.select("div.window").append("div")
+    var downresizer = d3.select("#window" + number_windows).append("div")
+        .attr("windownumber", number_windows)
         .attr("class", "downresize")
         .style("pointer-events","visible");
 
@@ -548,10 +554,10 @@ function clicked(cluster, data) {
     statistics.text("ifjofejoifesjoifesjfesoij")
 
     var paintings = retreive_paintings(data, cluster.id);
+    
     // Weird bug of not updating the images the first time
-
     for(var i = 0; i < 2; i++){
-        slides = add_paintings(paintings, ".slidewindow")
+        slides = add_paintings(paintings, "#slidewindow" + number_windows)
     }
     
     
@@ -575,6 +581,10 @@ function clicked(cluster, data) {
             .style("opacity", 0);
         });
     
+  }
+
+  function details_painting(painting){
+
   }
 
 //=========================================== Painting images START
