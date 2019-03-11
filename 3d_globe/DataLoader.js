@@ -5,7 +5,11 @@ var centered;
 legendRectSize = 18;
 legendSpacing = 4;
 
+// default speed of the sider in 1000*seconds per year
 SLIDER_SPEED = 1000;
+
+// the amount of years nothing has happend
+idle_count = 0;
 
 var century = 0;
 
@@ -478,13 +482,15 @@ function update_visuals(year, data, show, projection){
         if(moving){
             // if nothing happens speed up time
             if (clustered_data.length === 0){ 
+                idle_count+=1
                 clearInterval(timer)
                 timer = setInterval (function() {
                 sliderFill.value(sliderFill.value() + 1) 
-                }, SLIDER_SPEED/10) // go 10 times faster
+                }, SLIDER_SPEED/(idle_count*5)) // go faster
             } else {
             // else go to initial time
                 clearInterval(timer)
+                idle_count = 0
                 timer = setInterval (function() {
                 sliderFill.value(sliderFill.value() + 1) 
                 }, SLIDER_SPEED) }
