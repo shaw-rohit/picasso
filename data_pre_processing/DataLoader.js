@@ -435,7 +435,8 @@ function update_visuals(year, data, show){
             .on("mouseout", function() {  
                 tooltip.transition()        
                 .duration(500)      
-                .style("opacity", 0);
+                .style("opacity", 0)
+                .style("z-index", -1);
             })
             .on("click", function(cluster){
                 open_stats_painting(cluster, data, number_windows, "window");
@@ -483,7 +484,7 @@ function painting_gallery(number_windows, div){
         .duration(200)      
         .style("opacity", .9)
         .style("left", (d3.event.pageX / 2) + "px")     
-        .style("top", (d3.event.pageY - 250) + "px");
+        .style("top", (d3.event.pageY - 200) + "px");
 
     var rightresizer = d3.select("#" + div + number_windows).append("div")
         .attr("windownumber", number_windows)
