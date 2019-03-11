@@ -437,7 +437,7 @@ function update_visuals(year, data, show){
                 .style("opacity", 0);
             })
             .on("click", function(cluster){
-                clicked(cluster, data, number_windows);
+                open_stats_painting(cluster, data, number_windows);
                 number_windows += 1;
             })
          
@@ -458,9 +458,8 @@ function update_visuals(year, data, show){
 };
 
 // When clicked, new window will open. All divs within this window is defined here
-function clicked(cluster, data, number_windows) {
-    svgContainer.on('.zoom', null);
-
+function open_stats_painting(cluster, data, number_windows) {
+    
     var newWindow =  d3.select("body").append("div")
     .attr("class", "window")
     .attr("id", 'window' + number_windows)
@@ -550,16 +549,27 @@ function clicked(cluster, data, number_windows) {
         .style("left", (newWindow.width + 20) + "px")
         .style("top", (newWindow.height - 10) + "px");
         
+    // slidewindow.on("mouseover", svgContainer.on('.zoom', null), console.log("isfjlfesijl"))
+    // .on("mouseleave", 
+    //     console.log("iijfes"),
+    //     zoom = d3.zoom() // Init zoom again
+    //         .scaleExtent([1, 8])
+    //         .on("zoom", zoomed),
+    //     svgContainer.call(zoom)
+    // );
 
     statistics.text("ifjofejoifesjoifesjfesoij")
 
     var paintings = retreive_paintings(data, cluster.id);
-    
+
     // Weird bug of not updating the images the first time
     for(var i = 0; i < 2; i++){
         slides = add_paintings(paintings, "#slidewindow" + number_windows)
     }
     
+    slides.on("click", function(painting){
+        details_painting(painting);
+    });
     
     x.transition()
         .duration(200)
@@ -568,10 +578,6 @@ function clicked(cluster, data, number_windows) {
         .style("top", 10 + "px");
         
     x.on("click", function(){
-        zoom = d3.zoom() // Init zoom again
-            .scaleExtent([1, 8])
-            .on("zoom", zoomed);
-        svgContainer.call(zoom);
         newWindow
             .transition().duration(1000)
             .style("opacity", 0).remove(); 
@@ -584,7 +590,7 @@ function clicked(cluster, data, number_windows) {
   }
 
   function details_painting(painting){
-
+    console.log(painting);
   }
 
 //=========================================== Painting images START
@@ -601,7 +607,8 @@ function clicked(cluster, data, number_windows) {
         .attr("class", "slide"); 
 
     slides.attr("src", function(d){ return d.image_url;})
-        .attr("style", "float:left");
+        .attr("style", "float:left")
+        .style("pointer-events","visible");;
     
     slides.style("opacity", 0) //start invisible
         .transition().duration(500) //schedule a transition to last 1000ms

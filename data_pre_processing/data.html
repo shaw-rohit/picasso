@@ -91,9 +91,9 @@ div.tooltip {
 }
 
 div.window {
+  position: absolute;
   background-color: black;
   color: white;
-  position: absolute;			
   text-align: center;							
   padding: 2px;				
   border: 1;		
@@ -103,6 +103,7 @@ div.window {
   max-width: 800px;
   min-width: 500px;
   min-height: 400px;
+  z-index: 100;
 }
 
 div.rightresize {
@@ -165,9 +166,9 @@ div.statistics{
 
 
 div.slidewindow{
-  margin: 0 0 auto;
+  margin: 10 10 auto;
   margin-top: 10px;
-
+  cursor: pointer;
 }
 
 
@@ -176,6 +177,7 @@ div.slidewindow{
 }
 
 .slide{
+  margin: 5 5 auto;
   height: 150px;
   width: 150px;
 }
