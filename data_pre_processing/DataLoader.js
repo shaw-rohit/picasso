@@ -32,8 +32,9 @@ var g = svgContainer.append("g"); //For map
 var gPins = svgContainer.append("g"); //For pins on map (new abstract layer)
 var gArrows = svgContainer.append("g"); // For arrows of migration
 var tooltip = d3.select("body").append("div")   
-                    .attr("class", "tooltip")               
-                    .style("opacity", 0);
+    .attr("class", "tooltip")               
+    .style("opacity", 0)
+    .style("z-index", 1);
 svgContainer.call(zoom) //Use zoom
 var number_windows = 1; // Initial number of windows
 var number_details_painting = 0;
@@ -407,7 +408,8 @@ function update_visuals(year, data, show){
                 .duration(200)      
                 .style("opacity", .9)
                 .style("left", (d3.event.pageX +20) + "px")     
-                .style("top", (d3.event.pageY - 28) + "px");
+                .style("top", (d3.event.pageY - 28) + "px")
+                .style("z-index", 1);
                 
                 tooltip.text("There are a total of " + cluster.id.length + " paintings in the style: " + cluster.sub )
                 .style("left", (d3.event.pageX) + "px")     
@@ -420,10 +422,10 @@ function update_visuals(year, data, show){
                     tooltip.style("width", "200px");
                 }
                 else if(parseInt.length < 4){
-                    tooltip.style("width", "300px");
+                    tooltip.style("width", "400px");
                 }
                 else{
-                    tooltip.style("width", "500px");
+                    tooltip.style("width", "800px");
                 }
             
                 // Weird bug of not updating the images the first time
