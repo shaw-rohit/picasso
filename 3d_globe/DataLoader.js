@@ -46,6 +46,7 @@ var path = d3.geoPath().projection(projection);
 
 var water = svgContainer.append("path")
     .datum({type: "Sphere"})
+    .attr("id" , "water")
     .attr("fill", "#001320")
     .attr("d", path);
 
@@ -255,7 +256,11 @@ d3.csv("omni_locations.csv")
             svgContainer.call(zoom) //Use zoom
              rotation_timer.stop();
              //projection = d3.geoMercator().translate([width/2, height/2]).scale(200).center([0,40])
-             projection = d3.geoNaturalEarth1().scale(250).center([-60,30])
+             new_projection = d3.geoNaturalEarth1().scale(250).center([-60,30])
+             //update(new_projection)
+             
+             projection = new_projection
+             
              path = d3.geoPath().projection(projection);
              g.selectAll("path")
                  .transition()
@@ -282,7 +287,9 @@ d3.csv("omni_locations.csv")
                 ///////////////// HIER G PINS AANPASSEN //////////////////////
 
             });
-            projection = d3.geoOrthographic().translate([width/2, height/4]).scale(350).center([0,40])
+            new_projection = d3.geoOrthographic().translate([width/2, height/4]).scale(350).center([0,40])
+            //update(new_projection)
+            projection = new_projection
             path = d3.geoPath().projection(projection);
             g.selectAll("path")
                 .transition()
@@ -1020,9 +1027,14 @@ function retrieve_migration(dataset, show, sub){
 };
 
 function update(switch_to) {
-  g.selectAll("path").transition()
+  svgContainer.selectAll("#world").transition()
       .duration(1000).ease(d3.easeLinear)
       .attrTween("d", projectionTween(projection, projection = switch_to))
+      
+//   svgContainer.selectAll("#water").transition()
+//       .duration(1000).ease(d3.easeLinear)
+//       .attrTween("d", projectionTween(projection, projection = switch_to))
+
 }
 
 function projectionTween(projection0, projection1) {
@@ -1042,7 +1054,7 @@ function projectionTween(projection0, projection1) {
     
     return function(_) {
       t = _;
-      return path(d);
+      return path(world);
     };
     
   };
