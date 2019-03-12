@@ -77,7 +77,6 @@ Promise.all([d3.json(url), d3.json(data_url)]).then(function(data) {
 
 });
 
-
 var rotation_timer = d3.timer(function() {
     rotateglobe();
 });
@@ -96,7 +95,7 @@ function rotateglobe(){
 var drag = callglobedrag();
 
 function callglobedrag(){
-    var drag = d3.drag()
+    drag = d3.drag()
                 .on("start", dragstarted)
                 .on("drag", dragged)
                 .on("end", dragended);
@@ -236,6 +235,10 @@ d3.csv("omni_locations.csv")
         d3.select("#twomap")
         .on("click", function(d){
             svgContainer.on("mousedown.drag", null);
+            zoom = d3.zoom()
+                .scaleExtent([1, 8])
+                .on("zoom", zoomed);
+            svgContainer.call(zoom) //Use zoom
              rotation_timer.stop();
              //projection = d3.geoMercator().translate([width/2, height/2]).scale(200).center([0,40])
              projection = d3.geoNaturalEarth1().scale(250).center([-60,30])
@@ -253,6 +256,7 @@ d3.csv("omni_locations.csv")
         
         d3.select("#threemap")
         .on("click", function(d){
+            svgContainer.on(".zoom", null);
             drag = callglobedrag();
             rotation_timer = d3.timer(function() {
                 var dt = Date.now() - time;
