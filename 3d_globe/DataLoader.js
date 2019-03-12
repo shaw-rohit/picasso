@@ -56,14 +56,13 @@ var tooltip = d3.select("body").append("div")
     .attr("class", "tooltip")               
     .style("opacity", 0)
     .style("z-index", 1);
-svgContainer.call(zoom) //Use zoom
+
 var number_windows = 1; // Initial number of windows
 var number_details_painting = 0;
 
 var url = "http://enjalot.github.io/wwsd/data/world/world-110m.geojson";
 var data_url = "http://enjalot.github.io/wwsd/data/world/ne_50m_populated_places_simple.geojson";
 
-svgContainer.call(zoom) //Use zoom
 
 var world;
 Promise.all([d3.json(url), d3.json(data_url)]).then(function(data) {
@@ -72,6 +71,7 @@ Promise.all([d3.json(url), d3.json(data_url)]).then(function(data) {
 
     g.append("path")
     .attr("d", path(world))
+    .attr("id" , "world")
     .attr("fill", "#06304e")
     .attr("stroke", "#001320");
 
@@ -79,18 +79,71 @@ Promise.all([d3.json(url), d3.json(data_url)]).then(function(data) {
 
 
 var rotation_timer = d3.timer(function() {
-  var dt = Date.now() - time;
-  projection.rotate([rotate[0] + velocity[0] * dt, 0]); // yaw and pitch
-  svgContainer.selectAll("path").attr("d", path(world));
-  water.attr("d", path)
-
-  ///////////////// HIER G PINS AANPASSEN //////////////////////
-
+    rotateglobe();
 });
 
 window.rotation_timer = rotation_timer
 
+function rotateglobe(){
+    var dt = Date.now() - time;
+    projection.rotate([rotate[0] + velocity[0] * dt, 0]); // yaw and pitch
+    svgContainer.selectAll("path").attr("d", path(world));
+    water.attr("d", path)
+  
+      ///////////////// HIER G PINS AANPASSEN //////////////////////
+}
 
+var drag = callglobedrag();
+
+function callglobedrag(){
+    var drag = d3.drag()
+                .on("start", dragstarted)
+                .on("drag", dragged)
+                .on("end", dragended);
+
+    svgContainer.call(drag);
+
+    return drag;
+}
+
+function dragstarted(){
+    console.log("start")
+    svgContainer.on(zoom, null); //Use zoom
+    rotation_timer.stop();
+	gpos0 = projection.invert(d3.mouse(this));
+	o0 = projection.rotate();
+
+	svgContainer.selectAll("#world")
+             .datum({type: "Point", coordinates: gpos0})
+             .attr("class", "point")
+             .attr("d", path(world)); 
+}
+
+function dragged(){
+    console.log("dragged")
+	var gpos1 = projection.invert(d3.mouse(this));
+
+	o0 = projection.rotate();
+
+	var o1 = eulerAngles(gpos0, gpos1, o0);
+	projection.rotate(o1);
+
+	svgContainer.selectAll(".point")
+	 		.datum({type: "Point", coordinates: gpos1});
+    svgContainer.selectAll("#world").attr("d", path(world));
+
+}
+
+function dragended(){
+    zoom = d3.zoom()
+        .scaleExtent([1, 8])
+        .on("zoom", zoomed);
+    svgContainer.call(zoom) //Use zoom
+        rotation_timer.restart(function(elapsed) {
+        // rotateglobe(); // TODO: Get correct coordinates and pass them to function.
+    });
+    console.log("end")
+}
 
 
 //////////////////
@@ -158,6 +211,9 @@ function pauseResumeButton(){
         
     } 
     else {
+        rotation_timer.restart(function(){
+            rotateglobe();
+        });
         d3.select(".play-button").attr("hidden", true);
         playButton.attr("class", "pause-button");
         timer = setInterval (function() {
@@ -179,7 +235,8 @@ d3.csv("omni_locations.csv")
         
         d3.select("#twomap")
         .on("click", function(d){
-             rotation_timer.stop()
+            svgContainer.on("mousedown.drag", null);
+             rotation_timer.stop();
              //projection = d3.geoMercator().translate([width/2, height/2]).scale(200).center([0,40])
              projection = d3.geoNaturalEarth1().scale(250).center([-60,30])
              path = d3.geoPath().projection(projection);
@@ -196,6 +253,7 @@ d3.csv("omni_locations.csv")
         
         d3.select("#threemap")
         .on("click", function(d){
+            drag = callglobedrag();
             rotation_timer = d3.timer(function() {
                 var dt = Date.now() - time;
                 projection.rotate([rotate[0] + velocity[0] * dt, 0]);
@@ -222,6 +280,9 @@ d3.csv("omni_locations.csv")
             // Play button will add one year per half a second
             playButton
             .on("click", function() {
+                rotation_timer.restart(function(){
+                    rotateglobe();
+                });
                 pauseResumeButton();
             })
         }
@@ -231,7 +292,8 @@ d3.csv("omni_locations.csv")
             if(moving){
                 playButton
                 .on("click", function() {
-                pauseResumeButton();
+                    rotation_timer.stop();
+                    pauseResumeButton();
             })
             }
         }
@@ -948,7 +1010,7 @@ function retrieve_migration(dataset, show, sub){
 };
 
 function update(switch_to) {
-  g.selectAll("path").interrupt().transition()
+  g.selectAll("path").transition()
       .duration(1000).ease(d3.easeLinear)
       .attrTween("d", projectionTween(projection, projection = switch_to))
 }
