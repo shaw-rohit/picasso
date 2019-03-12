@@ -50,7 +50,7 @@ var water = svgContainer.append("path")
     .attr("d", path);
 
 var g = svgContainer.append("g")//For map
-var gPins = svgContainer.append("g"); //For pins on map (new abstract layer)
+var gPins = svgContainer.select("g"); //For pins on map (new abstract layer)
 var gArrows = svgContainer.append("g"); // For arrows of migration
 var tooltip = d3.select("body").append("div")   
     .attr("class", "tooltip")               
@@ -88,7 +88,15 @@ function rotateglobe(){
     projection.rotate([rotate[0] + velocity[0] * dt, 0]); // yaw and pitch
     svgContainer.selectAll("path").attr("d", path(world));
     water.attr("d", path)
-  
+
+    svgContainer.selectAll("circle")
+             .attr("transform", function(d) {
+                return "translate(" + projection([
+                    parseInt(d["long"]),
+                    parseInt(d["lat"])
+                ]) + ")";
+            });
+
       ///////////////// HIER G PINS AANPASSEN //////////////////////
 }
 
@@ -130,7 +138,13 @@ function dragged(){
 	svgContainer.selectAll(".point")
 	 		.datum({type: "Point", coordinates: gpos1});
     svgContainer.selectAll("#world").attr("d", path(world));
-
+    svgContainer.selectAll("circle")
+             .attr("transform", function(d) {
+                return "translate(" + projection([
+                    parseInt(d["long"]),
+                    parseInt(d["lat"])
+                ]) + ")";
+            });
 }
 
 function dragended(){
@@ -568,13 +582,6 @@ function update_visuals(year, data, show, projection){
                 }, SLIDER_SPEED) }
         }
 
-
-
-        // For testing if transitions work properly, otherwise the transitions will be overwritten when the circles are not removed yet   
-        var randomLong = 0;//Math.random();
-        var randomLat = 0;//Math.random();
-           
-        // insert filtered data into world map
         // insert filtered data into world map
         gPins.selectAll(".pin")
             .data(clustered_data)
@@ -628,8 +635,8 @@ function update_visuals(year, data, show, projection){
           .duration(400)
           .attr("transform", function(d) {
             return "translate(" + projection([
-                parseInt(d["long"]) + randomLong,
-                parseInt(d["lat"])  + randomLat
+                parseInt(d["long"]),
+                parseInt(d["lat"])
             ]) + ")";
         });
 
@@ -737,9 +744,8 @@ function painting_gallery(number_windows, div){
         .style("top", 10 + "px");
         
     x.on("click", function(){
-        console.log(div);
         if(div == "window"){
-            newWindow
+            d3.select("#" + div + number_windows)
             .transition().duration(1000)
             .style("opacity", 0).remove(); 
             slides
