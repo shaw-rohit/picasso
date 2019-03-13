@@ -89,7 +89,7 @@ function rotateglobe(){
     var dt = Date.now() - time;
     projection.rotate([rotate[0] + velocity[0] * dt, 0]); // yaw and pitch
     svgContainer.selectAll("path").attr("d", path(world));
-    water.attr("d", path)
+    water.attr("d", path);
 
     svgContainer.selectAll("circle")
              .attr("transform", function(d) {
@@ -271,8 +271,9 @@ d3.csv("omni_locations.csv")
         var show = 'style'
         var year = 100
         
-        
+
         d3.select("#twomap")
+        .style("opacity", 1)
         .on("click", function(d){
             is2d = true;
             svgContainer.on("mousedown.drag", null);
@@ -295,25 +296,36 @@ d3.csv("omni_locations.csv")
                  .attr("d", path(world))
                  .attr("fill", "#06304e")
                  .attr("stroke", "#001320");
-             water.attr("d", path)
+             water.attr("d", path);
+
+             // Update circles correct positions
+             svgContainer.selectAll("circle")
+                .attr("transform", function(d) {
+                return "translate(" + projection([
+                    parseInt(d["long"]),
+                    parseInt(d["lat"])
+                ]) + ")";
+            });
             
-        });
-        
+        })
+        // .style("opacity", 0);
+
         d3.select("#threemap")
+        .style("opacity", 1)
         .on("click", function(d){
             is2d = false;
             svgContainer.on(".zoom", null);
             drag = callglobedrag();
-            rotation_timer = d3.timer(function() {
-                var dt = Date.now() - time;
-                projection.rotate([rotate[0] + velocity[0] * dt, 0]);
-                svgContainer.selectAll("path").attr("d", path(world));
-                water.attr("d", path)
+            // rotation_timer = d3.timer(function() {
+            //     var dt = Date.now() - time;
+            //     projection.rotate([rotate[0] + velocity[0] * dt, 0]);
+            //     svgContainer.selectAll("path").attr("d", path(world));
+            //     water.attr("d", path);
 
-
+            // });
                 ///////////////// HIER G PINS AANPASSEN //////////////////////
 
-            });
+            
             new_projection = d3.geoOrthographic().translate([width/2, height/4]).scale(350).center([0,40])
             //update(new_projection)
             projection = new_projection
@@ -325,7 +337,17 @@ d3.csv("omni_locations.csv")
                 .attr("d", path(world))
                 .attr("fill", "#06304e")
                 .attr("stroke", "#001320");
-            
+
+            water.attr("d", path); // Add water again
+
+            svgContainer.selectAll("circle")
+            .attr("transform", function(d) {
+                return "translate(" + projection([
+                    parseInt(d["long"]),
+                    parseInt(d["lat"])
+                ]) + ")";
+            });
+        
         });
 
         if (!playAuto){
@@ -1066,7 +1088,7 @@ function update(switch_to) {
   svgContainer.selectAll("#world").transition()
       .duration(1000).ease(d3.easeLinear)
       .attrTween("d", projectionTween(projection, projection = switch_to))
-      
+
 //   svgContainer.selectAll("#water").transition()
 //       .duration(1000).ease(d3.easeLinear)
 //       .attrTween("d", projectionTween(projection, projection = switch_to))
@@ -1089,6 +1111,7 @@ function projectionTween(projection0, projection1) {
     }
     
     return function(_) {
+        
       t = _;
       return path(world);
     };
