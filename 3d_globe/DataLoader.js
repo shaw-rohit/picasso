@@ -98,6 +98,17 @@ function rotateglobe(){
                 ]) + ")";
             });
 
+    svgContainer.selectAll("circle")
+        .attr("fill", function(d) {
+            var circle = [parseInt(d["long"]),
+            parseInt(d["lat"])];
+            var rotate = projection.rotate(); // antipode of actual rotational center.
+            var center = [-rotate[0], -rotate[1]]
+            var distance = d3.geoDistance(circle,center);
+            
+        return distance > Math.PI/2 ? 'none' : color['style'][d['sub']];
+    });
+
       ///////////////// HIER G PINS AANPASSEN //////////////////////
 }
 
@@ -146,6 +157,17 @@ function dragged(){
                     parseInt(d["lat"])
                 ]) + ")";
             });
+
+    svgContainer.selectAll("circle")
+        .attr("fill", function(d) {
+            var circle = [parseInt(d["long"]),
+            parseInt(d["lat"])];
+            var rotate = projection.rotate(); // antipode of actual rotational center.
+            var center = [-rotate[0], -rotate[1]]
+            var distance = d3.geoDistance(circle,center);
+            
+        return distance > Math.PI/2 ? 'none' : color['style'][d['sub']];
+    });
 }
 
 function dragended(){
@@ -635,7 +657,14 @@ function update_visuals(year, data, show, projection){
                 number_windows += 1;
             })
          
-          .attr("fill", function(d) {return color[show][d['sub']];})    
+          .attr("fill", function(d) {
+            var circle = [parseInt(d["long"]),
+                parseInt(d["lat"])];
+                var rotate = projection.rotate(); // antipode of actual rotational center.
+                var center = [-rotate[0], -rotate[1]]
+                var distance = d3.geoDistance(circle,center);
+                return distance > Math.PI/2 ? 'none' : color['style'][d['sub']];
+            })    
           .transition()
           .attr("r", function(d) {return 4*Math.log(d['id'].length);})   
           .style("opacity", opacity)
