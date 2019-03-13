@@ -30,6 +30,7 @@ var svgContainer = d3.select("body").append("svg")
                                         .attr("height", height)
                                         .attr("width", width);
 
+var is2d = false; //check if 2d or 3d for play button
 
 ////////////////
 // Create map //
@@ -127,7 +128,7 @@ function callglobedrag(){
 
 function dragstarted(){
     console.log("start")
-    svgContainer.on(zoom, null); //Use zoom
+    svgContainer.on(zoom, null);
     rotation_timer.stop();
 	gpos0 = projection.invert(d3.mouse(this));
 	o0 = projection.rotate();
@@ -247,9 +248,11 @@ function pauseResumeButton(){
         
     } 
     else {
-        rotation_timer.restart(function(){
-            rotateglobe();
-        });
+        if(!is2d){
+            rotation_timer.restart(function(){
+                rotateglobe();
+            });
+        }
         d3.select(".play-button").attr("hidden", true);
         playButton.attr("class", "pause-button");
         timer = setInterval (function() {
@@ -271,6 +274,7 @@ d3.csv("omni_locations.csv")
         
         d3.select("#twomap")
         .on("click", function(d){
+            is2d = true;
             svgContainer.on("mousedown.drag", null);
             zoom = d3.zoom()
                 .scaleExtent([1, 8])
@@ -297,6 +301,7 @@ d3.csv("omni_locations.csv")
         
         d3.select("#threemap")
         .on("click", function(d){
+            is2d = false;
             svgContainer.on(".zoom", null);
             drag = callglobedrag();
             rotation_timer = d3.timer(function() {
@@ -327,9 +332,11 @@ d3.csv("omni_locations.csv")
             // Play button will add one year per half a second
             playButton
             .on("click", function() {
-                rotation_timer.restart(function(){
-                    rotateglobe();
-                });
+                if(!is2d){
+                    rotation_timer.restart(function(){
+                        rotateglobe();
+                    });
+                }
                 pauseResumeButton();
             })
         }
