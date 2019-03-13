@@ -367,7 +367,7 @@ d3.csv("omni_locations.csv")
         });
 
         if (!playAuto){
-            // Play button will add one year per half a second
+            // Play button will add  time
             playButton
             .on("click", function() {
                 if(!is2d){
@@ -435,6 +435,8 @@ d3.csv("omni_locations.csv")
         var all_schools = schools_data.map(function(d) { return d.sub })
         var all_media = media_data.map(function(d) { return d.sub })
 
+        window.styles_data = all_styles
+
         var styles_colors = [];
         var schools_colors = [];
         var media_colors = [];
@@ -450,14 +452,14 @@ d3.csv("omni_locations.csv")
         var offset = 0;
         for (var i = 0; i < all_schools.length; i++){
             color['school'][all_schools[i]] = d3.interpolateRainbow((i+offset)/all_schools.length)
-            styles_colors.push(d3.interpolateRainbow((i+offset)/all_schools.length))
+            schools_colors.push(d3.interpolateRainbow((i+offset)/all_schools.length))
             offset+=20
             if(i%5 === 0){offset = 0}
         }
         var offset = 0;
         for (var i = 0; i < all_media.length; i++){
             color['media'][all_media[i]] = d3.interpolateRainbow((i+offset)/all_media.length)
-            styles_colors.push(d3.interpolateRainbow((i+offset)/all_media.length))
+            media_colors.push(d3.interpolateRainbow((i+offset)/all_media.length))
             offset+=20
             if(i%5 === 0){offset = 0}
         }
@@ -605,10 +607,10 @@ function update_visuals(year, data, show, projection){
         .attr("r", 0)
         .remove();
 
-    // find all events in last 5 steps and adjust opacity
-    for(i=0;i<=4;i++){
+    // find all events in last 3 steps and adjust opacity
+    for(i=0;i<=3;i++){
         
-        opacity = 0.8-Math.tanh(i*2)
+        opacity = 0.8-Math.tanh(i*0.5)
         
         // load style part of data
         data.forEach(function(d){
