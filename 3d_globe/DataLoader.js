@@ -146,10 +146,10 @@ function dragstarted(){
     console.log("start")
     svgContainer.on(zoom, null);
     rotation_timer.stop();
-	gpos0 = projection.invert(d3.mouse(this));
-	o0 = projection.rotate();
+    gpos0 = projection.invert(d3.mouse(this));
+    o0 = projection.rotate();
 
-	svgContainer.selectAll("#world")
+    svgContainer.selectAll("#world")
              .datum({type: "Point", coordinates: gpos0})
              .attr("class", "point")
              .attr("d", path(world)); 
@@ -157,15 +157,15 @@ function dragstarted(){
 
 function dragged(){
     console.log("dragged")
-	var gpos1 = projection.invert(d3.mouse(this));
+    var gpos1 = projection.invert(d3.mouse(this));
 
-	o0 = projection.rotate();
+    o0 = projection.rotate();
 
-	var o1 = eulerAngles(gpos0, gpos1, o0);
-	projection.rotate(o1);
+    var o1 = eulerAngles(gpos0, gpos1, o0);
+    projection.rotate(o1);
 
-	svgContainer.selectAll(".point")
-	 		.datum({type: "Point", coordinates: gpos1});
+    svgContainer.selectAll(".point")
+            .datum({type: "Point", coordinates: gpos1});
     svgContainer.selectAll("#world").attr("d", path(world));
     svgContainer.selectAll("circle")
              .attr("transform", function(d) {
@@ -962,7 +962,6 @@ function cluster_data(data, show){
      * 
      * OUTPUT: 
      * clustered_data -- the clustered data
-
      example of cluster:
 ​​    end_date: 1459
 ​​    id: Array [ "27464", "29084" ]
