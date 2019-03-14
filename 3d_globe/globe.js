@@ -380,6 +380,29 @@ d3.csv("omni_locations.csv")
             }
             
             is_globe = true;
+            
+            if (!playAuto){
+            // Play button will add one year per half a second
+                playButton
+                .on("click", function() {
+                    rotation_timer.restart(function(){
+                        rotateglobe();
+                    });
+                pauseResumeButton();
+                })
+            }
+            // Run auto button
+            else{
+                moving = pauseResumeButton(playButton);
+                if(moving){
+                    playButton
+                    .on("click", function() {
+                        rotation_timer.stop();
+                        pauseResumeButton();
+                    })
+                }
+            }
+            
 //             setTimeout(function() {
 //                 rotation_timer = d3.timer(function() {
 //                   var dt = Date.now() - time;
