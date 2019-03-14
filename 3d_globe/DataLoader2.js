@@ -219,39 +219,30 @@ var slider_width = width-50
 var slider_height = 200
 var slider_bar_height = 50
 var slider_margin = { top: 100, right: 5, bottom: 5, left: 15 };
-
 var sliderFill = d3
-.sliderBottom()
-.min(d3.min(years))
-.max(d3.max(years))
-.width(slider_width)
-.tickFormat(d3.format('d'))
-.ticks(centuries.length)
-.default(0.015)
-.fill('#2196f3')
-
-
+    .sliderBottom()
+    .min(d3.min(years))
+    .max(d3.max(years))
+    .width(slider_width)
+    .tickFormat(d3.format('d'))
+    .ticks(centuries.length)
+    .default(0.015)
+    .fill('#2196f3')
 var gFill = d3
-.select('div#slider-fill')
-.append('svg')
-.attr('width', slider_width+slider_margin.left+slider_margin.right+10)
-.attr('height', slider_height)
-.append('g')
-.attr("transform", "translate(" + slider_margin.left + "," + slider_margin.top + ")")
-
+    .select('div#slider-fill')
+    .append('svg')
+    .attr('width', slider_width+slider_margin.left+slider_margin.right+10)
+    .attr('height', slider_height)
+    .append('g')
+    .attr("transform", "translate(" + slider_margin.left + "," + slider_margin.top + ")")
 gFill.call(sliderFill);
 d3.select('p#value-fill').text(d3.format('d')(sliderFill.value()));
-
 var xScale = d3.scaleBand()
     .rangeRound([0, slider_width])
     .domain(years)
     .padding(0.1);
-
 var yScale = d3.scaleLinear()
     .range([0, slider_bar_height]);
-
-
-
 
 // long lat binner with bin size LONGLAT_STEP
 // TODO: let bin size depend on zoom level
@@ -757,8 +748,6 @@ function update_visuals(year, data, show, projection){
                 parseInt(d["lat"])
             ]) + ")";
         });
-
-
         
       }
 };
@@ -768,8 +757,6 @@ function update_slider_plot(data, colors, show){
     // adjust scale to highest amount of paintings 
     yScale.domain(  [0,
                     d3.max(data, d => d.data.length)] );
-
-    data = ['hai', 'hoi'];
 
     // // append the bars the the gFill slider container
     var bars = gFill.selectAll(".bar").data(data);
