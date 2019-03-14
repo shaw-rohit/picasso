@@ -13,6 +13,8 @@ idle_count = 0;
 
 var century = 0;
 
+var is_globe = true;
+
 // zoom and drag parameters
 var zoom_level = 0
 var sensitivity = 0.25
@@ -1166,10 +1168,11 @@ function retrieve_migration(dataset, show, sub){
     
 };
 
-function update(switch_to) {
+function update(switch_to, center, translation) {
+    
   svgContainer.selectAll("#world").transition()
       .duration(1000).ease(d3.easeLinear)
-      .attrTween("d", projectionTween(projection, projection = switch_to))
+      .attrTween("d", projectionTween(projection, projection = switch_to, center, translation))
 
 //   svgContainer.selectAll("#water").transition()
 //       .duration(1000).ease(d3.easeLinear)
@@ -1177,13 +1180,21 @@ function update(switch_to) {
 
 }
 
-function projectionTween(projection0, projection1) {
+function projectionTween(projection0, projection1, center, translation) {
     
   return function(d) {
     var t = 0;
-    var projection = d3.geoProjection(project)
-        .scale(1)
-        .translate([width / 2, height / 2]);
+    if (translation){
+        var projection = d3.geoProjection(project)
+            .scale(1)
+            .translate([width/2, height/4])
+            .center(center)
+    } else {
+        var projection = d3.geoProjection(project)
+            .scale(1)
+            .center(center)
+    }
+    
     var path = d3.geoPath(projection);
     
     function project(lambda, phi) {
