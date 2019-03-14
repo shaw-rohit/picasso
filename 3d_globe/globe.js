@@ -193,7 +193,7 @@ function dragended(){
 // hard code centuries and years 
 //TODO: softcode
 var centuries = d3.range(0, 22, 1);
-var years = d3.range(100, 2025, 1);
+var years = d3.range(100, 2020, 1);
 
 // Variables for play/pause button
 var moving = false;
@@ -209,6 +209,11 @@ var slider = createD3RangeSlider(0, d3.max(years), "#slider-container")
 slider.range(year_interval[0], year_interval[1]);
 d3.select("#range-label").text(year_interval[0] + " - " + year_interval[1])
 
+// variables for starting slideshow
+var all_years = []
+var checkpoints = [0]
+var check_i = 0
+var starting = true
 
 // long lat binner with bin size LONGLAT_STEP
 // TODO: let bin size depend on zoom level
@@ -225,7 +230,6 @@ var year_binner = d3.scaleQuantize()
     .range(d3.range(100, 2025, YEAR_STEP));
 
 var color = {'school': {}, 'style': {}, 'media':{}}
-var all_years = []
 
 function pauseResumeButton(){
     if (moving) {
@@ -245,15 +249,35 @@ function pauseResumeButton(){
         d3.select(".play-button").attr("hidden", true);
         playButton.attr("class", "pause-button");
 
-        // make sure that the interval is based on the amount of data
-        timer = setInterval (function() {
-            // get old slider values
-            var vals = slider.range()
-            console.log(vals)
-            slider.range(vals['begin'], vals['end'] + 1)           
-        }, SLIDER_SPEED)    
-    moving = true;
-    }    
+        // check if it is starting or not
+        if (starting){
+            console.log('hi')
+            console.log(checkpoints)
+            timer = setInterval (function() {
+                slider.range(parseInt(checkpoints[check_i]), 
+                    parseInt(checkpoints[check_i + 1]))
+                check_i += 1
+                console.log(check_i)
+                console.log(checkpoints.length)
+
+                if (check_i == checkpoints.length-1){
+                    starting = false
+                    clearInterval(timer)
+                }
+        }, SLIDER_SPEED)  
+            moving= true
+        }
+        else {
+            // make sure that the interval is based on the amount of data
+            timer = setInterval (function() {
+                // get old slider values
+                var vals = slider.range()
+                console.log(vals)
+                slider.range(vals['begin'], vals['end'] + 1)           
+            }, SLIDER_SPEED)    
+        moving = true;
+        }    
+    }
     return moving;
 }
 
@@ -273,11 +297,13 @@ d3.csv("omni_locations.csv")
         all_years.sort()
 
         // checkpoints
-        /*
         for (var i = 0; i < all_years.length; i++){
-
+            if ((i%500) == 0){
+                checkpoints.push(all_years[i])
+            }
         } 
-        */     
+        checkpoints.push(d3.max(years))
+
 
         d3.select("#twomap")
         .style("opacity", 1)
