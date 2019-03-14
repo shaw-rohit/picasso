@@ -1,0 +1,262 @@
+<html>
+<head>
+  <title>DataLoader</title>
+
+<link rel="stylesheet" type="text/css" href="map.css">
+  <style>
+    body {
+      background-color: rgb(0, 26, 34);
+      background: url('sky.jpg');
+      color: white;
+    }
+    /*
+    topojson: { file:   'world-110m.json' },
+    oceans:   { fill:   '#001320' },
+    land:     { fill:   '#06304e' },
+    borders:  { stroke: '#001320' }*/
+    .path {
+        stroke: '#001320' ;
+        stroke-width: 0.5px;
+        fill: '#06304e';
+      }
+    .bar-chart {
+        background-color: #C7D9D9;
+    }
+    .bar {
+      opacity: 0.6;
+    }
+    .play-button-outer {
+  border-radius: 20px;
+  background-color: gray;
+  float: right;
+  margin-right: 50px;
+  width: 5em;
+  height: 4.5em;
+  cursor: pointer;
+}
+.play-button {
+  margin: 5 auto;
+  top: 5%;
+  margin-right: 20px;
+  float: right;
+  position: relative;  
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 1.75em 0 1.75em 2.5em;
+  border-color: transparent transparent transparent #000;
+  opacity: .75; 
+}
+.play-button-outer:hover .play-button {
+  opacity: 1;
+}
+.play-button:active {
+  background: url(button.png) no-repeat bottom;
+}
+.pause-button {
+  float:right;
+  margin-right: 50px;
+   width: 2.7em;
+  height: 4.5em;
+  border-style: double;
+  border-width: 0px 0px 0px 37px;
+  border-color: grey;
+}
+hr {
+   margin-top: 10px;
+   margin-bottom: 10px;
+   border: 0;
+   border-top: 1px solid;
+   opacity: .1;
+}
+.col-sm-2 {
+  float:right;
+  margin-right: 650px;
+}
+div.tooltip { 
+    margin: 0 0 auto;
+    background-color: black;
+    color: white;
+    position: absolute;     
+    text-align: center; 
+    max-width: 500px;             
+    padding: 2px;       
+    font: 12px sans-serif;    
+    border: 0px;    
+    border-radius: 8px;     
+    pointer-events: none;     
+}
+div.window {
+  position: absolute;
+  background-color: black;
+  color: white;
+  text-align: center;             
+  padding: 2px;       
+  border: 1;    
+  border-radius: 8px;     
+  pointer-events: none; 
+  max-height: 1100px;
+  max-width: 842px;
+  min-width: 200px;
+  min-height: 200px;
+  z-index: 1;
+}
+div.rightresize {
+    position: absolute;
+    width: 10px;
+    top: 0;
+    bottom: 0;
+    right: -5px;
+    opacity: .5;
+    cursor: pointer;
+    float: right;
+}
+div.downresize {
+    position: absolute;
+    width: 100%;
+    height: 10px;
+    bottom: 0;
+    right: -5px;
+    opacity: .5;
+    cursor: pointer;
+}
+div.windowgrab{
+  float: left;
+  background-color: green;
+    color: white;   
+    text-align: center;             
+    padding: 2px;       
+    border: 1;    
+    border-radius: 8px;     
+    height: 10px;
+    width: 10px;
+    cursor: pointer;
+}
+div.x{
+   background-color: yellow;
+    color: white;   
+    text-align: center;             
+    padding: 2px;       
+    border: 1;    
+    border-radius: 8px;     
+    pointer-events: none; 
+    height: 10px;
+    width: 10px;
+    float: right;
+}
+div.statistics{
+  margin: 20 20 auto;
+  margin-top: 20px;
+  border-radius: 10px;
+   background-color: #A9A9A9;
+    color: black; 
+    text-align: center;             
+    padding: 2px;       
+    max-height: 1100px;
+    max-width: 800px;
+}
+div.slidewindow{
+  margin: 10 10 auto;
+  margin-top: 10px;
+  cursor: pointer;
+}
+.parameter-value{
+  fill: white;
+}
+.slide{
+  margin: 5 5 auto;
+  height: 150px;
+  width: 150px;
+}
+img{
+    width:100%;
+    height: 100%;
+    max-width:600px;
+    max-height:600px;
+}
+#container{
+  margin: 0 0 auto;
+  width: auto;
+  height: auto;
+}
+#globe{
+  float: left;
+  text-align:center;
+}
+#statsleft{
+  height: 750px;
+    width: 20%;
+    float: left;
+}
+#statsright{
+  height: 750px;
+    width: 20%;
+    float: left;
+}
+.widget{
+  margin: 50 0 auto;
+  float: right;
+}
+#zoomleft{
+  height: 100%;
+  width: 10%;
+  float: left;
+}
+#zoomright{
+  height: 100%;
+  width: 10%;
+  float: right;
+}
+</style>
+</head>
+
+<body>
+
+
+<h3 id="bla">Load Data</h3>
+<button id = "style">Style</button>
+<button id = "school">School</button>
+<button id = "media">Media</button>
+<button id = "migration on">Show Migration Flow</button>
+<button id = "migration off">Hide Migration Flow</button>
+<button id = "twomap">Switch to 2D world map</button>
+<button id = "threemap">Switch to globe</button>
+
+ <hr />
+
+
+  <div class="row align-items-center">
+   
+    <div class="col-sm">
+
+      <div id = "play-button" class="play-button-outer">
+      <div id="play-button" class="play-button"></div>
+      </div>
+
+      <div id="slider-fill">
+
+        <div class="col-sm-2">
+          <h2>Date</h2>
+          <p id="value-fill"></p></div>
+        </div>
+      </div>
+  </div>
+
+<div id = "container">
+  <div id = "statsleft"> </div>
+    <div id= "globe">
+    </div>
+  <div id ="statsright"></div>
+</div>
+
+  <hr />
+<script src='https://d3js.org/d3.v5.min.js'></script>
+<script src="https://unpkg.com/d3-simple-slider"></script>
+<script src='rotate_world.js'></script>
+<script src="DataLoader2.js"></script>
+<script src="http://d3js.org/topojson.v0.min.js"></script> 
+<script src="https://unpkg.com/topojson-client@3"></script>
+
+
+</body>
+</html>
