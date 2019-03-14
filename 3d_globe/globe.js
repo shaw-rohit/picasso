@@ -317,30 +317,34 @@ d3.csv("omni_locations.csv")
                 .on("zoom", zoomed);
             svgContainer.call(zoom) //Use zoom
              rotation_timer.stop();
-             //projection = d3.geoMercator().translate([width/2, height/2]).scale(200).center([0,40])
+             if (is_globe){
              new_projection = d3.geoNaturalEarth1().scale(250).center([-60,30])
-             //update(new_projection)
+             update(new_projection, [-60, 28], translation = false)
              
              projection = new_projection
              
              path = d3.geoPath().projection(projection);
-             g.selectAll("path")
+             setTimeout(function(){ g.selectAll("path")
                  .transition()
                  .duration(20)
                  .ease(d3.easeLinear)
                  .attr("d", path(world))
                  .attr("fill", "#06304e")
-                 .attr("stroke", "#001320");
+                 .attr("stroke", "#001320"); }, 990);
              water.attr("d", path);
 
              // Update circles correct positions
              svgContainer.selectAll("circle")
                 .attr("transform", function(d) {
-                return "translate(" + projection([
-                    parseInt(d["long"]),
-                    parseInt(d["lat"])
-                ]) + ")";
-            });
+                    var proj = projection([
+                        parseInt(d["long"]),
+                        parseInt(d["lat"])])
+                    return "translate(" + [proj[0] - d["width"], proj[1] - d["height"]]
+                     + ")";
+                });
+            }
+            
+            is_globe = false;
             
         })
         // .style("opacity", 0);
@@ -351,37 +355,40 @@ d3.csv("omni_locations.csv")
             is2d = false;
             svgContainer.on(".zoom", null);
             drag = callglobedrag();
-            // rotation_timer = d3.timer(function() {
-            //     var dt = Date.now() - time;
-            //     projection.rotate([rotate[0] + velocity[0] * dt, 0]);
-            //     svgContainer.selectAll("path").attr("d", path(world));
-            //     water.attr("d", path);
-
-            // });
-                ///////////////// HIER G PINS AANPASSEN //////////////////////
-
-            
+            if (!is_globe){
             new_projection = d3.geoOrthographic().translate([width/2, height/4]).scale(350).center([0,40])
-            //update(new_projection)
+            update(new_projection, [17, 45], translation = true)
             projection = new_projection
             path = d3.geoPath().projection(projection);
-            g.selectAll("path")
-                .transition()
-                .duration(20)
-                .ease(d3.easeLinear)
-                .attr("d", path(world))
-                .attr("fill", "#06304e")
-                .attr("stroke", "#001320");
-
+            setTimeout(function(){ g.selectAll("path")
+                 .transition()
+                 .duration(45)
+                 .ease(d3.easeLinear)
+                 .attr("d", path(world))
+                 .attr("fill", "#06304e")
+                 .attr("stroke", "#001320"); }, 990);
             water.attr("d", path); // Add water again
 
             svgContainer.selectAll("circle")
-            .attr("transform", function(d) {
-                return "translate(" + projection([
-                    parseInt(d["long"]),
-                    parseInt(d["lat"])
-                ]) + ")";
-            });
+                .attr("transform", function(d) {
+                    var proj = projection([
+                        parseInt(d["long"]),
+                        parseInt(d["lat"])])
+                    return "translate(" + [proj[0] - d["width"], proj[1] - d["height"]]
+                     + ")";
+                });
+            }
+            
+            is_globe = true;
+//             setTimeout(function() {
+//                 rotation_timer = d3.timer(function() {
+//                   var dt = Date.now() - time;
+//                   projection.rotate([rotate[0] + velocity[0] * dt, 0]);
+//                   svgContainer.selectAll("path").attr("d", path(world));
+//                   water.attr("d", path);
+//  
+//               });
+//             }, 1050)
         
         });
 
