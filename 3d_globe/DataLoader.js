@@ -32,18 +32,16 @@ var svgContainer = d3.select("#globe").append("svg")
 var svgStatistics = d3.select("#stats").append("svg")
     .attr("height", 200)
     .attr("width", 750);
-var distribution =  d3.select("#statsright").append("div")
-    .attr("class", "widget")
-    .style("background-color", "red")
-    .style("width", 300)
-    .style("height", 300)
-    .style("opacity", 1);
-
-var stats =  d3.select("#statsright").append("div")
+var distributionstats =  d3.select("#statsright").append("div")
 .attr("class", "widget")
-.style("background-color", "red")
-.style("width", 300)
-.style("height", 300)
+.style("width", 400)
+.style("height", 400)
+.style("opacity", 1);
+
+var globalstats =  d3.select("#statsright").append("div")
+.attr("class", "widget")
+.style("width", 400)
+.style("height", 400)
 .style("opacity", 1);
 
 var is2d = false; //check if 2d or 3d for play button
@@ -253,7 +251,6 @@ var year_binner = d3.scaleQuantize()
 
 var color = {'school': {}, 'style': {}, 'media':{}}
 
-
 function pauseResumeButton(){
     if (moving) {
         moving = false;
@@ -274,6 +271,8 @@ function pauseResumeButton(){
         timer = setInterval (function() {
             sliderFill.value(sliderFill.value() + 1) 
         }, SLIDER_SPEED)    
+
+        
     moving = true;
     }
 
@@ -286,7 +285,6 @@ d3.csv("omni_locations.csv")
         // initialize things to show
         var show = 'style'
         var year = 100
-        
 
         d3.select("#twomap")
         .style("opacity", 1)
@@ -380,7 +378,7 @@ d3.csv("omni_locations.csv")
         }
         // Run auto button
         else{
-            moving = pauseResumeButton(playButton);
+            moving = pauseResumeButton();
             if(moving){
                 playButton
                 .on("click", function() {
@@ -470,15 +468,23 @@ d3.csv("omni_locations.csv")
         // this will tigger updates, hence, when a change in value has been detected with transitions
         sliderFill
             .on('onchange', val => {
-            d3.select('p#value-fill').transition()
-            .duration(10).style("opacity", 0);
-            d3.select('p#value-fill').text(d3.format('d')(val)).transition()
-            .style("opacity", 1)
-            .transition()
-            .delay(5);
-            year = val
-            update_visuals(year, data, show, projection)
+                d3.select('p#value-fill').transition()
+                .duration(10).style("opacity", 0);
+                d3.select('p#value-fill').text(d3.format('d')(val)).transition()
+                .style("opacity", 1)
+                .transition()
+                .delay(5);
+                year = val
+                clustered_data = update_visuals(year, data, show, projection)
+                update_chart(clustered_data,year-YEAR_STEP);
         });
+
+        // TODO: SET INTERVAL
+        // setInterval (function() {
+        //     update_chart(clustered_data,year-YEAR_STEP); 
+        // }, 5000)    
+            
+        
 
         //var legend = show_legend(all_styles, styles_colors, data, show, show_migration, century)
 
@@ -591,7 +597,9 @@ var div = d3.select("body").append("div")
     .attr("class", "tooltip")               
     .style("opacity", 0);
 
+
 function update_visuals(year, data, show, projection){
+
     // extract the centuries to show
     var year = Math.round(year);
     var filtered_data = [];
@@ -640,6 +648,7 @@ function update_visuals(year, data, show, projection){
 
         window.fil = filtered_data;
         clustered_data = cluster_data(filtered_data, show);
+       
 
         if(moving){
             // if nothing happens speed up time
@@ -657,6 +666,7 @@ function update_visuals(year, data, show, projection){
                 sliderFill.value(sliderFill.value() + 1) 
                 }, SLIDER_SPEED) }
         }
+
 
         // insert filtered data into world map
         gPins.selectAll(".pin")
@@ -722,10 +732,10 @@ function update_visuals(year, data, show, projection){
                 parseInt(d["lat"])
             ]) + ")";
         });
-
-
         
       }
+
+      return clustered_data;
 };
 
 function painting_gallery(number_windows, div){

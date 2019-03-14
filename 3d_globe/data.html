@@ -3,6 +3,7 @@
   <title>DataLoader</title>
 
 <link rel="stylesheet" type="text/css" href="map.css">
+<link rel="stylesheet" type="text/css" href="bar.css">
   <style>
     body {
       background-color: rgb(0, 26, 34);
@@ -195,8 +196,9 @@ img{
 
 #container{
   margin: 0 0 auto;
-  width: auto;
+  width: 100%;
   height: auto;
+  display: inline-block;
 }
 
 #globe{
@@ -214,12 +216,12 @@ img{
 
 #statsright{
   height: 750px;
-    width: 20%;
-    float: left;
+    width: 25%;
+    float: right;
 }
 
 .widget{
-  margin: 50 0 auto;
+  margin: 50 30 auto;
   float: right;
 }
 
@@ -234,6 +236,8 @@ img{
   width: 10%;
   float: right;
 }
+
+
 </style>
 </head>
 
@@ -271,8 +275,7 @@ img{
 
 <div id = "container">
   <div id = "statsleft"> </div>
-    <div id= "globe">
-    </div>
+    <div id= "globe"></div>
   <div id ="statsright"></div>
 </div>
 
@@ -281,6 +284,7 @@ img{
 <script src="https://unpkg.com/d3-simple-slider"></script>
 <script src='rotate_world.js'></script>
 <script src="DataLoader.js"></script>
+<script src="chart.js"></script>
 <script src="http://d3js.org/topojson.v0.min.js"></script> 
 <script src="https://unpkg.com/topojson-client@3"></script>
 
