@@ -1,4 +1,4 @@
-var width = 800;
+var width = 1000;
 var height = 750;
 var centered;
 
