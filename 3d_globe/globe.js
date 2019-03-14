@@ -334,12 +334,13 @@ d3.csv("omni_locations.csv")
              // Update circles correct positions
              svgContainer.selectAll("circle")
                 .attr("transform", function(d) {
-                return "translate(" + projection([
-                    parseInt(d["long"]),
-                    parseInt(d["lat"])
-                ]) + ")";
-            });
-            
+                    var proj = projection([
+                        parseInt(d["long"]),
+                        parseInt(d["lat"])])
+                    return "translate(" + [proj[0] - d["width"], proj[1] - d["height"]]
+                     + ")";
+                });
+           
         })
         // .style("opacity", 0);
 
@@ -374,12 +375,14 @@ d3.csv("omni_locations.csv")
             water.attr("d", path); // Add water again
 
             svgContainer.selectAll("circle")
-            .attr("transform", function(d) {
-                return "translate(" + projection([
-                    parseInt(d["long"]),
-                    parseInt(d["lat"])
-                ]) + ")";
-            });
+                .attr("transform", function(d) {
+                    var proj = projection([
+                        parseInt(d["long"]),
+                        parseInt(d["lat"])])
+                    return "translate(" + [proj[0] - d["width"], proj[1] - d["height"]]
+                     + ")";
+                });
+            
         
         });
 
@@ -499,8 +502,8 @@ d3.csv("omni_locations.csv")
 
         slider.onChange(function(newRange){
             d3.select("#range-label").text(newRange.begin + " - " + newRange.end);
-            year_interval = [newRange.begin, newRange.end]            
-            update_visuals(year_interval, data, show, projection)
+            year_interval = [newRange.begin, newRange.end]  
+            update_visuals(year_interval, data, show, projection)            
         });
 
         //var legend = show_legend(all_styles, styles_colors, data, show, show_migration, century)
@@ -622,13 +625,7 @@ function update_visuals(year, data, show, projection){
     // convert coordinates, take max and set that to 0-1500 for longitude
     // and 0-750 for latitude
     //dbp_lat, dbp_long
-
-    // TODO REMOVE THE PINS CORRECTLY --> that have to be removed (in case they are not present on next)
-    svgContainer.selectAll("circle").transition().duration(200) // Will remove all previous circles when update is initiated
-        .style("opacity", .1)
-        .attr("r", 0)
-        .remove();
-
+    
     /*
     // find all events in last 5 steps and adjust opacity
     for(i=0;i<=4;i++){
@@ -658,13 +655,53 @@ function update_visuals(year, data, show, projection){
                 }
             }
         }
-
-        
     });
-
+   
     window.fil = filtered_data;
     clustered_data = cluster_data(filtered_data, show);
 
+    svgContainer.selectAll("circle").transition().duration(200) // Will remove all previous circles when update is initiated
+        .style("opacity", .1)
+        .attr("r", 0)
+        .remove();
+
+    // TRY TO LEAVE POINTS ON THE GLOBE
+    /*
+    // get all id's
+    var circle_id = []
+    var to_remove = []
+    var circles = svgContainer.selectAll("circle")
+
+    var circs = circles['_groups'][0]
+    console.log(circs)
+
+    // remove id's that do not appear in svg
+    for (var i = 0; i < circs.length; i++) {
+      var item = circs[i].id;
+      circle_id.push(item);
+    }
+  
+    var example = svgContainer.selectAll("circle")
+                        .filter(function(d) {                            
+                            if (!contains.call(circle_id, d.id)){   
+                                to_remove.push(d.id)
+                                return d
+                            }                                
+                        })                        
+                        .remove();
+    
+    // also remove this datapoints from clustered data but how?
+    console.log('before')
+    console.log(clustered_data.length)
+
+    for(var i = 0; i < clustered_data.length; i++){
+        if (!contains.call(circle_id, clustered_data[i]['id'].join())){clustered_data.splice(i, 1)};
+    }
+    console.log('after')
+    console.log(clustered_data.length)
+    */
+
+    // TIME SPEED UP BELOW
     /*
     if(moving){
         // if nothing happens speed up time
@@ -778,6 +815,7 @@ function update_visuals(year, data, show, projection){
             return distance > Math.PI/2 ? 'none' : color['style'][d['sub']];
         })      
       .transition()
+      .attr("id", function(d) {return d['id']})
       .attr("r", function(d) {return 4*Math.log(d['id'].length);})   
       .style("opacity", 0.75)
       .duration(400)
@@ -946,9 +984,7 @@ function open_stats_painting(cluster, data, number_windows, div) {
             .style("opacity", 0)
             .style("z-index", -1)
         details_painting(painting);
-    });
-    
-   
+    }); 
     
   }
 
@@ -1200,3 +1236,32 @@ function projectionTween(projection0, projection1) {
     
   };
 }
+
+
+// THIS FUNCTION IS REQUIRED FOR DELETING NODES CORRECTLY
+var contains = function(needle) {
+    // Per spec, the way to identify NaN is that it is not equal to itself
+    var findNaN = needle !== needle;
+    var indexOf;
+
+    if(!findNaN && typeof Array.prototype.indexOf === 'function') {
+        indexOf = Array.prototype.indexOf;
+    } else {
+        indexOf = function(needle) {
+            var i = -1, index = -1;
+
+            for(i = 0; i < this.length; i++) {
+                var item = this[i];
+
+                if((findNaN && item !== item) || item === needle) {
+                    index = i;
+                    break;
+                }
+            }
+
+            return index;
+        };
+    }
+
+    return indexOf.call(this, needle) > -1;
+};
