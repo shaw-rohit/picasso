@@ -3,7 +3,6 @@
   <title>DataLoader</title>
 
 <link rel="stylesheet" type="text/css" href="map.css">
-<link rel="stylesheet" type="text/css" href="bar.css">
   <style>
     body {
       background-color: rgb(0, 26, 34);
@@ -22,6 +21,9 @@
       }
     .bar-chart {
         background-color: #C7D9D9;
+    }
+    .bar {
+      opacity: 0.6;
     }
     .play-button-outer {
   border-radius: 20px;
@@ -174,9 +176,8 @@ img{
 }
 #container{
   margin: 0 0 auto;
-  width: 100%;
+  width: auto;
   height: auto;
-  display: inline-block;
 }
 #globe{
   float: left;
@@ -189,11 +190,11 @@ img{
 }
 #statsright{
   height: 750px;
-    width: 25%;
-    float: right;
+    width: 20%;
+    float: left;
 }
 .widget{
-  margin: 50 30 auto;
+  margin: 50 0 auto;
   float: right;
 }
 #zoomleft{
@@ -206,8 +207,6 @@ img{
   width: 10%;
   float: right;
 }
-
-
 </style>
 </head>
 
@@ -245,7 +244,8 @@ img{
 
 <div id = "container">
   <div id = "statsleft"> </div>
-    <div id= "globe"></div>
+    <div id= "globe">
+    </div>
   <div id ="statsright"></div>
 </div>
 
@@ -253,13 +253,9 @@ img{
 <script src='https://d3js.org/d3.v5.min.js'></script>
 <script src="https://unpkg.com/d3-simple-slider"></script>
 <script src='rotate_world.js'></script>
-<script src="DataLoader.js"></script>
-<script src="chart.js"></script>
+<script src="DataLoader2.js"></script>
 <script src="http://d3js.org/topojson.v0.min.js"></script> 
 <script src="https://unpkg.com/topojson-client@3"></script>
-
-
-  
 
 
 </body>
