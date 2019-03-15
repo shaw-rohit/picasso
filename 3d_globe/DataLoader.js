@@ -463,7 +463,7 @@ d3.csv("omni_locations.csv")
         }
 
         
-        // var legend = show_legend(all_styles, styles_colors)
+        var legend = show_legend(all_styles, styles_colors)
 
         // this will tigger updates, hence, when a change in value has been detected with transitions
         sliderFill

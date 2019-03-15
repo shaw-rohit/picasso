@@ -28,9 +28,24 @@ var YEAR_STEP = 3
 var LONGLAT_STEP = 0.2
 
 var show_migration = true;
-var svgContainer = d3.select("body").append("svg")
-                                        .attr("height", height)
-                                        .attr("width", width);
+
+var svgContainer = d3.select("#globe").append("svg")
+    .attr("height", height)
+    .attr("width", width);
+var svgStatistics = d3.select("#stats").append("svg")
+    .attr("height", 200)
+    .attr("width", 750);
+var distributionstats =  d3.select("#statsright").append("div")
+.attr("class", "widget")
+.style("width", 400)
+.style("height", 400)
+.style("opacity", 1);
+
+var globalstats =  d3.select("#statsright").append("div")
+.attr("class", "widget")
+.style("width", 400)
+.style("height", 400)
+.style("opacity", 1);
 
 var is2d = false; //check if 2d or 3d for play button
 

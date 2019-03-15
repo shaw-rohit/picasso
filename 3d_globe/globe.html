@@ -210,44 +210,39 @@ img{
 
 #container{
   margin: 0 0 auto;
-  width: auto;
+  width: 100%;
   height: auto;
+  display: inline-block;
 }
-
 #globe{
   float: left;
   text-align:center;
 }
-
-
 #statsleft{
   height: 750px;
     width: 20%;
     float: left;
 }
-
-
 #statsright{
   height: 750px;
-    width: 20%;
-    float: left;
+    width: 25%;
+    float: right;
 }
-
 .widget{
-  margin: 50 0 auto;
+  margin: 50 30 auto;
   float: right;
 }
-
 #zoomleft{
   height: 100%;
   width: 10%;
   float: left;
 }
-
 #zoomright{
   height: 100%;
   width: 10%;
   float: right;
+}
+
 }
 </style>
 </head>
@@ -284,11 +279,19 @@ img{
       </div>
   </div>
 
+
+  <div id = "container">
+    <div id = "statsleft"> </div>
+      <div id= "globe"></div>
+    <div id ="statsright"></div>
+</div>
+
   <hr />
 <script src='https://d3js.org/d3.v5.min.js'></script>
 <script src="https://unpkg.com/d3-simple-slider"></script>
 <script src='rotate_world.js'></script>
-<script src="globe.js"></script>
+<script src="DataLoader.js"></script>
+<script src="chart.js"></script>
 <script src="http://d3js.org/topojson.v0.min.js"></script> 
 <script src="https://unpkg.com/topojson-client@3"></script>
 
