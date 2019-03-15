@@ -24,7 +24,7 @@ var time = Date.now()
     velocity = [.003, -.001];
 
 // years and locations are binned to prevent clutter
-var YEAR_STEP = 3
+var YEAR_STEP = 5
 var LONGLAT_STEP = 0.2
 
 var show_migration = true;
@@ -191,6 +191,24 @@ function dragended(){
 //////////////////
 // REST OF CODE //
 //////////////////
+////////////////////////////////// container, div and star stuff for slider plot ////////////////////
+var symbolGenerator = d3.symbol()
+    .type(d3.symbolStar)
+    .size(80);
+var star = symbolGenerator();
+var star_div = d3.select("#slider-plot-container")
+    .append('svg')
+    .attr('width', 1025)
+    .attr('height', 150);
+var gstar =  star_div.append("g")
+    .attr("transform", "translate(10, 10)");
+var star_xScale = d3.scaleQuantize()
+    .domain([0, 2020])
+    .range(d3.range(0, 1010, 1));
+
+var star_yScale = d3.scaleLinear()
+    .range([0, 100]);
+////////////////////////////////// //////////////////////////////////////////// ////////////////////
 
 // hard code centuries and years 
 //TODO: softcode
@@ -435,9 +453,7 @@ d3.csv("omni_locations.csv")
         }
         
         // of each sub class, collect the first time that it occured
-        var schools_data = [];
-        var styles_data = [];
-        var media_data = [];
+        var schools_data = [];var styles_data = [];var media_data = [];
         d3.nest()
             .key(function(d) { return d['school']; })
             .rollup(function(v) { 
@@ -468,10 +484,10 @@ d3.csv("omni_locations.csv")
         styles_data.sort(function(x, y){
             return d3.ascending(x.first, y.first);
         })
-        styles_data.sort(function(x, y){
+        schools_data.sort(function(x, y){
             return d3.ascending(x.first, y.first);
         })
-        styles_data.sort(function(x, y){
+        media_data.sort(function(x, y){
             return d3.ascending(x.first, y.first);
         })
 
@@ -524,6 +540,28 @@ d3.csv("omni_locations.csv")
         });
         */
 
+
+        // make the data needed for the slider chart
+        styles_slider_data = []; media_slider_data = []; school_slider_data = [];
+        d3.nest()
+            .key(function(d) { return year_binner(d['date']); })
+            .rollup(function(v) { 
+                styles_slider_data.push({
+                year: d3.min(v, function(d) { return +d.date; }), 
+                data: d3.map(v, function(d) { return d.style; }).keys(), 
+                // birth: d3.map(v, function(d) { return d.style; }), 
+                }) 
+                media_slider_data.push({
+                year: d3.min(v, function(d) { return +d.date; }), 
+                data: d3.map(v, function(d) { return d.media; }).keys(), 
+                }) 
+                school_slider_data.push({
+                year: d3.min(v, function(d) { return +d.date; }), 
+                data: d3.map(v, function(d) { return d.school; }).keys(), 
+                }) 
+        }).map(data);
+
+
         slider.onChange(function(newRange){
             d3.select("#range-label").text(newRange.begin + " - " + newRange.end);
             year_interval = [newRange.begin, newRange.end]  
@@ -537,6 +575,7 @@ d3.csv("omni_locations.csv")
         d3.select("#style")
         .on("click", function(d){
             show = 'style'
+            update_slider_plot(styles_slider_data, styles_data, color, show)
             update_visuals(year,data,show, projection)
             legend = update_legend(all_styles, styles_colors, legend, data, show, show_migration, century)
         });
@@ -545,12 +584,14 @@ d3.csv("omni_locations.csv")
         .on("click", function(d){
             show = 'school'
             update_visuals(year,data,show, projection)
+            update_slider_plot(school_slider_data,  schools_data, color, show)
             legend = update_legend(all_schools, schools_colors, legend, data, show, show_migration, century)
         });
 
         d3.select("#media")
         .on("click", function(d){
             show = 'media'
+            update_slider_plot(media_slider_data, media_data, color, show)
             update_visuals(year,data,show, projection)
             legend = update_legend(all_media, media_colors, legend, data, show, show_migration, century)
         });
@@ -854,6 +895,48 @@ function update_visuals(year, data, show, projection){
         
 };
 
+function update_slider_plot(data, meta_data, colors, show){
+    // adjust scale to highest amount of paintings 
+   
+
+    star_yScale.domain(  [0,
+                    d3.max(data, d => d.data.length)] );
+
+    var stars = gstar.selectAll('path').data(meta_data);
+
+    stars.enter()
+        .append('path')
+        .attr('fill', function(d) { return colors[show][d.sub]})
+        .attr('stroke', function(d) { return colors[show][d.sub]})
+        .attr('transform', function(d) {
+            return 'translate(' + star_xScale(year_binner(d.first))  + ', 0)';
+        })
+        .attr('d', star);
+
+    stars.exit().remove();
+    stars.transition().duration(250)
+        .attr('fill', function(d) { return colors[show][d.sub]})
+        .attr('stroke', function(d) { return colors[show][d.sub]})
+        .attr('transform', function(d) {
+            return 'translate(' + star_xScale(year_binner(d.first))  + ', 0)';
+        })
+
+    
+    // bar plot
+    var bars = gstar.selectAll("rect").data(data);
+    bars.enter()
+        .append('rect')
+        .attr('fill', 'white')
+        .attr('x', function (d) { return star_xScale(year_binner(d.year)) ; })
+        .attr("width", 5.0)
+        .attr("y", function(d) { return 140-star_yScale(d.data.length); })
+        .attr("height", function(d) { return star_yScale(d.data.length); }); // find barheight
+    bars.exit().remove();
+    bars.transition().duration(250)
+        .attr("y", function(d) { return 140-star_yScale(d.data.length); })
+        .attr("height", function(d) { return star_yScale(d.data.length); });
+
+};
 
 function painting_gallery(number_windows, div){
     var newWindow =  d3.select("body").append("div")
