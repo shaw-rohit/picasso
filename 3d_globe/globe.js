@@ -561,6 +561,9 @@ d3.csv("omni_locations.csv")
                 }) 
         }).map(data);
 
+        update_slider_plot(styles_slider_data, styles_data, color, show)
+
+
 
         slider.onChange(function(newRange){
             d3.select("#range-label").text(newRange.begin + " - " + newRange.end);
@@ -877,7 +880,7 @@ function update_visuals(year, data, show, projection){
             var rotate = projection.rotate(); // antipode of actual rotational center.
             var center = [-rotate[0], -rotate[1]]
             var distance = d3.geoDistance(circle,center);
-            return distance > Math.PI/2 ? 'none' : color['style'][d['sub']];
+            return distance > Math.PI/2 ? 'none' : color[show][d['sub']];
         })      
       .transition()
       .attr("id", function(d) {return d['id']})
