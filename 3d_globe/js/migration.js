@@ -5,20 +5,26 @@ function draw_migration_flow(migration_data, oldest){
      * oldest -- oldest artwork with specified show and subcategory
     */
     
+    // Stop rotation
+    rotation_timer.stop()
+    
     // Remove existing arrows
-    gArrows.selectAll("path").remove()
+    gArrows.selectAll("#arrow").remove()
     
     // Create new arrows
-    svgContainer.append("path")
+    /*
+    gArrows.append("path")
         .data(migration_data)
         .attr("class", "path")
         .attr("d", path);
+    */
         
     var arrows = gArrows.selectAll('path.datamaps-arc').data(migration_data)
     
     arrows.enter()
         .append('path')
         .attr('class','arc')
+        .attr("id", "arrow")
         .attr('d', function(d) {
             
             var origin = projection([oldest.long, oldest.lat])

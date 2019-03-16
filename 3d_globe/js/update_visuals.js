@@ -41,6 +41,12 @@ function update_visuals(year, data, show, projection){
    
     window.fil = filtered_data;
     clustered_data = cluster_data(filtered_data, show);
+    
+    if (show_migration == true){
+        var migration = retrieve_migration(filtered_data, show, 'baroque')
+        draw_migration_flow(migration[1], migration[0])
+    }
+    
 
     svgContainer.selectAll("circle").transition().duration(200) // Will remove all previous circles when update is initiated
         .style("opacity", .1)

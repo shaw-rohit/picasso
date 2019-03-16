@@ -27,7 +27,7 @@ var time = Date.now()
 var YEAR_STEP = 5
 var LONGLAT_STEP = 0.2
 
-var show_migration = true;
+var show_migration = false;
 
 
 var svgContainer = d3.select("#globe").append("svg")
@@ -198,7 +198,19 @@ d3.csv("omni_locations.csv")
             }
         } 
         checkpoints.push(d3.max(years))
-
+        
+        d3.select("#migrationon")
+            .on("click", function(d){
+                show_migration = true;
+            })
+        
+        d3.select("#migrationoff")
+            .on("click", function(d){
+                show_migration = false;
+                rotation_timer.restart(function(){
+                    rotateglobe();
+                });
+            })
 
         d3.select("#twomap")
         .style("opacity", 1)
