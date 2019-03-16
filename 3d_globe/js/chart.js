@@ -2,8 +2,8 @@ const chartsvg     = d3.select(".widget").append("svg")
                     .attr("width", 600)
                     .attr("height", 450);
       chartmargin  = {top: 20, right: 20, bottom: 30, left: 50},
-      chartwidth   = 600 - chartmargin.left - chartmargin.right,
-      chartheight  = 450 - chartmargin.top  - chartmargin.bottom,
+      chartwidth   = 550 - chartmargin.left - chartmargin.right,
+      chartheight  = 350 - chartmargin.top  - chartmargin.bottom,
       chartx       = d3.scaleBand().rangeRound([0, chartwidth]).padding(0.2),
       charty       = d3.scaleLinear().rangeRound([chartheight, 0]),
       gChart       = chartsvg.append("g")
@@ -53,12 +53,12 @@ var filteramount = groupstyle.filter(function(d){
   bars.enter()
   .append("rect")
   .attr("class", "bar")
-  .attr("x", d => chartx(d.style))
+  .attr("x", function(d){return chartx(d.style)})
+  //.attr("transform", function(d) {return "rotate(-65)"})
   .attr("y", function(d){
     return charty(d.totalpaintings);
   })
   .attr("fill", function(d) {
-    console.log(colors[show][d['values'][0]['sub']])
     return colors[show][d['values'][0]['sub']]})
   .attr("width", chartx.bandwidth())
   .attr("height",function(d){  
@@ -78,18 +78,17 @@ bars.transition()
       return chartheight - charty(d.totalpaintings) 
     })
     
-
   gChart.append("g")
-      .attr("transform", "translate(0," + chartheight + ")")
-      .call(d3.axisBottom(chartx))
-      .append("text")
-      .attr("fill", "#000")
-      .attr("y", 20)
-      .attr("x", 450)
-      .attr("dy", "1em")
-      .text("Months")
-
-   
+    .attr("class", "x axis")
+    .attr("transform", "translate(0," + chartheight + ")")
+    .call(d3.axisBottom(chartx))
+    .selectAll("text")  
+    .style("text-anchor", "end")
+    .attr("dx", "-.8em")
+    .attr("dy", ".15em")
+    .attr("transform", "rotate(-30)");
+      
+  // .attr("transform", "rotate(45)")  
   gChart.append("g")
       .attr("class", "axis axis-y")
       .call(d3.axisLeft(charty).ticks(10).tickSize(8))
