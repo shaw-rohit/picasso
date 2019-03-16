@@ -43,8 +43,10 @@ function update_visuals(year, data, show, projection){
     clustered_data = cluster_data(filtered_data, show);
     
     if (show_migration == true){
-        var migration = retrieve_migration(filtered_data, show, 'baroque')
-        draw_migration_flow(migration[1], migration[0])
+        //var migration = retrieve_migration(filtered_data, show, 'baroque')
+        var migration = retrieve_migration_cluster(clustered_data, 'baroque')
+        draw_cluster_flow(migration[1], migration[0])
+        //draw_migration_flow(migration[1], migration[0])
     }
     
 
