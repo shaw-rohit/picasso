@@ -262,14 +262,13 @@ img{
 <body>
 
 
-<h3 id="bla">Load Data</h3>
 <button id = "style">Style</button>
 <button id = "school">School</button>
 <button id = "media">Media</button>
 <button id = "migration on">Show Migration Flow</button>
 <button id = "migration off">Hide Migration Flow</button>
-<button id = "twomap">Switch to 2D world map</button>
-<button id = "threemap">Switch to globe</button>
+<!--<button id = "twomap">Switch to 2D world map</button>
+<button id = "threemap">Switch to globe</button>-->
 
  <hr />
 
@@ -279,7 +278,7 @@ img{
           style="position:absolute">
 
           <symbol id="map-play" viewBox="-40 -40 1300 1300">
-          <path d="M 600,1200 C 268.65,1200 0,931.35 0,600 0,268.65 268.65,0 600,0 c 331.35,0 600,268.65 600,600 0,331.35 -268.65,600 -600,600 z M 450,300.45 450,899.55 900,600 450,300.45 z"/>
+          <path d="M 600,1200 C 268.65,1200 0,931.35 0,600 0,268.65 268.65,0 600,0 c 331.35,0 600,268.65 600,600 0,331.35 -268.65,600 -600,600 z M 450,300.45 450,899.55 900,600 450,300.45 z"/>          
           </symbol>
 
           <symbol id="map-pause" viewBox="-40 -40 1300 1300">
@@ -354,22 +353,18 @@ c0,10.8,1.8,21.2,5.2,30.9h29.5C166.9,626,164.2,615.5,164.2,604.3z"/>
          <svg class="map_control_button">
            <use xlink:href="#map-play"></use>
          </svg>
-         <div class="map_control_button_label">Play</div>
-       </li>
-       <li id="pause-button">
          <svg class="map_control_button">
            <use xlink:href="#map-pause"></use>
          </svg>
-         <div class="map_control_button_label">Pause</div>
+         <div class="map_control_button_label">Play/Pause</div>
        </li>
-
-                         <li id="twomap">
+                         <li id="threemap">
                  <svg class="map_control_button">
                      <use xlink:href="#map-globe"></use>
                  </svg>
                  <div class="map_control_button_label">Switch to Globe view</div>
              </li>
-             <li id="threemap">
+             <li id="twomap">
                  <svg class="map_control_button">
                      <use xlink:href="#map-plane"></use>
                  </svg>
@@ -407,12 +402,6 @@ c0,10.8,1.8,21.2,5.2,30.9h29.5C166.9,626,164.2,615.5,164.2,604.3z"/>
   
 
   <div class="row align-items-center">
-   
-    <div class="col-sm">
-
-      <div id = "play-button" class="play-button-outer">
-      <div id="play-button" class="play-button"></div>
-      </div>
       
       <div id="slider-plot-container"></div>
       <div id="slider-container"></div>

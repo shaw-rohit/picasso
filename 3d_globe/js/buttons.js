@@ -2,9 +2,10 @@ function pauseResumeButton(){
     if (moving) {
         moving = false;
         clearInterval(timer);
-        d3.select(".play-button").attr("hidden", null);
-        playButton.attr("class","play-button");
-        playButton.attr("class","play-button-outer");
+        //d3.select(".play-button").attr("hidden", null);
+        //playButton.attr("class","play-button");
+        //playButton.attr("class","play-button-outer");
+        document.getElementById("play-button").children[0].style.display = "block"
         
     } 
     else {
@@ -13,8 +14,9 @@ function pauseResumeButton(){
                 rotateglobe();
             });
         }
-        d3.select(".play-button").attr("hidden", true);
-        playButton.attr("class", "pause-button");
+        //d3.select(".play-button").attr("hidden", true);
+        document.getElementById("play-button").children[0].style.display = "none"
+        //playButton.attr("class", "pause-button");
 
         // check if it is starting or not
         if (starting){
