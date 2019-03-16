@@ -3,11 +3,6 @@ function update(switch_to, center, translation) {
   svgContainer.selectAll("#world").transition()
       .duration(1000).ease(d3.easeLinear)
       .attrTween("d", projectionTween(projection, projection = switch_to, center, translation))
-
-//   svgContainer.selectAll("#water").transition()
-//       .duration(1000).ease(d3.easeLinear)
-//       .attrTween("d", projectionTween(projection, projection = switch_to))
-
 }
 
 function projectionTween(projection0, projection1, center, translation) {

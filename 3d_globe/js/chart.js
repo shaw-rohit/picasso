@@ -16,8 +16,8 @@ function create_chart(){
 
 }
 
-function update_chart(clustereddata, currentdate){
-    d3.select(".widget").selectAll("g > *").remove() //TODO: Create transition in creating new chart
+function update_chart(clustereddata, currentdate, colors, show){
+  d3.select(".widget").selectAll("g > *").remove() //TODO: Create transition in creating new chart
   //var rainbow = d3.scaleSequential(d3.interpolateRainbow).domain([0,d3.sum(data, d => 1)]);
 
 var groupstyle = d3.nest()
@@ -48,7 +48,7 @@ var filteramount = groupstyle.filter(function(d){
   var bars = gChart.selectAll(".bar")
   .data(filteramount, function(d){
     return + d.style;
-  });
+  });  
   bars.exit();
   bars.enter()
   .append("rect")
@@ -57,10 +57,14 @@ var filteramount = groupstyle.filter(function(d){
   .attr("y", function(d){
     return charty(d.totalpaintings);
   })
+  .attr("fill", function(d) {
+    console.log(colors[show][d['values'][0]['sub']])
+    return colors[show][d['values'][0]['sub']]})
   .attr("width", chartx.bandwidth())
   .attr("height",function(d){  
       return chartheight - charty(d.totalpaintings) 
     })
+   
 
 
 bars.transition()
@@ -69,12 +73,11 @@ bars.transition()
     .attr("y", function(d){
       return charty(d.totalpaintings);
     })
+    .attr("fill", function(d) {return colors[show][d['values'][0]['sub']]}) 
     .attr("height",function(d){  
       return chartheight - charty(d.totalpaintings) 
     })
-
-
-
+    
 
   gChart.append("g")
       .attr("transform", "translate(0," + chartheight + ")")

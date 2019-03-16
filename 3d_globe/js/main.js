@@ -104,7 +104,6 @@ var rotation_timer = d3.timer(function() {
 });
 
 window.rotation_timer = rotation_timer
-
 var drag = callglobedrag();
 
 ////////////////////////////////////////////////////////////
@@ -442,7 +441,9 @@ d3.csv("omni_locations.csv")
             d3.select("#range-label").text(newRange.begin + " - " + newRange.end);
             year_interval = [newRange.begin, newRange.end]  
             update_visuals(year_interval, data, show, projection)
-            update_chart(clustered_data,year-YEAR_STEP);            
+            console.log(color)
+            console.log(show)
+            update_chart(clustered_data,year-YEAR_STEP, color, show);            
         });
 
         //var legend = show_legend(all_styles, styles_colors, data, show, show_migration, century)
