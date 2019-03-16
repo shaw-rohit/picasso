@@ -1,4 +1,4 @@
-var width = 1500;
+var width = 1000;
 var height = 750;
 var centered;
 
@@ -13,8 +13,6 @@ idle_count = 0;
 
 var century = 0;
 
-var is_globe = true;
-
 // zoom and drag parameters
 var zoom_level = 0
 var sensitivity = 0.25
@@ -24,27 +22,28 @@ var time = Date.now()
     velocity = [.003, -.001];
 
 // years and locations are binned to prevent clutter
-var YEAR_STEP = 5
+var YEAR_STEP = 3
 var LONGLAT_STEP = 0.2
 
 var show_migration = true;
-
 var svgContainer = d3.select("#globe").append("svg")
     .attr("height", height)
     .attr("width", width);
 var svgStatistics = d3.select("#stats").append("svg")
     .attr("height", 200)
     .attr("width", 750);
-var distributionstats =  d3.select("#statsright").append("div")
-.attr("class", "widget")
-.style("width", 400)
-.style("height", 400)
-.style("opacity", 1);
+var distribution =  d3.select("#statsright").append("div")
+    .attr("class", "widget")
+    .style("background-color", "red")
+    .style("width", 300)
+    .style("height", 300)
+    .style("opacity", 1);
 
-var globalstats =  d3.select("#statsright").append("div")
+var stats =  d3.select("#statsright").append("div")
 .attr("class", "widget")
-.style("width", 400)
-.style("height", 400)
+.style("background-color", "red")
+.style("width", 300)
+.style("height", 300)
 .style("opacity", 1);
 
 var is2d = false; //check if 2d or 3d for play button
@@ -109,13 +108,12 @@ function rotateglobe(){
     water.attr("d", path);
 
     svgContainer.selectAll("circle")
-        .attr("transform", function(d) {
-            var proj = projection([
-                parseInt(d["long"]),
-                parseInt(d["lat"])])
-            return "translate(" + [proj[0] - d["width"], proj[1] - d["height"]]
-             + ")"});
-             
+             .attr("transform", function(d) {
+                return "translate(" + projection([
+                    parseInt(d["long"]),
+                    parseInt(d["lat"])
+                ]) + ")";
+            });
 
     svgContainer.selectAll("circle")
         .attr("fill", function(d) {
@@ -148,10 +146,10 @@ function dragstarted(){
     console.log("start")
     svgContainer.on(zoom, null);
     rotation_timer.stop();
-	gpos0 = projection.invert(d3.mouse(this));
-	o0 = projection.rotate();
+    gpos0 = projection.invert(d3.mouse(this));
+    o0 = projection.rotate();
 
-	svgContainer.selectAll("#world")
+    svgContainer.selectAll("#world")
              .datum({type: "Point", coordinates: gpos0})
              .attr("class", "point")
              .attr("d", path(world)); 
@@ -159,24 +157,23 @@ function dragstarted(){
 
 function dragged(){
     console.log("dragged")
-	var gpos1 = projection.invert(d3.mouse(this));
+    var gpos1 = projection.invert(d3.mouse(this));
 
-	o0 = projection.rotate();
+    o0 = projection.rotate();
 
-	var o1 = eulerAngles(gpos0, gpos1, o0);
-	projection.rotate(o1);
+    var o1 = eulerAngles(gpos0, gpos1, o0);
+    projection.rotate(o1);
 
-	svgContainer.selectAll(".point")
-	 		.datum({type: "Point", coordinates: gpos1});
+    svgContainer.selectAll(".point")
+            .datum({type: "Point", coordinates: gpos1});
     svgContainer.selectAll("#world").attr("d", path(world));
-
     svgContainer.selectAll("circle")
-        .attr("transform", function(d) {
-            var proj = projection([
-                parseInt(d["long"]),
-                parseInt(d["lat"])])
-            return "translate(" + [proj[0] - d["width"], proj[1] - d["height"]]
-             + ")"});
+             .attr("transform", function(d) {
+                return "translate(" + projection([
+                    parseInt(d["long"]),
+                    parseInt(d["lat"])
+                ]) + ")";
+            });
 
     svgContainer.selectAll("circle")
         .attr("fill", function(d) {
@@ -199,36 +196,17 @@ function dragended(){
         // rotateglobe(); // TODO: Get correct coordinates and pass them to function.
     });
     console.log("end")
-
 }
 
 
 //////////////////
 // REST OF CODE //
 //////////////////
-////////////////////////////////// container, div and star stuff for slider plot ////////////////////
-var symbolGenerator = d3.symbol()
-    .type(d3.symbolStar)
-    .size(80);
-var star = symbolGenerator();
-var star_div = d3.select("#slider-plot-container")
-    .append('svg')
-    .attr('width', 1025)
-    .attr('height', 150);
-var gstar =  star_div.append("g")
-    .attr("transform", "translate(10, 10)");
-var star_xScale = d3.scaleQuantize()
-    .domain([0, 2020])
-    .range(d3.range(0, 1010, 1));
-
-var star_yScale = d3.scaleLinear()
-    .range([0, 100]);
-////////////////////////////////// //////////////////////////////////////////// ////////////////////
 
 // hard code centuries and years 
 //TODO: softcode
 var centuries = d3.range(0, 22, 1);
-var years = d3.range(100, 2020, 1);
+var years = d3.range(100, 2025, 1);
 
 // Variables for play/pause button
 var moving = false;
@@ -236,19 +214,35 @@ var playButton = d3.select("#play-button");
 playButton.attr("margin-left", "200px")
 var playAuto = true;
 
-// set year + slider start
-year_interval = [0, 250]
-
-// filter slider
-var slider = createD3RangeSlider(0, d3.max(years), "#slider-container")
-slider.range(year_interval[0], year_interval[1]);
-d3.select("#range-label").text(year_interval[0] + " - " + year_interval[1])
-
-// variables for starting slideshow
-var all_years = []
-var checkpoints = [0]
-var check_i = 0
-var starting = true
+/////////////////////////////////////////////////////////////////// filter slider
+var slider_width = width-50
+var slider_height = 200
+var slider_bar_height = 50
+var slider_margin = { top: 100, right: 5, bottom: 5, left: 15 };
+var sliderFill = d3
+    .sliderBottom()
+    .min(d3.min(years))
+    .max(d3.max(years))
+    .width(slider_width)
+    .tickFormat(d3.format('d'))
+    .ticks(centuries.length)
+    .default(0.015)
+    .fill('#2196f3')
+var gFill = d3
+    .select('div#slider-fill')
+    .append('svg')
+    .attr('width', slider_width+slider_margin.left+slider_margin.right+10)
+    .attr('height', slider_height)
+    .append('g')
+    .attr("transform", "translate(" + slider_margin.left + "," + slider_margin.top + ")")
+gFill.call(sliderFill);
+d3.select('p#value-fill').text(d3.format('d')(sliderFill.value()));
+var xScale = d3.scaleBand()
+    .rangeRound([0, slider_width])
+    .domain(years)
+    .padding(0.1);
+var yScale = d3.scaleLinear()
+    .range([0, slider_bar_height]);
 
 // long lat binner with bin size LONGLAT_STEP
 // TODO: let bin size depend on zoom level
@@ -265,6 +259,7 @@ var year_binner = d3.scaleQuantize()
     .range(d3.range(100, 2025, YEAR_STEP));
 
 var color = {'school': {}, 'style': {}, 'media':{}}
+
 
 function pauseResumeButton(){
     if (moving) {
@@ -283,36 +278,12 @@ function pauseResumeButton(){
         }
         d3.select(".play-button").attr("hidden", true);
         playButton.attr("class", "pause-button");
-
-        // check if it is starting or not
-        if (starting){
-            console.log('hi')
-            console.log(checkpoints)
-            timer = setInterval (function() {
-                slider.range(parseInt(checkpoints[check_i]), 
-                    parseInt(checkpoints[check_i + 1]))
-                check_i += 1
-                console.log(check_i)
-                console.log(checkpoints.length)
-
-                if (check_i == checkpoints.length-1){
-                    starting = false
-                    clearInterval(timer)
-                }
-        }, SLIDER_SPEED)  
-            moving= true
-        }
-        else {
-            // make sure that the interval is based on the amount of data
-            timer = setInterval (function() {
-                // get old slider values
-                var vals = slider.range()
-                console.log(vals)
-                slider.range(vals['begin'], vals['end'] + 1)           
-            }, SLIDER_SPEED)    
-        moving = true;
-        }    
+        timer = setInterval (function() {
+            sliderFill.value(sliderFill.value() + 1) 
+        }, SLIDER_SPEED)    
+    moving = true;
     }
+
     return moving;
 }
 
@@ -322,23 +293,7 @@ d3.csv("omni_locations.csv")
         // initialize things to show
         var show = 'style'
         var year = 100
-
-        // save all years and get the distribution in centuries
-        data.forEach(function(d){
-            all_years.push(d['date'])
-        });
-
-        // flag each 100 paintings?
-        all_years.sort()
-
-        // checkpoints
-        for (var i = 0; i < all_years.length; i++){
-            if ((i%500) == 0){
-                checkpoints.push(all_years[i])
-            }
-        } 
-        checkpoints.push(d3.max(years))
-
+        
 
         d3.select("#twomap")
         .style("opacity", 1)
@@ -350,44 +305,31 @@ d3.csv("omni_locations.csv")
                 .on("zoom", zoomed);
             svgContainer.call(zoom) //Use zoom
              rotation_timer.stop();
-             if (is_globe){
-                 new_projection = d3.geoNaturalEarth1().scale(250).center([-60,30])
-                 update(new_projection, [-60, 28], translation = false)
-                 
-                 projection = new_projection
-                 
-                 path = d3.geoPath().projection(projection);
-                 setTimeout(function(){ g.selectAll("path")
-                     .transition()
-                     .duration(20)
-                     .ease(d3.easeLinear)
-                     .attr("d", path(world))
-                     .attr("fill", "#06304e")
-                     .attr("stroke", "#001320"); }, 990);
-                 water.attr("d", path);
+             //projection = d3.geoMercator().translate([width/2, height/2]).scale(200).center([0,40])
+             new_projection = d3.geoNaturalEarth1().scale(250).center([-60,30])
+             //update(new_projection)
+             
+             projection = new_projection
+             
+             path = d3.geoPath().projection(projection);
+             g.selectAll("path")
+                 .transition()
+                 .duration(20)
+                 .ease(d3.easeLinear)
+                 .attr("d", path(world))
+                 .attr("fill", "#06304e")
+                 .attr("stroke", "#001320");
+             water.attr("d", path);
 
-                 svgContainer.selectAll("circle").transition().duration(200) // Will remove all previous circles when update is initiated
-                    .style("opacity", .1)
-                    .attr("r", 0)
-                    .remove();
-                setTimeout(function(){update_visuals(year_interval, data, show, projection)}
-                    , 1000)
-
-                /*
-                 // Update circles correct positions
-                 svgContainer.selectAll("circle")
-                    .attr("transform", function(d) {
-                        var proj = projection([
-                            parseInt(d["long"]),
-                            parseInt(d["lat"])])
-                        return "translate(" + [proj[0] - d["width"], proj[1] - d["height"]]
-                         + ")";
-                    });
-                    */
-            }
-
+             // Update circles correct positions
+             svgContainer.selectAll("circle")
+                .attr("transform", function(d) {
+                return "translate(" + projection([
+                    parseInt(d["long"]),
+                    parseInt(d["lat"])
+                ]) + ")";
+            });
             
-            is_globe = false;            
         })
         // .style("opacity", 0);
 
@@ -397,54 +339,42 @@ d3.csv("omni_locations.csv")
             is2d = false;
             svgContainer.on(".zoom", null);
             drag = callglobedrag();
-            if (!is_globe){
+            // rotation_timer = d3.timer(function() {
+            //     var dt = Date.now() - time;
+            //     projection.rotate([rotate[0] + velocity[0] * dt, 0]);
+            //     svgContainer.selectAll("path").attr("d", path(world));
+            //     water.attr("d", path);
+
+            // });
+                ///////////////// HIER G PINS AANPASSEN //////////////////////
+
+            
             new_projection = d3.geoOrthographic().translate([width/2, height/4]).scale(350).center([0,40])
-            update(new_projection, [17, 45], translation = true)
+            //update(new_projection)
             projection = new_projection
             path = d3.geoPath().projection(projection);
-            setTimeout(function(){ g.selectAll("path")
-                 .transition()
-                 .duration(45)
-                 .ease(d3.easeLinear)
-                 .attr("d", path(world))
-                 .attr("fill", "#06304e")
-                 .attr("stroke", "#001320"); }, 990);
+            g.selectAll("path")
+                .transition()
+                .duration(20)
+                .ease(d3.easeLinear)
+                .attr("d", path(world))
+                .attr("fill", "#06304e")
+                .attr("stroke", "#001320");
+
             water.attr("d", path); // Add water again
 
-            svgContainer.selectAll("circle").transition().duration(200) // Will remove all previous circles when update is initiated
-                    .style("opacity", .1)
-                    .attr("r", 0)
-                    .remove();
-                setTimeout(function(){update_visuals(year_interval, data, show, projection)}
-                    , 1000)
-            /*
             svgContainer.selectAll("circle")
-                .attr("transform", function(d) {
-                    var proj = projection([
-                        parseInt(d["long"]),
-                        parseInt(d["lat"])])
-                    return "translate(" + [proj[0] - d["width"], proj[1] - d["height"]]
-                     + ")";
-                });
-                */
-            }
-
-            is_globe = true;            
-            
-//             setTimeout(function() {
-//                 rotation_timer = d3.timer(function() {
-//                   var dt = Date.now() - time;
-//                   projection.rotate([rotate[0] + velocity[0] * dt, 0]);
-//                   svgContainer.selectAll("path").attr("d", path(world));
-//                   water.attr("d", path);
-//  
-//               });
-//             }, 1050)
+            .attr("transform", function(d) {
+                return "translate(" + projection([
+                    parseInt(d["long"]),
+                    parseInt(d["lat"])
+                ]) + ")";
+            });
         
         });
 
         if (!playAuto){
-            // Play button will add one year per half a second
+            // Play button will add  time
             playButton
             .on("click", function() {
                 if(!is2d){
@@ -468,7 +398,9 @@ d3.csv("omni_locations.csv")
         }
         
         // of each sub class, collect the first time that it occured
-        var schools_data = [];var styles_data = [];var media_data = [];
+        var schools_data = [];
+        var styles_data = [];
+        var media_data = [];
         d3.nest()
             .key(function(d) { return d['school']; })
             .rollup(function(v) { 
@@ -499,10 +431,10 @@ d3.csv("omni_locations.csv")
         styles_data.sort(function(x, y){
             return d3.ascending(x.first, y.first);
         })
-        schools_data.sort(function(x, y){
+        styles_data.sort(function(x, y){
             return d3.ascending(x.first, y.first);
         })
-        media_data.sort(function(x, y){
+        styles_data.sort(function(x, y){
             return d3.ascending(x.first, y.first);
         })
 
@@ -510,11 +442,8 @@ d3.csv("omni_locations.csv")
         var all_schools = schools_data.map(function(d) { return d.sub })
         var all_media = media_data.map(function(d) { return d.sub })
 
-        var styles_colors = [];
-        var schools_colors = [];
-        var media_colors = [];
+        var styles_colors = [];var schools_colors = [];var media_colors = [];
 
-        
         var offset = 0;
         for (var i = 0; i < all_styles.length; i++){
             color['style'][all_styles[i]] = d3.interpolateRainbow((i+offset)/all_styles.length)
@@ -525,46 +454,26 @@ d3.csv("omni_locations.csv")
         var offset = 0;
         for (var i = 0; i < all_schools.length; i++){
             color['school'][all_schools[i]] = d3.interpolateRainbow((i+offset)/all_schools.length)
-            styles_colors.push(d3.interpolateRainbow((i+offset)/all_schools.length))
+            schools_colors.push(d3.interpolateRainbow((i+offset)/all_schools.length))
             offset+=20
             if(i%5 === 0){offset = 0}
         }
         var offset = 0;
         for (var i = 0; i < all_media.length; i++){
             color['media'][all_media[i]] = d3.interpolateRainbow((i+offset)/all_media.length)
-            styles_colors.push(d3.interpolateRainbow((i+offset)/all_media.length))
+            media_colors.push(d3.interpolateRainbow((i+offset)/all_media.length))
             offset+=20
             if(i%5 === 0){offset = 0}
         }
 
-        
-        // var legend = show_legend(all_styles, styles_colors)
-
-        // this will tigger updates, hence, when a change in value has been detected with transitions
-        /*
-        sliderFill
-            .on('onchange', val => {
-            d3.select('p#value-fill').transition()
-            .duration(10).style("opacity", 0);
-            d3.select('p#value-fill').text(d3.format('d')(val)).transition()
-            .style("opacity", 1)
-            .transition()
-            .delay(5);
-            year = val
-            update_visuals(year, data, show, projection)
-        });
-        */
-
-
         // make the data needed for the slider chart
         styles_slider_data = []; media_slider_data = []; school_slider_data = [];
         d3.nest()
-            .key(function(d) { return year_binner(d['date']); })
+            .key(function(d) { return d['date']; })
             .rollup(function(v) { 
                 styles_slider_data.push({
                 year: d3.min(v, function(d) { return +d.date; }), 
                 data: d3.map(v, function(d) { return d.style; }).keys(), 
-                // birth: d3.map(v, function(d) { return d.style; }), 
                 }) 
                 media_slider_data.push({
                 year: d3.min(v, function(d) { return +d.date; }), 
@@ -576,14 +485,23 @@ d3.csv("omni_locations.csv")
                 }) 
         }).map(data);
 
-        update_slider_plot(styles_slider_data, styles_data, color, show)
 
 
 
-        slider.onChange(function(newRange){
-            d3.select("#range-label").text(newRange.begin + " - " + newRange.end);
-            year_interval = [newRange.begin, newRange.end]  
-            update_visuals(year_interval, data, show, projection)            
+        
+        // var legend = show_legend(all_styles, styles_colors)
+
+        // this will tigger updates, hence, when a change in value has been detected with transitions
+        sliderFill
+            .on('onchange', val => {
+            d3.select('p#value-fill').transition()
+            .duration(10).style("opacity", 0);
+            d3.select('p#value-fill').text(d3.format('d')(val)).transition()
+            .style("opacity", 1)
+            .transition()
+            .delay(5);
+            year = val
+            update_visuals(year, data, show, projection)
         });
 
         //var legend = show_legend(all_styles, styles_colors, data, show, show_migration, century)
@@ -593,25 +511,25 @@ d3.csv("omni_locations.csv")
         d3.select("#style")
         .on("click", function(d){
             show = 'style'
-            update_slider_plot(styles_slider_data, styles_data, color, show)
             update_visuals(year,data,show, projection)
-            legend = update_legend(all_styles, styles_colors, legend, data, show, show_migration, century)
+            update_slider_plot(styles_slider_data, color, show)
+            // legend = update_legend(all_styles, styles_colors, legend, data, show, show_migration, century)
         });
 
         d3.select("#school")
         .on("click", function(d){
             show = 'school'
             update_visuals(year,data,show, projection)
-            update_slider_plot(school_slider_data,  schools_data, color, show)
-            legend = update_legend(all_schools, schools_colors, legend, data, show, show_migration, century)
+            update_slider_plot(media_slider_data, color, show)
+            // legend = update_legend(all_schools, schools_colors, legend, data, show, show_migration, century)
         });
 
         d3.select("#media")
         .on("click", function(d){
             show = 'media'
-            update_slider_plot(media_slider_data, media_data, color, show)
             update_visuals(year,data,show, projection)
-            legend = update_legend(all_media, media_colors, legend, data, show, show_migration, century)
+            update_slider_plot(school_slider_data, color, show)
+            // legend = update_legend(all_media, media_colors, legend, data, show, show_migration, century)
         });
 
         
@@ -702,259 +620,163 @@ var div = d3.select("body").append("div")
 
 function update_visuals(year, data, show, projection){
     // extract the centuries to show
+    var year = Math.round(year);
     var filtered_data = [];
     // var opacity;
 
     // convert coordinates, take max and set that to 0-1500 for longitude
     // and 0-750 for latitude
     //dbp_lat, dbp_long
-    
-    /*
-    // find all events in last 5 steps and adjust opacity
-    for(i=0;i<=4;i++){
-        
-        opacity = 0.8-Math.tanh(i*2)
-    */
-    // load style part of data
-    data.forEach(function(d){
-        
-        if(d["omni_id"] != ""){
-          
 
-            // works except for the fact that 1700 will be 17th century
-            // use year and slider to determine which datapoints have to be plotted
-            if ((d['date'] > year[0] &&
-                (d['date']) < year[1])){
-                // convert lng and lat to coordinates
-                if (d["long"] != "N\\A"){
-                    //svgContainer.append("circle")
-                    //  .attr("cx", (Math.abs(d["dbp_long"])+10)*5)
-                    //  .attr("cy", (Math.abs(d["dbp_lat"])+10)*5)
-                    //  .attr("r",3)
-                    
-                    
-                    // add datapoint to filtered_data
-                    filtered_data.push(d)
-                }
-            }
-        }
-    });
-   
-    window.fil = filtered_data;
-    clustered_data = cluster_data(filtered_data, show);
-
+    // TODO REMOVE THE PINS CORRECTLY
     svgContainer.selectAll("circle").transition().duration(200) // Will remove all previous circles when update is initiated
         .style("opacity", .1)
         .attr("r", 0)
         .remove();
 
-    // TRY TO LEAVE POINTS ON THE GLOBE
-    /*
-    // get all id's
-    var circle_id = []
-    var to_remove = []
-    var circles = svgContainer.selectAll("circle")
-
-    var circs = circles['_groups'][0]
-    console.log(circs)
-
-    // remove id's that do not appear in svg
-    for (var i = 0; i < circs.length; i++) {
-      var item = circs[i].id;
-      circle_id.push(item);
-    }
-  
-    var example = svgContainer.selectAll("circle")
-                        .filter(function(d) {                            
-                            if (!contains.call(circle_id, d.id)){   
-                                to_remove.push(d.id)
-                                return d
-                            }                                
-                        })                        
-                        .remove();
-    
-    // also remove this datapoints from clustered data but how?
-    console.log('before')
-    console.log(clustered_data.length)
-
-    for(var i = 0; i < clustered_data.length; i++){
-        if (!contains.call(circle_id, clustered_data[i]['id'].join())){clustered_data.splice(i, 1)};
-    }
-    console.log('after')
-    console.log(clustered_data.length)
-    */
-
-    // TIME SPEED UP BELOW
-    /*
-    if(moving){
-        // if nothing happens speed up time
-        if (clustered_data.length === 0){ 
-            idle_count+=1
-            clearInterval(timer)
-            timer = setInterval (function() {
-                var vals = slider.range()
-                slider.range(vals['begin'], vals['end'] + 1) 
-            }, SLIDER_SPEED/(idle_count*5)) // go faster
-        } else {
-        // else go to initial time
-            clearInterval(timer)
-            idle_count = 0
-            timer = setInterval (function() {
-                var vals = slider.range()
-                slider.range(vals['begin'], vals['end'] + 1) 
-            }, SLIDER_SPEED) }
-    }
-    */
-    // insert filtered data into world map
-    gPins.selectAll(".pin")
-        .data(clustered_data)
-        .enter().append("circle", ".pin")
-
-        // set starting coordinates based on projection location
-        .attr("cx", function(d) {
-            var circle = projection([parseInt(d["long"]),
-            parseInt(d["lat"])]);
-            var rotate = projection.rotate(); // antipode of actual rotational center.
-            var center = projection([-rotate[0], -rotate[1]])
-            var distance = d3.geoDistance(circle,center);
-
-            // need to save this somewhere
-            if (circle[0] > center[0]){
-                d["width"] = width
-                return width
-            }
-            else {
-                d["width"] = 0
-                return 0
-            }
-        })
-
-        .attr("cy", function(d) {
-            var circle = projection([parseInt(d["long"]),
-            parseInt(d["lat"])]);
-            var rotate = projection.rotate(); // antipode of actual rotational center.
-            var center = projection([-rotate[0], -rotate[1]])
-            var distance = d3.geoDistance(circle,center);
-
-            // need to save this somewhere
-            if (circle[1] > center[1]){
-                d["height"] = height
-                return height
-            }
-            else {
-                d["height"] = 0
-                return 0
-            }
-        })
+    // find all events in last 3 steps and adjust opacity
+    for(i=0;i<=3;i++){
         
-        .on("mouseover",function(cluster){  
-            tooltip.transition()        
-            .duration(200)      
-            .style("opacity", .9)
-            .style("left", (d3.event.pageX +20) + "px")     
-            .style("top", (d3.event.pageY - 28) + "px")
-            .style("z-index", 1);
+        opacity = 0.8-Math.tanh(i*0.5)
+        
+        // load style part of data
+        data.forEach(function(d){
             
-            tooltip.text("There are a total of " + cluster.id.length + " paintings in the style: " + cluster.sub )
-            .style("left", (d3.event.pageX) + "px")     
-            .style("top", (d3.event.pageY - 28) + "px")
-        
-            paintings_list = subset_paintings(cluster, data);
-        
-            // Change text size according to amount of paintings
-            if(paintings_list.length < 2){
-                tooltip.style("width", "200px");
-            }
-            else if(parseInt.length < 4){
-                tooltip.style("width", "400px");
-            }
-            else{
-                tooltip.style("width", "800px");
-            }
-        
-            // Weird bug of not updating the images the first time
-            for(var i = 0; i < 2; i++){
-                slides = add_paintings(paintings_list, ".tooltip");
+            if(d["omni_id"] != ""){
+              
+
+                // works except for the fact that 1700 will be 17th century
+                // use year and slider to determine which datapoints have to be plotted
+                if (year_binner(d['date']) == year_binner(year)-YEAR_STEP){
+                    // convert lng and lat to coordinates
+                    if (d["long"] != "N\\A"){
+                        //svgContainer.append("circle")
+                        //  .attr("cx", (Math.abs(d["dbp_long"])+10)*5)
+                        //  .attr("cy", (Math.abs(d["dbp_lat"])+10)*5)
+                        //  .attr("r",3)
+                        
+                        
+                        // add datapoint to filtered_data
+                        filtered_data.push(d)
+                    }
+                }
             }
 
-        })
-        .on("mouseout", function() {  
-            tooltip.transition()        
-            .duration(500)      
-            .style("opacity", 0)
-            .style("z-index", -1);
-        })
-        .on("click", function(cluster){
-            open_stats_painting(cluster, data, number_windows, "window");
-            number_windows += 1;
-        }) 
+            
+        });
 
-      .attr("fill", function(d) {
-        var circle = [parseInt(d["long"]),
-            parseInt(d["lat"])];
-            var rotate = projection.rotate(); // antipode of actual rotational center.
-            var center = [-rotate[0], -rotate[1]]
-            var distance = d3.geoDistance(circle,center);
-            return distance > Math.PI/2 ? 'none' : color[show][d['sub']];
-        })      
-      .transition()
-      .attr("id", function(d) {return d['id']})
-      .attr("r", function(d) {return 4*Math.log(d['id'].length);})   
-      .style("opacity", 0.75)
-      .duration(400)
-      .attr("transform", function(d) {
-        var proj = projection([
-            parseInt(d["long"]),
-            parseInt(d["lat"])])
-        return "translate(" + [proj[0] - d["width"], proj[1] - d["height"]]
-         + ")";
-    });
-          
+        clustered_data = cluster_data(filtered_data, show);
+
+        if(moving){
+            // if nothing happens speed up time
+            if (clustered_data.length === 0){ 
+                idle_count+=1
+                clearInterval(timer)
+                timer = setInterval (function() {
+                sliderFill.value(sliderFill.value() + 1) 
+                }, SLIDER_SPEED/(idle_count*5)) // go faster
+            } else {
+            // else go to initial time
+                clearInterval(timer)
+                idle_count = 0
+                timer = setInterval (function() {
+                sliderFill.value(sliderFill.value() + 1) 
+                }, SLIDER_SPEED) }
+        }
+
+        // insert filtered data into world map
+        gPins.selectAll(".pin")
+            .data(clustered_data)
+            .enter().append("circle", ".pin")
+            .on("mouseover",function(cluster){  
+                tooltip.transition()        
+                .duration(200)      
+                .style("opacity", .9)
+                .style("left", (d3.event.pageX +20) + "px")     
+                .style("top", (d3.event.pageY - 28) + "px")
+                .style("z-index", 1);
+                
+                tooltip.text("There are a total of " + cluster.id.length + " paintings in the style: " + cluster.sub )
+                .style("left", (d3.event.pageX) + "px")     
+                .style("top", (d3.event.pageY - 28) + "px")
+            
+                paintings_list = subset_paintings(cluster, data);
+            
+                // Change text size according to amount of paintings
+                if(paintings_list.length < 2){
+                    tooltip.style("width", "200px");
+                }
+                else if(parseInt.length < 4){
+                    tooltip.style("width", "400px");
+                }
+                else{
+                    tooltip.style("width", "800px");
+                }
+            
+                // Weird bug of not updating the images the first time
+                for(var i = 0; i < 2; i++){
+                    slides = add_paintings(paintings_list, ".tooltip");
+                }
+
+            })
+            .on("mouseout", function() {  
+                tooltip.transition()        
+                .duration(500)      
+                .style("opacity", 0)
+                .style("z-index", -1);
+            })
+            .on("click", function(cluster){
+                open_stats_painting(cluster, data, number_windows, "window");
+                number_windows += 1;
+            })
+         
+          .attr("fill", function(d) {
+            var circle = [parseInt(d["long"]),
+                parseInt(d["lat"])];
+                var rotate = projection.rotate(); // antipode of actual rotational center.
+                var center = [-rotate[0], -rotate[1]]
+                var distance = d3.geoDistance(circle,center);
+                return distance > Math.PI/2 ? 'none' : color['style'][d['sub']];
+            })    
+          .transition()
+          .attr("r", function(d) {return 4*Math.log(d['id'].length);})   
+          .style("opacity", opacity)
+          .duration(400)
+          .attr("transform", function(d) {
+            return "translate(" + projection([
+                parseInt(d["long"]),
+                parseInt(d["lat"])
+            ]) + ")";
+        });
         
+      }
 };
 
-function update_slider_plot(data, meta_data, colors, show){
-    // adjust scale to highest amount of paintings 
-   
 
-    star_yScale.domain(  [0,
+function update_slider_plot(data, colors, show){
+    // adjust scale to highest amount of paintings 
+    yScale.domain(  [0,
                     d3.max(data, d => d.data.length)] );
 
-    var stars = gstar.selectAll('path').data(meta_data);
-
-    stars.enter()
-        .append('path')
-        .attr('fill', function(d) { return colors[show][d.sub]})
-        .attr('stroke', function(d) { return colors[show][d.sub]})
-        .attr('transform', function(d) {
-            return 'translate(' + star_xScale(year_binner(d.first))  + ', 0)';
-        })
-        .attr('d', star);
-
-    stars.exit().remove();
-    stars.transition().duration(250)
-        .attr('fill', function(d) { return colors[show][d.sub]})
-        .attr('stroke', function(d) { return colors[show][d.sub]})
-        .attr('transform', function(d) {
-            return 'translate(' + star_xScale(year_binner(d.first))  + ', 0)';
-        })
-
+    // // append the bars the the gFill slider container
+    var bars = gFill.selectAll(".bar").data(data);
+        bars.enter()
+        .append("rect")
+            .attr("class", "bar")
+            .attr("x", function(d) { return xScale(d.year); }) // find position of this year
+            .attr("width", xScale.bandwidth())
+            .attr("y", function(d) { return yScale(d.data.length); }) // find barheight
+            .attr("height", function(d) { return slider_bar_height - yScale(d.data.length); })
+            .attr("fill", "white")
+            .attr("transform", "translate(" + slider_margin.left + "," + slider_margin.top + ")");
     
-    // bar plot
-    var bars = gstar.selectAll("rect").data(data);
-    bars.enter()
-        .append('rect')
-        .attr('fill', 'white')
-        .attr('x', function (d) { return star_xScale(year_binner(d.year)) ; })
-        .attr("width", 5.0)
-        .attr("y", function(d) { return 140-star_yScale(d.data.length); })
-        .attr("height", function(d) { return star_yScale(d.data.length); }); // find barheight
     bars.exit().remove();
     bars.transition().duration(250)
-        .attr("y", function(d) { return 140-star_yScale(d.data.length); })
-        .attr("height", function(d) { return star_yScale(d.data.length); });
+                .attr("y", function(d) { return yScale(d.data.length); })
+                .attr("height", function(d) { return slider_bar_height - yScale(d.data.length); })
 
 };
+
 
 function painting_gallery(number_windows, div){
     var newWindow =  d3.select("body").append("div")
@@ -1109,7 +931,9 @@ function open_stats_painting(cluster, data, number_windows, div) {
             .style("opacity", 0)
             .style("z-index", -1)
         details_painting(painting);
-    }); 
+    });
+    
+   
     
   }
 
@@ -1175,6 +999,7 @@ function retreive_paintings(data,paintings_id){
 
     return paintings_list;
 }
+
 //=========================================== Painting images END
 
 
@@ -1187,7 +1012,6 @@ function cluster_data(data, show){
      * 
      * OUTPUT: 
      * clustered_data -- the clustered data
-
      example of cluster:
 ​​    end_date: 1459
 ​​    id: Array [ "27464", "29084" ]
@@ -1327,11 +1151,10 @@ function retrieve_migration(dataset, show, sub){
     
 };
 
-function update(switch_to, center, translation) {
-    
+function update(switch_to) {
   svgContainer.selectAll("#world").transition()
       .duration(1000).ease(d3.easeLinear)
-      .attrTween("d", projectionTween(projection, projection = switch_to, center, translation))
+      .attrTween("d", projectionTween(projection, projection = switch_to))
 
 //   svgContainer.selectAll("#water").transition()
 //       .duration(1000).ease(d3.easeLinear)
@@ -1339,21 +1162,13 @@ function update(switch_to, center, translation) {
 
 }
 
-function projectionTween(projection0, projection1, center, translation) {
+function projectionTween(projection0, projection1) {
     
   return function(d) {
     var t = 0;
-    if (translation){
-        var projection = d3.geoProjection(project)
-            .scale(1)
-            .translate([width/2, height/4])
-            .center(center)
-    } else {
-        var projection = d3.geoProjection(project)
-            .scale(1)
-            .center(center)
-    }
-    
+    var projection = d3.geoProjection(project)
+        .scale(1)
+        .translate([width / 2, height / 2]);
     var path = d3.geoPath(projection);
     
     function project(lambda, phi) {
@@ -1370,32 +1185,3 @@ function projectionTween(projection0, projection1, center, translation) {
     
   };
 }
-
-
-// THIS FUNCTION IS REQUIRED FOR DELETING NODES CORRECTLY
-var contains = function(needle) {
-    // Per spec, the way to identify NaN is that it is not equal to itself
-    var findNaN = needle !== needle;
-    var indexOf;
-
-    if(!findNaN && typeof Array.prototype.indexOf === 'function') {
-        indexOf = Array.prototype.indexOf;
-    } else {
-        indexOf = function(needle) {
-            var i = -1, index = -1;
-
-            for(i = 0; i < this.length; i++) {
-                var item = this[i];
-
-                if((findNaN && item !== item) || item === needle) {
-                    index = i;
-                    break;
-                }
-            }
-
-            return index;
-        };
-    }
-
-    return indexOf.call(this, needle) > -1;
-};

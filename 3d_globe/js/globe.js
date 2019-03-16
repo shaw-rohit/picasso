@@ -1,4 +1,4 @@
-var width = 1500;
+var width = 1000;
 var height = 750;
 var centered;
 
@@ -56,7 +56,7 @@ var is2d = false; //check if 2d or 3d for play button
 // Create map
 var projection = d3.geoOrthographic().translate([width/2, height/4]).scale(350).center([0,40]);
 
-
+console.log("ifjeslij")
 var zoom = d3.zoom()
 .scaleExtent([1, 8])
 .on("zoom", zoomed);
@@ -457,7 +457,7 @@ d3.csv("omni_locations.csv")
         }
         // Run auto button
         else{
-            moving = pauseResumeButton(playButton);
+            moving = pauseResumeButton();
             if(moving){
                 playButton
                 .on("click", function() {
@@ -583,7 +583,8 @@ d3.csv("omni_locations.csv")
         slider.onChange(function(newRange){
             d3.select("#range-label").text(newRange.begin + " - " + newRange.end);
             year_interval = [newRange.begin, newRange.end]  
-            update_visuals(year_interval, data, show, projection)            
+            update_visuals(year_interval, data, show, projection)
+            update_chart(clustered_data,year-YEAR_STEP);            
         });
 
         //var legend = show_legend(all_styles, styles_colors, data, show, show_migration, century)
@@ -701,6 +702,7 @@ var div = d3.select("body").append("div")
     .style("opacity", 0);
 
 function update_visuals(year, data, show, projection){
+
     // extract the centuries to show
     var filtered_data = [];
     // var opacity;
@@ -910,7 +912,7 @@ function update_visuals(year, data, show, projection){
          + ")";
     });
           
-        
+    return cluster_data;
 };
 
 function update_slider_plot(data, meta_data, colors, show){
