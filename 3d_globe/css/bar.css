@@ -13,3 +13,75 @@
 .axis text {
   font-weight: bold;
 }
+
+#map_controls {
+    display: block;
+    position: absolute;
+    width: 30px;
+    height: 160px;
+    top: 300px;
+    right: 30px;
+    z-index: 5;
+}
+
+#map_controls #map_controls_buttons {
+    display: block;
+    position: absolute;
+    width: 30px;
+    top: 0;
+    left: 0;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+#map_controls #map_controls_buttons li {
+    display: block;
+    position: relative;
+    float: none;
+    clear: both;
+    width: 35px;
+    height: 35px;
+    background-color: #06304e;
+    margin-bottom: 2px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 25px;
+    cursor: pointer;
+}
+
+#map_controls #map_controls_buttons #map_control_type_plane { display: none; }
+#map_controls #map_controls_buttons .map_control_button {
+    width: 30px;
+    height: 30px;
+    fill: #9d9d9d;
+    padding: 3px;
+}
+
+#map_controls #map_controls_buttons .map_control_button:hover {
+    fill: #FFFFFF;
+}
+
+#map_controls #map_controls_buttons #map_control_color_dark { display: none; }
+#map_controls #map_controls_buttons #map_control_color_dark { display: none; }
+#map_controls #map_controls_buttons #map_control_demo_off { display: none; }
+
+#map_controls #map_controls_buttons .map_control_button_label {
+    position: absolute;
+    overflow: hidden;
+    display: none;
+    top: 0;
+    right: 35px;
+    width: 0;
+    padding-left: 10px;
+    padding-right: 15px;
+    white-space: nowrap;
+    font-size: 14px;
+    background-color: #06304e;
+    color: #FFFFFF;
+    line-height: 35px;
+    z-index: 5;
+}
+#map_controls #map_controls_buttons li:hover .map_control_button_label {
+    display: inline-block;
+    width: auto;
+}
