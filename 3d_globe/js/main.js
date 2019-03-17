@@ -5,6 +5,8 @@ var centered;
 legendRectSize = 18;
 legendSpacing = 4;
 
+var show = 'style'
+
 // default speed of the sider in 1000*seconds per year
 SLIDER_SPEED = 1000;
 
@@ -180,7 +182,7 @@ d3.csv("omni_locations.csv")
     .then(function(data){
 
         // initialize things to show
-        var show = 'style'
+        
         var year = 100
 
         // save all years and get the distribution in centuries
