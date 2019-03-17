@@ -24,7 +24,6 @@ function rotateglobe(){
             var rotate = projection.rotate(); // antipode of actual rotational center.
             var center = [-rotate[0], -rotate[1]]
             var distance = d3.geoDistance(circle,center);
-            
         return distance > Math.PI/2 ? 'none' : color['style'][d['sub']];
     });
 
@@ -86,7 +85,7 @@ function dragged(){
             var rotate = projection.rotate(); // antipode of actual rotational center.
             var center = [-rotate[0], -rotate[1]]
             var distance = d3.geoDistance(circle,center);
-            
+            console.log( color['style'][d['sub']])
         return distance > Math.PI/2 ? 'none' : color['style'][d['sub']];
     });
 }
