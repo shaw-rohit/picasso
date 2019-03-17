@@ -45,21 +45,21 @@ var filteramount = groupstyle.sort(function(a, b) {
 
 
   var bars = gChart.selectAll(".bar")
-  .data(filteramount, function(d){
-    return + d.style;
-  });
+    .data(filteramount, function(d){
+      return + d.style;
+    });
   bars.exit();
   bars.enter()
-  .append("rect")
-  .attr("class", "bar")
-  .attr("x", d => chartx(d.style))
-  .attr("y", function(d){
-    return charty(d.totalpaintings);
-  })
-  .attr("width", chartx.bandwidth())
-  .attr("height",function(d){  
-      return chartheight - charty(d.totalpaintings) 
+    .append("rect")
+    .attr("class", "bar")
+    .attr("x", d => chartx(d.style))
+    .attr("y", function(d){
+      return charty(d.totalpaintings);
     })
+    .attr("width", chartx.bandwidth())
+    .attr("height",function(d){  
+        return chartheight - charty(d.totalpaintings) 
+      })
 
 
 
@@ -77,13 +77,16 @@ bars.transition()
 
 
   gChart.append("g")
-      .attr("transform", "translate(0," + chartheight + ")" + "rotate(30)")
+      .attr("transform", "translate(0 " + chartheight + ")")
+      .attr("max-width", 20)
       .call(d3.axisBottom(chartx))
       .append("text")
       .attr("fill", "#000")
       .attr("y", 20)
       .attr("x", 450)
       .attr("dy", "1em")
+      .selectAll("text")
+      .attr("transform", "translate(0," + 20 + ", rotate(30))")
       .text("Months")
    
   gChart.append("g")
