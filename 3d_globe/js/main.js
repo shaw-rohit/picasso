@@ -453,8 +453,6 @@ d3.csv("omni_locations.csv")
             d3.select("#range-label").text(newRange.begin + " - " + newRange.end);
             year_interval = [newRange.begin, newRange.end]  
             update_visuals(year_interval, data, show, projection)
-
-            /// TODO, SET CHART TO A RANGE OF YEARS ///
             update_chart(clustered_data,year-YEAR_STEP, color, show);   
 
             // required for keeping track of current time period
@@ -469,15 +467,17 @@ d3.csv("omni_locations.csv")
         .on("click", function(d){
             show = 'style'
             update_slider_plot(styles_slider_data, styles_data, color, show, year_interval)
-            update_visuals(year,data,show, projection)
+            update_visuals(year_interval,data,show, projection)
+            update_chart(clustered_data,year-YEAR_STEP, color, show);   
             legend = update_legend(all_styles, styles_colors, legend, data, show, show_migration, century)
         });
 
         d3.select("#school")
         .on("click", function(d){
             show = 'school'
-            update_visuals(year,data,show, projection)
+            update_visuals(year_interval,data,show, projection)
             update_slider_plot(school_slider_data,  schools_data, color, show, year_interval)
+            update_chart(clustered_data,year-YEAR_STEP, color, show);   
             legend = update_legend(all_schools, schools_colors, legend, data, show, show_migration, century)
         });
 
@@ -485,7 +485,8 @@ d3.csv("omni_locations.csv")
         .on("click", function(d){
             show = 'media'
             update_slider_plot(media_slider_data, media_data, color, show, year_interval)
-            update_visuals(year,data,show, projection)
+            update_visuals(year_interval,data,show, projection)
+            update_chart(clustered_data,year-YEAR_STEP, color, show);   
             legend = update_legend(all_media, media_colors, legend, data, show, show_migration, century)
         });
 
