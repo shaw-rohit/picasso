@@ -25,7 +25,7 @@ function rotateglobe(){
             var center = [-rotate[0], -rotate[1]]
             var distance = d3.geoDistance(circle,center);
             
-        return distance > Math.PI/2 ? 'none' : color['style'][d['sub']];
+        return distance > Math.PI/2 ? 'none' : color[show][d['sub']];
     });
 
 }
@@ -87,7 +87,7 @@ function dragged(){
             var center = [-rotate[0], -rotate[1]]
             var distance = d3.geoDistance(circle,center);
             
-        return distance > Math.PI/2 ? 'none' : color['style'][d['sub']];
+        return distance > Math.PI/2 ? 'none' : color[show][d['sub']];
     });
 }
 
