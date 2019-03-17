@@ -4,6 +4,18 @@
 
 http://isis-data.science.uva.nl/strezoski/omniart/omniart_official/
 
+
+## Meeting 16-03-2019
+- Think about scenario's wich shows best what we have right now
+- Add radio-like timeline
+- Remove buttons and add nicer ones on side
+- Less static points on globe transitions (like earthquakes)
+- Clicking on bar, circles highlighted or paintings popping up
+- Show art epidemics with migrations
+- Add legend 
+- Merge all
+
+
 ## Meeting 08-03-2019
 - Take functionalities from 2d map and put them in 3d
 - Create navigation bar and also use legend
