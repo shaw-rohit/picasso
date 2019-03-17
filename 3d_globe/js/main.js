@@ -5,6 +5,8 @@ var centered;
 legendRectSize = 18;
 legendSpacing = 4;
 
+var show = 'style'
+
 // default speed of the sider in 1000*seconds per year
 SLIDER_SPEED = 1000;
 
@@ -180,7 +182,7 @@ d3.csv("omni_locations.csv")
     .then(function(data){
 
         // initialize things to show
-        var show = 'style'
+        
         var year = 100
 
         // save all years and get the distribution in centuries
@@ -367,7 +369,7 @@ d3.csv("omni_locations.csv")
         }).map(data);
 
 
-        // sort the arrays on date
+        // sort the arrays on date, such that colors can be based on time order
         styles_data.sort(function(x, y){
             return d3.ascending(x.first, y.first);
         })
@@ -378,6 +380,7 @@ d3.csv("omni_locations.csv")
             return d3.ascending(x.first, y.first);
         })
 
+        // get ordered sub catagories
         var all_styles = styles_data.map(function(d) { return d.sub })
         var all_schools = schools_data.map(function(d) { return d.sub })
         var all_media = media_data.map(function(d) { return d.sub })
@@ -386,7 +389,6 @@ d3.csv("omni_locations.csv")
         var schools_colors = [];
         var media_colors = [];
 
-        
         var offset = 0;
         for (var i = 0; i < all_styles.length; i++){
             color['style'][all_styles[i]] = d3.interpolateRainbow((i+offset)/all_styles.length)
@@ -456,7 +458,11 @@ d3.csv("omni_locations.csv")
             update_chart(clustered_data,year-YEAR_STEP, color, show);   
 
             // required for keeping track of current time period
-            update_slider_plot(styles_slider_data, styles_data, color, show, year_interval)         
+            // very ugly if statement but for now
+            if (show==='style'){ update_slider_plot(styles_slider_data, styles_data, color, show, year_interval) }
+            else if (show==='school'){ update_slider_plot(school_slider_data, schools_data, color, show, year_interval) }
+            else if (show==='media'){ update_slider_plot(media_slider_data, media_data, color, show, year_interval) }
+            // update_slider_plot(styles_slider_data, styles_data, color, show, year_interval)         
         });
 
         //var legend = show_legend(all_styles, styles_colors, data, show, show_migration, century)

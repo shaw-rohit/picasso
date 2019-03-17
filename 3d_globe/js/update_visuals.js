@@ -165,11 +165,22 @@ function update_visuals(year, data, show, projection){
 };
 
 function update_slider_plot(data, meta_data, colors, show, years){
+    /*  
+
+    data: {year: year, data: [all sub classes in this years]}
+
+    meta_data: {sub: subclass, first: year of 'birth'}
+
+
+    */
+
+
     // adjust scale to highest amount of paintings 
-    //console.log(years[0])
     star_yScale.domain(  [0,
                     d3.max(data, d => d.data.length)] );
 
+
+    // stars plot
     var stars = gstar.selectAll('path').data(meta_data);
 
     stars.enter()
@@ -199,26 +210,28 @@ function update_slider_plot(data, meta_data, colors, show, years){
         .attr("width", 5.0)
         .attr("y", function(d) { return 140-star_yScale(d.data.length); })
         .attr("height", function(d) { return star_yScale(d.data.length); }); // find barheight
+    
     bars.exit().remove();
     bars.transition().duration(250)
         .attr("y", function(d) { return 140-star_yScale(d.data.length); })
         .attr("height", function(d) { return star_yScale(d.data.length); });
 
-    gstar.selectAll("line").remove()
-    var lines = gstar.selectAll("line").data(data);
-                lines.enter().append("svg:line")
-                  .attr("x1", function(d){return star_xScale(years[0])})
-                  .attr("x2", function(d){return star_xScale(years[0])})
-                  .attr("y1", 260)
-                  //.attr("y2", - d3.max(data, d => d.data.length))
-                  .attr("y2", 20)
-                  .attr("stroke", "yellow")
-                lines.enter().append("svg:line")
-                  .attr("x1", function(d){return star_xScale(years[1])})
-                  .attr("x2", function(d){return star_xScale(years[1])})
-                  .attr("y1", 260)
-                  //.attr("y2", - d3.max(data, d => d.data.length))
-                  .attr("y2", 20)
-                  .attr("stroke", "yellow")
+    // gstar.selectAll("line").remove()
+    var lines = gstar.selectAll("line").data(years);
+    lines.enter()
+        .append('line')
+        .attr("x1", function(d){return star_xScale(d)})
+        .attr("x2", function(d){return star_xScale(d)})
+        .attr("y1", 260)
+        .attr("y2", 20)
+        .attr("stroke", "yellow")
+        .attr('stroke-width', 2);
+
+    lines.exit().remove();
+    lines.transition().duration(250)
+        .attr("x1", function(d){return star_xScale(d)})
+        .attr("x2", function(d){return star_xScale(d)});
+
+
                   
 };
