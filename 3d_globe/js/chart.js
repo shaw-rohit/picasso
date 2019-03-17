@@ -33,10 +33,9 @@ groupstyle.forEach(function(d) {
   d.totalpaintings = totalpaintings;
 });
 
-var filteramount = groupstyle.filter(function(d){
-  return Number(d.totalpaintings) > 3;
-});
-
+var filteramount = groupstyle.sort(function(a, b) {
+  return d3.descending(+a.totalpaintings, +b.totalpaintings);
+}).slice(0, 6);
 
   chartx.domain(filteramount.map(function(d){
     return d.style;
@@ -63,6 +62,7 @@ var filteramount = groupstyle.filter(function(d){
     })
 
 
+
 bars.transition()
     .duration(600)
     .ease(d3.easeLinear)
@@ -77,7 +77,7 @@ bars.transition()
 
 
   gChart.append("g")
-      .attr("transform", "translate(0," + chartheight + ")")
+      .attr("transform", "translate(0," + chartheight + ")" + "rotate(30)")
       .call(d3.axisBottom(chartx))
       .append("text")
       .attr("fill", "#000")
@@ -85,7 +85,6 @@ bars.transition()
       .attr("x", 450)
       .attr("dy", "1em")
       .text("Months")
-
    
   gChart.append("g")
       .attr("class", "axis axis-y")
