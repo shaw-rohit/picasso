@@ -46,8 +46,10 @@ function update_visuals(year, data, show, projection){
         //var migration = retrieve_migration(filtered_data, show, 'baroque')
         var migration = retrieve_migration_cluster(clustered_data, 'baroque')
         draw_cluster_flow(migration[1], migration[0])
+        oldest = migration[0]
         //draw_migration_flow(migration[1], migration[0])
     }
+
     
 
     svgContainer.selectAll("circle").transition().duration(200) // Will remove all previous circles when update is initiated
@@ -150,7 +152,7 @@ function update_visuals(year, data, show, projection){
         })      
       .transition()
       .attr("id", function(d) {return d['id']})
-      .attr("r", function(d) {return 4*Math.log(d['id'].length);})   
+      .attr("r", function(d) {return 3*(Math.log(d['id'].length)+1);})   
       .style("opacity", 0.75)
       .duration(400)
       .attr("transform", function(d) {

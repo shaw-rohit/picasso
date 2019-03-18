@@ -156,7 +156,7 @@ function draw_cluster_flow(migration_data, oldest){
     */
     
     // Stop rotation
-    rotation_timer.stop()
+    //rotation_timer.stop()
     
     // Remove existing arrows
     gArrows.selectAll("#arrow").remove()

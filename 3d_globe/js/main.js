@@ -28,7 +28,9 @@ var time = Date.now()
 var YEAR_STEP = 5
 var LONGLAT_STEP = 0.2
 
+// for migration:
 var show_migration = false;
+var oldest;
 
 
 var svgContainer = d3.select("#globe").append("svg")
@@ -200,19 +202,36 @@ d3.csv("omni_locations.csv")
         } 
         checkpoints.push(d3.max(years))
         
-        d3.select("#migrationon")
+        d3.select("#migrationflow")
             .on("click", function(d){
-                show_migration = true;
-            })
+                if (show_migration == false){
+                    show_migration = true;
+                }
+                else {
+                    show_migration = false;
+                    gArrows.selectAll("#arrow").remove()
+                    if (!is2d){
+                        rotation_timer.restart(function(){
+                            rotateglobe();
+                        });
+                        // set globe to moving and adjust play/pause icon
+                        moving = true;
+                        document.getElementById("play-button").children[0].style.display = "none"
+                    }
+                }
+            });
+
         
-        d3.select("#migrationoff")
+        /*d3.select("#migrationoff")
             .on("click", function(d){
                 show_migration = false;
                 gArrows.selectAll("#arrow").remove()
-                rotation_timer.restart(function(){
-                    rotateglobe();
-                });
-            })
+                if (!is2d){
+                    rotation_timer.restart(function(){
+                        rotateglobe();
+                    });
+                }
+            });*/
 
         d3.select("#twomap")
         .style("opacity", 1)
@@ -289,32 +308,12 @@ d3.csv("omni_locations.csv")
                     .style("opacity", .1)
                     .attr("r", 0)
                     .remove();
-                setTimeout(function(){update_visuals(year_interval, data, show, projection)}
-                    , 1000)
-            /*
-            svgContainer.selectAll("circle")
-                .attr("transform", function(d) {
-                    var proj = projection([
-                        parseInt(d["long"]),
-                        parseInt(d["lat"])])
-                    return "translate(" + [proj[0] - d["width"], proj[1] - d["height"]]
-                     + ")";
-                });
-                */
+            setTimeout(function(){update_visuals(year_interval, data, show, projection)}
+                , 1000)
             }
 
             is_globe = true;            
-            
-//             setTimeout(function() {
-//                 rotation_timer = d3.timer(function() {
-//                   var dt = Date.now() - time;
-//                   projection.rotate([rotate[0] + velocity[0] * dt, 0]);
-//                   svgContainer.selectAll("path").attr("d", path(world));
-//                   water.attr("d", path);
-//  
-//               });
-//             }, 1050)
-        
+       
         });
 
         if (!playAuto){
@@ -411,7 +410,79 @@ d3.csv("omni_locations.csv")
             if(i%5 === 0){offset = 0}
         }
 
+        // LEGEND
+        var svgColors = d3.select("#legend")
+             .append("svg")
+             .attr("width", 1764)
+             .attr("height", 75);
         
+        var div_subs = d3.select("#legend").append("div")
+            .attr("class", "tooltip_colors")
+            .style("opacity", 0);
+        
+        var div_subs_click = d3.select("#legend").append("div")
+            .attr("class", "tooltip_colors_click")
+            .style("opacity", 0);
+            
+        var colorScale = d3.scaleOrdinal()
+            .domain(all_styles)
+            .range(Object.values(color['style']));
+             
+        var selected_subs = [];
+
+        var spacing = 0;
+        var used_styles = all_styles
+        svgColors.selectAll("rect")
+            .data(colorScale.domain())
+            .enter()
+            .append("rect")
+            .attr('width', function(d){
+                //spacing = 1764/all_styles.length
+                spacing = 1764/used_styles.length
+                return spacing
+            })                    
+            .attr('height', 20)
+            .attr("x", function(d){
+                return used_styles.indexOf(d) * spacing
+                //return (all_styles.indexOf(d)+1)*spacing
+            })
+            .attr("y", 30)
+            .attr("fill", colorScale )
+            .on("mouseover", function(d){
+                div_subs.transition()		
+                .duration(200)		
+                .style("opacity", .9);
+                div_subs.html(d)	
+                .style("left", (d3.event.pageX) + "px")		
+                .style("top", (d3.event.pageY - 28) + "px");
+            })
+            .on("mouseout", function(d) {		
+            div_subs.transition()		
+                .duration(500)		
+                .style("opacity", 0);	
+            })
+            .on("click", function(d){
+                svgColors.selectAll("rect").style("opacity", function(d){
+                    if (selected_subs.includes(d)){
+                        return 1
+                } else {
+                    return 0.3
+                }                     
+                });
+                d3.select(this).style("opacity", 1);
+                selected_subs.push(d)
+                
+                div_subs_click.transition()		
+                .duration(200)		
+                .style("opacity", .9);
+                div_subs_click.html(d)	
+                .style("left", (d3.event.pageX) + "px")		
+                .style("top", (d3.event.pageY - 28) + "px");
+                div_subs.transition()		
+                .duration(20)		
+                .style("opacity", 0);	
+                
+            })
         // var legend = show_legend(all_styles, styles_colors)
 
         // this will tigger updates, hence, when a change in value has been detected with transitions

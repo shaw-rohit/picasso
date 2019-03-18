@@ -3,18 +3,18 @@ function pauseResumeButton(){
         moving = false;
         clearInterval(timer);
 
-        document.getElementById("play-button").children[0].style.display = "block"
-        
+        // remove pause button
+        document.getElementById("play-button").children[0].style.display = "block"       
     } 
-    else {
-        if(!is2d){
+    else {        
+        if(!is2d){       // && show_migration == false     
             rotation_timer.restart(function(){
                 rotateglobe();
             });
         }
-        //d3.select(".play-button").attr("hidden", true);
+
+        // remove play button
         document.getElementById("play-button").children[0].style.display = "none"
-        //playButton.attr("class", "pause-button");
 
         // check if it is starting or not
         if (starting){
@@ -36,7 +36,7 @@ function pauseResumeButton(){
                 // get old slider values
                 var vals = slider.range()
                 console.log(vals)
-                slider.range(vals['begin'], vals['end'] + 1)           
+                slider.range(vals['begin']+10, vals['end'] + 10)           
             }, SLIDER_SPEED)    
         moving = true;
         }    
