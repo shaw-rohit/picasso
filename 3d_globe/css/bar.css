@@ -11,6 +11,16 @@
   font-weight: bold;
 }
 
+.charttooltip {
+    position: absolute;
+    min-width: 80px;
+    height: 80px;
+    background-color: red;
+    border: 1px solid #6F257F;
+    padding: 14px;
+    text-align: center;
+  }
+
 #map_controls {
     display: block;
     position: absolute;

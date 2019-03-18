@@ -1,8 +1,9 @@
 function painting_gallery(number_windows, div){
-    var newWindow =  d3.select("body").append("div")
+    var newWindow =  d3.select("#statsleft").append("div")
     .attr("class", "window")
     .attr("id", div + number_windows)
-    .style("opacity", 0);
+    .style("opacity", 0)
+    .style("float", "left");
     var x = d3.select("#" + div + number_windows).append("div")
         .attr("class", "x")
         .style("opacity", 0)
@@ -20,10 +21,8 @@ function painting_gallery(number_windows, div){
         .style("opacity", 0);
 
     newWindow.transition()        
-        .duration(200)      
-        .style("opacity", .9)
-        .style("left", (d3.event.pageX / 2) + "px")     
-        .style("top", (d3.event.pageY - 200) + "px");
+        .duration(800)      
+        .style("opacity", .9);
 
     var rightresizer = d3.select("#" + div + number_windows).append("div")
         .attr("windownumber", number_windows)

@@ -500,13 +500,6 @@ d3.csv("omni_locations.csv")
 });
 
 
-// Define the div for the tooltip
-//TODO: remove this and write in html
-var div = d3.select("body").append("div")   
-    .attr("class", "tooltip")               
-    .style("opacity", 0);
-
-
 function cluster_data(data, show){
     /*
      * INPUT: 

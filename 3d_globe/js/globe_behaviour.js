@@ -24,12 +24,8 @@ function rotateglobe(){
             var rotate = projection.rotate(); // antipode of actual rotational center.
             var center = [-rotate[0], -rotate[1]]
             var distance = d3.geoDistance(circle,center);
-<<<<<<< HEAD
-        return distance > Math.PI/2 ? 'none' : color['style'][d['sub']];
-=======
             
         return distance > Math.PI/2 ? 'none' : color[show][d['sub']];
->>>>>>> b275b4e825f1dce6ce246b08acc18ac89a474b95
     });
 
 }
@@ -90,13 +86,8 @@ function dragged(){
             var rotate = projection.rotate(); // antipode of actual rotational center.
             var center = [-rotate[0], -rotate[1]]
             var distance = d3.geoDistance(circle,center);
-<<<<<<< HEAD
-            console.log( color['style'][d['sub']])
-        return distance > Math.PI/2 ? 'none' : color['style'][d['sub']];
-=======
             
         return distance > Math.PI/2 ? 'none' : color[show][d['sub']];
->>>>>>> b275b4e825f1dce6ce246b08acc18ac89a474b95
     });
 }
 

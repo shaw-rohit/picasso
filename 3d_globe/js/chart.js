@@ -14,7 +14,7 @@ const chartsvg     = d3.select(".widget").append("svg")
 
 function update_chart(clustereddata, currentdate, colors, show){
   d3.select(".widget").selectAll("g > *").transition().duration(100).remove() //TODO: Create transition in creating new chart
-  d3.select(".charttooltip").remove();
+  d3.select(".charttooltip").transition().duration(100).remove();
   //var rainbow = d3.scaleSequential(d3.interpolateRainbow).domain([0,d3.sum(data, d => 1)]);
 
 var groupstyle = d3.nest()
@@ -61,11 +61,12 @@ var filteramount = groupstyle.sort(function(a, b) {
       return chartheight - charty(d.totalpaintings) 
     })
     .on("mouseover", function(d){
+      console.log(d)
       charttooltip
         .style("display", "inline-block")
         .html("Style: " + (d.style) + "<br>" + "Total amount: " + (d.totalpaintings));
   })
-      .on("mouseout", function(d){ charttooltip.style("display", "none");})
+      // .on("mouseout", function(d){ charttooltip.style("display", "none");})
    
   var charttooltip = chartsvg.append("div").attr("class", "charttooltip");
 
@@ -91,7 +92,6 @@ bars.transition()
     .attr("dx", "-.8em")
     .attr("dy", ".15em")
     .attr("transform", "rotate(-30)")
-    .text("Gross Domestic Product, USA")
 
 
   // .attr("transform", "rotate(45)")  
