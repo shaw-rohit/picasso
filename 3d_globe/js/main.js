@@ -209,6 +209,7 @@ d3.csv("omni_locations.csv")
         d3.select("#migrationoff")
             .on("click", function(d){
                 show_migration = false;
+                gArrows.selectAll("#arrow").remove()
                 rotation_timer.restart(function(){
                     rotateglobe();
                 });

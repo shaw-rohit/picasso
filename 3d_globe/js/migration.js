@@ -207,6 +207,7 @@ function draw_cluster_flow(migration_data, oldest){
                 + "," + origin[0] + "," + origin[1]
             
         })
+        .attr("fill", "white")
         
     arrows.exit()
         .transition()
