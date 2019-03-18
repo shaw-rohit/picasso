@@ -153,7 +153,7 @@ function update_visuals(year, data, show, projection){
       .transition()
       .attr("id", function(d) {return d['id']})
       .attr("r", function(d) {return 3*(Math.log(d['id'].length)+1);})   
-      .style("opacity", 0.75)
+      .style("opacity", 0.55)
       .duration(400)
       .attr("transform", function(d) {
         var proj = projection([
@@ -175,7 +175,6 @@ function update_slider_plot(data, meta_data, colors, show, years){
 
 
     */
-
 
     // adjust scale to highest amount of paintings 
     star_yScale.domain(  [0,

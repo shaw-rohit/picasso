@@ -17,6 +17,44 @@ function update_chart(clustereddata, currentdate, colors, show){
   d3.select(".charttooltip").transition().duration(100).remove();
   //var rainbow = d3.scaleSequential(d3.interpolateRainbow).domain([0,d3.sum(data, d => 1)]);
 
+
+function make_ping(long, lat, color, size){
+  var pings = gPins.selectAll(".ping").data(clustered_data);
+  pings.enter().append("circle", ".ping")
+  // set starting coordinates based on projection location
+    .attr("cx", function(d) {
+        var circle = projection([parseInt(long), parseInt(lat)]);
+        var rotate = projection.rotate(); // antipode of actual rotational center.
+        var center = projection([-rotate[0], -rotate[1]])
+        var distance = d3.geoDistance(circle,center);
+    })
+    .attr("cy", function(d) {
+        var circle = projection([parseInt(long), parseInt(lat)]);
+        var rotate = projection.rotate(); // antipode of actual rotational center.
+        var center = projection([-rotate[0], -rotate[1]])
+        var distance = d3.geoDistance(circle,center);
+    })
+    .attr("stroke", function(d) {
+    var circle = [parseInt(long), parseInt(lat)];
+    var rotate = projection.rotate(); // antipode of actual rotational center.
+    var center = [-rotate[0], -rotate[1]]
+    var distance = d3.geoDistance(circle,center);
+        return distance > Math.PI/2 ? 'none' : color;
+    }).attr('stroke-width', 3)
+    .attr("r", 3*(Math.log(size)+1));
+
+  pings.exit().remove();
+  pings.transition()
+    .attr("r", 3*(Math.log(size)+1))   
+    .style("opacity", 1.)
+    .duration(10)
+    .attr("transform", function(d) {
+      var proj = projection([
+          parseInt(long),
+          parseInt(lat)])
+    });
+}
+
 var groupstyle = d3.nest()
   .key(function(d) { return d.sub; })
   .entries(clustereddata);
@@ -34,19 +72,19 @@ var filteramount = groupstyle.sort(function(a, b) {
   return d3.descending(+a.totalpaintings, + b.totalpaintings);
 }).slice(0, 6);
 
-  chartx.domain(filteramount.map(function(d){
+chartx.domain(filteramount.map(function(d){
     return d.style;
   }));
-  charty.domain([0, d3.max(filteramount, function(d){
+charty.domain([0, d3.max(filteramount, function(d){
       return d.totalpaintings})]);
 
 
-  var bars = gChart.selectAll(".bar")
+var bars = gChart.selectAll(".bar")
   .data(filteramount, function(d){
     return + d.style;
   });  
-  bars.exit(); 
-  bars.enter()
+bars.exit(); 
+bars.enter()
   .append("rect")
   .attr("class", "bar")
   .attr("x", function(d){return chartx(d.style)})
@@ -58,17 +96,20 @@ var filteramount = groupstyle.sort(function(a, b) {
     return colors[show][d['values'][0]['sub']]})
   .attr("width", chartx.bandwidth())
   .attr("height",function(d){  
-      return chartheight - charty(d.totalpaintings) 
-    })
-    .on("mouseover", function(d){
-      console.log(d)
-      charttooltip
-        .style("display", "inline-block")
-        .html("Style: " + (d.style) + "<br>" + "Total amount: " + (d.totalpaintings));
+    return chartheight - charty(d.totalpaintings) 
   })
-      // .on("mouseout", function(d){ charttooltip.style("display", "none");})
-   
-  var charttooltip = chartsvg.append("div").attr("class", "charttooltip");
+  .on("mouseover", function(d){
+    console.log('check')
+    window.d = d
+    // make_ping(v.long, v.lat, colors[show][d[show]])
+    d.values.forEach(function(v){make_ping(v.long, v.lat, colors[show][d[show]], v.id.length )  })
+    charttooltip
+      .style("display", "inline-block")
+      .html("Style: " + (d[show]) + "<br>" + "Total amount: " + (d.totalpaintings));
+})
+    // .on("mouseout", function(d){ charttooltip.style("display", "none");})
+ 
+var charttooltip = chartsvg.append("div").attr("class", "charttooltip");
 
 
 
