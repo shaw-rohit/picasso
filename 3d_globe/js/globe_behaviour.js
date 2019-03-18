@@ -31,7 +31,6 @@ function rotateglobe(){
     // required for rotating the arrows
     gArrows.selectAll("#arrow")
         .attr('d', function(d) {
-            console.log('hi')
             var origin = projection([oldest.long, oldest.lat])
             var dest = projection([d.long, d.lat])
             
@@ -135,7 +134,6 @@ function dragged(){
 
     gArrows.selectAll("#arrow")
         .attr('d', function(d) {
-            console.log('hi')
             var origin = projection([oldest.long, oldest.lat])
             var dest = projection([d.long, d.lat])
             
@@ -170,8 +168,7 @@ function dragged(){
                 // smooth curve to midpoint 
                 + "S" + (midcurve[0]) + "," + (midcurve[1]) 
                 //smooth curve to origin    
-                + "," + origin[0] + "," + origin[1]
-            
+                + "," + origin[0] + "," + origin[1]            
         })
         .transition();
 }

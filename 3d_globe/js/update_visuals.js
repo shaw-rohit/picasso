@@ -152,7 +152,7 @@ function update_visuals(year, data, show, projection){
         })      
       .transition()
       .attr("id", function(d) {return d['id']})
-      .attr("r", function(d) {return 4*Math.log(d['id'].length);})   
+      .attr("r", function(d) {return 3*(Math.log(d['id'].length)+1);})   
       .style("opacity", 0.75)
       .duration(400)
       .attr("transform", function(d) {
