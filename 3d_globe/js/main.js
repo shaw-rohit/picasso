@@ -206,18 +206,12 @@ d3.csv("omni_locations.csv")
             .on("click", function(d){
                 if (show_migration == false){
                     show_migration = true;
+                    document.getElementById("migrationflow").children[0].style.display = "none" 
                 }
                 else {
                     show_migration = false;
-                    gArrows.selectAll("#arrow").remove()
-                    if (!is2d){
-                        rotation_timer.restart(function(){
-                            rotateglobe();
-                        });
-                        // set globe to moving and adjust play/pause icon
-                        moving = true;
-                        document.getElementById("play-button").children[0].style.display = "none"
-                    }
+                    gArrows.selectAll("#arrow").remove()    
+                    document.getElementById("migrationflow").children[0].style.display = "block"                        
                 }
             });
 
