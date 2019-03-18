@@ -158,8 +158,7 @@ function open_stats_painting(cluster, data, number_windows, div) {
   function details_painting(painting, div){
     
     statistics = painting_gallery(number_details_painting, "details")
-    statistics.html("This painting was made by " + painting.artist_full_name + " in " + painting.date +  " and was named " + "'" + painting.artwork_name + "'" +
-                    "<br /> The painting was made in " + painting.city + ": " + painting.country +
+    statistics.html("This painting was made by " + painting.artist_full_name + " in " + painting.date +  " and was named " + "'" + painting.artwork_name + "'" +                    
                     "<p /> <img src= " + painting.image_url + " width= '500px' height = '500px' ></img> ");
     console.log(painting);
   }
