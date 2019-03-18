@@ -6,7 +6,6 @@ legendRectSize = 18;
 legendSpacing = 4;
 
 var show = 'style'
-
 // default speed of the sider in 1000*seconds per year
 SLIDER_SPEED = 1000;
 
