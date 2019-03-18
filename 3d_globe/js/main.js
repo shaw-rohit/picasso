@@ -404,10 +404,11 @@ d3.csv("omni_locations.csv")
             if(i%5 === 0){offset = 0}
         }
 
+        // LEGEND
         var svgColors = d3.select("#legend")
              .append("svg")
-             .attr("width", 2000)
-             .attr("height", 50);
+             .attr("width", 1764)
+             .attr("height", 75);
         
         var div_subs = d3.select("#legend").append("div")
             .attr("class", "tooltip_colors")
@@ -415,50 +416,67 @@ d3.csv("omni_locations.csv")
         
         var div_subs_click = d3.select("#legend").append("div")
             .attr("class", "tooltip_colors_click")
-            .style("opacity", 1);
+            .style("opacity", 0);
             
         var colorScale = d3.scaleOrdinal()
             .domain(all_styles)
             .range(Object.values(color['style']));
              
-        
-        svgColors.selectAll("circle")
-             .data(colorScale.domain())
-             .enter()
-             .append("circle")
-             .attr("r", 9 )
-             .attr("cx", function(d){
-                 return all_styles.indexOf(d)*20+10
+        var selected_subs = [];
+
+        var spacing = 0;
+        var used_styles = all_styles
+        svgColors.selectAll("rect")
+            .data(colorScale.domain())
+            .enter()
+            .append("rect")
+            .attr('width', function(d){
+                //spacing = 1764/all_styles.length
+                spacing = 1764/used_styles.length
+                return spacing
+            })                    
+            .attr('height', 20)
+            .attr("x", function(d){
+                return used_styles.indexOf(d) * spacing
+                //return (all_styles.indexOf(d)+1)*spacing
             })
-             .attr("cy", 25)
-             .attr("fill", colorScale )
-             .on("mouseover", function(d){
-                 div_subs.transition()		
-                    .duration(200)		
-                    .style("opacity", .9);
-                 div_subs.html(d)	
-                    .style("left", (d3.event.pageX) + "px")		
-                    .style("top", (d3.event.pageY - 28) + "px");
-             })
-             .on("mouseout", function(d) {		
+            .attr("y", 30)
+            .attr("fill", colorScale )
+            .on("mouseover", function(d){
                 div_subs.transition()		
-                    .duration(500)		
-                    .style("opacity", 0);	
-             })
-             .on("click", function(d){
-                  svgColors.selectAll("circle").style("opacity", 0.5);
-                  d3.select(this).style("opacity", 1);
-                  div_subs_click.transition()		
-                    .duration(200)		
-                    .style("opacity", .9);
-                  div_subs_click.html(d)	
-                    .style("left", (d3.event.pageX) + "px")		
-                    .style("top", (d3.event.pageY - 28) + "px");
-                  div_subs.transition()		
-                    .duration(20)		
-                    .style("opacity", 0);	
-                  
-             })
+                .duration(200)		
+                .style("opacity", .9);
+                div_subs.html(d)	
+                .style("left", (d3.event.pageX) + "px")		
+                .style("top", (d3.event.pageY - 28) + "px");
+            })
+            .on("mouseout", function(d) {		
+            div_subs.transition()		
+                .duration(500)		
+                .style("opacity", 0);	
+            })
+            .on("click", function(d){
+                svgColors.selectAll("rect").style("opacity", function(d){
+                    if (selected_subs.includes(d)){
+                        return 1
+                } else {
+                    return 0.3
+                }                     
+                });
+                d3.select(this).style("opacity", 1);
+                selected_subs.push(d)
+                
+                div_subs_click.transition()		
+                .duration(200)		
+                .style("opacity", .9);
+                div_subs_click.html(d)	
+                .style("left", (d3.event.pageX) + "px")		
+                .style("top", (d3.event.pageY - 28) + "px");
+                div_subs.transition()		
+                .duration(20)		
+                .style("opacity", 0);	
+                
+            })
         // var legend = show_legend(all_styles, styles_colors)
 
         // this will tigger updates, hence, when a change in value has been detected with transitions

@@ -229,6 +229,7 @@ function update_slider_plot(data, meta_data, colors, show, years){
         .attr("stroke", "yellow")
         .attr('stroke-width', 2);
 
+
     lines.exit().remove();
     lines.transition().duration(250)
         .attr("x1", function(d){return star_xScale(d)})
