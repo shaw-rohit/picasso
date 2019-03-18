@@ -28,7 +28,9 @@ var time = Date.now()
 var YEAR_STEP = 5
 var LONGLAT_STEP = 0.2
 
+// for migration:
 var show_migration = false;
+var oldest;
 
 
 var svgContainer = d3.select("#globe").append("svg")
@@ -200,19 +202,36 @@ d3.csv("omni_locations.csv")
         } 
         checkpoints.push(d3.max(years))
         
-        d3.select("#migrationon")
+        d3.select("#migrationflow")
             .on("click", function(d){
-                show_migration = true;
-            })
+                if (show_migration == false){
+                    show_migration = true;
+                }
+                else {
+                    show_migration = false;
+                    gArrows.selectAll("#arrow").remove()
+                    if (!is2d){
+                        rotation_timer.restart(function(){
+                            rotateglobe();
+                        });
+                        // set globe to moving and adjust play/pause icon
+                        moving = true;
+                        document.getElementById("play-button").children[0].style.display = "none"
+                    }
+                }
+            });
+
         
-        d3.select("#migrationoff")
+        /*d3.select("#migrationoff")
             .on("click", function(d){
                 show_migration = false;
                 gArrows.selectAll("#arrow").remove()
-                rotation_timer.restart(function(){
-                    rotateglobe();
-                });
-            })
+                if (!is2d){
+                    rotation_timer.restart(function(){
+                        rotateglobe();
+                    });
+                }
+            });*/
 
         d3.select("#twomap")
         .style("opacity", 1)
@@ -289,32 +308,12 @@ d3.csv("omni_locations.csv")
                     .style("opacity", .1)
                     .attr("r", 0)
                     .remove();
-                setTimeout(function(){update_visuals(year_interval, data, show, projection)}
-                    , 1000)
-            /*
-            svgContainer.selectAll("circle")
-                .attr("transform", function(d) {
-                    var proj = projection([
-                        parseInt(d["long"]),
-                        parseInt(d["lat"])])
-                    return "translate(" + [proj[0] - d["width"], proj[1] - d["height"]]
-                     + ")";
-                });
-                */
+            setTimeout(function(){update_visuals(year_interval, data, show, projection)}
+                , 1000)
             }
 
             is_globe = true;            
-            
-//             setTimeout(function() {
-//                 rotation_timer = d3.timer(function() {
-//                   var dt = Date.now() - time;
-//                   projection.rotate([rotate[0] + velocity[0] * dt, 0]);
-//                   svgContainer.selectAll("path").attr("d", path(world));
-//                   water.attr("d", path);
-//  
-//               });
-//             }, 1050)
-        
+       
         });
 
         if (!playAuto){

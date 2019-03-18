@@ -308,8 +308,12 @@ M480.1,523.1h87.5c-2.5,54-21,103.8-50.8,145h-64.8C468.6,625.7,478.7,576.2,480.1,
 c-1.6-59.6-14.1-114.7-34.3-160.2h59.3c36.6,43.9,59.6,99.4,62.5,160.2H480.1z M99.3,694.1h54.9c13.4,27.4,29.9,51,48.3,69.4
 C162.8,748.5,127.6,724.5,99.3,694.1z M392.4,763.5c18.6-18.4,34.9-41.9,48.3-69.4h54.9C467.3,724.5,432.1,748.5,392.4,763.5z"/>
              </symbol>
+            
+            <symbol id="migration-flow" viewBox="0 0 20 20">
+              <path d="M17.218,2.268L2.477,8.388C2.13,8.535,2.164,9.05,2.542,9.134L9.33,10.67l1.535,6.787c0.083,0.377,0.602,0.415,0.745,0.065l6.123-14.74C17.866,2.46,17.539,2.134,17.218,2.268 M3.92,8.641l11.772-4.89L9.535,9.909L3.92,8.641z M11.358,16.078l-1.268-5.613l6.157-6.157L11.358,16.078z"></path>
+            </symbol>
 
-                         <symbol id="map-light" viewBox="-40 80 700 700">
+             <symbol id="map-light" viewBox="-40 80 700 700">
                  <path d="M377,600.7H98.7C44.3,600.7,0,556.4,0,501.9V223.6c0-54.5,44.3-98.7,98.7-98.7H377
  c54.4,0,98.7,44.3,98.7,98.7v278.3C475.8,556.4,431.5,600.7,377,600.7z M98.7,153.1c-38.9,0-70.5,31.6-70.5,70.5v278.3
  c0,38.9,31.6,70.5,70.5,70.5H377c38.9,0,70.5-31.6,70.5-70.5V223.6c0-38.9-31.6-70.5-70.5-70.5H98.7z"/>
@@ -372,7 +376,15 @@ c0,10.8,1.8,21.2,5.2,30.9h29.5C166.9,626,164.2,615.5,164.2,604.3z"/>
                  <div class="map_control_button_label">Switch to Plane view</div>
              </li>
 
-                         <li id="map_control_color_dark">
+
+             <li id="migrationflow">
+              <svg class="map_control_button">
+                <use xlink:href="#migration-flow"></use>
+              </svg>
+              <div class="map_control_button_label">Toggle Migration Flow on/off</div>
+            </li>
+
+            <!--             <li id="map_control_color_dark">
                  <svg class="map_control_button">
                      <use xlink:href="#map-dark"></use>
                  </svg>
@@ -383,7 +395,7 @@ c0,10.8,1.8,21.2,5.2,30.9h29.5C166.9,626,164.2,615.5,164.2,604.3z"/>
                      <use xlink:href="#map-light"></use>
                  </svg>
                  <div class="map_control_button_label">Toggle map Color</div>
-             </li>
+             </li>-->
 
                          <li id="map_control_zoom_in">
                  <svg class="map_control_button">
