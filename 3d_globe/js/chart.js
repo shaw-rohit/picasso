@@ -9,7 +9,7 @@ const chartsvg     = d3.select(".widget").append("svg")
       gChart       = chartsvg.append("g")
                    .attr("transform", `translate(${chartmargin.left},${chartmargin.top})`);
 
-mouseover_time = 0
+mouseover_time = 1
 var mouse_timer = 0
 
 function update_chart(clustereddata, currentdate, colors, show){
@@ -22,21 +22,15 @@ function update_chart(clustereddata, currentdate, colors, show){
 function make_pings(data, color){
 
   gPins.selectAll("#pingie").remove();
-
   var pings = gPins.selectAll(".ping").data(data);
   
-
   pings.enter().append("circle", ".ping")
     .attr('class','ping')
     .attr("id", "pingie")
   // set starting coordinates based on projection location
     .attr("cx", function(d) {
         var circle = projection([parseInt(d.long), parseInt(d.lat)]);
-        window.hoi = d.long;
-        window.hai = d.id.length;
-        window.joe = d.id.color;
         var rotate = projection.rotate(); // antipode of actual rotational center.
-
         var center = projection([-rotate[0], -rotate[1]])
         var distance = d3.geoDistance(circle,center);
             if (circle[0] > center[0]){
@@ -65,7 +59,7 @@ function make_pings(data, color){
       var distance = d3.geoDistance(circle,center);
         return distance > Math.PI/2 ? 'none' : color;
     }).attr('stroke-width', 3)
-    .attr("r", function(d) { return 5*(Math.log(d.id.length)+1)})
+    .attr("r", function(d) { return (15/mouseover_time)*(Math.log(d.id.length+1)+1)})
     .style("opacity", 1.0)
     .style('stroke-opacity', 1.0) // this does not work somehow
     .attr("transform", function(d) {
@@ -76,7 +70,7 @@ function make_pings(data, color){
          + ")";
     });
     mouseover_time+=1
-    console.log(mouseover_time)
+    console.log((15/mouseover_time))
     // pings.exit().remove();
     // pings.transition().duration(250)
 
@@ -134,17 +128,18 @@ bars.enter()
     console.log('in')
     window.d = d
     mouse_timer = setInterval (function() {
-      make_pings(d.values, colors[show][d.key]), 1000 });
+      make_pings(d.values, colors[show][d.key])}, 500);
     charttooltip
       .style("display", "inline-block")
       .html("Style: " + (d[show]) + "<br>" + "Total amount: " + (d.totalpaintings));
   })
   .on("mouseout", function(d){
     clearTimeout(mouse_timer)
-    mouseover_time = 0
+    mouseover_time = 1
 
     console.log('out')
-    window.d = d})
+    window.d = d
+  })
     // .on("mouseout", function(d){ charttooltip.style("display", "none");})
  
 var charttooltip = chartsvg.append("div").attr("class", "charttooltip");
