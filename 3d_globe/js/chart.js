@@ -23,25 +23,54 @@ function make_ping(long, lat, color, size){
   pings.enter().append("circle", ".ping")
   // set starting coordinates based on projection location
     .attr("cx", function(d) {
-        var circle = projection([parseInt(long), parseInt(lat)]);
-        var rotate = projection.rotate(); // antipode of actual rotational center.
-        var center = projection([-rotate[0], -rotate[1]])
-        var distance = d3.geoDistance(circle,center);
+            var circle = projection([parseInt(d["long"]),
+            parseInt(d["lat"])]);
+            var rotate = projection.rotate(); // antipode of actual rotational center.
+            var center = projection([-rotate[0], -rotate[1]])
+            var distance = d3.geoDistance(circle,center);
+
+            // need to save this somewhere
+            if (circle[0] > center[0]){
+                d["width"] = width
+                return width
+            }
+            else {
+                d["width"] = 0
+                return 0
+            }
     })
     .attr("cy", function(d) {
-        var circle = projection([parseInt(long), parseInt(lat)]);
-        var rotate = projection.rotate(); // antipode of actual rotational center.
-        var center = projection([-rotate[0], -rotate[1]])
-        var distance = d3.geoDistance(circle,center);
+            var circle = projection([parseInt(d["long"]),
+            parseInt(d["lat"])]);
+            var rotate = projection.rotate(); // antipode of actual rotational center.
+            var center = projection([-rotate[0], -rotate[1]])
+            var distance = d3.geoDistance(circle,center);
+
+            // need to save this somewhere
+            if (circle[1] > center[1]){
+                d["height"] = height
+                return height
+            }
+            else {
+                d["height"] = 0
+                return 0
+            }
     })
     .attr("stroke", function(d) {
-    var circle = [parseInt(long), parseInt(lat)];
-    var rotate = projection.rotate(); // antipode of actual rotational center.
-    var center = [-rotate[0], -rotate[1]]
-    var distance = d3.geoDistance(circle,center);
+        var circle = [parseInt(long), parseInt(lat)];
+        var rotate = projection.rotate(); // antipode of actual rotational center.
+        var center = [-rotate[0], -rotate[1]]
+        var distance = d3.geoDistance(circle,center);
         return distance > Math.PI/2 ? 'none' : color;
     }).attr('stroke-width', 3)
-    .attr("r", 3*(Math.log(size)+1));
+    .attr("r", 3*(Math.log(size)+1))
+    .attr("transform", function(d) {
+      var proj = projection([
+            parseInt(d["long"]),
+            parseInt(d["lat"])])
+        return "translate(" + [proj[0] - d["width"], proj[1] - d["height"]]
+         + ")";
+    });
 
   pings.exit().remove();
   pings.transition()
@@ -50,8 +79,10 @@ function make_ping(long, lat, color, size){
     .duration(10)
     .attr("transform", function(d) {
       var proj = projection([
-          parseInt(long),
-          parseInt(lat)])
+            parseInt(d["long"]),
+            parseInt(d["lat"])])
+        return "translate(" + [proj[0] - d["width"], proj[1] - d["height"]]
+         + ")";
     });
 }
 

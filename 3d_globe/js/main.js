@@ -207,6 +207,7 @@ d3.csv("omni_locations.csv")
                 if (show_migration == false){
                     show_migration = true;
                     document.getElementById("migrationflow").children[0].style.display = "none" 
+                    update_visuals(year_interval, data, show, projection);
                 }
                 else {
                     show_migration = false;
@@ -257,6 +258,11 @@ d3.csv("omni_locations.csv")
                     .style("opacity", .1)
                     .attr("r", 0)
                     .remove();
+
+                gArrows.selectAll("#arrow").transition().duration(200) // Will remove all previous circles when update is initiated
+                    .style("opacity", .1)
+                    .remove();
+
                 setTimeout(function(){update_visuals(year_interval, data, show, projection)}
                     , 1000)
 
@@ -302,6 +308,11 @@ d3.csv("omni_locations.csv")
                     .style("opacity", .1)
                     .attr("r", 0)
                     .remove();
+
+            gArrows.selectAll("#arrow").transition().duration(200) // Will remove all previous circles when update is initiated
+                    .style("opacity", .1)
+                    .remove();
+
             setTimeout(function(){update_visuals(year_interval, data, show, projection)}
                 , 1000)
             }
