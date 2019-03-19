@@ -366,6 +366,9 @@ d3.csv("omni_locations.csv")
         d3.nest()
             .key(function(d) { return d['media']; })
             .rollup(function(v) { 
+                media_data.filter(function(d){
+                    return d.sub != "Unknown"
+                })
                 media_data.push({
                 first: d3.min(v, function(d) { return +d.date; }), 
                 sub: d3.map(v, function(d) { return d.media; }).keys()[0], 
