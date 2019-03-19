@@ -148,13 +148,19 @@ function update_visuals(year, data, show, projection){
             var center = [-rotate[0], -rotate[1]]
             var distance = d3.geoDistance(circle,center);
             return distance > Math.PI/2 ? 'none' : color[show][d['sub']];
-        })      
-        .transition()
-        .attr("id", function(d) {return d['id']})
-        .attr("r", function(d) {return 3*(Math.log(d['id'].length)+1);})   
-        .style("opacity", 0.5)
-        .duration(400)
-        .attr("transform", function(d) {
+        })
+      .transition()
+      .attr("id", function(d) {
+          str = d['sub']
+          str = str.replace(/[^a-zA-Z0-9\s!?]+/g, '');
+          str = str.replace(/\s/g, '');
+          return str
+          
+    })
+      .attr("r", function(d) {return 3*(Math.log(d['id'].length)+1);})   
+      .style("opacity", 0.55)
+      .duration(400)
+      .attr("transform", function(d) {
         var proj = projection([
             parseInt(d["long"]),
             parseInt(d["lat"])])

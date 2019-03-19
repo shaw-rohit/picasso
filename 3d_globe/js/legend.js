@@ -78,6 +78,7 @@ function nav_bar(data_used, color, show){
     // Remove any existing legend    
     svgColors.selectAll("#legendbar").remove()
     d3.select("#legend").selectAll("#hover").remove()
+    d3.select("#legend").selectAll("#clicked").remove()
     
     // Add tooltips for mouseover
     var div_subs = d3.select("#legend").append("div")
@@ -87,7 +88,7 @@ function nav_bar(data_used, color, show){
     
     // Add tooltips for on click
     var div_subs_click = d3.select("#legend").append("div")
-        //.attr("id", "tooltip" + ...)
+        .attr("id", "clicked")
         .attr("class", "tooltip_colors_click")
         .style("opacity", 0);
     
@@ -102,6 +103,7 @@ function nav_bar(data_used, color, show){
     // Initiate variable for placing of the individual bars
     var spacing = 0;
     
+    var is_clicked = false;
     // Create individual bars
     svgColors.selectAll("rect")
         .data(colorScale.domain())
@@ -141,6 +143,7 @@ function nav_bar(data_used, color, show){
         })
         .on("click", function(d){
             //counter+=1
+            
             // Add selected to list of selected elements
             selected_subs.push(d)
             
@@ -152,6 +155,30 @@ function nav_bar(data_used, color, show){
                     return 0.3
                 }                     
             });
+            
+            subs_present.forEach(function(element){
+                if (!selected_subs.includes(element)){
+                     
+                    identifyer = element
+                    identifyer = identifyer.replace(/[^a-zA-Z0-9 \s !?]+/g, '');
+                    identifyer = identifyer.replace(/\s/g, '');
+                    gPins.selectAll("#" + identifyer).style("opacity", 0)
+                } else {
+                    
+                    identifyer = element
+                    identifyer = identifyer.replace(/[^a-zA-Z0-9 \s !?]+/g, '');
+                    identifyer = identifyer.replace(/\s/g, '');
+                    gPins.selectAll("#" + identifyer).style("opacity", 0.55)
+                }
+            })
+//             str = d
+//             str = str.replace(/[^a-zA-Z0-9 \s !?]+/g, '');
+//             str = str.replace(/\s/g, '');
+//             console.log("joe", str)
+//             gPins.selectAll("#"+str).style("opacity", function(pin){
+//                 console.log("PIN", pin)
+//                 return 0.01
+//             })
             
             // Show tooltip, keep showing
             div_subs_click.transition()		
@@ -166,5 +193,5 @@ function nav_bar(data_used, color, show){
                 .duration(20)		
                 .style("opacity", 0);	
             
-        })
+            })
 }
