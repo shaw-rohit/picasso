@@ -164,7 +164,7 @@ function nav_bar(data_used, color, show){
                     identifyer = identifyer.replace(/\s/g, '');
                     gPins.selectAll("#" + identifyer).style("opacity", 0)
                         .on("mouseover", function(element){
-                            element.selectAll(".tooltip").remove()
+                            element.selectAll(".tooltip").style("opacity", 0)
                         })
                 } else {
                     
