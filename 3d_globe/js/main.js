@@ -182,6 +182,9 @@ var color = {'school': {}, 'style': {}, 'media':{}}
 d3.csv("omni_locations.csv")
     .then(function(data){
 
+        data = data.filter(function(d){
+            return d.media != "Unknown" && d.school != "Unknown";
+        })
         // initialize things to show
         
         var year = 100
@@ -366,9 +369,6 @@ d3.csv("omni_locations.csv")
         d3.nest()
             .key(function(d) { return d['media']; })
             .rollup(function(v) { 
-                media_data.filter(function(d){
-                    return d.sub != "Unknown"
-                })
                 media_data.push({
                 first: d3.min(v, function(d) { return +d.date; }), 
                 sub: d3.map(v, function(d) { return d.media; }).keys()[0], 
@@ -532,7 +532,7 @@ d3.csv("omni_locations.csv")
 
         slider.onChange(function(newRange){
             d3.select("#range-label").text(newRange.begin + " - " + newRange.end);
-            year_interval = [newRange.begin, newRange.end]  
+            year_interval = [newRange.begin, newRange.end]
             update_visuals(year_interval, data, show, projection)
             update_chart(clustered_data,year-YEAR_STEP, color, show);   
 
