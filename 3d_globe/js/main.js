@@ -475,13 +475,7 @@ d3.csv("omni_locations.csv")
             update_visuals(year_interval, data, show, projection)
 
             // update navbar
-            nav_bar(clustered_data, color, show)
-            
-            // only show clicked elements
-            console.log('Slider')
-            console.log(subs_present)
-            console.log(selected_subs)
-            
+            nav_bar(clustered_data, color, show)        
 
 
             update_chart(clustered_data,year-YEAR_STEP, color, show);   
