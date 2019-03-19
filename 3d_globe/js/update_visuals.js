@@ -55,6 +55,7 @@ function update_visuals(year, data, show, projection){
         .attr("r", 0)
         .remove();
 
+    // TODO? REMOVE STYLE FROM SUBSET IF NO LONGER WITHIN TIMELINE
     
     // insert filtered data into world map
     gPins.selectAll(".pin")
