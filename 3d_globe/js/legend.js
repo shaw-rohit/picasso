@@ -163,6 +163,9 @@ function nav_bar(data_used, color, show){
                     identifyer = identifyer.replace(/[^a-zA-Z0-9 \s !?]+/g, '');
                     identifyer = identifyer.replace(/\s/g, '');
                     gPins.selectAll("#" + identifyer).style("opacity", 0)
+                        .on("mouseover", function(element){
+                            element.selectAll(".tooltip").remove()
+                        })
                 } else {
                     
                     identifyer = element
