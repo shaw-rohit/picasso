@@ -142,7 +142,6 @@ function nav_bar(data_used, color, show){
                 .style("opacity", 0);	
         })
         .on("click", function(d){
-            //counter+=1
             
             // Add selected to list of selected elements
             selected_subs.push(d)
@@ -156,32 +155,31 @@ function nav_bar(data_used, color, show){
                 }                     
             });
             
+            // Check which elements of the legend are selected
             subs_present.forEach(function(element){
                 if (!selected_subs.includes(element)){
-                     
+                    
+                    // Get ID for pins
                     identifyer = element
                     identifyer = identifyer.replace(/[^a-zA-Z0-9 \s !?]+/g, '');
                     identifyer = identifyer.replace(/\s/g, '');
+                    
+                    // Remove all pins that are not of the selected legend elements
                     gPins.selectAll("#" + identifyer).style("opacity", 0)
                         .on("mouseover", function(element){
+                            
+                            // Hide tooltips
                             element.selectAll(".tooltip").style("opacity", 0)
                         })
                 } else {
                     
+                    // Show pings of later-on selected elements of the legend
                     identifyer = element
                     identifyer = identifyer.replace(/[^a-zA-Z0-9 \s !?]+/g, '');
                     identifyer = identifyer.replace(/\s/g, '');
                     gPins.selectAll("#" + identifyer).style("opacity", 0.55)
                 }
             })
-//             str = d
-//             str = str.replace(/[^a-zA-Z0-9 \s !?]+/g, '');
-//             str = str.replace(/\s/g, '');
-//             console.log("joe", str)
-//             gPins.selectAll("#"+str).style("opacity", function(pin){
-//                 console.log("PIN", pin)
-//                 return 0.01
-//             })
             
             // Show tooltip, keep showing
             div_subs_click.transition()		
