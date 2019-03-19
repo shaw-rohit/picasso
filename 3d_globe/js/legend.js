@@ -178,17 +178,21 @@ function nav_bar(data_used, color, show){
 
             subs_present.forEach(function(element){
                 if (selected_subs.length < 1){
+                    
                     identifyer = element
-                    identifyer = identifyer.replace(/[^a-zA-Z0-9 \s !?]+/g, '');
-                    identifyer = identifyer.replace(/\s/g, '');
+                    identifyer = identifyer.replace(/[^a-zA-Z0-9 \s !?]+/g, '')
+                    identifyer = identifyer.replace(/\s/g, '')
+                    identifyer = "a" + identifyer
+                    
                     gPins.selectAll("#" + identifyer).style("opacity", 0.55)
                 }
                 else if (!selected_subs.includes(element)){
                     
                     // Get ID for pins
                     identifyer = element
-                    identifyer = identifyer.replace(/[^a-zA-Z0-9 \s !?]+/g, '');
-                    identifyer = identifyer.replace(/\s/g, '');
+                    identifyer = identifyer.replace(/[^a-zA-Z0-9 \s !?]+/g, '')
+                    identifyer = identifyer.replace(/\s/g, '')
+                    identifyer = "a" + identifyer
                     
                     // Remove all pins that are not of the selected legend elements
                     gPins.selectAll("#" + identifyer).style("opacity", 0)
@@ -202,6 +206,7 @@ function nav_bar(data_used, color, show){
                     identifyer = element
                     identifyer = identifyer.replace(/[^a-zA-Z0-9 \s !?]+/g, '');
                     identifyer = identifyer.replace(/\s/g, '');
+                    identifyer = "a" + identifyer
                     gPins.selectAll("#" + identifyer).style("opacity", 0.55)
                 }
             })

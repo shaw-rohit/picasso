@@ -151,8 +151,9 @@ function update_visuals(year, data, show, projection){
       .transition()
       .attr("id", function(d) {
           str = d['sub']
-          str = str.replace(/[^a-zA-Z0-9\s!?]+/g, '');
-          str = str.replace(/\s/g, '');
+          str = str.replace(/[^a-zA-Z0-9\s!?]+/g, '')
+          str = str.replace(/\s/g, '')
+          str = "a" + str
           return str
           
     })
