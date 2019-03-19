@@ -52,7 +52,7 @@ var globalstats =  d3.select("#statsright").append("div")
 .style("opacity", 1);
 
 var is2d = false; //check if 2d or 3d for play button
-
+var clustered_data;
 ////////////////
 // Create map //
 ////////////////
@@ -183,7 +183,7 @@ d3.csv("omni_locations.csv")
     .then(function(data){
 
         data = data.filter(function(d){
-            return d.media != "Unknown" && d.school != "Unknown";
+            return d.media != "Unknown" || d.school != "Unknown";
         })
         // initialize things to show
         
@@ -529,7 +529,9 @@ d3.csv("omni_locations.csv")
         }).map(data);
 
         update_slider_plot(styles_slider_data, styles_data, color, show, year_interval)
-
+        clustered_data = update_visuals(year_interval, data, show, projection)
+        console.log(clustered_data)
+        createchart(clustered_data);
         slider.onChange(function(newRange){
             d3.select("#range-label").text(newRange.begin + " - " + newRange.end);
             year_interval = [newRange.begin, newRange.end]
@@ -543,7 +545,7 @@ d3.csv("omni_locations.csv")
             else if (show==='media'){ update_slider_plot(media_slider_data, media_data, color, show, year_interval) }
             // update_slider_plot(styles_slider_data, styles_data, color, show, year_interval)         
         });
-
+    
         //var legend = show_legend(all_styles, styles_colors, data, show, show_migration, century)
 
         
