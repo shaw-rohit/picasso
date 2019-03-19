@@ -9,8 +9,8 @@ const chartsvg     = d3.select(".widget").append("svg")
       gChart       = chartsvg.append("g")
                    .attr("transform", `translate(${chartmargin.left},${chartmargin.top})`);
 
-
-
+mouseover_time = 0
+var mouse_timer = 0
 
 function update_chart(clustereddata, currentdate, colors, show){
   d3.select(".widget").selectAll("g > *").transition().duration(100).remove() //TODO: Create transition in creating new chart
@@ -75,7 +75,8 @@ function make_pings(data, color){
         return "translate(" + [proj[0] - d["width"], proj[1] - d["height"]]
          + ")";
     });
-
+    mouseover_time+=1
+    console.log(mouseover_time)
     // pings.exit().remove();
     // pings.transition().duration(250)
 
@@ -130,14 +131,20 @@ bars.enter()
     return chartheight - charty(d.totalpaintings) 
   })
   .on("mouseover", function(d){
-    console.log('check')
+    console.log('in')
     window.d = d
-    // make_ping(v.long, v.lat, colors[show][d[show]])
-    make_pings(d.values, colors[show][d.key])
+    mouse_timer = setInterval (function() {
+      make_pings(d.values, colors[show][d.key]), 1000 });
     charttooltip
       .style("display", "inline-block")
       .html("Style: " + (d[show]) + "<br>" + "Total amount: " + (d.totalpaintings));
-})
+  })
+  .on("mouseout", function(d){
+    clearTimeout(mouse_timer)
+    mouseover_time = 0
+
+    console.log('out')
+    window.d = d})
     // .on("mouseout", function(d){ charttooltip.style("display", "none");})
  
 var charttooltip = chartsvg.append("div").attr("class", "charttooltip");
