@@ -61,8 +61,16 @@ function make_pings(data, color){
         return distance > Math.PI/2 ? 'none' : color;
     }).attr('stroke-width', 3)
     .attr("r", function(d) { return 5*(Math.log(d.id.length)+1)})
-    .style("opacity", 1.);
+    .style("opacity", 1.)
+    .attr("transform", function(d) {
+      var proj = projection([
+            parseInt(d["long"]),
+            parseInt(d["lat"])])
+        return "translate(" + [proj[0] - d["width"], proj[1] - d["height"]]
+         + ")";
+    });
 
+           
 }
 
 
