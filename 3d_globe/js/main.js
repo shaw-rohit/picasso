@@ -490,8 +490,7 @@ d3.csv("omni_locations.csv")
             update_slider_plot(styles_slider_data, styles_data, color, show, year_interval)
             update_visuals(year_interval,data,show, projection)
             nav_bar(clustered_data, color, show)
-            update_chart(clustered_data,year-YEAR_STEP, color, show);   
-            legend = update_legend(all_styles, styles_colors, legend, data, show, show_migration, century)
+            update_chart(clustered_data,year-YEAR_STEP, color, show);
         });
 
         d3.select("#school")
@@ -500,8 +499,7 @@ d3.csv("omni_locations.csv")
             update_visuals(year_interval,data,show, projection)
             update_slider_plot(school_slider_data,  schools_data, color, show, year_interval)
             nav_bar(clustered_data, color, show)
-            update_chart(clustered_data,year-YEAR_STEP, color, show);   
-            legend = update_legend(all_schools, schools_colors, legend, data, show, show_migration, century)
+            update_chart(clustered_data,year-YEAR_STEP, color, show);
         });
 
         d3.select("#media")
