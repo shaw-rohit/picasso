@@ -1,13 +1,16 @@
-  const chartsvg     = d3.select(".widget").append("svg")
-    .attr("width", 600)
-    .attr("height", 450);
-  chartmargin  = {top: 20, right: 20, bottom: 30, left: 130},
-  chartwidth   = 550 - chartmargin.left - chartmargin.right,
-  chartheight  = 350 - chartmargin.top  - chartmargin.bottom,
-  chartx       = d3.scaleBand().rangeRound([0, chartwidth]).padding(0.2),
-  charty       = d3.scaleLinear().rangeRound([chartheight, 0]),
-  gChart       = chartsvg.append("g")
-    .attr("transform", `translate(${chartmargin.left},${chartmargin.top})`);
+const chartsvg     = d3.select(".widget").append("svg")
+                    .attr("width", 600)
+                    .attr("height", 450);
+      chartmargin  = {top: 20, right: 20, bottom: 30, left: 130},
+      chartwidth   = 550 - chartmargin.left - chartmargin.right,
+      chartheight  = 350 - chartmargin.top  - chartmargin.bottom,
+      chartx       = d3.scaleBand().rangeRound([0, chartwidth]).padding(0.2),
+      charty       = d3.scaleLinear().rangeRound([chartheight, 0]),
+      gChart       = chartsvg.append("g")
+                   .attr("transform", `translate(${chartmargin.left},${chartmargin.top})`);
+
+mouseover_time = 0
+var mouse_timer = 0
 
   
           
@@ -73,7 +76,8 @@ function make_pings(data, color){
         return "translate(" + [proj[0] - d["width"], proj[1] - d["height"]]
          + ")";
     });
-
+    mouseover_time+=1
+    console.log(mouseover_time)
     // pings.exit().remove();
     // pings.transition().duration(250)
 
@@ -167,6 +171,54 @@ bars.transition()
   .attr("height",function(d){  
     return chartheight - charty(d.totalpaintings) 
   })
+  bars
+  .on("mouseover", function(d){
+    console.log('in')
+    window.d = d
+    mouse_timer = setInterval (function() {
+      make_pings(d.values, colors[show][d.key]), 1000 });
+    charttooltip
+      .style("display", "inline-block")
+      .html("Style: " + (d[show]) + "<br>" + "Total amount: " + (d.totalpaintings));
+  })
+  .on("mouseout", function(d){
+    clearTimeout(mouse_timer)
+    mouseover_time = 0
+
+    console.log('out')
+    window.d = d})
+    // .on("mouseout", function(d){ charttooltip.style("display", "none");})
+ 
+var charttooltip = chartsvg.append("div").attr("class", "charttooltip");
+
+
+
+bars.transition()
+    .duration(200)
+    .ease(d3.easeLinear)
+    .attr("y", function(d){
+      return charty(d.totalpaintings);
+    })
+    .attr("fill", function(d) {return colors[show][d['values'][0]['sub']]}) 
+    .attr("height",function(d){  
+      return chartheight - charty(d.totalpaintings) 
+    })
+    
+  gChart.append("g")
+    .attr("class", "x axis")
+    .attr("transform", "translate(0," + chartheight + ")")
+    .call(d3.axisBottom(chartx))
+    .selectAll("text")  
+    .style("text-anchor", "end")
+    .attr("dx", "-.8em")
+    .attr("dy", ".15em")
+    .attr("transform", "rotate(-30)")
+
+
+  // .attr("transform", "rotate(45)")  
+  gChart.append("g")
+      .attr("class", "axis axis-y")
+      .call(d3.axisLeft(charty).ticks(10).tickSize(8))
   
   
   // gChart.selectAll(".bar")
