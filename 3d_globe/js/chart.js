@@ -62,7 +62,7 @@ function make_pings(data, color){
     }).attr('stroke-width', 3)
     .attr("r", function(d) { return (10/mouseover_time)*(Math.log(d.id.length+1)+1)})
     .style("fill", "none")
-    .style('stroke-opacity', 1.0) // this does not work somehow
+    .style('stroke-opacity', 0.8) // this does not work somehow
     .attr("transform", function(d) {
       var proj = projection([
             parseInt(d["long"]),
@@ -71,13 +71,11 @@ function make_pings(data, color){
          + ")";
     });
     mouseover_time+=1
-    if (mouseover_time===10){mouseover_time=1}
-    console.log((15/mouseover_time))
+    if (mouseover_time===5){mouseover_time=1}
     // pings.exit().remove();
-    // pings.transition().duration(250)
-
-
-           
+    pings.transition().duration(10)
+      .attr("r", function(d) { return (10/(mouseover_time+1))*(Math.log(d.id.length+1)+1)})
+          
 }
 var groupstyle = d3.nest()
   .key(function(d) { return d.sub; })
@@ -139,7 +137,6 @@ return charty(d.totalpaintings);
   return chartheight - charty(d.totalpaintings) 
 })
 .on("mouseover", function(d){
-  console.log('in')
 
   make_pings(d.values, colors[show][d.key]);
   mouse_timer = setInterval (function() {
@@ -157,7 +154,6 @@ return charty(d.totalpaintings);
     clearTimeout(mouse_timer)
     mouseover_time = 1
     gPins.selectAll("#pingie").remove()
-    console.log('out')
     // window.d = d
   })
   // .on("mouseout", function(d){ charttooltip.style("display", "none");})
@@ -174,7 +170,6 @@ bars.transition()
   })
   bars
   .on("mouseover", function(d){
-    console.log('in')
     // window.d = d
     make_pings(d.values, colors[show][d.key]);
     mouse_timer = setInterval (function() {
@@ -187,14 +182,11 @@ bars.transition()
     clearTimeout(mouse_timer)
     mouseover_time = 1
     gPins.selectAll("#pingie").remove()
-    console.log('out')
     // window.d = d
   })
     // .on("mouseout", function(d){ charttooltip.style("display", "none");})
  
 var charttooltip = chartsvg.append("div").attr("class", "charttooltip");
-
-
 
 bars.transition()
     .duration(200)
