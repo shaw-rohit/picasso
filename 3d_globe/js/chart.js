@@ -21,12 +21,14 @@ function update_chart(clustereddata, currentdate, colors, show){
 // function make_ping(long, lat, color, size){
 function make_pings(data, color){
 
-  gPins.selectAll(".ping").remove();
+  gPins.selectAll("#pingie").remove();
 
   var pings = gPins.selectAll(".ping").data(data);
   
 
   pings.enter().append("circle", ".ping")
+    .attr('class','ping')
+    .attr("id", "pingie")
   // set starting coordinates based on projection location
     .attr("cx", function(d) {
         var circle = projection([parseInt(d.long), parseInt(d.lat)]);
@@ -34,6 +36,7 @@ function make_pings(data, color){
         window.hai = d.id.length;
         window.joe = d.id.color;
         var rotate = projection.rotate(); // antipode of actual rotational center.
+
         var center = projection([-rotate[0], -rotate[1]])
         var distance = d3.geoDistance(circle,center);
             if (circle[0] > center[0]){
