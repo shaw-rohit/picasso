@@ -162,7 +162,7 @@ function update_visuals(year, data, show, projection){
          + ")";
         });
           
-    return cluster_data;
+    return clustered_data;
 };
 
 function update_slider_plot(data, meta_data, colors, show, years){

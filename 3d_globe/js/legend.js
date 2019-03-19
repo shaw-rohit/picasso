@@ -58,3 +58,113 @@ function update_legend(data_set, colors, legend, all_data, show, show_migration,
     legend = show_legend(data_set, colors, all_data, show, show_migration, century)// Create new legend
     return legend
 }
+
+function nav_bar(data_used, color, show){
+    
+    subs_present = []
+    colors_present = []
+    
+    data_used.forEach(function(element){
+        if (!subs_present.includes(element.sub)){
+            subs_present.push(element.sub)
+        }
+        
+        if (!colors_present.includes(color[show][element.sub])){
+            colors_present.push(color[show][element.sub])
+        }
+    })
+    
+    
+    // Remove any existing legend    
+    svgColors.selectAll("#legendbar").remove()
+    d3.select("#legend").selectAll("#hover").remove()
+    
+    // Add tooltips for mouseover
+    var div_subs = d3.select("#legend").append("div")
+        .attr("class", "tooltip_colors")
+        .attr("id", "hover")
+        .style("opacity", 0);
+    
+    // Add tooltips for on click
+    var div_subs_click = d3.select("#legend").append("div")
+        //.attr("id", "tooltip" + ...)
+        .attr("class", "tooltip_colors_click")
+        .style("opacity", 0);
+    
+    // Create a colorscale for the legend, according to what is shown on map
+    var colorScale = d3.scaleOrdinal()
+        .domain(subs_present)
+        .range(colors_present);
+    
+    // Store which elements in the legend are clicked on
+    var selected_subs = [];
+    
+    // Initiate variable for placing of the individual bars
+    var spacing = 0;
+    
+    // Create individual bars
+    svgColors.selectAll("rect")
+        .data(colorScale.domain())
+        .enter()
+        .append("rect")
+        .attr("id", "legendbar")
+        .attr('width', function(d){
+            
+            // Create spacing according to amount of elements
+            spacing = 1764/subs_present.length
+            return spacing
+        })                    
+        .attr('height', 20)
+        .attr("x", function(d){
+            
+            // Assign x coordinate according to amount of elements
+            return subs_present.indexOf(d) * spacing
+        })
+        .attr("y", 30)
+        .attr("fill", colorScale )
+        .on("mouseover", function(d){
+            
+            // Show tooltips with title of each bar
+            div_subs.transition()		
+                .duration(200)		
+                .style("opacity", .9);
+            div_subs.html(d)	
+                .style("left", (d3.event.pageX) + "px")		
+                .style("top", (d3.event.pageY - 28) + "px");
+        })
+        .on("mouseout", function(d) {
+            
+            // Remove tooltips when not hovering
+            div_subs.transition()		
+                .duration(500)		
+                .style("opacity", 0);	
+        })
+        .on("click", function(d){
+            //counter+=1
+            // Add selected to list of selected elements
+            selected_subs.push(d)
+            
+            // Show selected elements
+            svgColors.selectAll("rect").style("opacity", function(d){
+                if (selected_subs.includes(d)){
+                    return 1
+                } else {
+                    return 0.3
+                }                     
+            });
+            
+            // Show tooltip, keep showing
+            div_subs_click.transition()		
+                .duration(200)		
+                .style("opacity", .9);
+            div_subs_click.html(d)	
+                .style("left", (d3.event.pageX) + "px")		
+                .style("top", (d3.event.pageY - 28) + "px");
+                
+            // Remove mouseover tooltip when clicked on
+            div_subs.transition()		
+                .duration(20)		
+                .style("opacity", 0);	
+            
+        })
+}
