@@ -32,6 +32,10 @@ var LONGLAT_STEP = 0.2
 var show_migration = false;
 var oldest;
 
+// legend globals
+var selected_subs = [];
+var subs_present = [];
+
 
 var svgContainer = d3.select("#globe").append("svg")
     .attr("height", height)
@@ -468,7 +472,34 @@ d3.csv("omni_locations.csv")
             d3.select("#range-label").text(newRange.begin + " - " + newRange.end);
             year_interval = [newRange.begin, newRange.end]
             update_visuals(year_interval, data, show, projection)
+
+            // update navbar
             nav_bar(clustered_data, color, show)
+            
+            // only show clicked elements
+            console.log('Slider')
+            console.log(subs_present)
+            console.log(selected_subs)
+            subs_present.forEach(function(element){
+                if (!selected_subs.includes(element)){
+
+                    identifyer = element
+                    identifyer = identifyer.replace(/[^a-zA-Z0-9 \s !?]+/g, '');
+                    identifyer = identifyer.replace(/\s/g, '');
+                    gPins.selectAll("#" + identifyer).style("opacity", 0)
+                        .on("mouseover", function(element){
+                            element.selectAll(".tooltip").style("opacity", 0)
+                        })
+                } else {
+                    
+                    identifyer = element
+                    identifyer = identifyer.replace(/[^a-zA-Z0-9 \s !?]+/g, '');
+                    identifyer = identifyer.replace(/\s/g, '');
+                    gPins.selectAll("#" + identifyer).style("opacity", 0.55)
+                }
+            })
+
+
             update_chart(clustered_data,year-YEAR_STEP, color, show);   
 
             // required for keeping track of current time period

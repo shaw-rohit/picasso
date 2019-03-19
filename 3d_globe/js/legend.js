@@ -126,7 +126,10 @@ function nav_bar(data_used, color, show){
         .attr("fill", colorScale )
         // set opacity of selected subs
         .attr("opacity", function(d){            
-                if (selected_subs.includes(d)){
+                if (selected_subs.length<1){
+                    return 1
+                }
+                else if (selected_subs.includes(d)){
                     return 1
                 } else {
                     return 0.3
@@ -153,10 +156,16 @@ function nav_bar(data_used, color, show){
             
             // Add selected to list of selected elements
             selected_subs.push(d)
+
+            // TODO: REMOVE IF ALREADY CLICKED ON
+
             
             // Show selected elements
-            svgColors.selectAll("rect").style("opacity", function(d){
-                if (selected_subs.includes(d)){
+            svgColors.selectAll("rect").style("opacity", function(d){ 
+                if (selected_subs.length<1){
+                    return 1
+                }               
+                else if (selected_subs.includes(d)){
                     return 1
                 } else {
                     return 0.3
