@@ -21,10 +21,12 @@ function update_chart(clustereddata, currentdate, colors, show){
 // function make_ping(long, lat, color, size){
 function make_pings(data, color){
 
-  var pings = gPins.selectAll(".pin").data(data);
+  gPins.selectAll(".ping").remove();
+
+  var pings = gPins.selectAll(".ping").data(data);
   
 
-  pings.enter().append("circle", ".pin")
+  pings.enter().append("circle", ".ping")
   // set starting coordinates based on projection location
     .attr("cx", function(d) {
         var circle = projection([parseInt(d.long), parseInt(d.lat)]);
@@ -61,7 +63,8 @@ function make_pings(data, color){
         return distance > Math.PI/2 ? 'none' : color;
     }).attr('stroke-width', 3)
     .attr("r", function(d) { return 5*(Math.log(d.id.length)+1)})
-    .style("opacity", 1.)
+    .style("opacity", 1.0)
+    .style('stroke-opacity', 1.0) // this does not work somehow
     .attr("transform", function(d) {
       var proj = projection([
             parseInt(d["long"]),
@@ -69,6 +72,10 @@ function make_pings(data, color){
         return "translate(" + [proj[0] - d["width"], proj[1] - d["height"]]
          + ")";
     });
+
+    // pings.exit().remove();
+    // pings.transition().duration(250)
+
 
            
 }
