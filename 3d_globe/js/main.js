@@ -51,6 +51,11 @@ var globalstats =  d3.select("#statsright").append("div")
 .style("height", 400)
 .style("opacity", 1);
 
+var svgColors = d3.select("#legend")
+    .append("svg")
+    .attr("width", 1764)
+    .attr("height", 75);
+
 var is2d = false; //check if 2d or 3d for play button
 var clustered_data;
 ////////////////
@@ -419,78 +424,6 @@ d3.csv("omni_locations.csv")
         }
 
         // LEGEND
-        var svgColors = d3.select("#legend")
-             .append("svg")
-             .attr("width", 1764)
-             .attr("height", 75);
-        
-        var div_subs = d3.select("#legend").append("div")
-            .attr("class", "tooltip_colors")
-            .style("opacity", 0);
-        
-        var div_subs_click = d3.select("#legend").append("div")
-            .attr("class", "tooltip_colors_click")
-            .style("opacity", 0);
-            
-        var colorScale = d3.scaleOrdinal()
-            .domain(all_styles)
-            .range(Object.values(color['style']));
-             
-        var selected_subs = [];
-
-        var spacing = 0;
-        var used_styles = all_styles
-        svgColors.selectAll("rect")
-            .data(colorScale.domain())
-            .enter()
-            .append("rect")
-            .attr('width', function(d){
-                //spacing = 1764/all_styles.length
-                spacing = 1764/used_styles.length
-                return spacing
-            })                    
-            .attr('height', 20)
-            .attr("x", function(d){
-                return used_styles.indexOf(d) * spacing
-                //return (all_styles.indexOf(d)+1)*spacing
-            })
-            .attr("y", 30)
-            .attr("fill", colorScale )
-            .on("mouseover", function(d){
-                div_subs.transition()		
-                .duration(200)		
-                .style("opacity", .9);
-                div_subs.html(d)	
-                .style("left", (d3.event.pageX) + "px")		
-                .style("top", (d3.event.pageY - 28) + "px");
-            })
-            .on("mouseout", function(d) {		
-            div_subs.transition()		
-                .duration(500)		
-                .style("opacity", 0);	
-            })
-            .on("click", function(d){
-                svgColors.selectAll("rect").style("opacity", function(d){
-                    if (selected_subs.includes(d)){
-                        return 1
-                } else {
-                    return 0.3
-                }                     
-                });
-                d3.select(this).style("opacity", 1);
-                selected_subs.push(d)
-                
-                div_subs_click.transition()		
-                .duration(200)		
-                .style("opacity", .9);
-                div_subs_click.html(d)	
-                .style("left", (d3.event.pageX) + "px")		
-                .style("top", (d3.event.pageY - 28) + "px");
-                div_subs.transition()		
-                .duration(20)		
-                .style("opacity", 0);	
-                
-            })
         // var legend = show_legend(all_styles, styles_colors)
 
         // this will tigger updates, hence, when a change in value has been detected with transitions
@@ -536,6 +469,7 @@ d3.csv("omni_locations.csv")
             d3.select("#range-label").text(newRange.begin + " - " + newRange.end);
             year_interval = [newRange.begin, newRange.end]
             update_visuals(year_interval, data, show, projection)
+            nav_bar(clustered_data, color, show)
             update_chart(clustered_data,year-YEAR_STEP, color, show);   
 
             // required for keeping track of current time period
@@ -555,6 +489,7 @@ d3.csv("omni_locations.csv")
             show = 'style'
             update_slider_plot(styles_slider_data, styles_data, color, show, year_interval)
             update_visuals(year_interval,data,show, projection)
+            nav_bar(clustered_data, color, show)
             update_chart(clustered_data,year-YEAR_STEP, color, show);   
             legend = update_legend(all_styles, styles_colors, legend, data, show, show_migration, century)
         });
@@ -564,6 +499,7 @@ d3.csv("omni_locations.csv")
             show = 'school'
             update_visuals(year_interval,data,show, projection)
             update_slider_plot(school_slider_data,  schools_data, color, show, year_interval)
+            nav_bar(clustered_data, color, show)
             update_chart(clustered_data,year-YEAR_STEP, color, show);   
             legend = update_legend(all_schools, schools_colors, legend, data, show, show_migration, century)
         });
@@ -573,8 +509,8 @@ d3.csv("omni_locations.csv")
             show = 'media'
             update_slider_plot(media_slider_data, media_data, color, show, year_interval)
             update_visuals(year_interval,data,show, projection)
+            nav_bar(clustered_data, color, show)
             update_chart(clustered_data,year-YEAR_STEP, color, show);   
-            legend = update_legend(all_media, media_colors, legend, data, show, show_migration, century)
         });
 
         
