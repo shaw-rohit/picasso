@@ -35,6 +35,7 @@ var oldest;
 // legend globals
 var selected_subs = [];
 var subs_present = [];
+var clicked = {};
 
 
 var svgContainer = d3.select("#globe").append("svg")
@@ -480,24 +481,7 @@ d3.csv("omni_locations.csv")
             console.log('Slider')
             console.log(subs_present)
             console.log(selected_subs)
-            subs_present.forEach(function(element){
-                if (!selected_subs.includes(element)){
-
-                    identifyer = element
-                    identifyer = identifyer.replace(/[^a-zA-Z0-9 \s !?]+/g, '');
-                    identifyer = identifyer.replace(/\s/g, '');
-                    gPins.selectAll("#" + identifyer).style("opacity", 0)
-                        .on("mouseover", function(element){
-                            element.selectAll(".tooltip").style("opacity", 0)
-                        })
-                } else {
-                    
-                    identifyer = element
-                    identifyer = identifyer.replace(/[^a-zA-Z0-9 \s !?]+/g, '');
-                    identifyer = identifyer.replace(/\s/g, '');
-                    gPins.selectAll("#" + identifyer).style("opacity", 0.55)
-                }
-            })
+            
 
 
             update_chart(clustered_data,year-YEAR_STEP, color, show);   

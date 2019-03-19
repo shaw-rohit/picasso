@@ -153,13 +153,17 @@ function nav_bar(data_used, color, show){
                 .style("opacity", 0);	
         })
         .on("click", function(d){
-            
-            // Add selected to list of selected elements
-            selected_subs.push(d)
 
-            // TODO: REMOVE IF ALREADY CLICKED ON
+            if (clicked[d] == true){
+                clicked[d] = false;
+                // Add selected to list of selected elements
+                selected_subs.splice(selected_subs.indexOf(d),1);
+            }
+            else {
+                clicked[d] = true;
+                selected_subs.push(d)
+            }
 
-            
             // Show selected elements
             svgColors.selectAll("rect").style("opacity", function(d){ 
                 if (selected_subs.length<1){
@@ -173,7 +177,13 @@ function nav_bar(data_used, color, show){
             });
 
             subs_present.forEach(function(element){
-                if (!selected_subs.includes(element)){
+                if (selected_subs.length < 1){
+                    identifyer = element
+                    identifyer = identifyer.replace(/[^a-zA-Z0-9 \s !?]+/g, '');
+                    identifyer = identifyer.replace(/\s/g, '');
+                    gPins.selectAll("#" + identifyer).style("opacity", 0.55)
+                }
+                else if (!selected_subs.includes(element)){
                     
                     // Get ID for pins
                     identifyer = element
@@ -187,8 +197,7 @@ function nav_bar(data_used, color, show){
                             // Hide tooltips
                             element.selectAll(".tooltip").style("opacity", 0)
                         })
-                } else {
-                    
+                } else {                    
                     // Show pings of later-on selected elements of the legend
                     identifyer = element
                     identifyer = identifyer.replace(/[^a-zA-Z0-9 \s !?]+/g, '');
