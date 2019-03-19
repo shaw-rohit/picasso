@@ -12,11 +12,12 @@ const chartsvg     = d3.select(".widget").append("svg")
 mouseover_time = 1
 var mouse_timer = 0
 
+  
+          
 function update_chart(clustereddata, currentdate, colors, show){
-  d3.select(".widget").selectAll("g > *").transition().duration(100).remove() //TODO: Create transition in creating new chart
+  d3.select(".widget").select("g").selectAll("g > *").transition().duration(100).remove() //TODO: Create transition in creating new chart
   d3.select(".charttooltip").transition().duration(100).remove();
   //var rainbow = d3.scaleSequential(d3.interpolateRainbow).domain([0,d3.sum(data, d => 1)]);
-
 
 // function make_ping(long, lat, color, size){
 function make_pings(data, color){
@@ -77,10 +78,6 @@ function make_pings(data, color){
 
            
 }
-
-
-
-
 var groupstyle = d3.nest()
   .key(function(d) { return d.sub; })
   .entries(clustereddata);
@@ -96,19 +93,35 @@ groupstyle.forEach(function(d) {
 
 var filteramount = groupstyle.sort(function(a, b) {
   return d3.descending(+a.totalpaintings, + b.totalpaintings);
-}).slice(0, 6);
+}).slice(0, 5);
 
 chartx.domain(filteramount.map(function(d){
-    return d.style;
-  }));
+  return d.style;
+}));
+
 charty.domain([0, d3.max(filteramount, function(d){
-      return d.totalpaintings})]);
+  return d.totalpaintings})]);
+
+  
+gChart.append("g")
+  .attr("class", "axis axis-y")
+  .attr("id", "yaxis")
+  .call(d3.axisLeft(charty).ticks(10).tickSize(8))
+
+gChart.append("g")
+  .attr("id", "xaxis")
+  .attr("class", "x axis")
+  .attr("transform", "translate(0," + chartheight + ")")
+  .call(d3.axisBottom(chartx))
+  .selectAll("text")
+  .style("text-anchor", "end")
+  .attr("dx", "-.8em")
+  .attr("dy", ".15em")
+  .attr("transform", "rotate(-30)")
 
 
 var bars = gChart.selectAll(".bar")
-  .data(filteramount, function(d){
-    return + d.style;
-  });  
+  .data(filteramount)
 bars.exit(); 
 bars.enter()
   .append("rect")
@@ -116,14 +129,43 @@ bars.enter()
   .attr("x", function(d){return chartx(d.style)})
   //.attr("transform", function(d) {return "rotate(-65)"})
   .attr("y", function(d){
+return charty(d.totalpaintings);
+})
+.attr("fill", function(d) {
+  return colors[show][d['values'][0]['sub']]})
+.attr("width", chartx.bandwidth())
+.attr("height",function(d){  
+  return chartheight - charty(d.totalpaintings) 
+})
+.on("mouseover", function(d){
+  console.log('check')
+  window.d = d
+  // make_ping(v.long, v.lat, colors[show][d[show]])
+  make_pings(d.values, colors[show][d.key])
+
+  console.log(d)
+  charttooltip.transition()		
+  .duration(200)		
+  .style("opacity", 1)
+
+  charttooltip
+  .style("left", (d3.event.pageX) + "px")		
+  .style("top", (d3.event.pageY - 28) + "px")
+  .html("Style: " + (d.values.sub) + "<br>" + "Total amount: " + (d.totalpaintings));
+})
+  // .on("mouseout", function(d){ charttooltip.style("display", "none");})
+
+bars.transition()
+  .duration(200)
+  .ease(d3.easeLinear)
+  .attr("y", function(d){
     return charty(d.totalpaintings);
   })
-  .attr("fill", function(d) {
-    return colors[show][d['values'][0]['sub']]})
-  .attr("width", chartx.bandwidth())
+  .attr("fill", function(d) {return colors[show][d['values'][0]['sub']]}) 
   .attr("height",function(d){  
     return chartheight - charty(d.totalpaintings) 
   })
+  bars
   .on("mouseover", function(d){
     console.log('in')
     window.d = d
