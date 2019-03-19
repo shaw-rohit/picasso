@@ -208,6 +208,7 @@ function nav_bar(data_used, color, show){
                     identifyer = identifyer.replace(/\s/g, '');
                     identifyer = "a" + identifyer
                     gPins.selectAll("#" + identifyer).style("opacity", 0.55)
+                    
                 }
             })
             

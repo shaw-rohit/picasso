@@ -134,7 +134,15 @@ function open_stats_painting(cluster, data, number_windows, div) {
     //     svgContainer.call(zoom)
     // );
 
-    statistics.text("ifjofejoifesjoifesjfesoij")
+    var text = "In this part of the world, there was only " + cluster.id.length  + " rare painting and it has the style: " + cluster.sub + "."
+    + "<br /> <br />" + "This painting emerged in the year " + cluster.start_date + "."
+    ;
+    if(cluster.id.length > 1){
+        text = "In this part of the world, there were " + cluster.id.length + " paintings and has the style: " + cluster.sub + "." 
+        + "<br /> <br />" + "The first painting emerged in the year " + cluster.start_date + " and the last painting emerged in the year " + cluster.end_date + "."
+    }
+
+    statistics.html(text);
 
     var paintings = retreive_paintings(data, cluster.id);
 
