@@ -60,7 +60,7 @@ function make_pings(data, color){
       var distance = d3.geoDistance(circle,center);
         return distance > Math.PI/2 ? 'none' : color;
     }).attr('stroke-width', 3)
-    .attr("r", function(d) { return (15/mouseover_time)*(Math.log(d.id.length+1)+1)})
+    .attr("r", function(d) { return (10/mouseover_time)*(Math.log(d.id.length+1)+1)})
     .style("fill", "none")
     .style('stroke-opacity', 1.0) // this does not work somehow
     .attr("transform", function(d) {
@@ -71,6 +71,7 @@ function make_pings(data, color){
          + ")";
     });
     mouseover_time+=1
+    if (mouseover_time===10){mouseover_time=1}
     console.log((15/mouseover_time))
     // pings.exit().remove();
     // pings.transition().duration(250)
@@ -142,7 +143,7 @@ return charty(d.totalpaintings);
 
   make_pings(d.values, colors[show][d.key]);
   mouse_timer = setInterval (function() {
-      make_pings(d.values, colors[show][d.key])}, 500);
+      make_pings(d.values, colors[show][d.key])}, 100);
   charttooltip.transition()		
   .duration(200)		
   .style("opacity", 1)
