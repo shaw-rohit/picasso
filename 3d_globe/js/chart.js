@@ -168,7 +168,7 @@ bars.transition()
   bars
   .on("mouseover", function(d){
     console.log('in')
-    window.d = d
+    // window.d = d
     mouse_timer = setInterval (function() {
       make_pings(d.values, colors[show][d.key])}, 500);
     charttooltip
@@ -178,9 +178,9 @@ bars.transition()
   .on("mouseout", function(d){
     clearTimeout(mouse_timer)
     mouseover_time = 1
-
+    gPins.selectAll("#pingie").remove()
     console.log('out')
-    window.d = d
+    // window.d = d
   })
     // .on("mouseout", function(d){ charttooltip.style("display", "none");})
  
