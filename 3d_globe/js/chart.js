@@ -17,9 +17,9 @@ var mouse_timer = 0
 function update_chart(clustereddata, currentdate, colors, show){
   d3.select(".widget").select("g").selectAll("g > *").transition().duration(100).remove() //TODO: Create transition in creating new chart
   d3.select(".charttooltip").transition().duration(100).remove();
+  
   //var rainbow = d3.scaleSequential(d3.interpolateRainbow).domain([0,d3.sum(data, d => 1)]);
 
-// function make_ping(long, lat, color, size){
 function make_pings(data, color){
 
   gPins.selectAll("#pingie").remove();
@@ -44,7 +44,7 @@ function make_pings(data, color){
     .attr("cy", function(d) {
         var circle = projection([parseInt(d.long), parseInt(d.lat)]);
         var rotate = projection.rotate(); // antipode of actual rotational center.
-        var center = projection([-rotate[0], -rotate[1]])
+        var center = projection([-rotate[0], -rotate[1]]);
         // var distance = d3.geoDistance(circle,center);
         if (circle[1] > center[1]){
                 return height
@@ -60,8 +60,8 @@ function make_pings(data, color){
       var distance = d3.geoDistance(circle,center);
         return distance > Math.PI/2 ? 'none' : color;
     }).attr('stroke-width', 3)
-    .attr("r", function(d) { return (15/mouseover_time)*(Math.log(d.id.length+1)+1)})
-    .style("opacity", 1.0)
+    .attr("r", function(d) { return (10/mouseover_time)*(Math.log(d.id.length+1)+1)})
+    .style("fill", "none")
     .style('stroke-opacity', 1.0) // this does not work somehow
     .attr("transform", function(d) {
       var proj = projection([
@@ -71,6 +71,7 @@ function make_pings(data, color){
          + ")";
     });
     mouseover_time+=1
+    if (mouseover_time===10){mouseover_time=1}
     console.log((15/mouseover_time))
     // pings.exit().remove();
     // pings.transition().duration(250)
@@ -138,12 +139,11 @@ return charty(d.totalpaintings);
   return chartheight - charty(d.totalpaintings) 
 })
 .on("mouseover", function(d){
-  console.log('check')
-  window.d = d
-  // make_ping(v.long, v.lat, colors[show][d[show]])
-  make_pings(d.values, colors[show][d.key])
+  console.log('in')
 
-  console.log(d)
+  make_pings(d.values, colors[show][d.key]);
+  mouse_timer = setInterval (function() {
+      make_pings(d.values, colors[show][d.key])}, 100);
   charttooltip.transition()		
   .duration(200)		
   .style("opacity", 1)
@@ -153,6 +153,13 @@ return charty(d.totalpaintings);
   .style("top", (d3.event.pageY - 28) + "px")
   .html("Style: " + (d.values.sub) + "<br>" + "Total amount: " + (d.totalpaintings));
 })
+.on("mouseout", function(d){
+    clearTimeout(mouse_timer)
+    mouseover_time = 1
+    gPins.selectAll("#pingie").remove()
+    console.log('out')
+    // window.d = d
+  })
   // .on("mouseout", function(d){ charttooltip.style("display", "none");})
 
 bars.transition()
@@ -169,6 +176,7 @@ bars.transition()
   .on("mouseover", function(d){
     console.log('in')
     // window.d = d
+    make_pings(d.values, colors[show][d.key]);
     mouse_timer = setInterval (function() {
       make_pings(d.values, colors[show][d.key])}, 500);
     charttooltip

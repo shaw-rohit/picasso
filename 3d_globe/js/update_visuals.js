@@ -45,7 +45,7 @@ function update_visuals(year, data, show, projection){
     if (show_migration == true){
         //var migration = retrieve_migration(filtered_data, show, 'baroque')
         var migration = retrieve_migration_cluster(clustered_data, 'baroque')
-        draw_cluster_flow(migration[1], migration[0])
+        draw_cluster_flow(migration[1], migration[0], color[show]['baroque'])
         oldest = migration[0]
         //draw_migration_flow(migration[1], migration[0])
     }

@@ -148,7 +148,7 @@ function retrieve_migration_cluster(dataset, sub){
     
 };
 
-function draw_cluster_flow(migration_data, oldest){
+function draw_cluster_flow(migration_data, oldest, color){
     /*
      * INPUT:
      * migration_data -- all other artworks with same show and subcategory as oldest
@@ -207,7 +207,7 @@ function draw_cluster_flow(migration_data, oldest){
                 + "," + origin[0] + "," + origin[1]
             
         })
-        .attr("fill", "white")
+        .attr("fill", color)
         
     arrows.exit()
         .transition()
