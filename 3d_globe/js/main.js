@@ -529,9 +529,9 @@ d3.csv("omni_locations.csv")
         }).map(data);
 
         update_slider_plot(styles_slider_data, styles_data, color, show, year_interval)
-        clustered_data = update_visuals(year_interval, data, show, projection)
-        console.log(clustered_data)
-        createchart(clustered_data);
+        // clustered_data = update_visuals(year_interval, data, show, projection)
+        // console.log(clustered_data)
+        // createchart(clustered_data);
         slider.onChange(function(newRange){
             d3.select("#range-label").text(newRange.begin + " - " + newRange.end);
             year_interval = [newRange.begin, newRange.end]
