@@ -50,7 +50,6 @@ function update_visuals(year, data, show, projection){
         //draw_migration_flow(migration[1], migration[0])
     }
 
-
     svgContainer.selectAll("circle").transition().duration(200) // Will remove all previous circles when update is initiated
         .style("opacity", .1)
         .attr("r", 0)
@@ -158,7 +157,16 @@ function update_visuals(year, data, show, projection){
           
     })
       .attr("r", function(d) {return 3*(Math.log(d['id'].length)+1);})   
-      .style("opacity", 0.55)
+      .style("opacity", function(d){
+        
+        if (selected_subs.length < 1){
+            return 0.55
+        }
+        else if (!selected_subs.includes(d['sub'])){
+            return 0;
+        }
+        else{ return 0.55}
+      })
       .duration(400)
       .attr("transform", function(d) {
         var proj = projection([
@@ -167,6 +175,25 @@ function update_visuals(year, data, show, projection){
         return "translate(" + [proj[0] - d["width"], proj[1] - d["height"]]
          + ")";
         });
+
+    // subs_present.forEach(function(element){
+    //     if (!selected_subs.includes(element)){
+
+    //         identifyer = element
+    //         identifyer = identifyer.replace(/[^a-zA-Z0-9 \s !?]+/g, '');
+    //         identifyer = identifyer.replace(/\s/g, '');
+    //         gPins.selectAll("#" + identifyer).style("opacity", 0)
+    //             .on("mouseover", function(element){
+    //                 element.selectAll(".tooltip").style("opacity", 0)
+    //             })
+    //     } else {
+            
+    //         identifyer = element
+    //         identifyer = identifyer.replace(/[^a-zA-Z0-9 \s !?]+/g, '');
+    //         identifyer = identifyer.replace(/\s/g, '');
+    //         gPins.selectAll("#" + identifyer).style("opacity", 0.55)
+    //     }
+    // })
           
     return clustered_data;
 };

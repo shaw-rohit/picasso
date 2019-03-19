@@ -73,7 +73,7 @@ function nav_bar(data_used, color, show){
             colors_present.push(color[show][element.sub])
         }
     })
-    
+
     
     // Remove any existing legend    
     svgColors.selectAll("#legendbar").remove()
@@ -98,7 +98,7 @@ function nav_bar(data_used, color, show){
         .range(colors_present);
     
     // Store which elements in the legend are clicked on
-    var selected_subs = [];
+    //selected_subs = [];
     
     // Initiate variable for placing of the individual bars
     var spacing = 0;
@@ -124,6 +124,14 @@ function nav_bar(data_used, color, show){
         })
         .attr("y", 30)
         .attr("fill", colorScale )
+        // set opacity of selected subs
+        .attr("opacity", function(d){            
+                if (selected_subs.includes(d)){
+                    return 1
+                } else {
+                    return 0.3
+                }                     
+        })
         .on("mouseover", function(d){
             
             // Show tooltips with title of each bar
@@ -155,7 +163,10 @@ function nav_bar(data_used, color, show){
                     return 0.3
                 }                     
             });
-            
+
+            console.log('Click')
+            console.log(subs_present)
+            console.log(selected_subs)
             subs_present.forEach(function(element){
                 if (!selected_subs.includes(element)){
                      
@@ -197,4 +208,6 @@ function nav_bar(data_used, color, show){
                 .style("opacity", 0);	
             
             })
+
+    return selected_subs
 }
