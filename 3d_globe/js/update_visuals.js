@@ -50,7 +50,6 @@ function update_visuals(year, data, show, projection){
         //draw_migration_flow(migration[1], migration[0])
     }
 
-    
 
     svgContainer.selectAll("circle").transition().duration(200) // Will remove all previous circles when update is initiated
         .style("opacity", .1)
@@ -69,7 +68,7 @@ function update_visuals(year, data, show, projection){
             parseInt(d["lat"])]);
             var rotate = projection.rotate(); // antipode of actual rotational center.
             var center = projection([-rotate[0], -rotate[1]])
-            var distance = d3.geoDistance(circle,center);
+            // var distance = d3.geoDistance(circle,center);
 
             // need to save this somewhere
             if (circle[0] > center[0]){
@@ -87,7 +86,7 @@ function update_visuals(year, data, show, projection){
             parseInt(d["lat"])]);
             var rotate = projection.rotate(); // antipode of actual rotational center.
             var center = projection([-rotate[0], -rotate[1]])
-            var distance = d3.geoDistance(circle,center);
+            // var distance = d3.geoDistance(circle,center);
 
             // need to save this somewhere
             if (circle[1] > center[1]){
@@ -142,7 +141,7 @@ function update_visuals(year, data, show, projection){
             number_windows += 1;
         }) 
 
-      .attr("fill", function(d) {
+        .attr("fill", function(d) {
         var circle = [parseInt(d["long"]),
             parseInt(d["lat"])];
             var rotate = projection.rotate(); // antipode of actual rotational center.
@@ -150,18 +149,18 @@ function update_visuals(year, data, show, projection){
             var distance = d3.geoDistance(circle,center);
             return distance > Math.PI/2 ? 'none' : color[show][d['sub']];
         })      
-      .transition()
-      .attr("id", function(d) {return d['id']})
-      .attr("r", function(d) {return 3*(Math.log(d['id'].length)+1);})   
-      .style("opacity", 0.55)
-      .duration(400)
-      .attr("transform", function(d) {
+        .transition()
+        .attr("id", function(d) {return d['id']})
+        .attr("r", function(d) {return 3*(Math.log(d['id'].length)+1);})   
+        .style("opacity", 0.5)
+        .duration(400)
+        .attr("transform", function(d) {
         var proj = projection([
             parseInt(d["long"]),
             parseInt(d["lat"])])
         return "translate(" + [proj[0] - d["width"], proj[1] - d["height"]]
          + ")";
-    });
+        });
           
     return cluster_data;
 };
@@ -179,7 +178,6 @@ function update_slider_plot(data, meta_data, colors, show, years){
     // adjust scale to highest amount of paintings 
     star_yScale.domain(  [0,
                     d3.max(data, d => d.data.length)] );
-
 
     // stars plot
     var stars = gstar.selectAll('path').data(meta_data);
@@ -200,7 +198,6 @@ function update_slider_plot(data, meta_data, colors, show, years){
         .attr('transform', function(d) {
             return 'translate(' + star_xScale(year_binner(d.first))  + ', 0)';
         })
-
     
     // bar plot
     var bars = gstar.selectAll("rect").data(data);
