@@ -18,42 +18,55 @@ function update_chart(clustereddata, currentdate, colors, show){
   //var rainbow = d3.scaleSequential(d3.interpolateRainbow).domain([0,d3.sum(data, d => 1)]);
 
 
-function make_ping(long, lat, color, size){
-  var pings = gPins.selectAll(".ping").data(clustered_data);
-  pings.enter().append("circle", ".ping")
+// function make_ping(long, lat, color, size){
+function make_pings(data, color){
+
+  var pings = gPins.selectAll(".pin").data(data);
+  
+
+  pings.enter().append("circle", ".pin")
   // set starting coordinates based on projection location
     .attr("cx", function(d) {
-        var circle = projection([parseInt(long), parseInt(lat)]);
+        var circle = projection([parseInt(d.long), parseInt(d.lat)]);
+        window.hoi = d.long;
+        window.hai = d.id.length;
+        window.joe = d.id.color;
         var rotate = projection.rotate(); // antipode of actual rotational center.
         var center = projection([-rotate[0], -rotate[1]])
         var distance = d3.geoDistance(circle,center);
+            if (circle[0] > center[0]){
+                return width
+            }
+            else {
+                return 0
+            }
     })
     .attr("cy", function(d) {
-        var circle = projection([parseInt(long), parseInt(lat)]);
+        var circle = projection([parseInt(d.long), parseInt(d.lat)]);
         var rotate = projection.rotate(); // antipode of actual rotational center.
         var center = projection([-rotate[0], -rotate[1]])
-        var distance = d3.geoDistance(circle,center);
+        // var distance = d3.geoDistance(circle,center);
+        if (circle[1] > center[1]){
+                return height
+            }
+            else {
+                return 0
+            }
     })
     .attr("stroke", function(d) {
-    var circle = [parseInt(long), parseInt(lat)];
-    var rotate = projection.rotate(); // antipode of actual rotational center.
-    var center = [-rotate[0], -rotate[1]]
-    var distance = d3.geoDistance(circle,center);
+      var circle = [parseInt(d.long), parseInt(d.lat)];
+      var rotate = projection.rotate(); // antipode of actual rotational center.
+      var center = [-rotate[0], -rotate[1]]
+      var distance = d3.geoDistance(circle,center);
         return distance > Math.PI/2 ? 'none' : color;
     }).attr('stroke-width', 3)
-    .attr("r", 3*(Math.log(size)+1));
+    .attr("r", function(d) { return 5*(Math.log(d.id.length)+1)})
+    .style("opacity", 1.);
 
-  pings.exit().remove();
-  pings.transition()
-    .attr("r", 3*(Math.log(size)+1))   
-    .style("opacity", 1.)
-    .duration(10)
-    .attr("transform", function(d) {
-      var proj = projection([
-          parseInt(long),
-          parseInt(lat)])
-    });
 }
+
+
+
 
 var groupstyle = d3.nest()
   .key(function(d) { return d.sub; })
@@ -102,7 +115,7 @@ bars.enter()
     console.log('check')
     window.d = d
     // make_ping(v.long, v.lat, colors[show][d[show]])
-    d.values.forEach(function(v){make_ping(v.long, v.lat, colors[show][d[show]], v.id.length )  })
+    make_pings(d.values, colors[show][d.key])
     charttooltip
       .style("display", "inline-block")
       .html("Style: " + (d[show]) + "<br>" + "Total amount: " + (d.totalpaintings));
