@@ -5,7 +5,7 @@ var centered;
 legendRectSize = 18;
 legendSpacing = 4;
 
-var show = 'style'
+var show = 'style';
 // default speed of the sider in 1000*seconds per year
 SLIDER_SPEED = 1000;
 
@@ -496,6 +496,7 @@ d3.csv("omni_locations.csv")
             d3.select("#range-label").text(newRange.begin + " - " + newRange.end);
             year_interval = [newRange.begin, newRange.end]
             update_visuals(year_interval, data, show, projection)
+            console.log(show)
 
             // update navbar
             nav_bar(clustered_data, color, show)        
@@ -634,5 +635,9 @@ function changeStyle(element){
     update_visuals(year_interval, all_data, show, projection)
     nav_bar(clustered_data, color, show)
     update_chart(clustered_data,year_interval, color, show);   
-    
+    if (show==='style'){ update_slider_plot(styles_slider_data, styles_data, color, show, year_interval) }
+    else if (show==='school'){ update_slider_plot(school_slider_data, schools_data, color, show, year_interval) }
+    else if (show==='media'){ update_slider_plot(media_slider_data, media_data, color, show, year_interval) }
+
+
 }

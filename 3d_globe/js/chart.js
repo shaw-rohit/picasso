@@ -145,6 +145,7 @@ return charty(d.totalpaintings);
 })
 .on("mouseover", function(d){
 
+  console.log(show)
   make_pings(d.values, colors[show][d.key]);
   mouse_timer = setInterval (function() {
       make_pings(d.values, colors[show][d.key])}, 100);

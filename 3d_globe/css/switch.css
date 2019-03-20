@@ -6,6 +6,7 @@
   position: relative;
   overflow: hidden;
   border-radius: 0.25em;
+  font: URW Chancery L, cursive;
   font-size: 1.6rem;
   margin: 0.2em auto;
 //  will-change: transform;
@@ -86,6 +87,7 @@
   display: block;
   width: 100%;
   margin-left:60px;
+  font: URW Chancery L, cursive;
   font-size: 1em;
   font-weight: bold;
   color:black;  
