@@ -12,21 +12,15 @@ const chartsvg     = d3.select(".widget").append("svg")
 mouseover_time = 1
 var mouse_timer = 0
 
-  
-          
-function update_chart(clustereddata, currentdate, colors, show){
-  d3.select(".widget").select("g").selectAll("g > *").transition().duration(0).remove() //TODO: Create transition in creating new chart
-  d3.selectAll(".charttooltip").transition().duration(0).remove();
-  var charttooltip = d3.select("#statsright").select(".widget").append("div").attr("class", "charttooltip");
-  //var rainbow = d3.scaleSequential(d3.interpolateRainbow).domain([0,d3.sum(data, d => 1)]);
-}
-function make_pings(data, sub){
+function make_pings(data, color){
+
   gPins.selectAll("#pingie").remove();
   var pings = gPins.selectAll(".ping").data(data);
   
   pings.enter().append("circle", ".ping")
     .attr('class','ping')
     .attr("id", "pingie")
+
     // set starting coordinates based on projection location
     .attr("cx", function(d) {
         var circle = projection([parseInt(d["long"]),
@@ -63,12 +57,26 @@ function make_pings(data, sub){
             return 0
         }
     })
+
     .attr("stroke", function(d) {
-      var circle = [parseInt(d.long), parseInt(d.lat)];
-      var rotate = projection.rotate(); // antipode of actual rotational center.
-      var center = [-rotate[0], -rotate[1]]
-      var distance = d3.geoDistance(circle,center);
-        return distance > Math.PI/2 ? 'none' : color[show][sub];
+      console.log(selected_subs)
+      if (selected_subs.length < 1){
+        var circle = [parseInt(d.long), parseInt(d.lat)];
+        var rotate = projection.rotate(); // antipode of actual rotational center.
+        var center = [-rotate[0], -rotate[1]]
+        var distance = d3.geoDistance(circle,center);
+        return distance > Math.PI/2 ? 'none' : color;}
+
+      else if (selected_subs.includes(d.sub)){
+        var circle = [parseInt(d.long), parseInt(d.lat)];
+        var rotate = projection.rotate(); // antipode of actual rotational center.
+        var center = [-rotate[0], -rotate[1]]
+        var distance = d3.geoDistance(circle,center);
+        return distance > Math.PI/2 ? 'none' : color;
+      }
+      else {
+        return 'none'
+      }
     }).attr('stroke-width', 3)
     .attr("r", function(d) { return (10/mouseover_time)*(Math.log(d.id.length+1)+1)})
     .style("fill", "none")
@@ -166,9 +174,9 @@ return charty(d.totalpaintings);
 .on("mouseover", function(d){
 
   console.log(show)
-  make_pings(d.values, d.key);
+  make_pings(d.values, colors[show][d.key]);
   mouse_timer = setInterval (function() {
-      make_pings(d.values, d.key)}, 100);
+      make_pings(d.values, colors[show][d.key])}, 100);
   charttooltip.transition()		
   .duration(200)		
   .style("opacity", 1)
