@@ -63,6 +63,14 @@ var svgColors = d3.select("#legend")
 
 var is2d = false; //check if 2d or 3d for play button
 var clustered_data;
+var all_data;
+
+// media/style checkbox
+var style_box = document.getElementById('option-1');
+document.getElementById('option-1').checked = true;
+var media_box = document.getElementById('option-2');
+document.getElementById('option-2').checked = false;
+
 ////////////////
 // Create map //
 ////////////////
@@ -192,6 +200,7 @@ var schools_data = [];var styles_data = [];var media_data = [];
 d3.csv("omni_locations.csv")
     .then(function(data){
 
+        all_data = data
         data = data.filter(function(d){
             return d.media != "Unknown" || d.school != "Unknown";
         })
@@ -504,7 +513,10 @@ d3.csv("omni_locations.csv")
     
         //var legend = show_legend(all_styles, styles_colors, data, show, show_migration, century)
 
-        
+        // style_box.on("click", function(d){
+        //     console.log('hi')
+        // })
+
         // on button press, only show button id and try to filter by year
         d3.select("#style")
         .on("click", function(d){
@@ -609,3 +621,18 @@ var contains = function(needle) {
 
     return indexOf.call(this, needle) > -1;
 };
+
+function changeStyle(element){
+    // check if element clicked is style
+    if (element.id == 'option-1'){
+        show = 'style'
+    }
+    else if (element.id == 'option-2'){
+        show = 'media'
+    }
+    update_slider_plot(media_slider_data, media_data, color, show, year_interval)
+    update_visuals(year_interval, all_data, show, projection)
+    nav_bar(clustered_data, color, show)
+    update_chart(clustered_data,year_interval, color, show);   
+    
+}

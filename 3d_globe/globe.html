@@ -10,7 +10,7 @@
 
 <link rel="stylesheet" type="text/css" href="css/map.css">
 <link rel="stylesheet" type="text/css" href="css/bar.css">
-
+<link rel="stylesheet" type="text/css" href="css/switch.css">
  <!-- Range slider style -->
  <link href="https://cdn.rawgit.com/RasmusFonseca/d3RangeSlider/master/d3RangeSlider.css" rel="stylesheet">
   <style>
@@ -281,6 +281,11 @@ img{
   width: 10%;
   float: right;
 }
+ .topcorner{
+   position:absolute;
+   top:10%;
+   right:5%;
+  }
 
 }
 </style>
@@ -288,18 +293,11 @@ img{
 
 <body>
 
-
-<button id = "style">Style</button>
-<button id = "school">School</button>
-<button id = "media">Media</button>
 <!--
 <button id = "migrationon">Show Migration Flow</button>
 <button id = "migrationoff">Hide Migration Flow</button>-->
 <!--<button id = "twomap">Switch to 2D world map</button>
 <button id = "threemap">Switch to globe</button>-->
-
- <hr />
-
   
   <div id="map_controls">
      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="0" height="0"
@@ -462,7 +460,31 @@ c0,10.8,1.8,21.2,5.2,30.9h29.5C166.9,626,164.2,615.5,164.2,604.3z"/>
           <div id="range-label">0 - 10</div>
         </div>
       </div>
+
   </div>
+
+  <div class="option-group topcorner">
+  <div class="option-container">
+
+    <input class="option-input" checked id="option-1" type="radio" name="options" onclick="changeStyle(this)"/>
+    <input class="option-input" id="option-2" type="radio" name="options" onclick="changeStyle(this)"/>
+    
+    <label class="option" for="option-1">
+      <span class="option__indicator"></span>
+      <span class="option__label">
+        Style
+      </span>
+    </label>
+
+    <label class="option" for="option-2">
+      <span class="option__indicator"></span>
+      <span class="option__label2">
+        Media
+      </span>
+    </label>
+
+  </div>
+</div>
 
 
   <div id = "container">
