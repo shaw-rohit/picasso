@@ -38,11 +38,12 @@ function painting_gallery(number_windows, div){
         .on('drag', function(){
             console.log("grab")
             x = d3.event.x;
-            y = d3.event.y;
+            y = d3.event.y -200;
             
             newWindow.style("left", x + "px");
             newWindow.style("top",  y + "px");
-        }); 
+            newWindow.style("max-width", 800);
+        })
 
          newWindow.call(moveWindow);
 
@@ -57,8 +58,9 @@ function painting_gallery(number_windows, div){
             
             newWindow.style("width", x + "px");
             newWindow.style("height", y + "px");
-        }); 
-        
+            newWindow.style("max-width", 800);
+        })
+
     var windowResizeDown = d3.drag()
         .on('drag', function(){
             console.log("down")
@@ -70,7 +72,8 @@ function painting_gallery(number_windows, div){
             
             newWindow.style("width", x + "px");
             newWindow.style("height", y + "px");
-        });    
+            newWindow.style("max-width", 800);
+        }) 
     
     rightresizer.call(windowResizeRight);
     downresizer.call(windowResizeDown);
@@ -96,6 +99,8 @@ function painting_gallery(number_windows, div){
         .style("top", 10 + "px");
         
     x.on("click", function(){
+        newWindow.transition().duration(400)
+            .style("max-width", 370);
         if(div == "window"){
             d3.select("#" + div + number_windows)
             .transition().duration(1000)
