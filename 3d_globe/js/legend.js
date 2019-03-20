@@ -68,10 +68,11 @@ function nav_bar(data_used, color, show){
         if (!subs_present.includes(element.sub)){
             subs_present.push(element.sub)
         }
-        
-        if (!colors_present.includes(color[show][element.sub])){
-            colors_present.push(color[show][element.sub])
-        }
+    })
+    
+    subs_present = subs_present.sort()
+    subs_present.forEach(function(subs){
+        colors_present.push(color[show][subs])
     })
 
     
