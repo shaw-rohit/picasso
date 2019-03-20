@@ -241,6 +241,26 @@ d3.csv("omni_locations.csv")
             });
 
         
+        d3.select("#legendCheckbox").on("click", function(){
+            svgColors.selectAll("#legendbar").style("opacity", 1)
+            subs_present.forEach(function(subs){
+                identifyer = subs
+                identifyer = identifyer.replace(/[^a-zA-Z0-9 \s !?]+/g, '')
+                identifyer = identifyer.replace(/\s/g, '')
+                identifyer = "a" + identifyer
+                gPins.selectAll("#" + identifyer).style("opacity", 0.55)
+                    /*.on("mouseover", function(element){
+                        
+                        // Retrieve tooltips again
+                        tooltip.transition()        
+                                .duration(200)      
+                                .style("opacity", .9)
+                                .style("left", (d3.event.pageX +20) + "px")     
+                                .style("top", (d3.event.pageY - 28) + "px")
+                                .style("z-index", 1);
+                    })*/
+            })
+        })
         /*d3.select("#migrationoff")
             .on("click", function(d){
                 show_migration = false;

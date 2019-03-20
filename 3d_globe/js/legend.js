@@ -153,6 +153,8 @@ function nav_bar(data_used, color, show){
                 .style("opacity", 0);	
         })
         .on("click", function(d){
+            
+            document.getElementById("legendCheckbox").checked = false;
 
             if (clicked[d] == true){
                 clicked[d] = false;
@@ -177,6 +179,8 @@ function nav_bar(data_used, color, show){
             });
 
             subs_present.forEach(function(element){
+                
+                // Reselect all elements if no specific element is selected
                 if (selected_subs.length < 1){
                     
                     identifyer = element
@@ -185,7 +189,17 @@ function nav_bar(data_used, color, show){
                     identifyer = "a" + identifyer
                     
                     gPins.selectAll("#" + identifyer).style("opacity", 0.55)
+                        /*.on("mouseover", function(element){
+                            
+                            // Hide tooltips
+                            //element.selectAll(".tooltip").style("opacity", 0)
+                            tooltip.transition()        
+                                .duration(200)      
+                                .style("opacity", 0.9)
+                        })*/
                 }
+                
+                // If element not selected, hide pins
                 else if (!selected_subs.includes(element)){
                     
                     // Get ID for pins
@@ -196,11 +210,14 @@ function nav_bar(data_used, color, show){
                     
                     // Remove all pins that are not of the selected legend elements
                     gPins.selectAll("#" + identifyer).style("opacity", 0)
-                        .on("mouseover", function(element){
+                        /*.on("mouseover", function(element){
                             
                             // Hide tooltips
-                            element.selectAll(".tooltip").style("opacity", 0)
-                        })
+                            //element.selectAll(".tooltip").style("opacity", 0)
+                            tooltip.transition()        
+                                .duration(200)      
+                                .style("opacity", 0)
+                        })*/
                 } else {                    
                     // Show pings of later-on selected elements of the legend
                     identifyer = element
@@ -208,6 +225,14 @@ function nav_bar(data_used, color, show){
                     identifyer = identifyer.replace(/\s/g, '');
                     identifyer = "a" + identifyer
                     gPins.selectAll("#" + identifyer).style("opacity", 0.55)
+                        /*.on("mouseover", function(element){
+                            
+                            // Hide tooltips
+                            //element.selectAll(".tooltip").style("opacity", 0)
+                            tooltip.transition()        
+                                .duration(200)      
+                                .style("opacity", 0.9)
+                        })*/
                     
                 }
             })
