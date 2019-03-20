@@ -59,7 +59,6 @@ function make_pings(data, color){
     })
 
     .attr("stroke", function(d) {
-      console.log(selected_subs)
       if (selected_subs.length < 1){
         var circle = [parseInt(d.long), parseInt(d.lat)];
         var rotate = projection.rotate(); // antipode of actual rotational center.
