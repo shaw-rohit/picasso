@@ -20,7 +20,8 @@ function update_chart(clustereddata, currentdate, colors, show){
   var charttooltip = d3.select("#statsright").select(".widget").append("div").attr("class", "charttooltip");
   //var rainbow = d3.scaleSequential(d3.interpolateRainbow).domain([0,d3.sum(data, d => 1)]);
 
-function make_pings(data, color){
+function make_pings(data, sub){
+  color = colors[show][sub]
 
   gPins.selectAll("#pingie").remove();
   var pings = gPins.selectAll(".ping").data(data);
@@ -146,7 +147,7 @@ return charty(d.totalpaintings);
 .on("mouseover", function(d){
 
   console.log(show)
-  make_pings(d.values, colors[show][d.key]);
+  make_pings(d.values, d.key);
   mouse_timer = setInterval (function() {
       make_pings(d.values, colors[show][d.key])}, 100);
   charttooltip.transition()		
