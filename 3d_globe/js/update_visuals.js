@@ -1,3 +1,5 @@
+
+
 function update_visuals(year, data, show, projection){
 
     // extract the centuries to show
@@ -39,14 +41,36 @@ function update_visuals(year, data, show, projection){
         }
     });
    
-    window.fil = filtered_data;
     clustered_data = cluster_data(filtered_data, show);
-    
+
+    //retrieve all styles shown right now
+    var current_styles_set = new Set()
+    clustered_data.forEach(function(d){
+        current_styles_set.add(d.sub)
+    })
+
+    var current_styles = [];
+    current_styles_set.forEach(v => current_styles.push(v));
+
     if (show_migration == true){
+        // remove all previous arrows
+        gArrows.selectAll("#arrow").remove()
         //var migration = retrieve_migration(filtered_data, show, 'baroque')
-        var migration = retrieve_migration_cluster(clustered_data, 'baroque')
-        draw_cluster_flow(migration[1], migration[0], color[show]['baroque'])
-        oldest = migration[0]
+        selected_subs.forEach(function(element){
+            //console.log(element)
+            var migration = retrieve_migration_cluster(clustered_data, element)
+            draw_cluster_flow(migration[1], migration[0], color[show][element])
+            oldest = migration[0]
+        })
+
+        // show all migrations if nothin is selected
+        if (selected_subs.length<1){
+            current_styles.forEach(function(element){
+            var migration = retrieve_migration_cluster(clustered_data, element)
+            draw_cluster_flow(migration[1], migration[0], color[show][element])
+            oldest = migration[0]})
+        }
+        
         //draw_migration_flow(migration[1], migration[0])
     }
 
@@ -55,7 +79,126 @@ function update_visuals(year, data, show, projection){
         .attr("r", 0)
         .remove();
 
+    // get all active clusters that contain a birth and plot them as stars
+    if (show === 'style'){current_births = styles_data.map(function(d){ return clustered_data.filter(function(v){return (d.sub===v.sub && year_binner(v.start_date)===year_binner(d.first))}) })}
+    else if (show === 'media'){current_births = media_data.map(function(d){ return clustered_data.filter(function(v){return (d.sub===v.sub && year_binner(v.start_date)===year_binner(d.first))}) })}
+
+    current_births = current_births.filter(function(d){return d.length>0 })
+    window.media_data = media_data
+    window.hai = current_births
+    
+    //console.log(current_births)
+
+
+    gPins.selectAll('.birthstarz').remove();
+    
+    var starsup = gPins.selectAll('.birth_star').data(current_births);
+    var starsdown = gPins.selectAll('.birth_star').data(current_births);
+    starsup.enter().append('rect','.birth_star')
+        .attr('class','birthstarz')
+        .attr("id", function(d){
+            
+            cur_birth = d[0]['sub'];
+            cur_birth = cur_birth.replace(/[^a-zA-Z0-9 \s !?]+/g, '')
+            cur_birth = cur_birth.replace(/\s/g, '')
+            cur_birth = "birthstars" + cur_birth
+            
+            return cur_birth
+        } )
+        .attr("stroke", function(d) {
+            if (selected_subs.length < 1){
+                var circle = [parseInt(d[0]["long"]),
+                parseInt(d[0]["lat"])];
+                var rotate = projection.rotate(); // antipode of actual rotational center.
+                var center = [-rotate[0], -rotate[1]]
+                var distance = d3.geoDistance(circle,center);
+                return distance > Math.PI/2 ? 'none' : color[show][d[0].sub];    
+            }
+            else if (selected_subs.includes(d[0].sub)){
+                var circle = [parseInt(d[0]["long"]),
+                parseInt(d[0]["lat"])];
+                var rotate = projection.rotate(); // antipode of actual rotational center.
+                var center = [-rotate[0], -rotate[1]]
+                var distance = d3.geoDistance(circle,center);
+                return distance > Math.PI/2 ? 'none' : color[show][d[0].sub];
+            }
+            else {
+                return 'none'
+            }            
+        })
+        .attr('stroke-width', function(d) {
+            if (selected_subs.length < 1){
+                return 2
+            }
+            else if (selected_subs.includes(d[0].sub)){
+                return 2
+            }
+            else {
+                return 0
+            }
+        })
+        .style('fill', 'none')
+        .attr('width', function(d) {return 15*(Math.log(d[0]['id'].length+1)+1);})  
+        .attr('height', function(d) {return 15*(Math.log(d[0]['id'].length+1)+1);})  
+    //     .attr("d", d3.symbol().type(d3.symbolStar))
+    //     .attr('size', 100);
+        // // set starting coordinates based on projection location
+        .attr("transform", function(d) {
+        var proj = projection([
+            parseInt(d[0]["long"] ),
+            parseInt(d[0]["lat"])])
+        return "translate(" + [proj[0] - 8*(Math.log(d[0]['id'].length)+1), proj[1]- 8*(Math.log(d[0]['id'].length)+1)]
+         + ")";
+        });
+
+    // all_categories[show].forEach(function(elem){
+    // elem = elem.replace(/[^a-zA-Z0-9 \s !?]+/g, '')
+    // elem = elem.replace(/\s/g, '') 
+    // svgContainer.selectAll("#birthstars" + elem)
+    //     .attr("transform", function(d) {
+    //         var proj = projection([
+    //             parseInt(d[0]["long"]),
+    //             parseInt(d[0]["lat"])])
+    //         return "translate(" + [proj[0] - 8*(Math.log(d[0]['id'].length)+1), proj[1]- 8*(Math.log(d[0]['id'].length)+1)]
+    //          + ")"});
+
+    // svgContainer.selectAll("#birthstars" + elem)
+    //     .style("fill", "none")
+    //     .attr("stroke", function(d) {
+    //         var circle = [parseInt(d[0]["long"]),
+    //         parseInt(d[0]["lat"])];
+    //         var rotate = projection.rotate(); // antipode of actual rotational center.
+    //         var center = [-rotate[0], -rotate[1]]
+    //         var distance = d3.geoDistance(circle,center);
+            
+    //         return distance > Math.PI/2 ? 'none' : color[show][d[0]['sub']];
+    //     });
+    // })
+
+    // starsdown.enter().append('rect','.birth_star')
+    //     .attr('class','birth_starz')
+    //     .attr("id", "birth_stars")
+    //     .attr('stroke', function(d) { return color[show][d[0].sub]})
+    //     .attr('stroke-width', 2)
+    //     .attr('width', 50) 
+    //     .attr('height', 50)
+    //     .style("fill", "none")
+    //     // .rotate(-45)
+    // //     .attr("d", d3.symbol().type(d3.symbolStar))
+    // //     .attr('size', 100);
+    //     // // set starting coordinates based on projection location
+    //     .attr("transform", function(d) {
+    //     var proj = projection([
+    //         parseInt(d[0]["long"]),
+    //         parseInt(d[0]["lat"])])
+    //     return "translate(" + [proj[0], proj[1]]
+    //      + ")rotate(-10)";
+    //     });
+        
+    
+
     // TODO? REMOVE STYLE FROM SUBSET IF NO LONGER WITHIN TIMELINE
+
     
     // insert filtered data into world map
     gPins.selectAll(".pin")
@@ -101,7 +244,17 @@ function update_visuals(year, data, show, projection){
         
         .on("mouseover",function(cluster){  
             tooltip.transition()        
-            .duration(200)      
+            .duration(200)
+            .attr("id", function(){
+                subs = cluster.sub
+                subs = subs.replace(/[^a-zA-Z0-9 \s !?]+/g, '')
+                subs = subs.replace(/\s/g, '')
+                subs = "tt" + subs
+                
+                console.log(subs)
+                
+                return subs
+            })
             .style("opacity", .9)
             .style("left", (d3.event.pageX +20) + "px")     
             .style("top", (d3.event.pageY - 28) + "px")
@@ -224,7 +377,12 @@ function update_slider_plot(data, meta_data, colors, show, years){
         .attr('transform', function(d) {
             return 'translate(' + star_xScale(year_binner(d.first))  + ', 0)';
         })
-        .attr('d', star);
+        .attr("d", d3.symbol().type(d3.symbolStar))
+        .attr('size', 80)
+
+  //       d3.symbol().type(d3.symbolStar)
+  // .size(80);
+        // .attr('d', star);
 
     stars.exit().remove();
     stars.transition().duration(250)

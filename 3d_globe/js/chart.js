@@ -12,14 +12,6 @@ const chartsvg     = d3.select(".widget").append("svg")
 mouseover_time = 1
 var mouse_timer = 0
 
-  
-          
-function update_chart(clustereddata, currentdate, colors, show){
-  d3.select(".widget").select("g").selectAll("g > *").transition().duration(100).remove() //TODO: Create transition in creating new chart
-  d3.select(".charttooltip").transition().duration(100).remove();
-  
-  //var rainbow = d3.scaleSequential(d3.interpolateRainbow).domain([0,d3.sum(data, d => 1)]);
-
 function make_pings(data, color){
 
   gPins.selectAll("#pingie").remove();
@@ -28,37 +20,62 @@ function make_pings(data, color){
   pings.enter().append("circle", ".ping")
     .attr('class','ping')
     .attr("id", "pingie")
-  // set starting coordinates based on projection location
+
+    // set starting coordinates based on projection location
     .attr("cx", function(d) {
-        var circle = projection([parseInt(d.long), parseInt(d.lat)]);
+        var circle = projection([parseInt(d["long"]),
+        parseInt(d["lat"])]);
         var rotate = projection.rotate(); // antipode of actual rotational center.
         var center = projection([-rotate[0], -rotate[1]])
-        var distance = d3.geoDistance(circle,center);
-            if (circle[0] > center[0]){
-                return width
-            }
-            else {
-                return 0
-            }
-    })
-    .attr("cy", function(d) {
-        var circle = projection([parseInt(d.long), parseInt(d.lat)]);
-        var rotate = projection.rotate(); // antipode of actual rotational center.
-        var center = projection([-rotate[0], -rotate[1]]);
         // var distance = d3.geoDistance(circle,center);
-        if (circle[1] > center[1]){
-                return height
-            }
-            else {
-                return 0
-            }
+
+        // need to save this somewhere
+        if (circle[0] > center[0]){
+            d["width"] = width
+            return width
+        }
+        else {
+            d["width"] = 0
+            return 0
+        }
     })
+
+    .attr("cy", function(d) {
+        var circle = projection([parseInt(d["long"]),
+        parseInt(d["lat"])]);
+        var rotate = projection.rotate(); // antipode of actual rotational center.
+        var center = projection([-rotate[0], -rotate[1]])
+        // var distance = d3.geoDistance(circle,center);
+
+        // need to save this somewhere
+        if (circle[1] > center[1]){
+            d["height"] = height
+            return height
+        }
+        else {
+            d["height"] = 0
+            return 0
+        }
+    })
+
     .attr("stroke", function(d) {
-      var circle = [parseInt(d.long), parseInt(d.lat)];
-      var rotate = projection.rotate(); // antipode of actual rotational center.
-      var center = [-rotate[0], -rotate[1]]
-      var distance = d3.geoDistance(circle,center);
+      if (selected_subs.length < 1){
+        var circle = [parseInt(d.long), parseInt(d.lat)];
+        var rotate = projection.rotate(); // antipode of actual rotational center.
+        var center = [-rotate[0], -rotate[1]]
+        var distance = d3.geoDistance(circle,center);
+        return distance > Math.PI/2 ? 'none' : color;}
+
+      else if (selected_subs.includes(d.sub)){
+        var circle = [parseInt(d.long), parseInt(d.lat)];
+        var rotate = projection.rotate(); // antipode of actual rotational center.
+        var center = [-rotate[0], -rotate[1]]
+        var distance = d3.geoDistance(circle,center);
         return distance > Math.PI/2 ? 'none' : color;
+      }
+      else {
+        return 'none'
+      }
     }).attr('stroke-width', 3)
     .attr("r", function(d) { return (10/mouseover_time)*(Math.log(d.id.length+1)+1)})
     .style("fill", "none")
@@ -73,10 +90,20 @@ function make_pings(data, color){
     mouseover_time+=1
     if (mouseover_time===5){mouseover_time=1}
     // pings.exit().remove();
-    pings.transition().duration(10)
+    pings.transition().duration(50)
       .attr("r", function(d) { return (10/(mouseover_time+1))*(Math.log(d.id.length+1)+1)})
           
 }
+  
+          
+function update_chart(clustereddata, currentdate, colors, show){
+  console.log('chart style')
+  console.log(show)
+  d3.select(".widget").select("g").selectAll("g > *").transition().duration(0).remove() //TODO: Create transition in creating new chart
+  d3.selectAll(".charttooltip").transition().duration(0).remove();
+  var charttooltip = d3.select("#statsright").select(".widget").append("div").attr("class", "charttooltip");
+  //var rainbow = d3.scaleSequential(d3.interpolateRainbow).domain([0,d3.sum(data, d => 1)]);
+
 var groupstyle = d3.nest()
   .key(function(d) { return d.sub; })
   .entries(clustereddata);
@@ -91,7 +118,7 @@ groupstyle.forEach(function(d) {
 });
 
 var filteramount = groupstyle.sort(function(a, b) {
-  return d3.descending(+a.totalpaintings, + b.totalpaintings);
+  return d3.descending(a.totalpaintings,  b.totalpaintings);
 }).slice(0, 5);
 
 chartx.domain(filteramount.map(function(d){
@@ -101,7 +128,6 @@ chartx.domain(filteramount.map(function(d){
 charty.domain([0, d3.max(filteramount, function(d){
   return d.totalpaintings})]);
 
-  
 gChart.append("g")
   .attr("class", "axis axis-y")
   .attr("id", "yaxis")
@@ -121,12 +147,20 @@ gChart.append("g")
 
 var bars = gChart.selectAll(".bar")
   .data(filteramount)
-bars.exit(); 
+  .attr("class", "bar")
+  .attr("x", function(d){
+    console.log("The bars: " + d.style) 
+    return chartx(d.style)
+  })
+  .attr("width", chartx.bandwidth())
+bars.exit().remove();
 bars.enter()
   .append("rect")
   .attr("class", "bar")
-  .attr("x", function(d){return chartx(d.style)})
-  //.attr("transform", function(d) {return "rotate(-65)"})
+  .attr("x", function(d){
+    console.log("The bars: " + d.style) 
+    return chartx(d.style)
+  })
   .attr("y", function(d){
 return charty(d.totalpaintings);
 })
@@ -138,6 +172,7 @@ return charty(d.totalpaintings);
 })
 .on("mouseover", function(d){
 
+  console.log(show)
   make_pings(d.values, colors[show][d.key]);
   mouse_timer = setInterval (function() {
       make_pings(d.values, colors[show][d.key])}, 100);
@@ -148,15 +183,18 @@ return charty(d.totalpaintings);
   charttooltip
   .style("left", (d3.event.pageX) + "px")		
   .style("top", (d3.event.pageY - 28) + "px")
-  .html("Style: " + (d.values.sub) + "<br>" + "Total amount: " + (d.totalpaintings));
+  .html("Style: " + (d.style) + "<br>" + "Total amount: " + (d.totalpaintings));
 })
 .on("mouseout", function(d){
     clearTimeout(mouse_timer)
     mouseover_time = 1
     gPins.selectAll("#pingie").remove()
     // window.d = d
+    charttooltip
+      .transition().duration(500)
+      .style("opacity", 0);
   })
-  // .on("mouseout", function(d){ charttooltip.style("display", "none");})
+
 
 bars.transition()
   .duration(200)
@@ -168,53 +206,6 @@ bars.transition()
   .attr("height",function(d){  
     return chartheight - charty(d.totalpaintings) 
   })
-  bars
-  .on("mouseover", function(d){
-    // window.d = d
-    make_pings(d.values, colors[show][d.key]);
-    mouse_timer = setInterval (function() {
-      make_pings(d.values, colors[show][d.key])}, 500);
-    charttooltip
-      .style("display", "inline-block")
-      .html("Style: " + (d[show]) + "<br>" + "Total amount: " + (d.totalpaintings));
-  })
-  .on("mouseout", function(d){
-    clearTimeout(mouse_timer)
-    mouseover_time = 1
-    gPins.selectAll("#pingie").remove()
-    // window.d = d
-  })
-    // .on("mouseout", function(d){ charttooltip.style("display", "none");})
- 
-var charttooltip = chartsvg.append("div").attr("class", "charttooltip");
-
-bars.transition()
-    .duration(200)
-    .ease(d3.easeLinear)
-    .attr("y", function(d){
-      return charty(d.totalpaintings);
-    })
-    .attr("fill", function(d) {return colors[show][d['values'][0]['sub']]}) 
-    .attr("height",function(d){  
-      return chartheight - charty(d.totalpaintings) 
-    })
-    
-  gChart.append("g")
-    .attr("class", "x axis")
-    .attr("transform", "translate(0," + chartheight + ")")
-    .call(d3.axisBottom(chartx))
-    .selectAll("text")  
-    .style("text-anchor", "end")
-    .attr("dx", "-.8em")
-    .attr("dy", ".15em")
-    .attr("transform", "rotate(-30)")
-
-
-  // .attr("transform", "rotate(45)")  
-  gChart.append("g")
-      .attr("class", "axis axis-y")
-      .call(d3.axisLeft(charty).ticks(10).tickSize(8))
-  
   
   // gChart.selectAll(".bar")
   //   .data(filteramount)

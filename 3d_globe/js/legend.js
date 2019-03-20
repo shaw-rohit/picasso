@@ -68,10 +68,11 @@ function nav_bar(data_used, color, show){
         if (!subs_present.includes(element.sub)){
             subs_present.push(element.sub)
         }
-        
-        if (!colors_present.includes(color[show][element.sub])){
-            colors_present.push(color[show][element.sub])
-        }
+    })
+    
+    subs_present = subs_present.sort()
+    subs_present.forEach(function(subs){
+        colors_present.push(color[show][subs])
     })
 
     
@@ -153,6 +154,9 @@ function nav_bar(data_used, color, show){
                 .style("opacity", 0);	
         })
         .on("click", function(d){
+            
+            // Uncheck checkbox in legend
+            document.getElementById("legendCheckbox").checked = false;
 
             if (clicked[d] == true){
                 clicked[d] = false;
@@ -177,37 +181,72 @@ function nav_bar(data_used, color, show){
             });
 
             subs_present.forEach(function(element){
+                
+                // Reselect all elements if no specific element is selected
                 if (selected_subs.length < 1){
                     
                     identifyer = element
                     identifyer = identifyer.replace(/[^a-zA-Z0-9 \s !?]+/g, '')
                     identifyer = identifyer.replace(/\s/g, '')
+                    birth_identifyer = "birthstars" + identifyer
+                    tooltip_identifyer = "tt" + identifyer
                     identifyer = "a" + identifyer
                     
                     gPins.selectAll("#" + identifyer).style("opacity", 0.55)
+                    gPins.selectAll("#" + birth_identifyer).style("opacity", 1)
+                    tooltip.selectAll("#" + tooltip_identifyer).style("opacity", 0.9)
+                        /*.on("mouseover", function(element){
+                            
+                            // Hide tooltips
+                            //element.selectAll(".tooltip").style("opacity", 0)
+                            tooltip.transition()        
+                                .duration(200)      
+                                .style("opacity", 0.9)
+                        })*/
                 }
+                
+                // If element not selected, hide pins
                 else if (!selected_subs.includes(element)){
                     
                     // Get ID for pins
                     identifyer = element
                     identifyer = identifyer.replace(/[^a-zA-Z0-9 \s !?]+/g, '')
                     identifyer = identifyer.replace(/\s/g, '')
+                    birth_identifyer = "birthstars" + identifyer
+                    tooltip_identifyer = "tt" + identifyer
                     identifyer = "a" + identifyer
                     
-                    // Remove all pins that are not of the selected legend elements
                     gPins.selectAll("#" + identifyer).style("opacity", 0)
-                        .on("mouseover", function(element){
+                    gPins.selectAll("#" + birth_identifyer).style("opacity", 0)
+                    tooltip.selectAll("#" + tooltip_identifyer).style("opacity", 0)
+                        /*.on("mouseover", function(element){
                             
                             // Hide tooltips
-                            element.selectAll(".tooltip").style("opacity", 0)
-                        })
+                            //element.selectAll(".tooltip").style("opacity", 0)
+                            tooltip.transition()        
+                                .duration(200)      
+                                .style("opacity", 0)
+                        })*/
                 } else {                    
                     // Show pings of later-on selected elements of the legend
                     identifyer = element
-                    identifyer = identifyer.replace(/[^a-zA-Z0-9 \s !?]+/g, '');
-                    identifyer = identifyer.replace(/\s/g, '');
+                    identifyer = identifyer.replace(/[^a-zA-Z0-9 \s !?]+/g, '')
+                    identifyer = identifyer.replace(/\s/g, '')
+                    birth_identifyer = "birthstars" + identifyer
+                    tooltip_identifyer = "tt" + identifyer
                     identifyer = "a" + identifyer
+                    
                     gPins.selectAll("#" + identifyer).style("opacity", 0.55)
+                    gPins.selectAll("#" + birth_identifyer).style("opacity", 1)
+                    tooltip.selectAll("#" + tooltip_identifyer).style("opacity", 0.9)
+                        /*.on("mouseover", function(element){
+                            
+                            // Hide tooltips
+                            //element.selectAll(".tooltip").style("opacity", 0)
+                            tooltip.transition()        
+                                .duration(200)      
+                                .style("opacity", 0.9)
+                        })*/
                     
                 }
             })

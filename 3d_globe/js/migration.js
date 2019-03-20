@@ -159,7 +159,7 @@ function draw_cluster_flow(migration_data, oldest, color){
     //rotation_timer.stop()
     
     // Remove existing arrows
-    gArrows.selectAll("#arrow").remove()
+    //gArrows.selectAll("#arrow").remove()
     
     // Create new arrows
     var arrows = gArrows.selectAll('path.datamaps-arc').data(migration_data)
@@ -171,6 +171,7 @@ function draw_cluster_flow(migration_data, oldest, color){
         .attr('d', function(d) {
             
             var origin = projection([oldest.long, oldest.lat])
+            d['origin'] = [oldest.long, oldest.lat]
             var dest = projection([d.long, d.lat])
             
             
@@ -207,6 +208,7 @@ function draw_cluster_flow(migration_data, oldest, color){
                 + "," + origin[0] + "," + origin[1]
             
         })
+        .attr("stroke", 1)
         .attr("fill", color)
         
     arrows.exit()

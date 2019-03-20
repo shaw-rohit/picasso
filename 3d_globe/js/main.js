@@ -5,7 +5,7 @@ var centered;
 legendRectSize = 18;
 legendSpacing = 4;
 
-var show = 'style'
+var show = 'style';
 // default speed of the sider in 1000*seconds per year
 SLIDER_SPEED = 1000;
 
@@ -21,7 +21,7 @@ var zoom_level = 0
 var sensitivity = 0.25
 var maxElevation = 45
 var time = Date.now()
-    rotate = [10, -10] 
+    rotate = [10, -10]
     velocity = [.003, -.001];
 
 // years and locations are binned to prevent clutter
@@ -63,12 +63,20 @@ var svgColors = d3.select("#legend")
 
 var is2d = false; //check if 2d or 3d for play button
 var clustered_data;
+var all_data;
+
+// media/style checkbox
+var style_box = document.getElementById('option-1');
+document.getElementById('option-1').checked = true;
+var media_box = document.getElementById('option-2');
+document.getElementById('option-2').checked = false;
+
 ////////////////
 // Create map //
 ////////////////
 
 // Create map
-var projection = d3.geoOrthographic().translate([width/2, height/4]).scale(350).center([0,40]);
+var projection = d3.geoOrthographic().translate([width/2, height/4]).scale(350).center([0,30]);
 
 var zoom = d3.zoom()
 .scaleExtent([1, 8])
@@ -84,11 +92,10 @@ var water = svgContainer.append("path")
 var g = svgContainer.append("g")//For map
 var gPins = svgContainer.select("g"); //For pins on map (new abstract layer)
 var gArrows = svgContainer.append("g"); // For arrows of migration
-var tooltip = d3.select("body").append("div")   
-    .attr("class", "tooltip")               
+var tooltip = d3.select("body").append("div")
+    .attr("class", "tooltip")
     .style("opacity", 0)
     .style("z-index", 1);
-
 var number_windows = 1; // Initial number of windows
 var number_details_painting = 0;
 
@@ -168,6 +175,7 @@ var all_years = []
 var checkpoints = [0]
 var check_i = 0
 var starting = true
+var all_categories = {}
 
 // long lat binner with bin size LONGLAT_STEP
 // TODO: let bin size depend on zoom level
@@ -184,6 +192,118 @@ var year_binner = d3.scaleQuantize()
     .range(d3.range(100, 2025, YEAR_STEP));
 
 var color = {'school': {}, 'style': {}, 'media':{}}
+// of each sub class, collect the first time that it occured
+var schools_data = [];var styles_data = [];var media_data = [];
+
+
+
+//////////////////////////////////////////////
+/////////////// FANCY SLIDER /////////////////
+//////////////////////////////////////////////
+
+$(function() {
+
+  // Initiate Slider
+  $('#slider-range').slider({
+    range: true,
+    min: 0,
+    max: 2020,
+    step: 10,
+    values: [year_interval[0], year_interval[1]]
+  });
+
+  // Move the range wrapper into the generated divs
+  $('.ui-slider-range').append($('.range-wrapper'));
+
+  // Apply initial values to the range container
+  $('.range').html('<span class="range-value">' + $('#slider-range').slider("values", 0).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "1,") + '</span><span class="range-divider"></span><span class="range-value">' + $("#slider-range").slider("values", 1).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "1,") + '</span>') + $("slider-range").slider();
+
+  // Show the gears on press of the handles
+  $('.ui-slider-handle, .ui-slider-range').on('mousedown', function() {
+    $('.gear-large').addClass('active');
+  });
+
+  // Hide the gears when the mouse is released
+  // Done on document just incase the user hovers off of the handle
+  $(document).on('mouseup', function() {
+    if ($('.gear-large').hasClass('active')) {
+      $('.gear-large').removeClass('active');
+    }
+  });
+
+  // Rotate the gears
+  var gearOneAngle = 0,
+    gearTwoAngle = 0,
+    rangeWidth = $('.ui-slider-range').css('width');
+
+  $('.gear-one').css('transform', 'rotate(' + gearOneAngle + 'deg)');
+  $('.gear-two').css('transform', 'rotate(' + gearTwoAngle + 'deg)');
+
+  $('#slider-range').slider({
+    slide: function(event, ui) {
+
+      // Update the range container values upon sliding
+      $('.range').html('<span class="range-value">' + ui.values[0].toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + '</span><span class="range-divider"></span><span class="range-value">' + ui.values[1].toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + '</span>');
+
+      // Update year_interval
+      year_interval[0] = $(this).slider('values', 0);
+      year_interval[1] = $(this).slider('values', 1);
+      update_chart(clustered_data,year_interval, color, show)
+      if (show==='style'){ update_slider_plot(styles_slider_data, styles_data, color, show, year_interval) }
+      else if (show==='school'){ update_slider_plot(school_slider_data, schools_data, color, show, year_interval) }
+      else if (show==='media'){ update_slider_plot(media_slider_data, media_data, color, show, year_interval) }
+      nav_bar(clustered_data, color, show)
+      update_visuals(year_interval, all_data, show, projection)
+
+      // Get old value
+      var previousVal = parseInt($(this).data('value'));
+
+      // Save new value
+      $(this).data({
+        'value': parseInt(ui.value)
+      });
+
+      // Figure out which handle is being used
+      if (ui.values[0] == ui.value) {
+
+        // Left handle
+        if (previousVal > parseInt(ui.value)) {
+          // value decreased
+          gearOneAngle -= 7;
+          $('.gear-one').css('transform', 'rotate(' + gearOneAngle + 'deg)');
+        } else {
+          // value increased
+          gearOneAngle += 7;
+          $('.gear-one').css('transform', 'rotate(' + gearOneAngle + 'deg)');
+        }
+
+      } else {
+
+        // Right handle
+        if (previousVal > parseInt(ui.value)) {
+          // value decreased
+          gearOneAngle -= 7;
+          $('.gear-two').css('transform', 'rotate(' + gearOneAngle + 'deg)');
+        } else {
+          // value increased
+          gearOneAngle += 7;
+          $('.gear-two').css('transform', 'rotate(' + gearOneAngle + 'deg)');
+        }
+
+      }
+
+    }
+  });
+
+  // Prevent the range container from moving the slider
+  $('.range, .range-alert').on('mousedown', function(event) {
+    event.stopPropagation();
+  });
+
+});
+
+
+
 
 //////////////////////////////////////////////
 ///// LOAD DATA AND SHOW IT ACCORDINGLY //////
@@ -192,11 +312,14 @@ var color = {'school': {}, 'style': {}, 'media':{}}
 d3.csv("omni_locations.csv")
     .then(function(data){
 
-        data = data.filter(function(d){
-            return d.media != "Unknown" || d.school != "Unknown";
+        all_data = data
+        all_data = all_data.filter(function(d){
+            return d.media != "Unknown" && d.style != "Unknown";
         })
+
+
         // initialize things to show
-        
+
         var year = 100
 
         // save all years and get the distribution in centuries
@@ -212,34 +335,54 @@ d3.csv("omni_locations.csv")
             if ((i%500) == 0){
                 checkpoints.push(all_years[i])
             }
-        } 
+        }
         checkpoints.push(d3.max(years))
-        
+
         d3.select("#migrationflow")
             .on("click", function(d){
                 if (show_migration == false){
                     show_migration = true;
-                    document.getElementById("migrationflow").children[0].style.display = "none" 
+                    document.getElementById("migrationflow").children[0].style.display = "none"
                     update_visuals(year_interval, data, show, projection);
                 }
                 else {
                     show_migration = false;
-                    gArrows.selectAll("#arrow").remove()    
-                    document.getElementById("migrationflow").children[0].style.display = "block"                        
+                    gArrows.selectAll("#arrow").remove()
+                    document.getElementById("migrationflow").children[0].style.display = "block"
                 }
             });
 
-        
-        /*d3.select("#migrationoff")
-            .on("click", function(d){
-                show_migration = false;
-                gArrows.selectAll("#arrow").remove()
-                if (!is2d){
-                    rotation_timer.restart(function(){
-                        rotateglobe();
-                    });
-                }
-            });*/
+        document.getElementById("legendCheckbox").checked = true;
+        // Reselect all elements of the legend when clicking on the checkbox
+        d3.select("#legendCheckbox").on("click", function(){
+
+            // Make all bars selected again
+            svgColors.selectAll("#legendbar").style("opacity", 1)
+
+            selected_subs = []
+
+            // For each sub present in the map at the moment, make them visible again
+            subs_present.forEach(function(subs){
+                identifyer = subs
+                identifyer = identifyer.replace(/[^a-zA-Z0-9 \s !?]+/g, '')
+                identifyer = identifyer.replace(/\s/g, '')
+                birth_identifyer = "birthstars" + identifyer
+                identifyer = "a" + identifyer
+                gPins.selectAll("#" + identifyer).style("opacity", 0.55)
+                gPins.selectAll("#" + birth_identifyer).style("opacity", 1)
+                    /*.on("mouseover", function(element){
+
+                        // Retrieve tooltips again
+                        tooltip.transition()
+                                .duration(200)
+                                .style("opacity", .9)
+                                .style("left", (d3.event.pageX +20) + "px")
+                                .style("top", (d3.event.pageY - 28) + "px")
+                                .style("z-index", 1);
+                    })*/
+            })
+        })
+
 
         d3.select("#twomap")
         .style("opacity", 1)
@@ -252,11 +395,11 @@ d3.csv("omni_locations.csv")
             svgContainer.call(zoom) //Use zoom
              rotation_timer.stop();
              if (is_globe){
-                 new_projection = d3.geoNaturalEarth1().scale(250).center([-60,30])
-                 update(new_projection, [-60, 28], translation = false)
-                 
+                 new_projection = d3.geoNaturalEarth1().translate([width/2, height/4]).scale(250).center([0,30])
+                 update(new_projection, [0, 30], translation = false)
+
                  projection = new_projection
-                 
+
                  path = d3.geoPath().projection(projection);
                  setTimeout(function(){ g.selectAll("path")
                      .transition()
@@ -292,20 +435,24 @@ d3.csv("omni_locations.csv")
                     */
             }
 
-            
-            is_globe = false;            
+
+            is_globe = false;
         })
         // .style("opacity", 0);
 
         d3.select("#threemap")
         .style("opacity", 1)
         .on("click", function(d){
+            svgContainer.on('.zoom', null);
+            zoom = d3.zoom()
+                .scaleExtent([1, 8])
+                .on("zoom", zoomed);
             is2d = false;
-            svgContainer.on(".zoom", null);
             drag = callglobedrag();
             if (!is_globe){
-            new_projection = d3.geoOrthographic().translate([width/2, height/4]).scale(350).center([0,40])
-            update(new_projection, [17, 45], translation = true)
+            new_projection = d3.geoOrthographic().translate([width/2, height/4]).scale(350).center([0,30])
+            zoom.transform(svgContainer, d3.zoomIdentity.translate(0,0).scale(1)); // Set back to center position
+            update(new_projection, [0, 30], translation = true)
             projection = new_projection
             path = d3.geoPath().projection(projection);
             setTimeout(function(){ g.selectAll("path")
@@ -330,9 +477,25 @@ d3.csv("omni_locations.csv")
                 , 1000)
             }
 
-            is_globe = true;            
-       
+            is_globe = true;
+
         });
+        d3.select("#map_control_zoom_in")
+            .on("click", function(d){
+                zoom.scaleBy(svgContainer, 1.3);
+                zoom = d3.zoom()
+                .scaleExtent([1, 8])
+                .on("zoom", zoomed);
+
+            })
+
+        d3.select("#map_control_zoom_out")
+            .on("click", function(d){
+                zoom.scaleBy(svgContainer, 1 / 1.3);
+                zoom = d3.zoom()
+                    .scaleExtent([1, 8])
+                    .on("zoom", zoomed);
+            })
 
         if (!playAuto){
             // Play button will add one year per half a second
@@ -357,32 +520,31 @@ d3.csv("omni_locations.csv")
             })
             }
         }
-        
-        // of each sub class, collect the first time that it occured
-        var schools_data = [];var styles_data = [];var media_data = [];
+
+
         d3.nest()
             .key(function(d) { return d['school']; })
-            .rollup(function(v) { 
+            .rollup(function(v) {
                 schools_data.push({
-                first: d3.min(v, function(d) { return +d.date; }), 
-                sub: d3.map(v, function(d) { return d.school; }).keys()[0], 
-                }) 
+                first: d3.min(v, function(d) { return +d.date; }),
+                sub: d3.map(v, function(d) { return d.school; }).keys()[0],
+                })
         }).map(data);
         d3.nest()
             .key(function(d) { return d['style']; })
-            .rollup(function(v) { 
+            .rollup(function(v) {
                 styles_data.push({
-                first: d3.min(v, function(d) { return +d.date; }), 
-                sub: d3.map(v, function(d) { return d.style; }).keys()[0], 
-                }) 
+                first: d3.min(v, function(d) { return +d.date; }),
+                sub: d3.map(v, function(d) { return d.style; }).keys()[0],
+                })
         }).map(data);
         d3.nest()
             .key(function(d) { return d['media']; })
-            .rollup(function(v) { 
+            .rollup(function(v) {
                 media_data.push({
-                first: d3.min(v, function(d) { return +d.date; }), 
-                sub: d3.map(v, function(d) { return d.media; }).keys()[0], 
-                }) 
+                first: d3.min(v, function(d) { return +d.date; }),
+                sub: d3.map(v, function(d) { return d.media; }).keys()[0],
+                })
         }).map(data);
 
 
@@ -401,6 +563,9 @@ d3.csv("omni_locations.csv")
         var all_styles = styles_data.map(function(d) { return d.sub })
         var all_schools = schools_data.map(function(d) { return d.sub })
         var all_media = media_data.map(function(d) { return d.sub })
+        all_categories['style'] = all_styles
+        all_categories['media'] = all_media
+
 
         var styles_colors = [];
         var schools_colors = [];
@@ -450,92 +615,62 @@ d3.csv("omni_locations.csv")
         styles_slider_data = []; media_slider_data = []; school_slider_data = [];
         d3.nest()
             .key(function(d) { return year_binner(d['date']); })
-            .rollup(function(v) { 
+            .rollup(function(v) {
                 styles_slider_data.push({
-                year: d3.min(v, function(d) { return +d.date; }), 
-                data: d3.map(v, function(d) { return d.style; }).keys(), 
-                // birth: d3.map(v, function(d) { return d.style; }), 
-                }) 
+                year: d3.min(v, function(d) { return +d.date; }),
+                data: d3.map(v, function(d) { return d.style; }).keys(),
+                // birth: d3.map(v, function(d) { return d.style; }),
+                })
                 media_slider_data.push({
-                year: d3.min(v, function(d) { return +d.date; }), 
-                data: d3.map(v, function(d) { return d.media; }).keys(), 
-                }) 
+                year: d3.min(v, function(d) { return +d.date; }),
+                data: d3.map(v, function(d) { return d.media; }).keys(),
+                })
                 school_slider_data.push({
-                year: d3.min(v, function(d) { return +d.date; }), 
-                data: d3.map(v, function(d) { return d.school; }).keys(), 
-                }) 
+                year: d3.min(v, function(d) { return +d.date; }),
+                data: d3.map(v, function(d) { return d.school; }).keys(),
+                })
         }).map(data);
 
         update_slider_plot(styles_slider_data, styles_data, color, show, year_interval)
-        clustered_data = update_visuals(year_interval, data, show, projection)
+        clustered_data = update_visuals(year_interval, all_data, show, projection)
 
         slider.onChange(function(newRange){
             d3.select("#range-label").text(newRange.begin + " - " + newRange.end);
             year_interval = [newRange.begin, newRange.end]
-            update_visuals(year_interval, data, show, projection)
+            update_visuals(year_interval, all_data, show, projection)
+            //console.log(show)
 
             // update navbar
             nav_bar(clustered_data, color, show)
-            
-            // only show clicked elements
-            console.log('Slider')
-            console.log(subs_present)
-            console.log(selected_subs)
-            
 
 
-            update_chart(clustered_data,year-YEAR_STEP, color, show);   
+            update_chart(clustered_data,year_interval, color, show);
 
             // required for keeping track of current time period
             // very ugly if statement but for now
             if (show==='style'){ update_slider_plot(styles_slider_data, styles_data, color, show, year_interval) }
             else if (show==='school'){ update_slider_plot(school_slider_data, schools_data, color, show, year_interval) }
             else if (show==='media'){ update_slider_plot(media_slider_data, media_data, color, show, year_interval) }
-            // update_slider_plot(styles_slider_data, styles_data, color, show, year_interval)         
+            // update_slider_plot(styles_slider_data, styles_data, color, show, year_interval)
         });
-    
+
         //var legend = show_legend(all_styles, styles_colors, data, show, show_migration, century)
 
-        
-        // on button press, only show button id and try to filter by year
-        d3.select("#style")
-        .on("click", function(d){
-            show = 'style'
-            update_slider_plot(styles_slider_data, styles_data, color, show, year_interval)
-            update_visuals(year_interval,data,show, projection)
-            nav_bar(clustered_data, color, show)
-            update_chart(clustered_data,year-YEAR_STEP, color, show);
-        });
+        // style_box.on("click", function(d){
+        //     console.log('hi')
+        // })
 
-        d3.select("#school")
-        .on("click", function(d){
-            show = 'school'
-            update_visuals(year_interval,data,show, projection)
-            update_slider_plot(school_slider_data,  schools_data, color, show, year_interval)
-            nav_bar(clustered_data, color, show)
-            update_chart(clustered_data,year-YEAR_STEP, color, show);
-        });
 
-        d3.select("#media")
-        .on("click", function(d){
-            show = 'media'
-            update_slider_plot(media_slider_data, media_data, color, show, year_interval)
-            update_visuals(year_interval,data,show, projection)
-            nav_bar(clustered_data, color, show)
-            update_chart(clustered_data,year-YEAR_STEP, color, show);   
-        });
-
-        
 });
 
 
 function cluster_data(data, show){
     /*
-     * INPUT: 
+     * INPUT:
      * dataset -- dataset for this time block
      * show -- either style, school or media
-     * 
-     * OUTPUT: 
+     *
+     * OUTPUT:
      * clustered_data -- the clustered data
 
      example of cluster:
@@ -554,16 +689,16 @@ function cluster_data(data, show){
       .key(function(d) { return d[show]; }) // cluster on subclass
       .key(function(d) { return long_binner(d['long']); }) // cluster on cordinates
       .key(function(d) { return lat_binner(d['lat']); })
-      .rollup(function(v) { 
+      .rollup(function(v) {
         clustered_data.push({
-        id: d3.map(v, function(d) { return d.omni_id; }).keys(), 
-        start_date: d3.min(v, function(d) { return d.date; }), 
-        end_date: d3.max(v, function(d) { return d.date; }), 
+        id: d3.map(v, function(d) { return d.omni_id; }).keys(),
+        start_date: d3.min(v, function(d) { return d.date; }),
+        end_date: d3.max(v, function(d) { return d.date; }),
         lat: d3.mean(v, function(d) { return d.lat; }),
         long: d3.mean(v, function(d) { return d.long; }),
-        sub: d3.map(v, function(d) { return d[show]; }).keys()[0], 
-        }) 
-        ;}) 
+        sub: d3.map(v, function(d) { return d[show]; }).keys()[0],
+        })
+        ;})
       .map(data);
 
 
@@ -601,3 +736,23 @@ var contains = function(needle) {
 
     return indexOf.call(this, needle) > -1;
 };
+
+function changeStyle(element){
+    // check if element clicked is style
+    if (element.id == 'option-1'){
+        show = 'style'
+    }
+    else if (element.id == 'option-2'){
+        show = 'media'
+    }
+
+    update_slider_plot(media_slider_data, media_data, color, show, year_interval)
+    update_visuals(year_interval, all_data, show, projection)
+    nav_bar(clustered_data, color, show)
+    update_chart(clustered_data,year_interval, color, show);
+    if (show==='style'){ update_slider_plot(styles_slider_data, styles_data, color, show, year_interval) }
+    else if (show==='school'){ update_slider_plot(school_slider_data, schools_data, color, show, year_interval) }
+    else if (show==='media'){ update_slider_plot(media_slider_data, media_data, color, show, year_interval) }
+
+
+}

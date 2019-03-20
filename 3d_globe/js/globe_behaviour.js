@@ -8,6 +8,53 @@ function rotateglobe(){
     svgContainer.selectAll("path").attr("d", path(world));
     water.attr("d", path);
 
+    all_categories[show].forEach(function(elem){
+        elem = elem.replace(/[^a-zA-Z0-9 \s !?]+/g, '')
+        elem = elem.replace(/\s/g, '') 
+        svgContainer.selectAll("#birthstars" + elem)
+            .attr("transform", function(d) {
+                var proj = projection([
+                    parseInt(d[0]["long"]),
+                    parseInt(d[0]["lat"])])
+                return "translate(" + [proj[0] - 8*(Math.log(d[0]['id'].length)+1), proj[1]- 8*(Math.log(d[0]['id'].length)+1)]
+                 + ")"});
+
+        svgContainer.selectAll("#birthstars" + elem)
+            .style("fill", "none")
+            .attr("stroke", function(d) {
+                var circle = [parseInt(d[0]["long"]),
+                parseInt(d[0]["lat"])];
+                var rotate = projection.rotate(); // antipode of actual rotational center.
+                var center = [-rotate[0], -rotate[1]]
+                var distance = d3.geoDistance(circle,center);
+                
+            return distance > Math.PI/2 ? 'none' : color[show][d[0]['sub']];
+        });
+    })
+
+
+     svgContainer.selectAll("#pingie")
+        .attr("transform", function(d) {
+            var proj = projection([
+                parseInt(d["long"]),
+                parseInt(d["lat"])])
+            return "translate(" + [proj[0] - d["width"], proj[1] - d["height"]]
+             + ")"});
+             
+
+    svgContainer.selectAll("#pingie")
+        .style("fill", "none")
+        .attr("stroke", function(d) {
+            var circle = [parseInt(d["long"]),
+            parseInt(d["lat"])];
+            var rotate = projection.rotate(); // antipode of actual rotational center.
+            var center = [-rotate[0], -rotate[1]]
+            var distance = d3.geoDistance(circle,center);
+            
+        return distance > Math.PI/2 ? 'none' : color[show][d['sub']];
+    });
+
+
     svgContainer.selectAll("circle")
         .attr("transform", function(d) {
             var proj = projection([
@@ -31,7 +78,7 @@ function rotateglobe(){
     // required for rotating the arrows
     gArrows.selectAll("#arrow")
         .attr('d', function(d) {
-            var origin = projection([oldest.long, oldest.lat])
+            var origin = projection(d['origin'])
             var dest = projection([d.long, d.lat])
             
             
@@ -121,6 +168,48 @@ function dragged(){
             return "translate(" + [proj[0] - d["width"], proj[1] - d["height"]]
              + ")"});
 
+
+    all_categories[show].forEach(function(elem){
+        elem = elem.replace(/[^a-zA-Z0-9 \s !?]+/g, '')
+        elem = elem.replace(/\s/g, '') 
+        svgContainer.selectAll("#birthstars" + elem)
+            .attr("transform", function(d) {
+                var proj = projection([
+                    parseInt(d[0]["long"]),
+                    parseInt(d[0]["lat"])])
+                return "translate(" + [proj[0] - 8*(Math.log(d[0]['id'].length)+1), proj[1]- 8*(Math.log(d[0]['id'].length)+1)]
+                 + ")"});
+
+        svgContainer.selectAll("#birthstars" + elem)
+            .style("fill", "none")
+            .attr("stroke", function(d) {
+                var circle = [parseInt(d[0]["long"]),
+                parseInt(d[0]["lat"])];
+                var rotate = projection.rotate(); // antipode of actual rotational center.
+                var center = [-rotate[0], -rotate[1]]
+                var distance = d3.geoDistance(circle,center);
+                
+            return distance > Math.PI/2 ? 'none' : color[show][d[0]['sub']];
+        });
+    })
+
+     svgContainer.selectAll("#pingie")
+        .attr("stroke", function(d) {
+            var circle = [parseInt(d["long"]),
+            parseInt(d["lat"])];
+            var rotate = projection.rotate(); // antipode of actual rotational center.
+            var center = [-rotate[0], -rotate[1]]
+            var distance = d3.geoDistance(circle,center);
+            return distance > Math.PI/2 ? 'none' : color[show][d.sub];
+        })
+        .attr("transform", function(d) {
+            var proj = projection([
+                parseInt(d["long"]),
+                parseInt(d["lat"])])
+            return "translate(" + [proj[0] - d["width"], proj[1] - d["height"]]
+             + ")"});
+             
+
     svgContainer.selectAll("circle")
         .attr("fill", function(d) {
             var circle = [parseInt(d["long"]),
@@ -134,7 +223,7 @@ function dragged(){
 
     gArrows.selectAll("#arrow")
         .attr('d', function(d) {
-            var origin = projection([oldest.long, oldest.lat])
+            var origin = projection(d['origin'])
             var dest = projection([d.long, d.lat])
             
             
@@ -174,13 +263,14 @@ function dragged(){
 }
 
 function dragended(){
-    zoom = d3.zoom()
-        .scaleExtent([1, 8])
-        .on("zoom", zoomed);
-    svgContainer.call(zoom) //Use zoom
-        rotation_timer.restart(function(elapsed) {
-        // rotateglobe(); // TODO: Get correct coordinates and pass them to function.
-    });
+//     console.log(zoom)
+//     zoom.transform(svgContainer, d3.zoomIdentity.translate(0,0).scale(1));
+//     var zoom = d3.zoom()
+// .scaleExtent([1, 8])
+// .on("zoom", zoomed);
+    //     rotation_timer.restart(function(elapsed) {
+    //     rotateglobe(); // TODO: Get correct coordinates and pass them to function.
+    // });
     console.log("end")
 
 }
