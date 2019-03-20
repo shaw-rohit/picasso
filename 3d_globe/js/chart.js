@@ -15,9 +15,9 @@ var mouse_timer = 0
   
           
 function update_chart(clustereddata, currentdate, colors, show){
-  d3.select(".widget").select("g").selectAll("g > *").transition().duration(100).remove() //TODO: Create transition in creating new chart
-  d3.select(".charttooltip").transition().duration(100).remove();
-  
+  d3.select(".widget").select("g").selectAll("g > *").transition().duration(0).remove() //TODO: Create transition in creating new chart
+  d3.selectAll(".charttooltip").transition().duration(0).remove();
+  var charttooltip = d3.select("#statsright").select(".widget").select("svg").select("g").append("div").attr("class", "charttooltip");
   //var rainbow = d3.scaleSequential(d3.interpolateRainbow).domain([0,d3.sum(data, d => 1)]);
 
 function make_pings(data, color){
@@ -91,17 +91,17 @@ groupstyle.forEach(function(d) {
 });
 
 var filteramount = groupstyle.sort(function(a, b) {
-  return d3.descending(+a.totalpaintings, + b.totalpaintings);
+  return d3.descending(a.totalpaintings,  b.totalpaintings);
 }).slice(0, 5);
 
 chartx.domain(filteramount.map(function(d){
+  console.log("The Domain: "  + d.style)
   return d.style;
 }));
 
 charty.domain([0, d3.max(filteramount, function(d){
   return d.totalpaintings})]);
 
-  
 gChart.append("g")
   .attr("class", "axis axis-y")
   .attr("id", "yaxis")
@@ -111,7 +111,7 @@ gChart.append("g")
   .attr("id", "xaxis")
   .attr("class", "x axis")
   .attr("transform", "translate(0," + chartheight + ")")
-  .call(d3.axisBottom(chartx))
+  .call(d3.axisBottom(chartx).ticks(6).tickSize(8))
   .selectAll("text")
   .style("text-anchor", "end")
   .attr("dx", "-.8em")
@@ -121,12 +121,20 @@ gChart.append("g")
 
 var bars = gChart.selectAll(".bar")
   .data(filteramount)
-bars.exit(); 
+  .attr("class", "bar")
+  .attr("x", function(d){
+    console.log("The bars: " + d.style) 
+    return chartx(d.style)
+  })
+  .attr("width", chartx.bandwidth())
+bars.exit().remove();
 bars.enter()
   .append("rect")
   .attr("class", "bar")
-  .attr("x", function(d){return chartx(d.style)})
-  //.attr("transform", function(d) {return "rotate(-65)"})
+  .attr("x", function(d){
+    console.log("The bars: " + d.style) 
+    return chartx(d.style)
+  })
   .attr("y", function(d){
 return charty(d.totalpaintings);
 })
@@ -168,53 +176,6 @@ bars.transition()
   .attr("height",function(d){  
     return chartheight - charty(d.totalpaintings) 
   })
-  bars
-  .on("mouseover", function(d){
-    // window.d = d
-    make_pings(d.values, colors[show][d.key]);
-    mouse_timer = setInterval (function() {
-      make_pings(d.values, colors[show][d.key])}, 500);
-    charttooltip
-      .style("display", "inline-block")
-      .html("Style: " + (d[show]) + "<br>" + "Total amount: " + (d.totalpaintings));
-  })
-  .on("mouseout", function(d){
-    clearTimeout(mouse_timer)
-    mouseover_time = 1
-    gPins.selectAll("#pingie").remove()
-    // window.d = d
-  })
-    // .on("mouseout", function(d){ charttooltip.style("display", "none");})
- 
-var charttooltip = chartsvg.append("div").attr("class", "charttooltip");
-
-bars.transition()
-    .duration(200)
-    .ease(d3.easeLinear)
-    .attr("y", function(d){
-      return charty(d.totalpaintings);
-    })
-    .attr("fill", function(d) {return colors[show][d['values'][0]['sub']]}) 
-    .attr("height",function(d){  
-      return chartheight - charty(d.totalpaintings) 
-    })
-    
-  gChart.append("g")
-    .attr("class", "x axis")
-    .attr("transform", "translate(0," + chartheight + ")")
-    .call(d3.axisBottom(chartx))
-    .selectAll("text")  
-    .style("text-anchor", "end")
-    .attr("dx", "-.8em")
-    .attr("dy", ".15em")
-    .attr("transform", "rotate(-30)")
-
-
-  // .attr("transform", "rotate(45)")  
-  gChart.append("g")
-      .attr("class", "axis axis-y")
-      .call(d3.axisLeft(charty).ticks(10).tickSize(8))
-  
   
   // gChart.selectAll(".bar")
   //   .data(filteramount)
