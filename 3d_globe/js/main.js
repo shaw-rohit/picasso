@@ -247,6 +247,8 @@ d3.csv("omni_locations.csv")
             // Make all bars selected again
             svgColors.selectAll("#legendbar").style("opacity", 1)
             
+            selected_subs = []
+            
             // For each sub present in the map at the moment, make them visible again
             subs_present.forEach(function(subs){
                 identifyer = subs
