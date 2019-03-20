@@ -76,7 +76,7 @@ function update_visuals(year, data, show, projection){
         .attr('class','birth_starz')
         .attr("id", "birth_stars")
         .attr("stroke", function(d) {
-        var circle = [parseInt(d[0]["long"]),
+            var circle = [parseInt(d[0]["long"]),
             parseInt(d[0]["lat"])];
             var rotate = projection.rotate(); // antipode of actual rotational center.
             var center = [-rotate[0], -rotate[1]]
@@ -85,8 +85,8 @@ function update_visuals(year, data, show, projection){
         })
         .attr('stroke-width', 2)
         .style('fill', 'none')
-        .attr('width', function(d) {return 15*(Math.log(d[0]['id'].length)+1);})  
-        .attr('height', function(d) {return 15*(Math.log(d[0]['id'].length)+1);})  
+        .attr('width', function(d) {return 15*(Math.log(d[0]['id'].length+1)+1);})  
+        .attr('height', function(d) {return 15*(Math.log(d[0]['id'].length+1)+1);})  
     //     .attr("d", d3.symbol().type(d3.symbolStar))
     //     .attr('size', 100);
         // // set starting coordinates based on projection location
