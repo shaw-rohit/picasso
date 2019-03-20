@@ -17,7 +17,7 @@ var mouse_timer = 0
 function update_chart(clustereddata, currentdate, colors, show){
   d3.select(".widget").select("g").selectAll("g > *").transition().duration(0).remove() //TODO: Create transition in creating new chart
   d3.selectAll(".charttooltip").transition().duration(0).remove();
-  var charttooltip = d3.select("#statsright").select(".widget").select("svg").select("g").append("div").attr("class", "charttooltip");
+  var charttooltip = d3.select("#statsright").select(".widget").append("div").attr("class", "charttooltip");
   //var rainbow = d3.scaleSequential(d3.interpolateRainbow).domain([0,d3.sum(data, d => 1)]);
 
 function make_pings(data, color){
@@ -95,7 +95,6 @@ var filteramount = groupstyle.sort(function(a, b) {
 }).slice(0, 5);
 
 chartx.domain(filteramount.map(function(d){
-  console.log("The Domain: "  + d.style)
   return d.style;
 }));
 
@@ -111,7 +110,7 @@ gChart.append("g")
   .attr("id", "xaxis")
   .attr("class", "x axis")
   .attr("transform", "translate(0," + chartheight + ")")
-  .call(d3.axisBottom(chartx).ticks(6).tickSize(8))
+  .call(d3.axisBottom(chartx))
   .selectAll("text")
   .style("text-anchor", "end")
   .attr("dx", "-.8em")
@@ -156,15 +155,18 @@ return charty(d.totalpaintings);
   charttooltip
   .style("left", (d3.event.pageX) + "px")		
   .style("top", (d3.event.pageY - 28) + "px")
-  .html("Style: " + (d.values.sub) + "<br>" + "Total amount: " + (d.totalpaintings));
+  .html("Style: " + (d.style) + "<br>" + "Total amount: " + (d.totalpaintings));
 })
 .on("mouseout", function(d){
     clearTimeout(mouse_timer)
     mouseover_time = 1
     gPins.selectAll("#pingie").remove()
     // window.d = d
+    charttooltip
+      .transition().duration(500)
+      .style("opacity", 0);
   })
-  // .on("mouseout", function(d){ charttooltip.style("display", "none");})
+
 
 bars.transition()
   .duration(200)
