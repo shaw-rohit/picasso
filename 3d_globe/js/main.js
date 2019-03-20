@@ -1,5 +1,5 @@
 var width = 1000;
-var height = 750;
+var height = 800;
 var centered;
 
 legendRectSize = 18;
