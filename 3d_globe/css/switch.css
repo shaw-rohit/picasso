@@ -27,7 +27,7 @@
   flex: 1;
   display: block;
   padding: 0.5em;
-  background: #FFF;
+  background: #06304e;
   position: relative;
   margin: 0em;
   margin-right: 0.2em;
@@ -86,9 +86,9 @@
   display: block;
   width: 100%;
   margin-left:60px;
+  font: URW Chancery L, cursive;
   font-size: 1em;
   font-weight: bold;
-  color:black;  
 
 }
 
@@ -98,7 +98,6 @@
   margin-left:10px;
   font-size: 1em;
   font-weight: bold;
-  color:black;  
 
 }
 

@@ -77,6 +77,7 @@ function update_visuals(year, data, show, projection){
         .attr("id", "birth_stars")
         .attr('stroke', function(d) { return color[show][d[0].sub]})
         .attr('stroke-width', 2)
+        .style('fill', 'none')
         .attr('width', function(d) {return 15*(Math.log(d[0]['id'].length)+1);})  
         .attr('height', function(d) {return 15*(Math.log(d[0]['id'].length)+1);})  
     //     .attr("d", d3.symbol().type(d3.symbolStar))
