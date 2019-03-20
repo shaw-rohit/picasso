@@ -184,7 +184,8 @@ var year_binner = d3.scaleQuantize()
     .range(d3.range(100, 2025, YEAR_STEP));
 
 var color = {'school': {}, 'style': {}, 'media':{}}
-
+// of each sub class, collect the first time that it occured
+var schools_data = [];var styles_data = [];var media_data = [];
 //////////////////////////////////////////////
 ///// LOAD DATA AND SHOW IT ACCORDINGLY //////
 //////////////////////////////////////////////
@@ -358,8 +359,7 @@ d3.csv("omni_locations.csv")
             }
         }
         
-        // of each sub class, collect the first time that it occured
-        var schools_data = [];var styles_data = [];var media_data = [];
+        
         d3.nest()
             .key(function(d) { return d['school']; })
             .rollup(function(v) { 
