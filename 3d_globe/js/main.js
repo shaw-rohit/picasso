@@ -492,7 +492,7 @@ d3.csv("omni_locations.csv")
             nav_bar(clustered_data, color, show)        
 
 
-            update_chart(clustered_data,year-YEAR_STEP, color, show);   
+            update_chart(clustered_data,year_interval, color, show);   
 
             // required for keeping track of current time period
             // very ugly if statement but for now
@@ -512,7 +512,7 @@ d3.csv("omni_locations.csv")
             update_slider_plot(styles_slider_data, styles_data, color, show, year_interval)
             update_visuals(year_interval,data,show, projection)
             nav_bar(clustered_data, color, show)
-            update_chart(clustered_data,year-YEAR_STEP, color, show);
+            update_chart(clustered_data,year_interval, color, show);
         });
 
         d3.select("#school")
@@ -521,7 +521,7 @@ d3.csv("omni_locations.csv")
             update_visuals(year_interval,data,show, projection)
             update_slider_plot(school_slider_data,  schools_data, color, show, year_interval)
             nav_bar(clustered_data, color, show)
-            update_chart(clustered_data,year-YEAR_STEP, color, show);
+            update_chart(clustered_data,year_interval, color, show);
         });
 
         d3.select("#media")
@@ -530,7 +530,7 @@ d3.csv("omni_locations.csv")
             update_slider_plot(media_slider_data, media_data, color, show, year_interval)
             update_visuals(year_interval,data,show, projection)
             nav_bar(clustered_data, color, show)
-            update_chart(clustered_data,year-YEAR_STEP, color, show);   
+            update_chart(clustered_data,year_interval, color, show);   
         });
 
         
