@@ -199,7 +199,17 @@ function update_visuals(year, data, show, projection){
         
         .on("mouseover",function(cluster){  
             tooltip.transition()        
-            .duration(200)      
+            .duration(200)
+            .attr("id", function(){
+                subs = cluster.sub
+                subs = subs.replace(/[^a-zA-Z0-9 \s !?]+/g, '')
+                subs = subs.replace(/\s/g, '')
+                subs = "tt" + subs
+                
+                console.log(subs)
+                
+                return subs
+            })
             .style("opacity", .9)
             .style("left", (d3.event.pageX +20) + "px")     
             .style("top", (d3.event.pageY - 28) + "px")
