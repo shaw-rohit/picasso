@@ -19,7 +19,7 @@ function update_chart(clustereddata, currentdate, colors, show){
   d3.selectAll(".charttooltip").transition().duration(0).remove();
   var charttooltip = d3.select("#statsright").select(".widget").append("div").attr("class", "charttooltip");
   //var rainbow = d3.scaleSequential(d3.interpolateRainbow).domain([0,d3.sum(data, d => 1)]);
-
+}
 function make_pings(data, sub){
   color = colors[show][sub]
   gPins.selectAll("#pingie").remove();
