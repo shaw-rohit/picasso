@@ -211,6 +211,7 @@ function nav_bar(data_used, color, show){
                     
                     // Remove all pins that are not of the selected legend elements
                     gPins.selectAll("#" + identifyer).style("opacity", 0)
+                    gPins.selectAll("#birthstars" + identifyer).style("opacity", 0)
                         /*.on("mouseover", function(element){
                             
                             // Hide tooltips

@@ -84,15 +84,27 @@ function update_visuals(year, data, show, projection){
     current_births = current_births.filter(function(d){return d.length>0 })
     window.media_data = media_data
     window.hai = current_births
+    
+    console.log(current_births)
 
 
-    gPins.selectAll('#birth_stars').remove();
+    gPins.selectAll('.birthstarz').remove();
     
     var starsup = gPins.selectAll('.birth_star').data(current_births);
     var starsdown = gPins.selectAll('.birth_star').data(current_births);
     starsup.enter().append('rect','.birth_star')
-        .attr('class','birth_starz')
-        .attr("id", "birth_stars")
+        .attr('class','birthstarz')
+        .attr("id", function(d){
+            
+            cur_birth = d[0]['sub'];
+            cur_birth = cur_birth.replace(/[^a-zA-Z0-9 \s !?]+/g, '')
+            cur_birth = cur_birth.replace(/\s/g, '')
+            cur_birth = "birthstars" + cur_birth
+            
+            console.log(cur_birth)
+            
+            return cur_birth
+        } )
         .attr("stroke", function(d) {
             var circle = [parseInt(d[0]["long"]),
             parseInt(d[0]["lat"])];
