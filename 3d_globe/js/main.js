@@ -309,6 +309,10 @@ d3.csv("omni_locations.csv")
         d3.select("#threemap")
         .style("opacity", 1)
         .on("click", function(d){
+            zoom = d3.zoom()
+                .scaleExtent([1, 8])
+                .on("zoom", zoomed);
+            svgContainer.on('.zoom', null);
             is2d = false;
             drag = callglobedrag();
             if (!is_globe){
