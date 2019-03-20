@@ -103,19 +103,40 @@ function update_visuals(year, data, show, projection){
             cur_birth = cur_birth.replace(/\s/g, '')
             cur_birth = "birthstars" + cur_birth
             
-            console.log(cur_birth)
-            
             return cur_birth
         } )
         .attr("stroke", function(d) {
-            var circle = [parseInt(d[0]["long"]),
-            parseInt(d[0]["lat"])];
-            var rotate = projection.rotate(); // antipode of actual rotational center.
-            var center = [-rotate[0], -rotate[1]]
-            var distance = d3.geoDistance(circle,center);
-            return distance > Math.PI/2 ? 'none' : color[show][d[0].sub];
+            if (selected_subs.length < 1){
+                var circle = [parseInt(d[0]["long"]),
+                parseInt(d[0]["lat"])];
+                var rotate = projection.rotate(); // antipode of actual rotational center.
+                var center = [-rotate[0], -rotate[1]]
+                var distance = d3.geoDistance(circle,center);
+                return distance > Math.PI/2 ? 'none' : color[show][d[0].sub];    
+            }
+            else if (selected_subs.includes(d[0].sub)){
+                var circle = [parseInt(d[0]["long"]),
+                parseInt(d[0]["lat"])];
+                var rotate = projection.rotate(); // antipode of actual rotational center.
+                var center = [-rotate[0], -rotate[1]]
+                var distance = d3.geoDistance(circle,center);
+                return distance > Math.PI/2 ? 'none' : color[show][d[0].sub];
+            }
+            else {
+                return 'none'
+            }            
         })
-        .attr('stroke-width', 2)
+        .attr('stroke-width', function(d) {
+            if (selected_subs.length < 1){
+                return 2
+            }
+            else if (selected_subs.includes(d[0].sub)){
+                return 2
+            }
+            else {
+                return 0
+            }
+        })
         .style('fill', 'none')
         .attr('width', function(d) {return 15*(Math.log(d[0]['id'].length+1)+1);})  
         .attr('height', function(d) {return 15*(Math.log(d[0]['id'].length+1)+1);})  
@@ -129,6 +150,30 @@ function update_visuals(year, data, show, projection){
         return "translate(" + [proj[0] - 8*(Math.log(d[0]['id'].length)+1), proj[1]- 8*(Math.log(d[0]['id'].length)+1)]
          + ")";
         });
+
+    // all_categories[show].forEach(function(elem){
+    // elem = elem.replace(/[^a-zA-Z0-9 \s !?]+/g, '')
+    // elem = elem.replace(/\s/g, '') 
+    // svgContainer.selectAll("#birthstars" + elem)
+    //     .attr("transform", function(d) {
+    //         var proj = projection([
+    //             parseInt(d[0]["long"]),
+    //             parseInt(d[0]["lat"])])
+    //         return "translate(" + [proj[0] - 8*(Math.log(d[0]['id'].length)+1), proj[1]- 8*(Math.log(d[0]['id'].length)+1)]
+    //          + ")"});
+
+    // svgContainer.selectAll("#birthstars" + elem)
+    //     .style("fill", "none")
+    //     .attr("stroke", function(d) {
+    //         var circle = [parseInt(d[0]["long"]),
+    //         parseInt(d[0]["lat"])];
+    //         var rotate = projection.rotate(); // antipode of actual rotational center.
+    //         var center = [-rotate[0], -rotate[1]]
+    //         var distance = d3.geoDistance(circle,center);
+            
+    //         return distance > Math.PI/2 ? 'none' : color[show][d[0]['sub']];
+    //     });
+    // })
 
     // starsdown.enter().append('rect','.birth_star')
     //     .attr('class','birth_starz')
