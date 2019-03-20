@@ -35,13 +35,14 @@ function painting_gallery(number_windows, div){
 
 
     var moveWindow = d3.drag()
-        .on('drag', function(){
+        .on('drag', function(d){
+
             console.log("grab")
-            x = d3.event.x;
-            y = d3.event.y -200;
-            
-            newWindow.style("left", x + "px");
-            newWindow.style("top",  y + "px");
+            x = d3.event.pageX;
+            y = d3.event.pageY;
+            d3.select(this).
+            style("left", (x = d3.event.x - 250) + "px")
+            .style("top", (y = d3.event.y + 250) + "px")
             newWindow.style("max-width", 800);
         })
 
@@ -171,7 +172,8 @@ function open_stats_painting(cluster, data, number_windows, div) {
   function details_painting(painting, div){
     
     statistics = painting_gallery(number_details_painting, "details")
-    statistics.html("This painting was made by " + painting.artist_full_name + " in " + painting.date +  " and was named " + "'" + painting.artwork_name + "'" +                    
+    statistics.html("<h2><center>" + painting.artwork_name + "</center> </h2> <hr>" +
+    "This painting was made by " + painting.artist_full_name + " in " + painting.date +  " and was named " + "'" + painting.artwork_name + "'" +                    
                     "<p /> <img src= " + painting.image_url + " width= '500px' height = '500px' ></img> ");
     
   }
