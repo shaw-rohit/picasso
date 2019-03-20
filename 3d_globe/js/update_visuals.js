@@ -57,7 +57,7 @@ function update_visuals(year, data, show, projection){
         gArrows.selectAll("#arrow").remove()
         //var migration = retrieve_migration(filtered_data, show, 'baroque')
         selected_subs.forEach(function(element){
-            console.log(element)
+            //console.log(element)
             var migration = retrieve_migration_cluster(clustered_data, element)
             draw_cluster_flow(migration[1], migration[0], color[show][element])
             oldest = migration[0]
@@ -87,7 +87,7 @@ function update_visuals(year, data, show, projection){
     window.media_data = media_data
     window.hai = current_births
     
-    console.log(current_births)
+    //console.log(current_births)
 
 
     gPins.selectAll('.birthstarz').remove();

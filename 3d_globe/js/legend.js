@@ -187,9 +187,11 @@ function nav_bar(data_used, color, show){
                     identifyer = element
                     identifyer = identifyer.replace(/[^a-zA-Z0-9 \s !?]+/g, '')
                     identifyer = identifyer.replace(/\s/g, '')
+                    birth_identifyer = "birthstars" + identifyer
                     identifyer = "a" + identifyer
                     
                     gPins.selectAll("#" + identifyer).style("opacity", 0.55)
+                    gPins.selectAll("#" + birth_identifyer).style("opacity", 1)
                         /*.on("mouseover", function(element){
                             
                             // Hide tooltips
@@ -207,11 +209,12 @@ function nav_bar(data_used, color, show){
                     identifyer = element
                     identifyer = identifyer.replace(/[^a-zA-Z0-9 \s !?]+/g, '')
                     identifyer = identifyer.replace(/\s/g, '')
+                    birth_identifyer = "birthstars" + identifyer
                     identifyer = "a" + identifyer
                     
                     // Remove all pins that are not of the selected legend elements
                     gPins.selectAll("#" + identifyer).style("opacity", 0)
-                    gPins.selectAll("#birthstars" + identifyer).style("opacity", 0)
+                    gPins.selectAll("#"+birth_identifyer).style("opacity", 0)
                         /*.on("mouseover", function(element){
                             
                             // Hide tooltips
@@ -225,8 +228,10 @@ function nav_bar(data_used, color, show){
                     identifyer = element
                     identifyer = identifyer.replace(/[^a-zA-Z0-9 \s !?]+/g, '');
                     identifyer = identifyer.replace(/\s/g, '');
+                    birth_identifyer = "birthstars" + identifyer
                     identifyer = "a" + identifyer
                     gPins.selectAll("#" + identifyer).style("opacity", 0.55)
+                    gPins.selectAll("#" + birth_identifyer).style("opacity", 1)
                         /*.on("mouseover", function(element){
                             
                             // Hide tooltips

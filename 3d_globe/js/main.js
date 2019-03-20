@@ -521,7 +521,7 @@ d3.csv("omni_locations.csv")
             d3.select("#range-label").text(newRange.begin + " - " + newRange.end);
             year_interval = [newRange.begin, newRange.end]
             update_visuals(year_interval, all_data, show, projection)
-            console.log(show)
+            //console.log(show)
 
             // update navbar
             nav_bar(clustered_data, color, show)        
