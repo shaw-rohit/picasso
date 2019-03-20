@@ -53,6 +53,8 @@ function update_visuals(year, data, show, projection){
     current_styles_set.forEach(v => current_styles.push(v));
 
     if (show_migration == true){
+        // remove all previous arrows
+        gArrows.selectAll("#arrow").remove()
         //var migration = retrieve_migration(filtered_data, show, 'baroque')
         selected_subs.forEach(function(element){
             console.log(element)
