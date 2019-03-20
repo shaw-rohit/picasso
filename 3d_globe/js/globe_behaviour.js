@@ -167,6 +167,14 @@ function dragged(){
 
 
       svgContainer.selectAll("#birth_stars")
+        .attr("stroke", function(d) {
+            var circle = [parseInt(d[0]["long"]),
+            parseInt(d[0]["lat"])];
+            var rotate = projection.rotate(); // antipode of actual rotational center.
+            var center = [-rotate[0], -rotate[1]]
+            var distance = d3.geoDistance(circle,center);
+            return distance > Math.PI/2 ? 'none' : color[show][d[0].sub];
+        })
         .attr("transform", function(d) {
             var proj = projection([
                 parseInt(d[0]["long"]),
@@ -176,6 +184,14 @@ function dragged(){
 
 
      svgContainer.selectAll("#pingie")
+        .attr("stroke", function(d) {
+            var circle = [parseInt(d["long"]),
+            parseInt(d["lat"])];
+            var rotate = projection.rotate(); // antipode of actual rotational center.
+            var center = [-rotate[0], -rotate[1]]
+            var distance = d3.geoDistance(circle,center);
+            return distance > Math.PI/2 ? 'none' : color[show][d.sub];
+        })
         .attr("transform", function(d) {
             var proj = projection([
                 parseInt(d["long"]),

@@ -75,7 +75,14 @@ function update_visuals(year, data, show, projection){
     starsup.enter().append('rect','.birth_star')
         .attr('class','birth_starz')
         .attr("id", "birth_stars")
-        .attr('stroke', function(d) { return color[show][d[0].sub]})
+        .attr("stroke", function(d) {
+        var circle = [parseInt(d[0]["long"]),
+            parseInt(d[0]["lat"])];
+            var rotate = projection.rotate(); // antipode of actual rotational center.
+            var center = [-rotate[0], -rotate[1]]
+            var distance = d3.geoDistance(circle,center);
+            return distance > Math.PI/2 ? 'none' : color[show][d[0].sub];
+        })
         .attr('stroke-width', 2)
         .style('fill', 'none')
         .attr('width', function(d) {return 15*(Math.log(d[0]['id'].length)+1);})  
