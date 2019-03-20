@@ -496,12 +496,12 @@ d3.csv("omni_locations.csv")
         }).map(data);
 
         update_slider_plot(styles_slider_data, styles_data, color, show, year_interval)
-        clustered_data = update_visuals(year_interval, data, show, projection)
+        clustered_data = update_visuals(year_interval, all_data, show, projection)
 
         slider.onChange(function(newRange){
             d3.select("#range-label").text(newRange.begin + " - " + newRange.end);
             year_interval = [newRange.begin, newRange.end]
-            update_visuals(year_interval, data, show, projection)
+            update_visuals(year_interval, all_data, show, projection)
             console.log(show)
 
             // update navbar
