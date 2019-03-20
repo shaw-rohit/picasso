@@ -6,7 +6,6 @@
   position: relative;
   overflow: hidden;
   border-radius: 0.25em;
-  font: URW Chancery L, cursive;
   font-size: 1.6rem;
   margin: 0.2em auto;
 //  will-change: transform;
@@ -28,7 +27,7 @@
   flex: 1;
   display: block;
   padding: 0.5em;
-  background: #FFF;
+  background: #06304e;
   position: relative;
   margin: 0em;
   margin-right: 0.2em;
@@ -90,7 +89,6 @@
   font: URW Chancery L, cursive;
   font-size: 1em;
   font-weight: bold;
-  color:black;  
 
 }
 
@@ -100,7 +98,6 @@
   margin-left:10px;
   font-size: 1em;
   font-weight: bold;
-  color:black;  
 
 }
 

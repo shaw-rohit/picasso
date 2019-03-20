@@ -22,7 +22,6 @@ function update_chart(clustereddata, currentdate, colors, show){
 
 function make_pings(data, sub){
   color = colors[show][sub]
-
   gPins.selectAll("#pingie").remove();
   var pings = gPins.selectAll(".ping").data(data);
   
@@ -74,10 +73,20 @@ function make_pings(data, sub){
     mouseover_time+=1
     if (mouseover_time===5){mouseover_time=1}
     // pings.exit().remove();
-    pings.transition().duration(10)
+    pings.transition().duration(50)
       .attr("r", function(d) { return (10/(mouseover_time+1))*(Math.log(d.id.length+1)+1)})
           
 }
+  
+          
+function update_chart(clustereddata, currentdate, colors, show){
+  console.log('chart style')
+  console.log(show)
+  d3.select(".widget").select("g").selectAll("g > *").transition().duration(0).remove() //TODO: Create transition in creating new chart
+  d3.selectAll(".charttooltip").transition().duration(0).remove();
+  var charttooltip = d3.select("#statsright").select(".widget").append("div").attr("class", "charttooltip");
+  //var rainbow = d3.scaleSequential(d3.interpolateRainbow).domain([0,d3.sum(data, d => 1)]);
+
 var groupstyle = d3.nest()
   .key(function(d) { return d.sub; })
   .entries(clustereddata);
@@ -149,7 +158,7 @@ return charty(d.totalpaintings);
   console.log(show)
   make_pings(d.values, d.key);
   mouse_timer = setInterval (function() {
-      make_pings(d.values, colors[show][d.key])}, 100);
+      make_pings(d.values, d.key)}, 100);
   charttooltip.transition()		
   .duration(200)		
   .style("opacity", 1)
