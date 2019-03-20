@@ -82,9 +82,9 @@ function update_visuals(year, data, show, projection){
         // // set starting coordinates based on projection location
         .attr("transform", function(d) {
         var proj = projection([
-            parseInt(d[0]["long"] - 3*(Math.log(d[0]['id'].length)+1)),
-            parseInt(d[0]["lat"]- 3*(Math.log(d[0]['id'].length)+1))])
-        return "translate(" + [proj[0], proj[1]]
+            parseInt(d[0]["long"] ),
+            parseInt(d[0]["lat"])])
+        return "translate(" + [proj[0] - 8*(Math.log(d[0]['id'].length)+1), proj[1]- 8*(Math.log(d[0]['id'].length)+1)]
          + ")";
         });
 
