@@ -60,10 +60,12 @@ function update_visuals(year, data, show, projection){
         .remove();
 
     // get all active clusters that contain a birth and plot them as stars
-    current_births = styles_data.map(function(d){ return clustered_data.filter(function(v){return (d.sub===v.sub && year_binner(v.start_date)===year_binner(d.first))}) })
+    if (show === 'style'){current_births = styles_data.map(function(d){ return clustered_data.filter(function(v){return (d.sub===v.sub && year_binner(v.start_date)===year_binner(d.first))}) })}
+    else if (show === 'media'){current_births = media_data.map(function(d){ return clustered_data.filter(function(v){return (d.sub===v.sub && year_binner(v.start_date)===year_binner(d.first))}) })}
+
     current_births = current_births.filter(function(d){return d.length>0 })
-    window.hoi = current_births
-    window.color = color
+    window.media_data = media_data
+    window.hai = current_births
 
 
     gPins.selectAll('#birth_stars').remove();
