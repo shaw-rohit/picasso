@@ -237,13 +237,14 @@ function dragged(){
 }
 
 function dragended(){
-    zoom = d3.zoom()
-        .scaleExtent([1, 8])
-        .on("zoom", zoomed);
-    svgContainer.call(zoom) //Use zoom
-        rotation_timer.restart(function(elapsed) {
-        // rotateglobe(); // TODO: Get correct coordinates and pass them to function.
-    });
+//     console.log(zoom)
+//     zoom.transform(svgContainer, d3.zoomIdentity.translate(0,0).scale(1));
+//     var zoom = d3.zoom()
+// .scaleExtent([1, 8])
+// .on("zoom", zoomed);
+    //     rotation_timer.restart(function(elapsed) {
+    //     rotateglobe(); // TODO: Get correct coordinates and pass them to function.
+    // });
     console.log("end")
 
 }

@@ -88,7 +88,6 @@ var tooltip = d3.select("body").append("div")
     .attr("class", "tooltip")               
     .style("opacity", 0)
     .style("z-index", 1);
-
 var number_windows = 1; // Initial number of windows
 var number_details_painting = 0;
 
@@ -302,7 +301,6 @@ d3.csv("omni_locations.csv")
         .style("opacity", 1)
         .on("click", function(d){
             is2d = false;
-            svgContainer.on(".zoom", null);
             drag = callglobedrag();
             if (!is_globe){
             new_projection = d3.geoOrthographic().translate([width/2, height/4]).scale(350).center([0,40])
@@ -334,6 +332,22 @@ d3.csv("omni_locations.csv")
             is_globe = true;            
        
         });
+        d3.select("#map_control_zoom_in")
+            .on("click", function(d){
+                zoom.scaleBy(svgContainer, 1.3);
+                zoom = d3.zoom()
+                .scaleExtent([1, 8])
+                .on("zoom", zoomed);
+                
+            })
+
+        d3.select("#map_control_zoom_out")
+            .on("click", function(d){
+                zoom.scaleBy(svgContainer, 1 / 1.3);
+                zoom = d3.zoom()
+                    .scaleExtent([1, 8])
+                    .on("zoom", zoomed);
+            })
 
         if (!playAuto){
             // Play button will add one year per half a second
