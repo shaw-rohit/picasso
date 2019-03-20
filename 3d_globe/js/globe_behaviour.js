@@ -8,6 +8,50 @@ function rotateglobe(){
     svgContainer.selectAll("path").attr("d", path(world));
     water.attr("d", path);
 
+
+    svgContainer.selectAll("#birth_stars")
+        .attr("transform", function(d) {
+            var proj = projection([
+                parseInt(d[0]["long"]),
+                parseInt(d[0]["lat"])])
+            return "translate(" + [proj[0] , proj[1] ]
+             + ")"});
+
+    svgContainer.selectAll("#birth_stars")
+        .style("fill", "none")
+        .attr("stroke", function(d) {
+            var circle = [parseInt(d[0]["long"]),
+            parseInt(d[0]["lat"])];
+            var rotate = projection.rotate(); // antipode of actual rotational center.
+            var center = [-rotate[0], -rotate[1]]
+            var distance = d3.geoDistance(circle,center);
+            
+        return distance > Math.PI/2 ? 'none' : color[show][d[0]['sub']];
+    });
+
+
+     svgContainer.selectAll("#pingie")
+        .attr("transform", function(d) {
+            var proj = projection([
+                parseInt(d["long"]),
+                parseInt(d["lat"])])
+            return "translate(" + [proj[0] - d["width"], proj[1] - d["height"]]
+             + ")"});
+             
+
+    svgContainer.selectAll("#pingie")
+        .style("fill", "none")
+        .attr("stroke", function(d) {
+            var circle = [parseInt(d["long"]),
+            parseInt(d["lat"])];
+            var rotate = projection.rotate(); // antipode of actual rotational center.
+            var center = [-rotate[0], -rotate[1]]
+            var distance = d3.geoDistance(circle,center);
+            
+        return distance > Math.PI/2 ? 'none' : color[show][d['sub']];
+    });
+
+
     svgContainer.selectAll("circle")
         .attr("transform", function(d) {
             var proj = projection([
@@ -120,6 +164,25 @@ function dragged(){
                 parseInt(d["lat"])])
             return "translate(" + [proj[0] - d["width"], proj[1] - d["height"]]
              + ")"});
+
+
+      svgContainer.selectAll("#birth_stars")
+        .attr("transform", function(d) {
+            var proj = projection([
+                parseInt(d[0]["long"]),
+                parseInt(d[0]["lat"])])
+            return "translate(" + [proj[0] , proj[1] ]
+             + ")"});
+
+
+     svgContainer.selectAll("#pingie")
+        .attr("transform", function(d) {
+            var proj = projection([
+                parseInt(d["long"]),
+                parseInt(d["lat"])])
+            return "translate(" + [proj[0] - d["width"], proj[1] - d["height"]]
+             + ")"});
+             
 
     svgContainer.selectAll("circle")
         .attr("fill", function(d) {

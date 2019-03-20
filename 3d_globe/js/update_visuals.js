@@ -1,3 +1,5 @@
+
+
 function update_visuals(year, data, show, projection){
 
     // extract the centuries to show
@@ -39,9 +41,7 @@ function update_visuals(year, data, show, projection){
         }
     });
    
-    window.fil = filtered_data;
     clustered_data = cluster_data(filtered_data, show);
-    
     if (show_migration == true){
         //var migration = retrieve_migration(filtered_data, show, 'baroque')
         selected_subs.forEach(function(element){
@@ -59,7 +59,59 @@ function update_visuals(year, data, show, projection){
         .attr("r", 0)
         .remove();
 
+    // get all active clusters that contain a birth and plot them as stars
+    current_births = styles_data.map(function(d){ return clustered_data.filter(function(v){return (d.sub===v.sub && year_binner(v.start_date)===year_binner(d.first))}) })
+    current_births = current_births.filter(function(d){return d.length>0 })
+    window.hoi = current_births
+    window.color = color
+
+
+    gPins.selectAll('#birth_stars').remove();
+    
+    var starsup = gPins.selectAll('.birth_star').data(current_births);
+    var starsdown = gPins.selectAll('.birth_star').data(current_births);
+    starsup.enter().append('rect','.birth_star')
+        .attr('class','birth_starz')
+        .attr("id", "birth_stars")
+        .attr('stroke', function(d) { return color[show][d[0].sub]})
+        .attr('stroke-width', 2)
+        .attr('width', function(d) {return 15*(Math.log(d[0]['id'].length)+1);})  
+        .attr('height', function(d) {return 15*(Math.log(d[0]['id'].length)+1);})  
+    //     .attr("d", d3.symbol().type(d3.symbolStar))
+    //     .attr('size', 100);
+        // // set starting coordinates based on projection location
+        .attr("transform", function(d) {
+        var proj = projection([
+            parseInt(d[0]["long"] - 3*(Math.log(d[0]['id'].length)+1)),
+            parseInt(d[0]["lat"]- 3*(Math.log(d[0]['id'].length)+1))])
+        return "translate(" + [proj[0], proj[1]]
+         + ")";
+        });
+
+    // starsdown.enter().append('rect','.birth_star')
+    //     .attr('class','birth_starz')
+    //     .attr("id", "birth_stars")
+    //     .attr('stroke', function(d) { return color[show][d[0].sub]})
+    //     .attr('stroke-width', 2)
+    //     .attr('width', 50) 
+    //     .attr('height', 50)
+    //     .style("fill", "none")
+    //     // .rotate(-45)
+    // //     .attr("d", d3.symbol().type(d3.symbolStar))
+    // //     .attr('size', 100);
+    //     // // set starting coordinates based on projection location
+    //     .attr("transform", function(d) {
+    //     var proj = projection([
+    //         parseInt(d[0]["long"]),
+    //         parseInt(d[0]["lat"])])
+    //     return "translate(" + [proj[0], proj[1]]
+    //      + ")rotate(-10)";
+    //     });
+        
+    
+
     // TODO? REMOVE STYLE FROM SUBSET IF NO LONGER WITHIN TIMELINE
+
     
     // insert filtered data into world map
     gPins.selectAll(".pin")
@@ -228,7 +280,12 @@ function update_slider_plot(data, meta_data, colors, show, years){
         .attr('transform', function(d) {
             return 'translate(' + star_xScale(year_binner(d.first))  + ', 0)';
         })
-        .attr('d', star);
+        .attr("d", d3.symbol().type(d3.symbolStar))
+        .attr('size', 80)
+
+  //       d3.symbol().type(d3.symbolStar)
+  // .size(80);
+        // .attr('d', star);
 
     stars.exit().remove();
     stars.transition().duration(250)
