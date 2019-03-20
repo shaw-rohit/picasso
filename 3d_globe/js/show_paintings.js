@@ -186,7 +186,7 @@ function open_stats_painting(cluster, data, number_windows, div) {
 
     slides.attr("src", function(d){ return d.image_url;})
         .attr("style", "float:left")
-        .style("pointer-events","visible");;
+        .style("pointer-events","visible");
     
     slides.style("opacity", 0) //start invisible
         .transition().duration(500) //schedule a transition to last 1000ms
