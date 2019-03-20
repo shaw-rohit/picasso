@@ -241,8 +241,13 @@ d3.csv("omni_locations.csv")
             });
 
         
+        // Reselect all elements of the legend when clicking on the checkbox
         d3.select("#legendCheckbox").on("click", function(){
+            
+            // Make all bars selected again
             svgColors.selectAll("#legendbar").style("opacity", 1)
+            
+            // For each sub present in the map at the moment, make them visible again
             subs_present.forEach(function(subs){
                 identifyer = subs
                 identifyer = identifyer.replace(/[^a-zA-Z0-9 \s !?]+/g, '')
@@ -261,17 +266,8 @@ d3.csv("omni_locations.csv")
                     })*/
             })
         })
-        /*d3.select("#migrationoff")
-            .on("click", function(d){
-                show_migration = false;
-                gArrows.selectAll("#arrow").remove()
-                if (!is2d){
-                    rotation_timer.restart(function(){
-                        rotateglobe();
-                    });
-                }
-            });*/
-
+        
+        
         d3.select("#twomap")
         .style("opacity", 1)
         .on("click", function(d){

@@ -154,6 +154,7 @@ function nav_bar(data_used, color, show){
         })
         .on("click", function(d){
             
+            // Uncheck checkbox in legend
             document.getElementById("legendCheckbox").checked = false;
 
             if (clicked[d] == true){
