@@ -518,34 +518,6 @@ d3.csv("omni_locations.csv")
         //     console.log('hi')
         // })
 
-        // on button press, only show button id and try to filter by year
-        d3.select("#style")
-        .on("click", function(d){
-            show = 'style'
-            update_slider_plot(styles_slider_data, styles_data, color, show, year_interval)
-            update_visuals(year_interval,data,show, projection)
-            nav_bar(clustered_data, color, show)
-            update_chart(clustered_data,year_interval, color, show);
-        });
-
-        d3.select("#school")
-        .on("click", function(d){
-            show = 'school'
-            update_visuals(year_interval,data,show, projection)
-            update_slider_plot(school_slider_data,  schools_data, color, show, year_interval)
-            nav_bar(clustered_data, color, show)
-            update_chart(clustered_data,year_interval, color, show);
-        });
-
-        d3.select("#media")
-        .on("click", function(d){
-            show = 'media'
-            update_slider_plot(media_slider_data, media_data, color, show, year_interval)
-            update_visuals(year_interval,data,show, projection)
-            nav_bar(clustered_data, color, show)
-            update_chart(clustered_data,year_interval, color, show);   
-        });
-
         
 });
 
@@ -631,6 +603,7 @@ function changeStyle(element){
     else if (element.id == 'option-2'){
         show = 'media'
     }
+
     update_slider_plot(media_slider_data, media_data, color, show, year_interval)
     update_visuals(year_interval, all_data, show, projection)
     nav_bar(clustered_data, color, show)
