@@ -27,30 +27,41 @@ function make_pings(data, sub){
   pings.enter().append("circle", ".ping")
     .attr('class','ping')
     .attr("id", "pingie")
-  // set starting coordinates based on projection location
+    // set starting coordinates based on projection location
     .attr("cx", function(d) {
-        var circle = projection([parseInt(d.long), parseInt(d.lat)]);
+        var circle = projection([parseInt(d["long"]),
+        parseInt(d["lat"])]);
         var rotate = projection.rotate(); // antipode of actual rotational center.
         var center = projection([-rotate[0], -rotate[1]])
-        var distance = d3.geoDistance(circle,center);
-            if (circle[0] > center[0]){
-                return width
-            }
-            else {
-                return 0
-            }
-    })
-    .attr("cy", function(d) {
-        var circle = projection([parseInt(d.long), parseInt(d.lat)]);
-        var rotate = projection.rotate(); // antipode of actual rotational center.
-        var center = projection([-rotate[0], -rotate[1]]);
         // var distance = d3.geoDistance(circle,center);
+
+        // need to save this somewhere
+        if (circle[0] > center[0]){
+            d["width"] = width
+            return width
+        }
+        else {
+            d["width"] = 0
+            return 0
+        }
+    })
+
+    .attr("cy", function(d) {
+        var circle = projection([parseInt(d["long"]),
+        parseInt(d["lat"])]);
+        var rotate = projection.rotate(); // antipode of actual rotational center.
+        var center = projection([-rotate[0], -rotate[1]])
+        // var distance = d3.geoDistance(circle,center);
+
+        // need to save this somewhere
         if (circle[1] > center[1]){
-                return height
-            }
-            else {
-                return 0
-            }
+            d["height"] = height
+            return height
+        }
+        else {
+            d["height"] = 0
+            return 0
+        }
     })
     .attr("stroke", function(d) {
       var circle = [parseInt(d.long), parseInt(d.lat)];
