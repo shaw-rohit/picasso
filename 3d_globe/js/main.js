@@ -201,10 +201,10 @@ d3.csv("omni_locations.csv")
     .then(function(data){
 
         all_data = data
-        data = data.filter(function(d){
+        all_data = all_data.filter(function(d){
             return d.media != "Unknown" && d.style != "Unknown";
         })
-
+        
         
         // initialize things to show
         
