@@ -202,8 +202,10 @@ d3.csv("omni_locations.csv")
 
         all_data = data
         data = data.filter(function(d){
-            return d.media != "Unknown" || d.school != "Unknown";
+            return d.media != "Unknown" && d.style != "Unknown";
         })
+
+        
         // initialize things to show
         
         var year = 100
