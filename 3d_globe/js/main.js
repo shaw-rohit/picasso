@@ -240,8 +240,8 @@ d3.csv("omni_locations.csv")
                     document.getElementById("migrationflow").children[0].style.display = "block"                        
                 }
             });
-
         
+        document.getElementById("legendCheckbox").checked = true;
         // Reselect all elements of the legend when clicking on the checkbox
         d3.select("#legendCheckbox").on("click", function(){
             
