@@ -24,8 +24,8 @@ function update_visuals(year, data, show, projection){
 
             // works except for the fact that 1700 will be 17th century
             // use year and slider to determine which datapoints have to be plotted
-            if ((d['date'] > year[0] &&
-                (d['date']) < year[1])){
+            if ((d['date'] >= year[0] &&
+                (d['date']) <= year[1])){
                 // convert lng and lat to coordinates
                 if (d["long"] != "N\\A"){
                     //svgContainer.append("circle")
@@ -151,30 +151,6 @@ function update_visuals(year, data, show, projection){
          + ")";
         });
 
-    // all_categories[show].forEach(function(elem){
-    // elem = elem.replace(/[^a-zA-Z0-9 \s !?]+/g, '')
-    // elem = elem.replace(/\s/g, '') 
-    // svgContainer.selectAll("#birthstars" + elem)
-    //     .attr("transform", function(d) {
-    //         var proj = projection([
-    //             parseInt(d[0]["long"]),
-    //             parseInt(d[0]["lat"])])
-    //         return "translate(" + [proj[0] - 8*(Math.log(d[0]['id'].length)+1), proj[1]- 8*(Math.log(d[0]['id'].length)+1)]
-    //          + ")"});
-
-    // svgContainer.selectAll("#birthstars" + elem)
-    //     .style("fill", "none")
-    //     .attr("stroke", function(d) {
-    //         var circle = [parseInt(d[0]["long"]),
-    //         parseInt(d[0]["lat"])];
-    //         var rotate = projection.rotate(); // antipode of actual rotational center.
-    //         var center = [-rotate[0], -rotate[1]]
-    //         var distance = d3.geoDistance(circle,center);
-            
-    //         return distance > Math.PI/2 ? 'none' : color[show][d[0]['sub']];
-    //     });
-    // })
-
     // starsdown.enter().append('rect','.birth_star')
     //     .attr('class','birth_starz')
     //     .attr("id", "birth_stars")
@@ -243,55 +219,67 @@ function update_visuals(year, data, show, projection){
         })
         
         .on("mouseover",function(cluster){  
-            tooltip.transition()        
-            .duration(200)
-            .attr("id", function(){
-                subs = cluster.sub
-                subs = subs.replace(/[^a-zA-Z0-9 \s !?]+/g, '')
-                subs = subs.replace(/\s/g, '')
-                subs = "tt" + subs
+            if (selected_subs.length < 1 || selected_subs.includes(cluster['sub'])){
+                tooltip.transition()        
+                .duration(200)
+                .attr("id", function(){
+                    subs = cluster.sub
+                    subs = subs.replace(/[^a-zA-Z0-9 \s !?]+/g, '')
+                    subs = subs.replace(/\s/g, '')
+                    subs = "tt" + subs
+                    
+                    console.log(subs)
+                    
+                    return subs
+                })
+                .style("opacity", .9)
+                .style("left", (d3.event.pageX +20) + "px")     
+                .style("top", (d3.event.pageY - 28) + "px")
+                .style("z-index", 1);
                 
-                console.log(subs)
-                
-                return subs
-            })
-            .style("opacity", .9)
-            .style("left", (d3.event.pageX +20) + "px")     
-            .style("top", (d3.event.pageY - 28) + "px")
-            .style("z-index", 1);
+                tooltip.text("There are a total of " + cluster.id.length + " paintings in the style: " + cluster.sub )
+                .style("left", (d3.event.pageX) + "px")     
+                .style("top", (d3.event.pageY - 28) + "px")
             
-            tooltip.text("There are a total of " + cluster.id.length + " paintings in the style: " + cluster.sub )
-            .style("left", (d3.event.pageX) + "px")     
-            .style("top", (d3.event.pageY - 28) + "px")
-        
-            paintings_list = subset_paintings(cluster, data);
-        
-            // Change text size according to amount of paintings
-            if(paintings_list.length < 2){
-                tooltip.style("width", "200px");
-            }
-            else if(parseInt.length < 4){
-                tooltip.style("width", "400px");
-            }
-            else{
-                tooltip.style("width", "800px");
-            }
-        
-            // Weird bug of not updating the images the first time
-            for(var i = 0; i < 2; i++){
-                slides = add_paintings(paintings_list, ".tooltip");
+                paintings_list = subset_paintings(cluster, data);
+            
+                // Change text size according to amount of paintings
+                if(paintings_list.length < 2){
+                    tooltip.style("width", "200px");
+                }
+                else if(parseInt.length < 4){
+                    tooltip.style("width", "400px");
+                }
+                else{
+                    tooltip.style("width", "800px");
+                }
+            
+                // Weird bug of not updating the images the first time
+                for(var i = 0; i < 2; i++){
+                    slides = add_paintings(paintings_list, ".tooltip");
+                }
             }
 
         })
-        .on("mouseout", function() {  
-            tooltip.transition()        
-            .duration(500)      
-            .style("opacity", 0)
-            .style("z-index", -1);
+        .on("mouseout", function(d) {
+            if (selected_subs.length < 1){
+                tooltip.transition()        
+                .duration(500)      
+                .style("opacity", 0)
+                .style("z-index", -1);
+            }
+            else if (selected_subs.includes(d['sub'])){
+                tooltip.transition()        
+                .duration(500)      
+                .style("opacity", 0)
+                .style("z-index", -1);
+            }           
         })
         .on("click", function(cluster){
-            open_stats_painting(cluster, data, number_windows, "window");
-            number_windows += 1;
+            if (selected_subs.length < 1 || selected_subs.includes(cluster['sub'])){
+                open_stats_painting(cluster, data, number_windows, "window");
+                number_windows += 1;
+            }
         }) 
 
         .attr("fill", function(d) {
