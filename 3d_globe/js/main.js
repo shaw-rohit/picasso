@@ -175,6 +175,7 @@ var all_years = []
 var checkpoints = [0]
 var check_i = 0
 var starting = true
+var all_categories = {}
 
 // long lat binner with bin size LONGLAT_STEP
 // TODO: let bin size depend on zoom level
@@ -451,6 +452,9 @@ d3.csv("omni_locations.csv")
         var all_styles = styles_data.map(function(d) { return d.sub })
         var all_schools = schools_data.map(function(d) { return d.sub })
         var all_media = media_data.map(function(d) { return d.sub })
+        all_categories['style'] = all_styles
+        all_categories['media'] = all_media
+
 
         var styles_colors = [];
         var schools_colors = [];
