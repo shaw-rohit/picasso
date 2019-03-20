@@ -171,6 +171,7 @@ function draw_cluster_flow(migration_data, oldest, color){
         .attr('d', function(d) {
             
             var origin = projection([oldest.long, oldest.lat])
+            d['origin'] = [oldest.long, oldest.lat]
             var dest = projection([d.long, d.lat])
             
             

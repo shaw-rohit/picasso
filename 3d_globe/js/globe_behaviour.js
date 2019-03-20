@@ -75,7 +75,7 @@ function rotateglobe(){
     // required for rotating the arrows
     gArrows.selectAll("#arrow")
         .attr('d', function(d) {
-            var origin = projection([oldest.long, oldest.lat])
+            var origin = projection(d['origin'])
             var dest = projection([d.long, d.lat])
             
             
@@ -213,7 +213,7 @@ function dragged(){
 
     gArrows.selectAll("#arrow")
         .attr('d', function(d) {
-            var origin = projection([oldest.long, oldest.lat])
+            var origin = projection(d['origin'])
             var dest = projection([d.long, d.lat])
             
             

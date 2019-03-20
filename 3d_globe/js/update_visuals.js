@@ -42,6 +42,16 @@ function update_visuals(year, data, show, projection){
     });
    
     clustered_data = cluster_data(filtered_data, show);
+
+    //retrieve all styles shown right now
+    var current_styles_set = new Set()
+    clustered_data.forEach(function(d){
+        current_styles_set.add(d.sub)
+    })
+
+    var current_styles = [];
+    current_styles_set.forEach(v => current_styles.push(v));
+
     if (show_migration == true){
         //var migration = retrieve_migration(filtered_data, show, 'baroque')
         selected_subs.forEach(function(element){
@@ -50,6 +60,14 @@ function update_visuals(year, data, show, projection){
             draw_cluster_flow(migration[1], migration[0], color[show][element])
             oldest = migration[0]
         })
+
+        // show all migrations if nothin is selected
+        if (selected_subs.length<1){
+            current_styles.forEach(function(element){
+            var migration = retrieve_migration_cluster(clustered_data, element)
+            draw_cluster_flow(migration[1], migration[0], color[show][element])
+            oldest = migration[0]})
+        }
         
         //draw_migration_flow(migration[1], migration[0])
     }
@@ -76,7 +94,7 @@ function update_visuals(year, data, show, projection){
         .attr('class','birth_starz')
         .attr("id", "birth_stars")
         .attr("stroke", function(d) {
-        var circle = [parseInt(d[0]["long"]),
+            var circle = [parseInt(d[0]["long"]),
             parseInt(d[0]["lat"])];
             var rotate = projection.rotate(); // antipode of actual rotational center.
             var center = [-rotate[0], -rotate[1]]
