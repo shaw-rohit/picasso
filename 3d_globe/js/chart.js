@@ -21,7 +21,6 @@ function update_chart(clustereddata, currentdate, colors, show){
   //var rainbow = d3.scaleSequential(d3.interpolateRainbow).domain([0,d3.sum(data, d => 1)]);
 }
 function make_pings(data, sub){
-  color = colors[show][sub]
   gPins.selectAll("#pingie").remove();
   var pings = gPins.selectAll(".ping").data(data);
   
@@ -58,7 +57,7 @@ function make_pings(data, sub){
       var rotate = projection.rotate(); // antipode of actual rotational center.
       var center = [-rotate[0], -rotate[1]]
       var distance = d3.geoDistance(circle,center);
-        return distance > Math.PI/2 ? 'none' : color;
+        return distance > Math.PI/2 ? 'none' : color[show][sub];
     }).attr('stroke-width', 3)
     .attr("r", function(d) { return (10/mouseover_time)*(Math.log(d.id.length+1)+1)})
     .style("fill", "none")
