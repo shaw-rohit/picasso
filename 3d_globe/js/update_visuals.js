@@ -53,6 +53,8 @@ function update_visuals(year, data, show, projection){
     current_styles_set.forEach(v => current_styles.push(v));
 
     if (show_migration == true){
+        // remove all previous arrows
+        gArrows.selectAll("#arrow").remove()
         //var migration = retrieve_migration(filtered_data, show, 'baroque')
         selected_subs.forEach(function(element){
             console.log(element)
@@ -115,8 +117,8 @@ function update_visuals(year, data, show, projection){
         })
         .attr('stroke-width', 2)
         .style('fill', 'none')
-        .attr('width', function(d) {return 15*(Math.log(d[0]['id'].length)+1);})  
-        .attr('height', function(d) {return 15*(Math.log(d[0]['id'].length)+1);})  
+        .attr('width', function(d) {return 15*(Math.log(d[0]['id'].length+1)+1);})  
+        .attr('height', function(d) {return 15*(Math.log(d[0]['id'].length+1)+1);})  
     //     .attr("d", d3.symbol().type(d3.symbolStar))
     //     .attr('size', 100);
         // // set starting coordinates based on projection location

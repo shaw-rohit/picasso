@@ -76,7 +76,7 @@ document.getElementById('option-2').checked = false;
 ////////////////
 
 // Create map
-var projection = d3.geoOrthographic().translate([width/2, height/4]).scale(350).center([0,40]);
+var projection = d3.geoOrthographic().translate([width/2, height/4]).scale(350).center([0,30]);
 
 var zoom = d3.zoom()
 .scaleExtent([1, 8])
@@ -281,8 +281,8 @@ d3.csv("omni_locations.csv")
             svgContainer.call(zoom) //Use zoom
              rotation_timer.stop();
              if (is_globe){
-                 new_projection = d3.geoNaturalEarth1().scale(250).center([-60,30])
-                 update(new_projection, [-60, 28], translation = false)
+                 new_projection = d3.geoNaturalEarth1().translate([width/2, height/4]).scale(250).center([0,30])
+                 update(new_projection, [0, 30], translation = false)
                  
                  projection = new_projection
                  
@@ -329,15 +329,16 @@ d3.csv("omni_locations.csv")
         d3.select("#threemap")
         .style("opacity", 1)
         .on("click", function(d){
+            svgContainer.on('.zoom', null);
             zoom = d3.zoom()
                 .scaleExtent([1, 8])
                 .on("zoom", zoomed);
-            svgContainer.on('.zoom', null);
             is2d = false;
             drag = callglobedrag();
             if (!is_globe){
-            new_projection = d3.geoOrthographic().translate([width/2, height/4]).scale(350).center([0,40])
-            update(new_projection, [17, 45], translation = true)
+            new_projection = d3.geoOrthographic().translate([width/2, height/4]).scale(350).center([0,30])
+            zoom.transform(svgContainer, d3.zoomIdentity.translate(0,0).scale(1)); // Set back to center position
+            update(new_projection, [0, 30], translation = true)
             projection = new_projection
             path = d3.geoPath().projection(projection);
             setTimeout(function(){ g.selectAll("path")
