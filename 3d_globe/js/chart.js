@@ -12,7 +12,8 @@ const chartsvg     = d3.select(".widget").append("svg")
 mouseover_time = 1
 var mouse_timer = 0
 
-function make_pings(data, color){
+function make_pings(data, sub){
+
 
   gPins.selectAll("#pingie").remove();
   var pings = gPins.selectAll(".ping").data(data);
@@ -64,14 +65,14 @@ function make_pings(data, color){
         var rotate = projection.rotate(); // antipode of actual rotational center.
         var center = [-rotate[0], -rotate[1]]
         var distance = d3.geoDistance(circle,center);
-        return distance > Math.PI/2 ? 'none' : color;}
+        return distance > Math.PI/2 ? 'none' : color[show][sub];}
 
       else if (selected_subs.includes(d.sub)){
         var circle = [parseInt(d.long), parseInt(d.lat)];
         var rotate = projection.rotate(); // antipode of actual rotational center.
         var center = [-rotate[0], -rotate[1]]
         var distance = d3.geoDistance(circle,center);
-        return distance > Math.PI/2 ? 'none' : color;
+        return distance > Math.PI/2 ? 'none' : color[show][sub];
       }
       else {
         return 'none'
@@ -171,11 +172,11 @@ return charty(d.totalpaintings);
   return chartheight - charty(d.totalpaintings) 
 })
 .on("mouseover", function(d){
-
+  console.log('show right before making the pings')
   console.log(show)
   make_pings(d.values, colors[show][d.key]);
   mouse_timer = setInterval (function() {
-      make_pings(d.values, colors[show][d.key])}, 100);
+      make_pings(d.values, d.key)}, 100);
   charttooltip.transition()		
   .duration(200)		
   .style("opacity", 1)
