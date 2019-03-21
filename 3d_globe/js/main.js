@@ -1,5 +1,5 @@
 var width = 1000;
-var height = 750;
+var height = 800;
 var centered;
 
 legendRectSize = 18;
@@ -549,7 +549,40 @@ d3.csv("omni_locations.csv")
         //     console.log('hi')
         // })
 
-        
+        // make button
+        // check whether one style is selected
+        d3.select("#timeline")
+            .on("click", function(elem){
+                if (selected_subs.length == 1){                    
+                // find first and last occurrence of style in all_data
+                    let all_occurrences = []
+                    all_data.forEach(function(d){
+                        if (d[show] == selected_subs[0]){
+                            all_occurrences.push(+d['date'])
+                        }
+                    })
+
+                    // sort list and get first and final value
+                    all_occurrences.sort()
+
+                    first_year = all_occurrences[0]
+                    last_year = all_occurrences[all_occurrences.length - 1]
+                    
+            }
+
+            // make linspace of first to last year in n number of steps
+            var timeline = makeArr(first_year, last_year, Math.round((last_year-first_year)/10))
+
+            var time_counter = 0
+            var time_timer = setInterval(function(){
+                slider.range(timeline[0], timeline[time_counter+1])
+                if (time_counter == timeline.length-1){
+                    clearInterval(time_timer)
+                }
+                time_counter += 1 
+            }, 1000)
+            
+        }) 
 });
 
 
@@ -644,4 +677,14 @@ function changeStyle(element){
     else if (show==='media'){ update_slider_plot(media_slider_data, media_data, color, show, year_interval) }
 
 
+}
+
+function makeArr(startValue, stopValue, cardinality) {
+  var arr = [];
+  var currValue = startValue;
+  var step = (stopValue - startValue) / (cardinality - 1);
+  for (var i = 0; i < cardinality; i++) {
+    arr.push(Math.round(currValue + (step * i)));
+  }
+  return arr;
 }

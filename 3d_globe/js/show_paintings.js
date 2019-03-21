@@ -112,21 +112,21 @@ function painting_gallery(number_windows, div){
         .style("top", 10 + "px");
         
     x.on("click", function(){
-        newWindow.transition().duration(400)
+        newWindow.transition().duration(200)
             .style("max-width", 370);
         if(div == "window"){
             d3.select(this.parentNode)
-            .transition().duration(1000)
+            .transition().duration(200)
             .style("opacity", 0).remove(); 
             slides
-                .transition().duration(1000)
+                .transition().duration(200)
                 .style("opacity", 0);
             }
         else{
             var parentwindow = "#" + d3.select("#details" + number_windows).attr("parentwindow")
             d3.select(parentwindow)          
                 .style("z-index", 1)
-                .transition().duration(1000)
+                .transition().duration(200)
                 .style("opacity", 0.9);
 
             d3.select(this.parentNode)
@@ -175,7 +175,7 @@ function open_stats_painting(cluster, data, number_windows, div) {
     slides.on("click", function(painting){
         number_details_painting +=1;
         d3.select(this.parentNode.parentNode)
-            .transition().duration(1000)
+            .transition().duration(200)
             .style("opacity", 0)
             .style("z-index", -1)
         details_painting(painting);
@@ -211,8 +211,8 @@ function open_stats_painting(cluster, data, number_windows, div) {
         .style("pointer-events","visible");
     
     slides.style("opacity", 0) //start invisible
-        .transition().duration(500) //schedule a transition to last 1000ms
-        .delay(function(d,i){return i*500;})
+        .transition().duration(200) //schedule a transition to last 200ms
+        .delay(function(d,i){return i*200;})
         .style("opacity", 1); 
 
     return slides;
