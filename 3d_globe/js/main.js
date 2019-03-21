@@ -239,12 +239,13 @@ d3.csv("omni_locations.csv")
                 if (show_migration == false){
                     show_migration = true;
                     document.getElementById("migrationflow").children[0].style.display = "none" 
-                    update_visuals(year_interval, data, show, projection);
+                    update_visuals(year_interval, all_data, show, projection);
                 }
                 else {
                     show_migration = false;
                     gArrows.selectAll("#arrow").remove()    
                     document.getElementById("migrationflow").children[0].style.display = "block"                        
+                    update_visuals(year_interval, all_data, show, projection);
                 }
             });
         
@@ -315,6 +316,15 @@ d3.csv("omni_locations.csv")
                     .style("opacity", .1)
                     .remove();
 
+                all_categories[show].forEach(function(elem){
+                    elem = elem.replace(/[^a-zA-Z0-9 \s !?]+/g, '')
+                    elem = elem.replace(/\s/g, '') 
+                    svgContainer.selectAll("#birthstars" + elem).transition().duration(200)
+                        .style("opacity", .1)
+                        .remove();
+
+                })
+
                 setTimeout(function(){update_visuals(year_interval, data, show, projection)}
                     , 1000)
 
@@ -368,6 +378,15 @@ d3.csv("omni_locations.csv")
             gArrows.selectAll("#arrow").transition().duration(200) // Will remove all previous circles when update is initiated
                     .style("opacity", .1)
                     .remove();
+
+            all_categories[show].forEach(function(elem){
+                    elem = elem.replace(/[^a-zA-Z0-9 \s !?]+/g, '')
+                    elem = elem.replace(/\s/g, '') 
+                    svgContainer.selectAll("#birthstars" + elem).transition().duration(200)
+                        .style("opacity", .1)
+                        .remove();
+
+                })
 
             setTimeout(function(){update_visuals(year_interval, data, show, projection)}
                 , 1000)

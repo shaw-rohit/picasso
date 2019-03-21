@@ -36,9 +36,9 @@ function show_legend(data_set, colors, all_data, show, show_migration, century){
         .on("click", function(d, i){
             console.log(svgContainer.select("#check").node().checked);
             if (svgContainer.select("#check").node().checked == true && show_migration == true){
-                    var migration = retrieve_migration(all_data, show, d)
+                    var migration = retrieve_migration_cluster(all_data, show, d)
                     if (migration[0].date >= century[0]*100 && migration[0].date <= century[1]*100){
-                        draw_migration_flow(migration[1], migration[0])
+                        draw_cluster_flow(migration[1], migration[0])
                     }
             } else {gArrows.selectAll("path").remove()}
         });
@@ -203,6 +203,8 @@ function nav_bar(data_used, color, show){
                                 .duration(200)      
                                 .style("opacity", 0.9)
                         })*/
+
+                    // also remove the migration flows
                 }
                 
                 // If element not selected, hide pins

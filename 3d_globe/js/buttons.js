@@ -23,6 +23,8 @@ function pauseResumeButton(){
                         slider.range(timeline[0], timeline[time_counter+1])
                         if (time_counter == timeline.length-1){
                             clearInterval(time_timer)
+                            document.getElementById("play-button").children[0].style.display = "block"
+                            time_check= false
                         }
                         time_counter += 1 
                     }, 1000)
