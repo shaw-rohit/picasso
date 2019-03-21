@@ -301,7 +301,7 @@ function update_visuals(year, data, show, projection){
           return str
           
     })
-      .attr("r", function(d) {return 3*(Math.log(d['id'].length)+1);})   
+      .attr("r", function(d) {return 6*(Math.log(d['id'].length)+1);})   
       .style("opacity", function(d){
         
         if (selected_subs.length < 1){
@@ -357,18 +357,23 @@ function update_slider_plot(data, meta_data, colors, show, years){
     star_yScale.domain(  [0,
                     d3.max(data, d => d.data.length)] );
 
-    // stars plot
-    var stars = gstar.selectAll('path').data(meta_data);
 
+    // stars plot
+    var stars = gstar.selectAll('.rectie').data(meta_data);
     stars.enter()
-        .append('path')
-        .attr('fill', function(d) { return colors[show][d.sub]})
+        .append('rect', ".rectoe")
+        .attr('class','rectie')
+        .attr('stroke-width',2)
+        .attr("id", "rectie")
+        .style('fill', 'none')
+        .attr('width', 10)
+        .attr('height',10)
         .attr('stroke', function(d) { return colors[show][d.sub]})
         .attr('transform', function(d) {
-            return 'translate(' + star_xScale(year_binner(d.first))  + ', 0)';
+            return 'translate(' + star_xScale(d.first)  + ', 0)';
         })
-        .attr("d", d3.symbol().type(d3.symbolStar))
-        .attr('size', 80)
+        // .attr("d", d3.symbol().type(d3.symbolStar))
+        // .attr('size', 80)
 
   //       d3.symbol().type(d3.symbolStar)
   // .size(80);
@@ -376,16 +381,17 @@ function update_slider_plot(data, meta_data, colors, show, years){
 
     stars.exit().remove();
     stars.transition().duration(250)
-        .attr('fill', function(d) { return colors[show][d.sub]})
         .attr('stroke', function(d) { return colors[show][d.sub]})
         .attr('transform', function(d) {
-            return 'translate(' + star_xScale(year_binner(d.first))  + ', 0)';
+            return 'translate(' + star_xScale(d.first)  + ', 0)';
         })
     
     // bar plot
-    var bars = gstar.selectAll("rect").data(data);
+    var bars = gstar.selectAll(".recto").data(data);
     bars.enter()
-        .append('rect')
+        .append('rect', '.recto')
+        .attr('class','recto')
+        .attr("id", "recto")
         .attr('fill', 'white')
         .attr('x', function (d) { return star_xScale(year_binner(d.year)) ; })
         .attr("width", 5.0)
