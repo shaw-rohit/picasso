@@ -178,7 +178,13 @@ function draw_cluster_flow(migration_data, oldest, color){
     arrows.enter()
         .append('path')
         .attr('class','arc')
-        .attr("id", "arrow")
+        .attr("id", function(d){
+            identifyer = d.sub
+            identifyer = identifyer.replace(/[^a-zA-Z0-9 \s !?]+/g, '')
+            identifyer = identifyer.replace(/\s/g, '')
+            identifyer = "arrow" + identifyer
+            return identifyer
+        })
         .attr('d', function(d) {
             
             var origin = projection([oldest.long, oldest.lat])
