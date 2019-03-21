@@ -372,19 +372,15 @@ function update_slider_plot(data, meta_data, colors, show, years){
         .attr('stroke-width',2)
         .attr("id", "rectie")
         .style('fill', 'none')
-        .attr('width', 8)
-        .attr('height',8)
+        .attr('width', 15)
+        .attr('height',15)
         .attr('stroke', function(d) { 
             turf.push(origin_binner(d.first));
             return colors[show][d.sub]})
         .attr('transform', function(d) {
             var turfs = turf.filter(function(v){return origin_binner(d.first)===origin_binner(v)});
-            return 'translate(' + star_xScale(origin_binner(d.first))  + ', ' + turfs.length*10 + ')';
+            return 'translate(' + star_xScale(origin_binner(d.first))  + ', ' + turfs.length*0 + ')';
         })
-
-    window.turf = turf
-
-
 
     stars.exit().remove();
     stars.transition().duration(250)
@@ -393,7 +389,7 @@ function update_slider_plot(data, meta_data, colors, show, years){
             return colors[show][d.sub]})
         .attr('transform', function(d) {
             var turfs = turf.filter(function(v){return origin_binner(d.first)===origin_binner(v)});
-            return 'translate(' + star_xScale(origin_binner(d.first))  + ', ' + turfs.length*10 + ')';
+            return 'translate(' + star_xScale(origin_binner(d.first))  + ', ' + turfs.length*0 + ')';
         })
     
     // bar plot
