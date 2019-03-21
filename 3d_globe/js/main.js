@@ -712,9 +712,11 @@ function changeStyle(element){
     // check if element clicked is style
     if (element.id == 'option-1'){
         show = 'style'
+        selected_subs = []
     }
     else if (element.id == 'option-2'){
         show = 'media'
+        selected_subs = []
     }
 
     update_slider_plot(media_slider_data, media_data, color, show, year_interval)

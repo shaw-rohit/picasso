@@ -1,0 +1,13 @@
+#slider-container {
+           position: relative;
+           height:30px;
+           width:1020px;
+           margin-top:165px;
+       }
+
+#slider-plot-container {
+           position: relative;
+           height:30px;
+           width:1020px;
+           background: #06304e;
+       }
