@@ -32,6 +32,13 @@ var LONGLAT_STEP = 0.2
 var show_migration = false;
 var oldest;
 
+// for timeline
+var time_check;
+var time_timer;
+var timeline;
+var time_counter;
+var restart_timer;
+
 // legend globals
 var selected_subs = [];
 var subs_present = [];
@@ -554,34 +561,55 @@ d3.csv("omni_locations.csv")
         // check whether one style is selected
         d3.select("#timeline")
             .on("click", function(elem){
-                if (selected_subs.length == 1){                    
-                // find first and last occurrence of style in all_data
+                if (selected_subs.length == 0){                    
+                    // just run original play button here
+                    starting = true;
+                    check_i = 0;
+                    pauseResumeButton()                    
+                }
+                else {
+
+                    time_check = true;
+                    // find first and last occurrence of style in all_data
                     let all_occurrences = []
-                    all_data.forEach(function(d){
-                        if (d[show] == selected_subs[0]){
-                            all_occurrences.push(+d['date'])
-                        }
-                    })
+
+                    for (var i = 0; i < selected_subs.length; i++){
+                        all_data.forEach(function(d){
+                            if (d[show] == selected_subs[i]){
+                                all_occurrences.push(+d['date'])
+                            }
+                        })
+                    }
 
                     // sort list and get first and final value
                     all_occurrences.sort()
 
                     first_year = all_occurrences[0]
                     last_year = all_occurrences[all_occurrences.length - 1]
-                    
-            }
 
-            // make linspace of first to last year in n number of steps
-            var timeline = makeArr(first_year, last_year, Math.round((last_year-first_year)/10))
+                    // make linspace of first to last year in n number of steps
+                    var time_step = Math.min(Math.round((last_year-first_year)/10), 10)
 
-            var time_counter = 0
-            var time_timer = setInterval(function(){
-                slider.range(timeline[0], timeline[time_counter+1])
-                if (time_counter == timeline.length-1){
-                    clearInterval(time_timer)
+                    timeline = makeArr(first_year, last_year, time_step)
+
+                    // remove play button
+                    console.log('removing button')
+                    document.getElementById("play-button").children[0].style.display = "none"
+
+                    time_counter = 0
+                    time_timer = setInterval(function(){
+                        slider.range(timeline[0], timeline[time_counter+1])
+                        if (time_counter == timeline.length-1){
+                            clearInterval(time_timer)
+                        }
+                        time_counter += 1 
+                    }, 1000)
+
                 }
-                time_counter += 1 
-            }, 1000)
+
+                // set play button to pause and make it react to timeline behaviour
+
+
             
         }) 
 });
