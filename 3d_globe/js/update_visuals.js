@@ -359,6 +359,8 @@ function update_slider_plot(data, meta_data, colors, show, years){
     star_yScale.domain(  [0,
                     d3.max(data, d => d.data.length)] );
 
+    star_xScale.domain( [0, 2019])
+
     var turf = []
     // stars plot
     var stars = gstar.selectAll('.rectie').data(meta_data);
@@ -375,7 +377,7 @@ function update_slider_plot(data, meta_data, colors, show, years){
             return colors[show][d.sub]})
         .attr('transform', function(d) {
             var turfs = turf.filter(function(v){return origin_binner(d.first)===origin_binner(v)});
-            return 'translate(' + star_xScale(origin_binner(d.first))  + ', ' + turfs.length*15 + ')';
+            return 'translate(' + star_xScale(origin_binner(d.first))  + ', ' + turfs.length*10 + ')';
         })
 
     window.turf = turf
@@ -389,7 +391,7 @@ function update_slider_plot(data, meta_data, colors, show, years){
             return colors[show][d.sub]})
         .attr('transform', function(d) {
             var turfs = turf.filter(function(v){return origin_binner(d.first)===origin_binner(v)});
-            return 'translate(' + star_xScale(origin_binner(d.first))  + ', ' + turfs.length*15 + ')';
+            return 'translate(' + star_xScale(origin_binner(d.first))  + ', ' + turfs.length*10 + ')';
         })
     
     // bar plot
@@ -398,24 +400,25 @@ function update_slider_plot(data, meta_data, colors, show, years){
         .append('rect', '.rectosourus')
         .attr('class','recto')
         .attr("id", "recto")
-        .attr('fill', 'white')
+        .attr('fill', 'white')        
         .attr('x', function (d) { return star_xScale(year_binner(d.year)) ; })
         .attr("width", 5.0)
-        .attr("y", function(d) { return 140-star_yScale(d.data.length); })
+        .attr("y", function(d) { return 110-star_yScale(d.data.length); })
         .attr("height", function(d) { return star_yScale(d.data.length); }); // find barheight
     
     bars.exit().remove();
     bars.transition().duration(250)
-        .attr("y", function(d) { return 140-star_yScale(d.data.length); })
+        .attr("y", function(d) { return 110-star_yScale(d.data.length); })
         .attr("height", function(d) { return star_yScale(d.data.length); });
 
+    
     // gstar.selectAll("line").remove()
     var lines = gstar.selectAll("line").data(years);
     lines.enter()
         .append('line')
         .attr("x1", function(d){return star_xScale(d)})
         .attr("x2", function(d){return star_xScale(d)})
-        .attr("y1", 260)
+        .attr("y1", 220)
         .attr("y2", 20)
         .attr("stroke", "yellow")
         .attr('stroke-width', 2);
@@ -425,6 +428,15 @@ function update_slider_plot(data, meta_data, colors, show, years){
     lines.transition().duration(250)
         .attr("x1", function(d){return star_xScale(d)})
         .attr("x2", function(d){return star_xScale(d)});
+
+    var barchartheight  = 250 - chartmargin.top  - chartmargin.bottom
+    console.log(chartheight)
+    gstar.selectAll('#xaxis').remove()
+    gstar.append("g")
+      .attr("id", "xaxis")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + barchartheight + ")")
+      .call(d3.axisBottom(star_xScale))
 
 
 

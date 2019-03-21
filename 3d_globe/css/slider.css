@@ -1,13 +1,40 @@
-#slider-container {
-           position: relative;
-           height:30px;
-           width:1020px;
-           margin-top:165px;
-       }
+    /*
+    topojson: { file:   'world-110m.json' },
+    oceans:   { fill:   '#001320' },
+    land:     { fill:   '#06304e' },
+    borders:  { stroke: '#001320' }*/
 
-#slider-plot-container {
-           position: relative;
-           height:30px;
-           width:1020px;
-           background: #06304e;
-       }
+.slider-container {
+    background-color: #9AC;
+    border-radius:0.5em;
+    opacity:0.8;
+    margin-left: 1%;
+}
+
+.slider {
+    position: absolute;
+    border: 1px solid #AAB;
+    background: #BCE;
+    background-color: #06304e;
+    height: 100%;
+    width: 58px;
+    top: 0px;
+    cursor: move;
+    border-radius: 0.2em
+    opacity:1;
+    /*margin:-0.5px;*/
+}
+
+.slider .handle {
+    position: absolute;
+    height: 9px;
+    width: 9px;
+    border: 1px solid #AAB;
+    background: #9AC;
+    background-color: #001320;
+
+    /* Support for bootstrap */
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
