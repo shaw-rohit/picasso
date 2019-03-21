@@ -1,5 +1,7 @@
 
-
+var origin_binner = d3.scaleQuantize()
+        .domain([100,2025])
+        .range(d3.range(100, 2025, 1));
 function update_visuals(year, data, show, projection){
 
     // extract the centuries to show
@@ -357,7 +359,7 @@ function update_slider_plot(data, meta_data, colors, show, years){
     star_yScale.domain(  [0,
                     d3.max(data, d => d.data.length)] );
 
-
+    var turf = []
     // stars plot
     var stars = gstar.selectAll('.rectie').data(meta_data);
     stars.enter()
@@ -368,28 +370,32 @@ function update_slider_plot(data, meta_data, colors, show, years){
         .style('fill', 'none')
         .attr('width', 10)
         .attr('height',10)
-        .attr('stroke', function(d) { return colors[show][d.sub]})
+        .attr('stroke', function(d) { 
+            turf.push(origin_binner(d.first));
+            return colors[show][d.sub]})
         .attr('transform', function(d) {
-            return 'translate(' + star_xScale(d.first)  + ', 0)';
+            var turfs = turf.filter(function(v){return origin_binner(d.first)===origin_binner(v)});
+            return 'translate(' + star_xScale(origin_binner(d.first))  + ', ' + turfs.length*15 + ')';
         })
-        // .attr("d", d3.symbol().type(d3.symbolStar))
-        // .attr('size', 80)
 
-  //       d3.symbol().type(d3.symbolStar)
-  // .size(80);
-        // .attr('d', star);
+    window.turf = turf
+
+
 
     stars.exit().remove();
     stars.transition().duration(250)
-        .attr('stroke', function(d) { return colors[show][d.sub]})
+        .attr('stroke', function(d) { 
+            turf.push(origin_binner(d.first));
+            return colors[show][d.sub]})
         .attr('transform', function(d) {
-            return 'translate(' + star_xScale(d.first)  + ', 0)';
+            var turfs = turf.filter(function(v){return origin_binner(d.first)===origin_binner(v)});
+            return 'translate(' + star_xScale(origin_binner(d.first))  + ', ' + turfs.length*15 + ')';
         })
     
     // bar plot
     var bars = gstar.selectAll(".recto").data(data);
     bars.enter()
-        .append('rect', '.recto')
+        .append('rect', '.rectosourus')
         .attr('class','recto')
         .attr("id", "recto")
         .attr('fill', 'white')
@@ -419,6 +425,7 @@ function update_slider_plot(data, meta_data, colors, show, years){
     lines.transition().duration(250)
         .attr("x1", function(d){return star_xScale(d)})
         .attr("x2", function(d){return star_xScale(d)});
+
 
 
                   
