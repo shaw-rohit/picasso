@@ -1,7 +1,7 @@
 const chartsvg     = d3.select(".widget").append("svg")
                     .attr("width", 450)
                     .attr("height", 450);
-      chartmargin  = {top: 20, right: 20, bottom: 30, left: 50},
+      chartmargin  = {top: 20, right: 20, bottom: 30, left: 70},
       chartwidth   = 450 - chartmargin.left - chartmargin.right,
       chartheight  = 400 - chartmargin.top  - chartmargin.bottom,
       chartx       = d3.scaleBand().rangeRound([0, chartwidth]).padding(0.2),
