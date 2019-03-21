@@ -198,6 +198,8 @@ var year_binner = d3.scaleQuantize()
     .domain([100,2025])
     .range(d3.range(100, 2025, YEAR_STEP));
 
+
+
 var color = {'school': {}, 'style': {}, 'media':{}}
 // of each sub class, collect the first time that it occured
 var schools_data = [];var styles_data = [];var media_data = [];
