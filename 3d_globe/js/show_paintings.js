@@ -1,9 +1,21 @@
+var parentwindownumber;
 function painting_gallery(number_windows, div){
-    var newWindow =  d3.select("#statsleft").append("div")
-    .attr("class", "window")
-    .attr("id", div + number_windows)
-    .style("opacity", 0)
-    .style("float", "left");
+    if(div + number_windows == "window" + number_windows){
+        newWindow =  d3.select("#statsleft").append("div")
+        .attr("class", "window")
+        .attr("id", div + number_windows)
+        .style("opacity", 0)
+        .style("float", "left");
+        parentwindownumber = d3.select("#window" + number_windows).attr("id");
+    }
+    else{
+        newWindow = d3.select("#statsleft").append("div")
+        .attr("class", "window")
+        .attr("id", div + number_windows)
+        .attr("parentwindow", parentwindownumber)
+        .style("opacity", 0)
+        .style("float", "left");
+    }
     var x = d3.select("#" + div + number_windows).append("div")
         .attr("class", "x")
         .style("opacity", 0)
@@ -103,7 +115,7 @@ function painting_gallery(number_windows, div){
         newWindow.transition().duration(400)
             .style("max-width", 370);
         if(div == "window"){
-            d3.select("#" + div + number_windows)
+            d3.select(this.parentNode)
             .transition().duration(1000)
             .style("opacity", 0).remove(); 
             slides
@@ -111,14 +123,17 @@ function painting_gallery(number_windows, div){
                 .style("opacity", 0);
             }
         else{
-            d3.select("#" + div + number_details_painting)
-                .transition().duration(1000)
-                .style("opacity", 0)
-                .remove();
-            d3.select("div.window")
+            var parentwindow = "#" + d3.select("#details" + number_windows).attr("parentwindow")
+            d3.select(parentwindow)          
                 .style("z-index", 1)
                 .transition().duration(1000)
                 .style("opacity", 0.9);
+
+            d3.select(this.parentNode)
+                .transition().duration(1000)
+                .style("opacity", 0)
+                .remove();
+           
         }
         });
 
@@ -159,7 +174,7 @@ function open_stats_painting(cluster, data, number_windows, div) {
     
     slides.on("click", function(painting){
         number_details_painting +=1;
-        d3.select("#" + div + number_windows)
+        d3.select(this.parentNode.parentNode)
             .transition().duration(1000)
             .style("opacity", 0)
             .style("z-index", -1)
