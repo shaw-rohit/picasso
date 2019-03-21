@@ -325,7 +325,7 @@ d3.csv("omni_locations.csv")
 
                 })
 
-                setTimeout(function(){update_visuals(year_interval, data, show, projection)}
+                setTimeout(function(){update_visuals(year_interval, all_data, show, projection)}
                     , 1000)
 
                 /*
@@ -388,7 +388,7 @@ d3.csv("omni_locations.csv")
 
                 })
 
-            setTimeout(function(){update_visuals(year_interval, data, show, projection)}
+            setTimeout(function(){update_visuals(year_interval, all_data, show, projection)}
                 , 1000)
             }
 
