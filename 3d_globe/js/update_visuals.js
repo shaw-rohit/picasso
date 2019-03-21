@@ -149,7 +149,7 @@ function update_visuals(year, data, show, projection){
         var proj = projection([
             parseInt(d[0]["long"] ),
             parseInt(d[0]["lat"])])
-        return "translate(" + [proj[0] - 8*(Math.log(d[0]['id'].length)+1), proj[1]- 8*(Math.log(d[0]['id'].length)+1)]
+        return "translate(" + [proj[0] - 14*(Math.log(d[0]['id'].length)+1), proj[1]- 14*(Math.log(d[0]['id'].length)+1)]
          + ")";
         });
 
