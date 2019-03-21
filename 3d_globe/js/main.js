@@ -349,6 +349,7 @@ d3.csv("omni_locations.csv")
         d3.select("#threemap")
         .style("opacity", 1)
         .on("click", function(d){
+            zoom.transform(svgContainer, d3.zoomIdentity.translate(0,0).scale(1)); // Set back to center position
             svgContainer.on('.zoom', null);
             zoom = d3.zoom()
                 .scaleExtent([1, 8])
@@ -357,7 +358,6 @@ d3.csv("omni_locations.csv")
             drag = callglobedrag();
             if (!is_globe){
             new_projection = d3.geoOrthographic().translate([width/2, height/4]).scale(350).center([0,30])
-            zoom.transform(svgContainer, d3.zoomIdentity.translate(0,0).scale(1)); // Set back to center position
             update(new_projection, [0, 30], translation = true)
             projection = new_projection
             path = d3.geoPath().projection(projection);
