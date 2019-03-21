@@ -368,14 +368,14 @@ function update_slider_plot(data, meta_data, colors, show, years){
         .attr('stroke-width',2)
         .attr("id", "rectie")
         .style('fill', 'none')
-        .attr('width', 10)
-        .attr('height',10)
+        .attr('width', 8)
+        .attr('height',8)
         .attr('stroke', function(d) { 
             turf.push(origin_binner(d.first));
             return colors[show][d.sub]})
         .attr('transform', function(d) {
             var turfs = turf.filter(function(v){return origin_binner(d.first)===origin_binner(v)});
-            return 'translate(' + star_xScale(origin_binner(d.first))  + ', ' + turfs.length*15 + ')';
+            return 'translate(' + star_xScale(origin_binner(d.first))  + ', ' + turfs.length*10 + ')';
         })
 
     window.turf = turf
@@ -389,7 +389,7 @@ function update_slider_plot(data, meta_data, colors, show, years){
             return colors[show][d.sub]})
         .attr('transform', function(d) {
             var turfs = turf.filter(function(v){return origin_binner(d.first)===origin_binner(v)});
-            return 'translate(' + star_xScale(origin_binner(d.first))  + ', ' + turfs.length*15 + ')';
+            return 'translate(' + star_xScale(origin_binner(d.first))  + ', ' + turfs.length*10 + ')';
         })
     
     // bar plot
@@ -401,12 +401,12 @@ function update_slider_plot(data, meta_data, colors, show, years){
         .attr('fill', 'white')
         .attr('x', function (d) { return star_xScale(year_binner(d.year)) ; })
         .attr("width", 5.0)
-        .attr("y", function(d) { return 140-star_yScale(d.data.length); })
+        .attr("y", function(d) { return 130-star_yScale(d.data.length); })
         .attr("height", function(d) { return star_yScale(d.data.length); }); // find barheight
     
     bars.exit().remove();
     bars.transition().duration(250)
-        .attr("y", function(d) { return 140-star_yScale(d.data.length); })
+        .attr("y", function(d) { return 130-star_yScale(d.data.length); })
         .attr("height", function(d) { return star_yScale(d.data.length); });
 
     // gstar.selectAll("line").remove()
