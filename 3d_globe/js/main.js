@@ -288,7 +288,8 @@ d3.csv("omni_locations.csv")
             svgContainer.on("mousedown.drag", null);
             zoom = d3.zoom()
                 .scaleExtent([1, 8])
-                .on("zoom", zoomed);
+                .on("zoom", zoomed)
+                
             svgContainer.call(zoom) //Use zoom
              rotation_timer.stop();
              if (is_globe){
@@ -349,11 +350,12 @@ d3.csv("omni_locations.csv")
         d3.select("#threemap")
         .style("opacity", 1)
         .on("click", function(d){
-            zoom.transform(svgContainer, d3.zoomIdentity.translate(0,0).scale(1)); // Set back to center position
-            svgContainer.on('.zoom', null);
             zoom = d3.zoom()
                 .scaleExtent([1, 8])
-                .on("zoom", zoomed);
+                .on("zoom", zoomed)
+            zoom.transform(svgContainer, d3.zoomIdentity.translate(0,0).scale(1)); // Set back to center position
+            svgContainer.on('.zoom', null);
+
             is2d = false;
             drag = callglobedrag();
             if (!is_globe){
@@ -397,19 +399,21 @@ d3.csv("omni_locations.csv")
         });
         d3.select("#map_control_zoom_in")
             .on("click", function(d){
-                zoom.scaleBy(svgContainer, 1.3);
-                zoom = d3.zoom()
+                svgContainer.on("mousedown.drag", null);
+            zoom = d3.zoom()
                 .scaleExtent([1, 8])
-                .on("zoom", zoomed);
-                
+                .on("zoom", zoomed)
+            zoom.scaleBy(svgContainer, 1.3);
+                       
             })
 
         d3.select("#map_control_zoom_out")
             .on("click", function(d){
+                svgContainer.on("mousedown.drag", null);
+            zoom = d3.zoom()
+                .scaleExtent([1, 8])
+                .on("zoom", zoomed)
                 zoom.scaleBy(svgContainer, 1 / 1.3);
-                zoom = d3.zoom()
-                    .scaleExtent([1, 8])
-                    .on("zoom", zoomed);
             })
 
         if (!playAuto){
