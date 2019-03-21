@@ -59,16 +59,18 @@ function update_visuals(year, data, show, projection){
         selected_subs.forEach(function(element){
             //console.log(element)
             var migration = retrieve_migration_cluster(clustered_data, element)
+            if(migration.length>0){
             draw_cluster_flow(migration[1], migration[0], color[show][element])
-            oldest = migration[0]
+            oldest = migration[0]}
         })
 
         // show all migrations if nothin is selected
         if (selected_subs.length<1){
             current_styles.forEach(function(element){
             var migration = retrieve_migration_cluster(clustered_data, element)
+            if(migration.length>0){
             draw_cluster_flow(migration[1], migration[0], color[show][element])
-            oldest = migration[0]})
+            oldest = migration[0]}})
         }
         
         //draw_migration_flow(migration[1], migration[0])

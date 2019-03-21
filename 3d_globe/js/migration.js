@@ -132,10 +132,12 @@ function retrieve_migration_cluster(dataset, sub){
         }
         });
     
-    // window.haai = current_births
+
+    if (current_births.length===0){
+        return []
+    }
 
     oldest = current_births[0][0]
-
     var oldest = {}
     minimal = 3000
     
@@ -146,9 +148,6 @@ function retrieve_migration_cluster(dataset, sub){
             oldest = d
         }
     })
-    
-    
-    
     // Retrieve all other artworks with similar style, school or media
     all_others = []
     dataset.forEach(function(d){
@@ -156,10 +155,8 @@ function retrieve_migration_cluster(dataset, sub){
                 all_others.push(d)
             }
         });
-    
     window.oldest = oldest
     return [oldest, all_others]
-    
 };
 
 function draw_cluster_flow(migration_data, oldest, color){
