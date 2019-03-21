@@ -1,9 +1,3 @@
-    /*
-    topojson: { file:   'world-110m.json' },
-    oceans:   { fill:   '#001320' },
-    land:     { fill:   '#06304e' },
-    borders:  { stroke: '#001320' }*/
-
 .slider-container {
     background-color: #9AC;
     border-radius:0.5em;
@@ -21,8 +15,7 @@
     top: 0px;
     cursor: move;
     border-radius: 0.2em
-    opacity:1;
-    /*margin:-0.5px;*/
+    opacity: 1;
 }
 
 .slider .handle {
