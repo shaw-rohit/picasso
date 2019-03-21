@@ -6,6 +6,27 @@ function pauseResumeButton(){
         // remove pause button
         document.getElementById("play-button").children[0].style.display = "block"       
     } 
+    // pause the timeline
+    else if (time_check){
+        // remove play button
+        document.getElementById("play-button").children[0].style.display = "block"
+        clearInterval(time_timer);
+        restart_timer = true
+        time_check=false
+    }
+    // restart the timeline
+    else if (restart_timer && time_counter < timeline.length-1){
+        restart_timer = false
+        time_check = true
+        document.getElementById("play-button").children[0].style.display = "none"
+        time_timer = setInterval(function(){
+                        slider.range(timeline[0], timeline[time_counter+1])
+                        if (time_counter == timeline.length-1){
+                            clearInterval(time_timer)
+                        }
+                        time_counter += 1 
+                    }, 1000)
+    }
     else {        
         if(!is2d){       // && show_migration == false     
             rotation_timer.restart(function(){
