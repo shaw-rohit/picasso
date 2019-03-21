@@ -303,7 +303,7 @@ function update_visuals(year, data, show, projection){
           return str
           
     })
-      .attr("r", function(d) {return 6*(Math.log(d['id'].length)+1);})   
+      .attr("r", function(d) {return 3*(Math.log(d['id'].length)+1);})   
       .style("opacity", function(d){
         
         if (selected_subs.length < 1){
