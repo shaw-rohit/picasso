@@ -152,7 +152,7 @@ var star_xScale = d3.scaleQuantize()
     .range(d3.range(0, 1010, 1));
 
 var star_yScale = d3.scaleLinear()
-    .range([0, 100]);
+    .range([0, 70]);
 
 
 
