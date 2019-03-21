@@ -1,9 +1,9 @@
 const chartsvg     = d3.select(".widget").append("svg")
-                    .attr("width", 450)
-                    .attr("height", 450);
-      chartmargin  = {top: 20, right: 20, bottom: 30, left: 70},
-      chartwidth   = 450 - chartmargin.left - chartmargin.right,
-      chartheight  = 400 - chartmargin.top  - chartmargin.bottom,
+                    .attr("width", 600)
+                    .attr("height", 580);
+      chartmargin  = {top: 100, right: 20, bottom: 30, left: 50},
+      chartwidth   = 600 - chartmargin.left - chartmargin.right,
+      chartheight  = 450 - chartmargin.top  - chartmargin.bottom,
       chartx       = d3.scaleBand().rangeRound([0, chartwidth]).padding(0.2),
       charty       = d3.scaleLinear().rangeRound([chartheight, 0]),
       gChart       = chartsvg.append("g")
@@ -120,7 +120,7 @@ groupstyle.forEach(function(d) {
 
 var filteramount = groupstyle.sort(function(a, b) {
   return d3.descending(a.totalpaintings,  b.totalpaintings);
-}).slice(0, 5);
+}).slice(0, 8);
 
 chartx.domain(filteramount.map(function(d){
   return d.style;
