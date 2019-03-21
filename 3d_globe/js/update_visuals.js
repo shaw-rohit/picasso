@@ -55,8 +55,10 @@ function update_visuals(year, data, show, projection){
     current_styles_set.forEach(v => current_styles.push(v));
 
     if (show_migration == true){
+        
         // remove all previous arrows
-        gArrows.selectAll("#arrow").remove()
+        gArrows.selectAll(".arc").remove()
+        
         //var migration = retrieve_migration(filtered_data, show, 'baroque')
         selected_subs.forEach(function(element){
             //console.log(element)
@@ -370,8 +372,8 @@ function update_slider_plot(data, meta_data, colors, show, years){
         .attr('stroke-width',2)
         .attr("id", "rectie")
         .style('fill', 'none')
-        .attr('width', 10)
-        .attr('height',10)
+        .attr('width', 8)
+        .attr('height',8)
         .attr('stroke', function(d) { 
             turf.push(origin_binner(d.first));
             return colors[show][d.sub]})
@@ -404,11 +406,16 @@ function update_slider_plot(data, meta_data, colors, show, years){
         .attr('x', function (d) { return star_xScale(year_binner(d.year)) ; })
         .attr("width", 5.0)
         .attr("y", function(d) { return 110-star_yScale(d.data.length); })
+
+        //.attr("y", function(d) { return 130-star_yScale(d.data.length); })
         .attr("height", function(d) { return star_yScale(d.data.length); }); // find barheight
     
     bars.exit().remove();
     bars.transition().duration(250)
+
         .attr("y", function(d) { return 110-star_yScale(d.data.length); })
+
+        //.attr("y", function(d) { return 130-star_yScale(d.data.length); })
         .attr("height", function(d) { return star_yScale(d.data.length); });
 
     

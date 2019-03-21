@@ -152,7 +152,7 @@ var star_xScale = d3.scaleQuantize()
     .range(d3.range(0, 1010, 1));
 
 var star_yScale = d3.scaleLinear()
-    .range([0, 100]);
+    .range([0, 70]);
 
 
 
@@ -245,7 +245,7 @@ d3.csv("omni_locations.csv")
                 }
                 else {
                     show_migration = false;
-                    gArrows.selectAll("#arrow").remove()    
+                    gArrows.selectAll(".arc").remove()    
                     document.getElementById("migrationflow").children[0].style.display = "block"                        
                     update_visuals(year_interval, all_data, show, projection);
                 }
@@ -266,9 +266,14 @@ d3.csv("omni_locations.csv")
                 identifyer = identifyer.replace(/[^a-zA-Z0-9 \s !?]+/g, '')
                 identifyer = identifyer.replace(/\s/g, '')
                 birth_identifyer = "birthstars" + identifyer
+                arrow_identifyer = "arrow" + identifyer
                 identifyer = "a" + identifyer
                 gPins.selectAll("#" + identifyer).style("opacity", 0.55)
                 gPins.selectAll("#" + birth_identifyer).style("opacity", 1)
+                
+                if (show_migration == true){
+                    gArrows.selectAll("#" + arrow_identifyer).style("opacity", 1)
+                }
                     /*.on("mouseover", function(element){
                         
                         // Retrieve tooltips again

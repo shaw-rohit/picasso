@@ -11,10 +11,14 @@
 
  <!-- Range slider code -->
  <script src="https://cdn.rawgit.com/RasmusFonseca/d3RangeSlider/master/d3RangeSlider.js"></script>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 <link rel="stylesheet" type="text/css" href="css/map.css">
 <link rel="stylesheet" type="text/css" href="css/bar.css">
 <link rel="stylesheet" type="text/css" href="css/switch.css">
+
+<link rel="stylesheet" href="css/normalize.css">
+<link rel="stylesheet" href="css/splash.css">
+ 
 
  <!-- Range slider style -->
  <link href="https://cdn.rawgit.com/RasmusFonseca/d3RangeSlider/master/d3RangeSlider.css" rel="stylesheet">
@@ -222,7 +226,7 @@ div.slidewindow{
 }
 
 div.stars {
-           height:50px;
+           height:90px;
            width:900px;
        }
 
@@ -324,6 +328,17 @@ img{
 <!--<button id = "twomap">Switch to 2D world map</button>
 <button id = "threemap">Switch to globe</button>-->
   
+<div id="loader-wrapper">
+  <div id="loader"></div>
+
+  <div class="loader-section section-left">
+    <img id="loading-image-left" src="images/picasso.png" />
+  </div>
+  <div class="loader-section section-right">
+    <img id="loading-image-right" src="images/names.png" />
+  </div>
+</div>
+ 
   <div id="map_controls">
      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="0" height="0"
           style="position:absolute">
@@ -535,6 +550,9 @@ c0,10.8,1.8,21.2,5.2,30.9h29.5C166.9,626,164.2,615.5,164.2,604.3z"/>
 </div>
 
   <hr />
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js'></script>
 <script src='https://d3js.org/d3.v5.min.js'></script>
 <script src="https://unpkg.com/d3-simple-slider"></script>
 <script src= 'js/globe_behaviour.js'></script>
@@ -547,6 +565,7 @@ c0,10.8,1.8,21.2,5.2,30.9h29.5C166.9,626,164.2,615.5,164.2,604.3z"/>
 <script src='js/rotate_world.js'></script>
 <script src="js/main.js"></script>
 <script src="js/chart.js"></script>
+<script src="js/splash.js"></script>
 <script src="http://d3js.org/topojson.v0.min.js"></script> 
 <script src="https://unpkg.com/topojson-client@3"></script>
 

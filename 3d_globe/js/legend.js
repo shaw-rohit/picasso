@@ -190,7 +190,12 @@ function nav_bar(data_used, color, show){
                     identifyer = identifyer.replace(/\s/g, '')
                     birth_identifyer = "birthstars" + identifyer
                     tooltip_identifyer = "tt" + identifyer
+                    arrow_identifyer = "arrow" + identifyer
                     identifyer = "a" + identifyer
+                    
+                    if (show_migration == true){
+                        gArrows.selectAll("#" + arrow_identifyer).style("opacity", 1)
+                    }
                     
                     gPins.selectAll("#" + identifyer).style("opacity", 0.55)
                     gPins.selectAll("#" + birth_identifyer).style("opacity", 1)
@@ -216,7 +221,12 @@ function nav_bar(data_used, color, show){
                     identifyer = identifyer.replace(/\s/g, '')
                     birth_identifyer = "birthstars" + identifyer
                     tooltip_identifyer = "tt" + identifyer
+                    arrow_identifyer = "arrow" + identifyer
                     identifyer = "a" + identifyer
+                    
+                    if (show_migration == true){
+                        gArrows.selectAll("#" + arrow_identifyer).style("opacity", 0)
+                    }
                     
                     gPins.selectAll("#" + identifyer).style("opacity", 0)
                     gPins.selectAll("#" + birth_identifyer).style("opacity", 0)
@@ -236,7 +246,12 @@ function nav_bar(data_used, color, show){
                     identifyer = identifyer.replace(/\s/g, '')
                     birth_identifyer = "birthstars" + identifyer
                     tooltip_identifyer = "tt" + identifyer
+                    arrow_identifyer = "arrow" + identifyer
                     identifyer = "a" + identifyer
+                    
+                    if (show_migration == true){
+                        gArrows.selectAll("#" + arrow_identifyer).style("opacity", 1)
+                    }
                     
                     gPins.selectAll("#" + identifyer).style("opacity", 0.55)
                     gPins.selectAll("#" + birth_identifyer).style("opacity", 1)

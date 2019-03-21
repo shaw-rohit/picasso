@@ -221,7 +221,7 @@ function dragged(){
         return distance > Math.PI/2 ? 'none' : color[show][d['sub']];
     });
 
-    gArrows.selectAll("#arrow")
+    gArrows.selectAll(".arc")
         .attr('d', function(d) {
             var origin = projection(d['origin'])
             var dest = projection([d.long, d.lat])
