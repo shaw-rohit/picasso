@@ -25,7 +25,7 @@ var time = Date.now()
     velocity = [.003, -.001];
 
 // years and locations are binned to prevent clutter
-var YEAR_STEP = 5
+var YEAR_STEP = 1
 var LONGLAT_STEP = 0.2
 
 // for migration:
@@ -448,6 +448,7 @@ d3.csv("omni_locations.csv")
             return d3.ascending(x.first, y.first);
         })
 
+
         // get ordered sub catagories
         var all_styles = styles_data.map(function(d) { return d.sub })
         var all_schools = schools_data.map(function(d) { return d.sub })
@@ -611,6 +612,7 @@ function cluster_data(data, show){
       .key(function(d) { return d[show]; }) // cluster on subclass
       .key(function(d) { return long_binner(d['long']); }) // cluster on cordinates
       .key(function(d) { return lat_binner(d['lat']); })
+      .key(function(d) { return d['date']; })
       .rollup(function(v) { 
         clustered_data.push({
         id: d3.map(v, function(d) { return d.omni_id; }).keys(), 

@@ -122,7 +122,20 @@ function retrieve_migration_cluster(dataset, sub){
      * all_others -- all other artworks for the specified show and sub
     */
     
-    // Store oldest cluster
+    // get the oldest cluster that is currentlt shown
+    if (show === 'style'){current_births = styles_data.map(function(d){ return dataset.filter(function(v){return (d.sub===v.sub && +v.start_date===d.first)}) })}
+    else if (show === 'media'){current_births = media_data.map(function(d){ return dataset.filter(function(v){return (d.sub===v.sub && +v.start_date===d.first)}) })}
+    current_births = current_births.filter(function(d){return d.length>0 })
+    current_births = current_births.filter(function(d){
+        if(d[0].sub === sub){
+            return d[0] // when multiple clusters have the same start date, take the first one
+        }
+        });
+    
+    // window.haai = current_births
+
+    oldest = current_births[0][0]
+
     var oldest = {}
     minimal = 3000
     
@@ -144,6 +157,7 @@ function retrieve_migration_cluster(dataset, sub){
             }
         });
     
+    window.oldest = oldest
     return [oldest, all_others]
     
 };

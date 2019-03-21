@@ -24,7 +24,8 @@ var time = Date.now()
     velocity = [.003, -.001];
 
 // years and locations are binned to prevent clutter
-var YEAR_STEP = 5
+var YEAR_STEP = 1
 var LONGLAT_STEP = 0.2
 
 var show_migration = true;
+
